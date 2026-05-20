@@ -1271,7 +1271,7 @@
 
     .home-landing-panel {
       width: min(1488px, calc(100% - 240px));
-      margin: 40px auto 20px;
+      margin: 20px auto 20px;
       height: auto;
       min-height: 800px;
       flex: 1;
@@ -1306,7 +1306,7 @@
       display: flex;
       align-items: stretch;
       gap: 10px;
-      padding: 0 40px 20px;
+      padding: 0 40px 40px;
     }
 
     .home-flow-card {
@@ -1341,7 +1341,8 @@
     }
 
     .home-flow-card-logo {
-      flex: 1;
+      height: 120px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1366,7 +1367,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 24px 12px;
+      padding: 8px 12px 20px;
       gap: 20px;
       color: #ffffff;
       font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
@@ -11253,98 +11254,7 @@
         }
       });
 
-      const forceFirstStepOnLoad = false;
-
-      if (forceFirstStepOnLoad) {
-        goToStartScreen();
-        setGlobalContext("–", "–");
-      } else if (screenParam === "enrollment") {
-        goToEnrollmentScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "enrollment-second") {
-        goToEnrollmentSecondScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "enrollment-third") {
-        goToEnrollmentThirdScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "enrollment-fourth") {
-        goToEnrollmentFourthScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "program-eligibilities") {
-        goToProgramEligibilitiesScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "coverage-acknowledgements") {
-        goToCoverageAcknowledgementsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "coverage-acknowledgements-medicare") {
-        goToCoverageAcknowledgementsMedicareScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "underwriting-questions") {
-        goToUnderwritingQuestionsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "representation-agreements") {
-        goToRepresentationAgreementsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "preview-checkout") {
-        goToPreviewCheckoutScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "save-later-confirmation") {
-        goToSaveLaterConfirmationPage();
-      } else if (screenParam === "custom-policy-request") {
-        goToCustomPolicyRequestScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "select-plan") {
-        goToSelectPlanScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "coverage-options-medicare") {
-        goToCoverageOptionsMedicareScreen();
-        setGlobalContext("Agent", "Medicare Only");
-      } else if (screenParam === "coverage-options-pc") {
-        goToCoverageOptionsPcScreen();
-        setGlobalContext("Agent", "Property & Casualty (P&C) Only");
-      } else if (screenParam === "coverage-limits") {
-        goToCoverageLimitsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "coverage-options") {
-        goToCoverageOptionsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "basic-followup") {
-        goToBasicFollowupScreen();
-        setGlobalContext("Agent", "–");
-      } else if (screenParam === "basic") {
-        goToBasicScreen();
-      } else if (screenParam === "start") {
-        goToStartScreen();
-      } else if (screenParam === "home") {
-        goToHomeLanding();
-      } else if (Number.isInteger(stepParam) && stepParam >= 8) {
-        goToPreviewCheckoutScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 7) {
-        goToRepresentationAgreementsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 6) {
-        goToUnderwritingQuestionsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 5) {
-        goToProgramEligibilitiesScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 4) {
-        goToCoverageLimitsScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 3) {
-        const selectedProductKey = getSelectedProductKey();
-        const sequence = getCoverageFlowSequence(selectedProductKey);
-        goToCoverageScreenById(sequence[0]);
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 2) {
-        goToBasicFollowupScreen();
-        setGlobalContext("Agent", "–");
-      } else if (Number.isInteger(stepParam) && stepParam >= 1) {
-        goToBasicScreen();
-      } else {
-        goToHomeLanding();
-      }
+      goToHomeLanding();
     })();
   </script>
 </body>
