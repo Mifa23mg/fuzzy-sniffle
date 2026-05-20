@@ -575,7 +575,8 @@
     }
 
     .app-shell.home-landing-active .home-landing-page {
-      display: block;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── shellv2 timer ── */
@@ -1270,8 +1271,10 @@
 
     .home-landing-panel {
       width: min(1488px, calc(100% - 240px));
-      margin: 40px auto 40px;
-      height: 1048px;
+      margin: 40px auto 20px;
+      height: auto;
+      min-height: 800px;
+      flex: 1;
       border-radius: 40px;
       background: rgba(3, 35, 77, 0.2);
       border: 1px solid #181818;
@@ -1301,15 +1304,14 @@
     .home-flow-grid {
       flex: 1;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       gap: 10px;
-      padding: 20px 40px 40px;
+      padding: 0 40px 20px;
     }
 
     .home-flow-card {
       flex: 1 1 0;
       min-width: 0;
-      height: 100%;
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 52%, rgba(255, 255, 255, 0.04) 100%);
       border: 1px solid #c9c9c9;
       border-radius: 40px;
@@ -1339,7 +1341,7 @@
     }
 
     .home-flow-card-logo {
-      min-height: 120px;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
