@@ -830,9 +830,14 @@
       align-items: flex-start;
       box-sizing: border-box;
       flex: 0 0 auto;
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
+      left: 0;
+      z-index: 200;
+    }
+
+    .app-shell.home-landing-active .home-landing-page {
+      padding-top: 140px;
     }
 
     .home-landing-topbarv2 {
@@ -4943,7 +4948,6 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      padding-bottom: 12px;
       width: 100%;
     }
 
@@ -5191,7 +5195,7 @@
     .preview-payment-block {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
       width: 100%;
     }
 
@@ -5287,7 +5291,7 @@
       background: #f3f3f3;
       overflow: hidden;
       box-sizing: border-box;
-      margin: 16px 0;
+      margin: 0;
     }
 
     .preview-payment-breakdown[hidden] {
@@ -5313,7 +5317,7 @@
     }
 
     .preview-payment-breakdown-row.is-due {
-      border-top: 1px solid #c9c9c9;
+      box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.25);
     }
 
     .preview-payment-breakdown-label {
@@ -6501,7 +6505,7 @@
             </li>
             <li class="step-item" data-position="bottom" data-state="default">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
-              <span class="step-text">Preview &amp; Checkout</span>
+              <span class="step-text">Review &amp; Checkout</span>
             </li>
           </ul>
         </aside>
@@ -7926,7 +7930,7 @@
           <!-- SCREEN: Preview & Checkout -->
           <div class="screen" id="screen-preview-checkout">
             <div class="title-wrap">
-              <h1>Preview &amp; Checkout</h1>
+              <h1>Review &amp; Checkout</h1>
               <div class="title-line"></div>
             </div>
 
@@ -8045,7 +8049,7 @@
 
               <div class="preview-expandable-section">
                 <div class="preview-expandable-header">
-                  <p class="preview-expandable-title">Payment Information</p>
+                  <p class="preview-expandable-title">Payment Information<span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></p>
                 </div>
                 <div class="preview-expandable-content preview-expandable-content--flush">
                   <div class="preview-payment-card" id="previewPaymentInfoCard">
@@ -8089,6 +8093,29 @@
                             <p class="preview-payment-breakdown-label">Due Today</p>
                             <span class="preview-payment-breakdown-leader" aria-hidden="true"></span>
                             <p class="preview-payment-breakdown-value" id="previewPaymentFullDueToday">$179.50</p>
+                          </div>
+                        </div>
+                        <div class="input-field ajg-input-field ajg-dropdown ajg-dropdown-floating" data-dropdown data-dropdown-placeholder="">
+                          <div class="ajg-dropdown-floating-label" aria-hidden="true">
+                            <span>Choose your Billing Date</span>
+                            <span class="floating-required">*</span>
+                          </div>
+                          <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="ajg-dropdown-inline-label">Choose your Billing Date</span>
+                            <span class="field-required" aria-hidden="true">*</span>
+                            <span class="ajg-dropdown-value" data-dropdown-value></span>
+                            <img class="field-icon field-icon-down" src="assets/dropdown-down-icon.png" alt="" aria-hidden="true" />
+                          </button>
+                          <input type="hidden" id="previewBillingDate" name="previewBillingDate" data-dropdown-input />
+                          <div class="ajg-dropdown-listbox" role="listbox" aria-label="Billing Date options">
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="1st">
+                              <span class="ajg-dropdown-check" aria-hidden="true"></span>
+                              <span>1st of every month</span>
+                            </button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="15th">
+                              <span class="ajg-dropdown-check" aria-hidden="true"></span>
+                              <span>15th of every month</span>
+                            </button>
                           </div>
                         </div>
                         <p class="preview-payment-breakdown-copy">Once your order has been completed a confirmation will be sent to the email address you've provided, and give instant access to your certificate of insurance and member benefits!</p>
@@ -8222,7 +8249,7 @@
                 </div>
               </div>
 
-              <p class="preview-payment-note"><strong>*Policy is subject to minimum earned premium, which is equal to one month of premium.</strong> Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable. Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month after enrollment effective date. Monthly payment option includes a $5.00 collection fee.</p>
+              <p class="preview-payment-note"><strong>*Policy is subject to minimum earned premium, which is equal to one month of premium.</strong> Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable. Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month after enrollment effective date. Monthly payment option includes a <span id="previewMonthlyFee">$5.00</span> of monthly processing fee.</p>
             </div>
 
             <div class="enrollment-second-actions">
@@ -10607,6 +10634,12 @@
             nextBtn.disabled = option !== "agent";
           }
         }
+        // Update monthly processing fee based on Agent ($5.00) vs Agency ($15.00)
+        const monthlyFeeEl = document.getElementById("previewMonthlyFee");
+        if (monthlyFeeEl) {
+          const option = targetButton.getAttribute("data-radio-option");
+          monthlyFeeEl.textContent = option === "agency" ? "$15.00" : "$5.00";
+        }
       }
 
       radioButtons.forEach(function bindRadio(button) {
@@ -11133,6 +11166,17 @@
       populatePreviewBillingStateOptions();
       initAjgInputFieldStates();
       initAjgDropdowns();
+
+      // Pre-select "1st of every month" in the Billing Date dropdown
+      (function initBillingDateDefault() {
+        const billingDropdown = document.getElementById("previewBillingDate");
+        if (!billingDropdown) return;
+        const dropdown = billingDropdown.closest("[data-dropdown]");
+        if (!dropdown) return;
+        const firstOption = dropdown.querySelector(".ajg-dropdown-option[data-value='1st']");
+        if (firstOption) selectAjgDropdownOption(dropdown, firstOption);
+      })();
+
       ensureHiddenSupportingTextForFields();
       initAcknowledgementComponents();
       initCoverageAcknowledgementsContent();
