@@ -1283,7 +1283,7 @@
       border-radius: 40px;
       background: rgba(3, 35, 77, 0.2);
       border: 1px solid #181818;
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       flex-direction: column;
     }
@@ -1317,6 +1317,7 @@
     .home-flow-card {
       flex: 1 1 0;
       min-width: 0;
+      min-height: 400px;
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 52%, rgba(255, 255, 255, 0.04) 100%);
       border: 1px solid #c9c9c9;
       border-radius: 40px;
@@ -1370,29 +1371,158 @@
 
     .home-flow-card-body {
       flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       padding: 8px 12px 20px;
-      gap: 20px;
+      gap: clamp(10px, 1.5vh, 20px);
       color: #ffffff;
       font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      overflow: hidden;
     }
 
     .home-flow-card-body h3 {
       margin: 0;
       color: #fcc003;
-      font-size: 24px;
-      line-height: 35px;
+      font-size: clamp(18px, 1.6vw, 24px);
+      line-height: clamp(24px, 2.4vw, 35px);
       font-weight: 400;
+      flex-shrink: 0;
     }
 
     .home-flow-list {
       margin: 0;
-      padding: 0 0 0 24px;
+      padding: 0 0 0 20px;
       color: #ffffff;
-      font-size: 16px;
-      line-height: 35px;
+      font-size: clamp(12px, 1.1vw, 16px);
+      line-height: clamp(18px, 2vw, 28px);
       font-weight: 400;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.25) transparent;
+    }
+
+    .home-flow-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .home-flow-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .home-flow-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+    }
+
+    /* Scroll indicator */
+    .home-scroll-indicator {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .home-scroll-indicator.is-visible {
+      opacity: 1;
+    }
+
+    .app-shell.home-landing-active .home-scroll-indicator {
+      display: flex;
+    }
+
+    .home-scroll-indicator-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      /* Glass — Frost:4, Refraction:80, Depth:20, Dispersion:50, Light:-45°/80%, Splay:0 */
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(0.5px) saturate(180%);
+      -webkit-backdrop-filter: blur(0.5px) saturate(180%);
+      box-shadow:
+        inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+        inset -1px -1px 0 rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scrollBounce 1.4s ease-in-out infinite;
+    }
+
+    .home-scroll-indicator-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter:
+        blur(0.3px)
+        saturate(200%)
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 8px rgba(4, 225, 203, 0.6));
+      stroke: #04e1cb;
+    }
+
+    .home-scroll-indicator-label {
+      font-family: "Short Stack", "SF Pro Text", cursive;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #04e1cb;
+      padding: 3px 10px;
+      border-radius: 999px;
+      /* Glass — same specs as chevron container */
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(0.5px) saturate(180%);
+      -webkit-backdrop-filter: blur(0.5px) saturate(180%);
+      box-shadow:
+        inset 1px 1px 0 rgba(255, 255, 255, 0.8),
+        inset -1px -1px 0 rgba(0, 0, 0, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(4px); }
+    }
+
+    /* Compact mode — applied by JS when button is below the fold */
+    .home-flow-card.is-compact .home-flow-card-body {
+      gap: 8px;
+    }
+
+    .home-flow-card.is-compact .home-flow-card-body h3 {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .home-flow-card.is-compact .home-flow-list {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .home-flow-card.is-compact .home-flow-cta-wrap {
+      padding-top: 8px;
+    }
+
+    .home-flow-card.is-compact .home-flow-cta {
+      font-size: 18px;
+      line-height: 24px;
     }
 
     .home-flow-list li {
@@ -1411,10 +1541,11 @@
 
     .home-flow-cta-wrap {
       margin-top: auto;
-      padding: 20px 0 0;
+      padding: clamp(12px, 1.5vh, 20px) 0 0;
       margin-bottom: 0;
       display: block;
       width: 100%;
+      flex-shrink: 0;
     }
 
     .home-flow-cta {
@@ -1433,8 +1564,8 @@
       background-image: none;
       color: #00263e;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
-      font-size: 24px;
-      line-height: 32px;
+      font-size: clamp(18px, 1.8vw, 24px);
+      line-height: clamp(24px, 2.4vw, 32px);
       font-weight: 590;
       cursor: pointer;
       transition: filter 180ms ease;
@@ -1491,7 +1622,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      line-height: 32px;
+      line-height: clamp(24px, 2.4vw, 32px);
       background-image: linear-gradient(103.35deg, #df6534 45.26%, #ff4000 84.11%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -6454,6 +6585,14 @@
         </div>
       </div>
     </div>
+    <div class="home-scroll-indicator" id="homeScrollIndicator" aria-hidden="true">
+      <div class="home-scroll-indicator-icon">
+        <svg viewBox="0 0 14 14" aria-hidden="true">
+          <polyline points="2,4 7,10 12,4"/>
+        </svg>
+      </div>
+      <span class="home-scroll-indicator-label">Scroll</span>
+    </div>
     <header class="header">
       <img class="brand-logo" src="https://www.figma.com/api/mcp/asset/2a1af061-b834-4fe4-9779-aad2e6d29632" alt="NAPA logo" />
       <div class="divider-tall" aria-hidden="true"></div>
@@ -10250,12 +10389,52 @@
         }
       }
 
+      const homeScrollIndicator = document.getElementById("homeScrollIndicator");
+
+      function updateHomeScrollIndicator() {
+        if (!homeScrollIndicator) return;
+        const page = document.getElementById("homeLandingPage");
+        if (!page) return;
+        const canScroll = page.scrollHeight > page.clientHeight + 8;
+        const atBottom = page.scrollTop + page.clientHeight >= page.scrollHeight - 8;
+        homeScrollIndicator.classList.toggle("is-visible", canScroll && !atBottom);
+      }
+
+      function checkHomeCardCompact() {
+        document.querySelectorAll(".home-flow-card").forEach(function(card) {
+          const ctaWrap = card.querySelector(".home-flow-cta-wrap");
+          if (!ctaWrap) return;
+          card.classList.remove("is-compact");
+          const cardRect = card.getBoundingClientRect();
+          const ctaRect = ctaWrap.getBoundingClientRect();
+          if (ctaRect.bottom > cardRect.bottom + 4) {
+            card.classList.add("is-compact");
+          }
+        });
+        updateHomeScrollIndicator();
+      }
+
+      const homeLandingPageEl = document.getElementById("homeLandingPage");
+      if (homeLandingPageEl) {
+        homeLandingPageEl.addEventListener("scroll", updateHomeScrollIndicator, { passive: true });
+      }
+
       function goToHomeLanding() {
         setHomeLandingActive(true);
         setCustomPolicyLayoutActive(false);
         setSaveLaterLayoutActive(false);
         setGlobalContext("–", "–");
         resetTimer();
+        requestAnimationFrame(checkHomeCardCompact);
+      }
+
+      if (typeof ResizeObserver !== "undefined") {
+        const homeCardObserver = new ResizeObserver(checkHomeCardCompact);
+        document.querySelectorAll(".home-flow-card").forEach(function(card) {
+          homeCardObserver.observe(card);
+        });
+      } else {
+        window.addEventListener("resize", checkHomeCardCompact);
       }
 
       function goToSaveLaterConfirmationPage() {
