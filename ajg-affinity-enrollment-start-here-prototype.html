@@ -1410,25 +1410,9 @@
       font-size: clamp(12px, 1.1vw, 16px);
       line-height: clamp(18px, 2vw, 28px);
       font-weight: 400;
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.25) transparent;
+      flex: 0 0 auto;
     }
 
-    .home-flow-list::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .home-flow-list::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .home-flow-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.25);
-      border-radius: 4px;
-    }
 
     /* Scroll indicator */
     .home-scroll-indicator {
@@ -1548,9 +1532,16 @@
 
     .home-flow-divider {
       height: 1px;
-      background: #c9c9c9;
       width: 100%;
-      margin-top: calc(-1 * clamp(10px, 1.5vh, 20px) + 4px);
+      margin-top: calc(20px - clamp(10px, 1.5vh, 20px));
+      margin-bottom: calc(20px - clamp(10px, 1.5vh, 20px));
+      /* Glass — Frost:4, Refraction:80, Depth:20, Dispersion:50, Light:-45°/80%, Splay:0 */
+      background: rgba(201, 201, 201, 0.25);
+      backdrop-filter: blur(0.5px) saturate(180%);
+      -webkit-backdrop-filter: blur(0.5px) saturate(180%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 1px 4px rgba(0, 0, 0, 0.2);
     }
 
     .home-flow-cta-wrap {
@@ -1616,6 +1607,7 @@
     .home-flow-cta:not(.soon):hover {
       background: transparent;
       color: #04e1cb;
+      border-color: #04e1cb;
       filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
     }
 
