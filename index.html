@@ -1586,7 +1586,8 @@
       color: #04e1cb;
       box-shadow:
         0 -1px 0 rgba(255, 255, 255, 0.8),
-        0 1px 1px rgba(0, 0, 0, 0.1);
+        0 1px 1px rgba(0, 0, 0, 0.1),
+        0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
 
     .home-flow-cta-label {
@@ -1611,7 +1612,8 @@
     }
 
     .home-flow-cta.soon {
-      background: rgba(0, 0, 0, 0.004);
+      /* Glass — Frost:4, Refraction:80, Depth:20, Dispersion:50, Light:-45°/80%, Splay:0 */
+      background: transparent;
       background-image: none;
       border: 0;
       border-radius: 9999px;
@@ -1629,9 +1631,15 @@
       background-clip: text;
       text-fill-color: transparent;
       cursor: default;
-      backdrop-filter: blur(10px) saturate(115%);
-      -webkit-backdrop-filter: blur(10px) saturate(115%);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -8px 16px rgba(0, 0, 0, 0.14), inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      /* Glass — Frost:81, Refraction:0, Depth:100, Dispersion:20, Light:-90°/80%, Splay:25 */
+      backdrop-filter: blur(16px) saturate(100%);
+      -webkit-backdrop-filter: blur(16px) saturate(100%);
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 2px 16px rgba(255, 255, 255, 0.15),
+        inset 0 5px 4px 0 rgba(0, 0, 0, 0.25),
+        0 4px 4px rgba(0, 0, 0, 0.5);
     }
 
     .home-flow-cta.soon::before {
