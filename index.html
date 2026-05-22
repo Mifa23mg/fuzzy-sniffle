@@ -895,14 +895,9 @@
       gap: 14px;
       padding: 4px 12px;
       border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.2);
       background: transparent;
-      /* Glass — Frost:100, Refraction:92, Depth:1, Dispersion:0, Light:-90°/80%, Splay:0 */
-      backdrop-filter: blur(20px) saturate(220%);
-      -webkit-backdrop-filter: blur(20px) saturate(220%);
-      box-shadow:
-        0 -1px 0 rgba(255, 255, 255, 0.8),
-        0 1px 1px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
       box-sizing: border-box;
       z-index: 1;
     }
@@ -1620,44 +1615,27 @@
     }
 
     .home-flow-cta.soon {
-      /* Glass — Frost:4, Refraction:80, Depth:20, Dispersion:50, Light:-45°/80%, Splay:0 */
-      background: transparent;
-      background-image: none;
-      border: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: 9999px;
       width: calc(100% - 20px);
       margin: 0 10px;
       height: 64px;
-      color: transparent;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       line-height: clamp(24px, 2.4vw, 32px);
-      background-image: linear-gradient(103.35deg, #df6534 45.26%, #ff4000 84.11%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
       cursor: default;
-      /* Glass — Frost:81, Refraction:0, Depth:100, Dispersion:20, Light:-90°/80%, Splay:25 */
-      backdrop-filter: blur(16px) saturate(100%);
-      -webkit-backdrop-filter: blur(16px) saturate(100%);
-      box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8),
-        inset 0 2px 16px rgba(255, 255, 255, 0.15),
-        inset 0 5px 4px 0 rgba(0, 0, 0, 0.25),
-        0 4px 4px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
 
-    .home-flow-cta.soon::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(155deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.07) 42%, rgba(255, 255, 255, 0.02) 100%);
-      pointer-events: none;
-      z-index: -1;
+    .home-flow-cta.soon {
+      color: #ff4000;
+    }
+
+    .home-flow-cta.soon .home-flow-cta-label {
+      color: #ff4000;
+      -webkit-text-fill-color: #ff4000;
     }
 
     .page {
