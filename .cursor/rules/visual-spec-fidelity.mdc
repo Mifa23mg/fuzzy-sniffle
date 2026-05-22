@@ -1,0 +1,16 @@
+---
+description: Enforce precise visual spec fidelity for new UI work
+alwaysApply: true
+---
+
+# Visual Spec Fidelity Rule
+
+For every new UI build or UI change:
+
+- Read the full component spec before implementing.
+- Match spacing exactly: padding, margins, gaps, and alignment.
+- Match visual styling exactly: colors, border radius, borders, and shadows.
+- Match typography exactly: font size, weight, line-height, and emphasis.
+- Re-check the final result against the reference before considering the task done.
+
+If any spec detail is unclear, resolve it first, then implement.

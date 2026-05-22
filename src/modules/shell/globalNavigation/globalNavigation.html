@@ -1,37 +1,23 @@
 <template>
     <div class="slds-context-bar">
         <div class="slds-context-bar__primary">
-            <div
-                class={waffleDropdownTriggerClass}
-                role="presentation">
-                <div class="slds-context-bar__icon-action">
-                    <lightning-dynamic-icon
-                        type="waffle"
-                        alternative-text="Application launcher"
-                        onclick={handleWaffleOpen}>
-                    </lightning-dynamic-icon>
-                </div>
-                <div
-                    class="slds-dropdown slds-dropdown_left"
-                    role="menu"
-                    aria-label="App Launcher"
-                    if:true={isWaffleMenuOpen}
-                    onkeydown={handleWaffleMenuKeydown}>
-                    <ul class="slds-dropdown__list" role="group">
-                        <template for:each={navItems} for:item="item">
-                            <li key={item.page} class="slds-dropdown__item" role="presentation">
-                                <a
-                                    href={item.path}
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    data-value={item.page}
-                                    onclick={handleWaffleMenuItemClick}>
-                                    {item.label}
-                                </a>
-                            </li>
-                        </template>
-                    </ul>
-                </div>
+            <div class="slds-context-bar__item slds-context-bar__dropdown-trigger">
+                <lightning-button-menu
+                    class="slds-context-bar__icon-action"
+                    variant="bare"
+                    icon-name="utility:apps"
+                    alternative-text="Application launcher"
+                    menu-alignment="left"
+                    onselect={handleMenuNavigate}>
+                    <template for:each={menuItems} for:item="item">
+                        <lightning-menu-item
+                            key={item.page}
+                            value={item.page}
+                            label={item.label}
+                            checked={item.isActive}>
+                        </lightning-menu-item>
+                    </template>
+                </lightning-button-menu>
                 <span class="slds-context-bar__label-action slds-context-bar__app-name">
                     <span class="slds-truncate" title="Salesforce UI Starter Kit">Salesforce UI Starter Kit</span>
                 </span>

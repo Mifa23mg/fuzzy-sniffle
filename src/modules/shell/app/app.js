@@ -8,6 +8,8 @@ import Settings from 'page/settings';
 import User from 'page/user';
 import Contacts from 'page/contacts';
 import ContactDetail from 'page/contactDetail';
+import Contact from 'page/contact';
+import Reconciliation from 'page/reconciliation';
 
 /** Option A: explicit registration – add one import + one entry here when adding a route */
 const ROUTE_COMPONENTS = {
@@ -16,6 +18,8 @@ const ROUTE_COMPONENTS = {
     'page-settings': Settings,
     'page-user': User,
     'page-contacts': Contacts,
+    'page-contact': Contact,
+    'page-reconciliation': Reconciliation,
     'page-contact-detail': ContactDetail,
 };
 

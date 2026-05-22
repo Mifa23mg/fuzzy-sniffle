@@ -846,7 +846,7 @@
       position: relative;
       height: 140px;
       width: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: #171717;
       border-radius: 0;
       overflow: hidden;
     }
@@ -1356,6 +1356,11 @@
       filter: none;
     }
 
+    .home-flow-list.is-disabled-items {
+      opacity: 0.4;
+      filter: grayscale(60%);
+    }
+
     .home-flow-card-logo {
       height: 120px;
       flex-shrink: 0;
@@ -1769,6 +1774,85 @@
       padding: 0;
     }
 
+    .main-surface.order-confirmation-active {
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    .main-surface.order-confirmation-active .steps {
+      display: none;
+    }
+
+    .main-surface.order-confirmation-active .content {
+      padding: 0;
+    }
+
+    .order-confirmation-screen {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .order-confirmation-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding-top: 56px;
+      padding-bottom: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .order-confirmation-title-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px 24px;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .order-confirmation-title {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 35px;
+      color: #001e5b;
+      text-align: center;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .order-confirmation-tagline {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+      color: #181818;
+      text-align: center;
+      margin: 0;
+      width: 100%;
+    }
+
+    .order-confirmation-tagline strong {
+      font-weight: 700;
+    }
+
+    .order-confirmation-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 64px;
+      padding: 16px 0;
+      box-sizing: border-box;
+    }
+
     .steps {
       width: 200px;
       flex: 0 0 200px;
@@ -1853,7 +1937,7 @@
 
     .step-item[data-state="active"] .step-indicator {
       background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/269f68b3-1c22-4618-9966-25e10685ffd9");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 16px 16px;
@@ -1869,7 +1953,7 @@
 
     .step-item[data-state="complete"] .step-indicator {
       background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/670aec02-3dbb-499d-a6b9-fe8d16bbee5d");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.7' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 16px 16px;
@@ -4955,7 +5039,7 @@
     .representation-body {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 0;
       width: 100%;
     }
 
@@ -5004,6 +5088,25 @@
 
     .representation-legal-fade.is-hidden {
       opacity: 0;
+    }
+
+    .representation-legal-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .representation-scroll-hint {
+      margin: 0;
+      color: #2e844a;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      font-style: normal;
+      text-align: right;
+      width: 100%;
     }
 
     .representation-accept-row {
@@ -6522,7 +6625,7 @@
                 <li>Agent - Custom Policy (&gt;$1M)</li>
               </ul>
               <div class="home-flow-divider" aria-hidden="true"></div>
-              <ul class="home-flow-list">
+              <ul class="home-flow-list is-disabled-items">
                 <li>Agency - IMO, FMO, NMO</li>
                 <li>Agency - Not IMO, FMO, NMO</li>
               </ul>
@@ -7576,8 +7679,7 @@
             <div class="enrollment-third-section">
               <div class="enrollment-third-block">
                 <div class="enrollment-third-title-row">
-                  <p class="enrollment-section-title">Address</p>
-                  <img class="enrollment-info-icon" src="https://www.figma.com/api/mcp/asset/63dbcb41-0597-4261-970d-45c52b6ba2bd" alt="" aria-hidden="true" />
+                  <p class="enrollment-section-title">Address <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The address included here will be listed under the insured on the Certificate of Insurance (COI). If you would like to include a different address, or ever need to update the address on the COI, our customer service team is here to help." data-tooltip-position="bottom-left"></span></p>
                 </div>
 
                 <div class="enrollment-third-fields">
@@ -8007,9 +8109,11 @@
               <h1>Representation, Warranties &amp; Agreements</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Applicant makes the following representations, warranties and agreements:</p>
+            <p class="intro">A copy of the below and the other attestations made through this application will be included in the confirmation email.</p>
+            <p class="intro">Applicant makes the following representations, warranties and agreements.</p>
 
             <div class="representation-body">
+              <div class="representation-legal-group">
               <div class="representation-legal-shell">
                 <div class="representation-legal-scroll" id="representationLegalScroll">
                   <p class="rep-legal-highlight">I understand that payment authorization for subsequent renewals of this policy shall be automatic and shall remain in force until revoked by written notification to NAPA from me or my payment institution.</p>
@@ -8041,6 +8145,8 @@
                   <p>By agreeing to this consent, the applicant chooses to receive all documents electronically instead of in paper form, to the fullest extent allowed by law. This includes, but is not limited to, renewal notices, cancellation notices, policy documents, agreements, forms, and other communications related to this or any past or future insurance, service, or product provided by the Company or its affiliates, predecessors, or successors. Documents may be delivered via email or by providing access to a secure website after enrollment.</p>
                 </div>
                 <div class="representation-legal-fade" id="representationLegalFade" aria-hidden="true"></div>
+              </div>
+              <p class="representation-scroll-hint">Scroll down to read all representations, warranties and agreements before clicking &ldquo;I ACCEPT&rdquo;.</p>
               </div>
               <div class="representation-accept-row">
                 <label class="representation-accept-control" for="representationAcceptAll">
@@ -8228,7 +8334,7 @@
                             <p class="preview-payment-breakdown-value" id="previewPaymentFullDueToday">$179.50</p>
                           </div>
                         </div>
-                        <div class="input-field ajg-input-field ajg-dropdown ajg-dropdown-floating" data-dropdown data-dropdown-placeholder="">
+                        <div class="input-field ajg-input-field ajg-dropdown ajg-dropdown-floating" id="previewBillingDateWrapper" data-dropdown data-dropdown-placeholder="">
                           <div class="ajg-dropdown-floating-label" aria-hidden="true">
                             <span>Choose your Billing Date</span>
                             <span class="floating-required">*</span>
@@ -8394,6 +8500,21 @@
             </div>
           </div>
           <!-- END SCREEN: Preview & Checkout -->
+
+          <!-- START SCREEN: Order Confirmation -->
+          <div class="screen order-confirmation-screen" id="screen-order-confirmation">
+            <div class="order-confirmation-content">
+              <div class="order-confirmation-title-block">
+                <h1 class="order-confirmation-title">Thank you <span id="orderConfirmationName">there</span>, your order is complete.</h1>
+                <p class="order-confirmation-tagline">A confirmation email has been sent to <strong id="orderConfirmationEmail">your email address</strong> with your certificate of issuance has been sent. If you haven't received it, wait for a few minutes and check your spam folder.</p>
+              </div>
+              <div class="order-confirmation-actions">
+                <button class="secondary-btn" type="button" id="orderConfirmationShareBtn">Share Certificate</button>
+                <button class="secondary-btn" type="button" id="orderConfirmationPortalBtn">Go to your Portal</button>
+              </div>
+            </div>
+          </div>
+          <!-- END SCREEN: Order Confirmation -->
 
         </section>
       </main>
@@ -8651,6 +8772,7 @@
       const screenRepresentationAgreements = document.getElementById("screen-representation-agreements");
       const screenPreviewCheckout = document.getElementById("screen-preview-checkout");
       const screenSaveLaterConfirmation = document.getElementById("screen-save-later-confirmation");
+      const screenOrderConfirmation = document.getElementById("screen-order-confirmation");
       const previewCoverageEffectiveStartEl = document.getElementById("previewCoverageEffectiveStart");
       const previewCoverageEffectiveEndEl = document.getElementById("previewCoverageEffectiveEnd");
       const previewCoverageLiabilityLimitsEl = document.getElementById("previewCoverageLiabilityLimits");
@@ -9746,6 +9868,11 @@
         mainSurfaceEl.classList.toggle("save-later-active", Boolean(isActive));
       }
 
+      function setOrderConfirmationLayoutActive(isActive) {
+        if (!mainSurfaceEl) return;
+        mainSurfaceEl.classList.toggle("order-confirmation-active", Boolean(isActive));
+      }
+
       function showScreen(screenId) {
         if (screenStart) screenStart.classList.toggle("active", screenId === "start");
         if (screenBasic) screenBasic.classList.toggle("active", screenId === "basic");
@@ -9767,8 +9894,10 @@
         if (screenRepresentationAgreements) screenRepresentationAgreements.classList.toggle("active", screenId === "representation-agreements");
         if (screenPreviewCheckout) screenPreviewCheckout.classList.toggle("active", screenId === "preview-checkout");
         if (screenSaveLaterConfirmation) screenSaveLaterConfirmation.classList.toggle("active", screenId === "save-later-confirmation");
+        if (screenOrderConfirmation) screenOrderConfirmation.classList.toggle("active", screenId === "order-confirmation");
         setCustomPolicyLayoutActive(screenId === "custom-policy-request");
         setSaveLaterLayoutActive(screenId === "save-later-confirmation");
+        setOrderConfirmationLayoutActive(screenId === "order-confirmation");
       }
 
       function clearRadioSelection() {
@@ -10057,6 +10186,8 @@
         });
         if (previewPaymentBreakdownMonthly) previewPaymentBreakdownMonthly.hidden = selectedOption !== "monthly";
         if (previewPaymentBreakdownFull) previewPaymentBreakdownFull.hidden = selectedOption !== "full";
+        const billingDateWrapper = document.getElementById("previewBillingDateWrapper");
+        if (billingDateWrapper) billingDateWrapper.hidden = selectedOption === "full";
       }
 
       function initPreviewPaymentOptions() {
@@ -10389,9 +10520,8 @@
         if (!homeScrollIndicator) return;
         const page = document.getElementById("homeLandingPage");
         if (!page) return;
-        const canScroll = page.scrollHeight > page.clientHeight + 8;
-        const atBottom = page.scrollTop + page.clientHeight >= page.scrollHeight - 8;
-        homeScrollIndicator.classList.toggle("is-visible", canScroll && !atBottom);
+        const remainingBelow = page.scrollHeight - (page.scrollTop + page.clientHeight);
+        homeScrollIndicator.classList.toggle("is-visible", remainingBelow >= 80);
       }
 
       function checkHomeCardCompact() {
@@ -10436,6 +10566,22 @@
         showScreen("save-later-confirmation");
         setEnrollmentActiveStep(8);
         closeSaveForLaterModal();
+        setGlobalContext("–", "–");
+        if (mainScrollEl) {
+          mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      function goToOrderConfirmationScreen() {
+        setHomeLandingActive(false);
+        const firstName = (startFirstNameInput ? startFirstNameInput.value.trim() : "") || (enrollFirstNameInput ? enrollFirstNameInput.value.trim() : "");
+        const email = (startEmailAddressInput ? startEmailAddressInput.value.trim() : "") || (enrollEmailInput ? enrollEmailInput.value.trim() : "");
+        const nameEl = document.getElementById("orderConfirmationName");
+        const emailEl = document.getElementById("orderConfirmationEmail");
+        if (nameEl) nameEl.textContent = firstName || "there";
+        if (emailEl) emailEl.textContent = email || "your email address";
+        showScreen("order-confirmation");
+        setEnrollmentActiveStep(9);
         setGlobalContext("–", "–");
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -11189,7 +11335,7 @@
       if (previewCheckoutSubmitBtn) {
         previewCheckoutSubmitBtn.addEventListener("click", function onPreviewCheckoutSubmit() {
           commitPreviewPaymentSubmission();
-          console.log("Proceeding to submit...");
+          goToOrderConfirmationScreen();
         });
       }
 

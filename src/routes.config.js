@@ -50,6 +50,20 @@ export const routes = [
     navLabel: 'Contacts',
   },
   {
+    path: '/contact',
+    component: 'page-contact',
+    title: 'Contact',
+    navPage: 'contact',
+    navLabel: 'Contact',
+  },
+  {
+    path: '/reconciliation',
+    component: 'page-reconciliation',
+    title: 'Reconciliation',
+    navPage: 'reconciliation',
+    navLabel: 'Reconciliation',
+  },
+  {
     path: '/contacts/:id',
     component: 'page-contact-detail',
     title: (params) => `Contact ${params.id}`,
