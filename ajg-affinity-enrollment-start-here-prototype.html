@@ -192,32 +192,27 @@
     }
 
     .app-home-btn-icon::before,
-    .app-home-btn-icon::after,
     .nav-home-icon::before,
-    .nav-home-icon::after,
-    .home-landing-home-icon::before,
-    .home-landing-home-icon::after {
+    .home-landing-home-icon::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-size: 44px 44px;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: opacity 160ms ease;
+      background-color: #04e1cb;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      -webkit-mask-size: 44px 44px;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      mask-size: 44px 44px;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      transition: background-color 160ms ease;
     }
 
-    .app-home-btn-icon::before,
-    .nav-home-icon::before,
-    .home-landing-home-icon::before {
-      background-image: url("https://www.figma.com/api/mcp/asset/a80dfd8a-ce80-4bf5-9b20-be5bfd34b777");
-      opacity: 1;
-    }
-
-    .app-home-btn-icon::after,
-    .nav-home-icon::after,
-    .home-landing-home-icon::after {
-      background-image: url("https://www.figma.com/api/mcp/asset/dd67bd3d-4f53-4f02-96bd-1c2ad4833c41");
-      opacity: 0;
+    .app-home-btn:hover .app-home-btn-icon::before,
+    .nav-home-btn:hover .nav-home-icon::before,
+    .home-landing-home-btn:hover .home-landing-home-icon::before {
+      background-color: #ffffff;
     }
 
     .app-home-btn-label {
@@ -242,18 +237,6 @@
     .nav-home-btn:hover .nav-home-icon,
     .home-landing-home-btn:hover .home-landing-home-icon {
       transform: scale(1.02);
-    }
-
-    .app-home-btn:hover .app-home-btn-icon::before,
-    .nav-home-btn:hover .nav-home-icon::before,
-    .home-landing-home-btn:hover .home-landing-home-icon::before {
-      opacity: 0;
-    }
-
-    .app-home-btn:hover .app-home-btn-icon::after,
-    .nav-home-btn:hover .nav-home-icon::after,
-    .home-landing-home-btn:hover .home-landing-home-icon::after {
-      opacity: 1;
     }
 
     .global-bar .nav-home-btn {
@@ -299,26 +282,16 @@
       transform: none;
     }
 
-    .global-bar .nav-home-icon::before,
-    .global-bar .nav-home-icon::after {
+    .global-bar .nav-home-icon::before {
       top: 50%;
       left: 50%;
+      bottom: auto;
+      right: auto;
       width: 20px;
       height: 20px;
       transform: translate(-50%, -50%);
-      background-size: 20px 20px;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .global-bar .nav-home-icon::before {
-      background-image: url("https://www.figma.com/api/mcp/asset/d7910f72-4693-45a8-9e91-7309dfd37e28");
-      opacity: 1;
-    }
-
-    .global-bar .nav-home-icon::after {
-      background-image: url("https://www.figma.com/api/mcp/asset/95e804fc-512f-4d8e-932a-64774d1ad989");
-      opacity: 0;
+      -webkit-mask-size: 20px 20px;
+      mask-size: 20px 20px;
     }
 
     .global-bar .app-home-btn-label {
@@ -346,14 +319,11 @@
     }
 
     .global-bar .nav-home-btn:hover .nav-home-icon::before {
-      opacity: 0;
-    }
-
-    .global-bar .nav-home-btn:hover .nav-home-icon::after {
-      opacity: 1;
+      background-color: #ffffff;
       width: 24px;
       height: 24px;
-      background-size: 24px 24px;
+      -webkit-mask-size: 24px 24px;
+      mask-size: 24px 24px;
     }
 
     .global-bar .nav-home-btn:hover .app-home-btn-label {
@@ -1129,29 +1099,16 @@
     }
 
     .home-landing-topbar .home-landing-home-icon::before,
-    .home-landing-topbar .home-landing-home-icon::after,
-    .home-landing-topbarv2 .home-landing-home-icon::before,
-    .home-landing-topbarv2 .home-landing-home-icon::after {
+    .home-landing-topbarv2 .home-landing-home-icon::before {
       top: 50%;
       left: 50%;
+      bottom: auto;
+      right: auto;
       width: 20px;
       height: 20px;
       transform: translate(-50%, -50%);
-      background-size: 20px 20px;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    .home-landing-topbar .home-landing-home-icon::before,
-    .home-landing-topbarv2 .home-landing-home-icon::before {
-      background-image: url("https://www.figma.com/api/mcp/asset/d7910f72-4693-45a8-9e91-7309dfd37e28");
-      opacity: 1;
-    }
-
-    .home-landing-topbar .home-landing-home-icon::after,
-    .home-landing-topbarv2 .home-landing-home-icon::after {
-      background-image: url("https://www.figma.com/api/mcp/asset/95e804fc-512f-4d8e-932a-64774d1ad989");
-      opacity: 0;
+      -webkit-mask-size: 20px 20px;
+      mask-size: 20px 20px;
     }
 
     .home-landing-topbar .app-home-btn-label,
@@ -1183,15 +1140,11 @@
 
     .home-landing-topbar .home-landing-home-btn:hover .home-landing-home-icon::before,
     .home-landing-topbarv2 .home-landing-home-btn:hover .home-landing-home-icon::before {
-      opacity: 0;
-    }
-
-    .home-landing-topbar .home-landing-home-btn:hover .home-landing-home-icon::after,
-    .home-landing-topbarv2 .home-landing-home-btn:hover .home-landing-home-icon::after {
-      opacity: 1;
+      background-color: #ffffff;
       width: 24px;
       height: 24px;
-      background-size: 24px 24px;
+      -webkit-mask-size: 24px 24px;
+      mask-size: 24px 24px;
     }
 
     /* ── Home Button – Alt variant (pause-container + pause-icon glass) ─── */
@@ -1237,15 +1190,10 @@
       filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
     }
 
-    /* Keep outlined icon on hover — don't swap to filled */
+    /* Keep same teal icon color on alt-variant hover */
     .home-landing-topbar .home-landing-home-btn.home-btn-alt:hover .home-landing-home-icon::before,
     .home-landing-topbarv2 .home-landing-home-btn.home-btn-alt:hover .home-landing-home-icon::before {
-      opacity: 1;
-    }
-
-    .home-landing-topbar .home-landing-home-btn.home-btn-alt:hover .home-landing-home-icon::after,
-    .home-landing-topbarv2 .home-landing-home-btn.home-btn-alt:hover .home-landing-home-icon::after {
-      opacity: 0;
+      background-color: #04e1cb;
     }
 
     .home-landing-topbar .home-landing-home-btn.home-btn-alt:hover .home-landing-home-icon,
@@ -2080,6 +2028,41 @@
       max-width: 100%;
     }
 
+    .screen-warning-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px;
+      height: 42px;
+      border-radius: 8px;
+      background: #fddde3;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .screen-warning-banner-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: block;
+    }
+
+    .screen-warning-banner-text {
+      color: #b60554;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .screen-warning-banner.is-hidden {
+      display: none;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2498,25 +2481,6 @@
     }
 
     /* Reusable info icon component */
-    .ui-info-icon {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      margin-left: 8px;
-      vertical-align: middle;
-      background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/eb9e86c8-eec1-42c5-976b-2aafedb4d3a7");
-      background-repeat: no-repeat;
-      background-size: 16px 16px;
-      background-position: center;
-      flex: 0 0 auto;
-    }
-
-    .ui-info-icon.app-tooltip-anchor:hover,
-    .ui-info-icon.app-tooltip-anchor:focus-visible {
-      background-image: url("assets/info-button-icon-hover.png");
-    }
-
     .app-tooltip-anchor {
       cursor: help;
     }
@@ -2560,7 +2524,7 @@
       position: absolute;
       width: 28px;
       height: 10px;
-      background-image: url("https://www.figma.com/api/mcp/asset/462d70fa-ea2c-4c1d-90c5-c4923a16d973");
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2710%27%20viewBox%3D%270%200%2028%2010%27%3E%3Cpath%20d%3D%27M0%200%20L28%200%20L14%2010%20Z%27%20fill%3D%27%231c1c2e%27%2F%3E%3C%2Fsvg%3E");
       background-size: 28px 10px;
       background-repeat: no-repeat;
       background-position: center;
@@ -2970,7 +2934,7 @@
     .option-card.selected .dot {
       border: 0;
       background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/a883491f-5e2c-4ce8-9cee-77e5d7bc68d0");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-size: 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
@@ -3038,7 +3002,7 @@
     .choice-option.selected .choice-dot {
       border: 0;
       background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/a883491f-5e2c-4ce8-9cee-77e5d7bc68d0");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-size: 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
@@ -3147,7 +3111,7 @@
 
     .coverage-card.selected .coverage-card-radio {
       border: 0;
-      background-image: url("https://www.figma.com/api/mcp/asset/7f8f68a2-ea9e-4822-a812-7f73766909c8");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-size: 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
@@ -3375,7 +3339,7 @@
 
     .cyber-addon-card.selected .cyber-addon-radio {
       border: 0;
-      background-image: url("https://www.figma.com/api/mcp/asset/7f8f68a2-ea9e-4822-a812-7f73766909c8");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-size: 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
@@ -3540,7 +3504,7 @@
 
     .plan-card[aria-checked="true"] .plan-radio {
       border: 0;
-      background-image: url("https://www.figma.com/api/mcp/asset/cdd6c922-c28b-46f2-bf13-a0701022f004");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
       background-size: 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
@@ -3775,10 +3739,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    /* Override ui-info-icon margin so the flex gap handles spacing */
-    .enrollment-section-title .ui-info-icon {
-      margin-left: 0;
     }
     /* Inline checkbox cell (This is a Mobile Number) */
     .enrollment-field--checkbox-inline {
@@ -4036,7 +3996,7 @@
       width: 8.243px;
       height: 6.82px;
       transform: translate(-50%, -50%);
-      background: url("https://www.figma.com/api/mcp/asset/99f11e2f-8ab4-4abe-a53e-0e1fc93ac04a") center center / contain no-repeat;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%208%27%3E%3Cpath%20d%3D%27M1%204%20L3.5%207%20L9%201%27%20stroke%3D%27white%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
     }
 
     /* Prepared future state (not applied yet): disabled + checked checkbox */
@@ -4056,7 +4016,7 @@
     }
 
     .enrollment-consent-checkbox:disabled:checked::after {
-      background: url("https://www.figma.com/api/mcp/asset/763fc557-44db-481c-8112-d94e4dbd5767") center center / contain no-repeat;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%208%27%3E%3Cpath%20d%3D%27M1%204%20L3.5%207%20L9%201%27%20stroke%3D%27%23a8a8a8%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
     }
 
     .enrollment-consent-text {
@@ -4102,6 +4062,78 @@
       flex-direction: column;
       gap: 8px;
       width: 100%;
+    }
+
+    .enroll-datepicker-field {
+      width: 100%;
+    }
+
+    .enroll-datepicker-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      position: relative;
+    }
+
+    .enroll-datepicker-wrap .input-field.ajg-input-field {
+      width: 100%;
+    }
+
+    /* Active state — calendar picker open */
+    .enrollment-field .input-field.ajg-input-field.is-open {
+      border-color: #066afe;
+      box-shadow: 0 4px 4px rgba(6, 106, 254, 0.25);
+    }
+
+    .enrollment-field .input-field.ajg-input-field.is-open .ajg-input-label {
+      top: -6px;
+      transform: none;
+      padding-right: 2px;
+      background: #ffffff;
+      filter: drop-shadow(-2px 0 1px #ffffff) drop-shadow(2px 0 1px #ffffff);
+    }
+
+    .enrollment-field .input-field.ajg-input-field.is-open .ajg-input-label-text {
+      font-size: 10px;
+      line-height: 14px;
+      color: #0250d9;
+    }
+
+    /* Calendar icon inside the enrollment datepicker field */
+    .enroll-datepicker-field .calendar-icon-btn {
+      flex: 0 0 auto;
+      margin-left: auto;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+    }
+
+    .enroll-datepicker-field .calendar-icon-btn img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
+
+    .enrollment-field .input-field.ajg-input-field.is-disabled .calendar-icon-btn {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    /* Disabled + floating: white label bg + drop-shadow so it visually cuts into the border (Figma spec) */
+    .enrollment-field .input-field.ajg-input-field.is-disabled.is-floating:not(.is-disabled-inline) .ajg-input-label {
+      background: #ffffff;
+      filter: drop-shadow(-2px 0 1px #ffffff) drop-shadow(2px 0 1px #ffffff);
+    }
+
+    /* Disabled input value color (ensure Safari renders correctly) */
+    .enrollment-field .input-field.ajg-input-field.is-disabled .ajg-input-control {
+      -webkit-text-fill-color: #747474;
+      opacity: 1;
     }
 
     .enrollment-readonly-field-wrap {
@@ -4163,10 +4195,31 @@
     }
 
     .enrollment-info-icon {
+      display: inline-block;
       width: 14px;
       height: 14px;
-      object-fit: contain;
+      margin-left: 8px;
+      vertical-align: middle;
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2014%2014%27%3E%3Ccircle%20cx%3D%277%27%20cy%3D%277%27%20r%3D%277%27%20fill%3D%27%230070d2%27%2F%3E%3Ctext%20x%3D%277%27%20y%3D%2711%27%20text-anchor%3D%27middle%27%20fill%3D%27white%27%20font-size%3D%279%27%20font-family%3D%27sans-serif%27%20font-weight%3D%27bold%27%3Ei%3C%2Ftext%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-size: 14px 14px;
+      background-position: center;
       flex: 0 0 auto;
+    }
+
+    .enrollment-info-icon.app-tooltip-anchor:hover,
+    .enrollment-info-icon.app-tooltip-anchor:focus-visible {
+      background-image: url("assets/info-button-icon-hover.png");
+      background-size: 14px 14px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* In flex containers that already use gap: 8px, let the gap handle spacing */
+    .enrollment-section-title .enrollment-info-icon,
+    .enrollment-readonly-field-wrap .enrollment-info-icon {
+      margin-left: 0;
     }
 
     .enrollment-license-row {
@@ -4528,7 +4581,7 @@
     .enrollment-fourth-body {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 24px;
       width: 100%;
       padding: 0;
       box-sizing: border-box;
@@ -4604,6 +4657,15 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+
+    .enrollment-detail-card-title {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 19px;
+      color: #181818;
+      margin: 0;
     }
 
     .enrollment-detail-block {
@@ -5732,7 +5794,7 @@
       width: 14px;
       height: 14px;
       margin-left: 8px;
-      background: url("https://www.figma.com/api/mcp/asset/99255296-da7a-41e8-869b-e893ba34dc80") center center / 14px 14px no-repeat;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2014%2014%27%3E%3Ccircle%20cx%3D%277%27%20cy%3D%277%27%20r%3D%277%27%20fill%3D%27%230070d2%27%2F%3E%3Ctext%20x%3D%277%27%20y%3D%2711%27%20text-anchor%3D%27middle%27%20fill%3D%27white%27%20font-size%3D%279%27%20font-family%3D%27sans-serif%27%20font-weight%3D%27bold%27%3Ei%3C%2Ftext%3E%3C%2Fsvg%3E") center center / 14px 14px no-repeat;
       flex: 0 0 14px;
       transform: translateY(-1px);
     }
@@ -5740,6 +5802,9 @@
     .preview-method-label.with-info .preview-method-info:hover,
     .preview-method-label.with-info .preview-method-info:focus-visible {
       background-image: url("assets/info-button-icon-hover.png");
+      background-size: 14px 14px;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .preview-method-input {
@@ -5796,7 +5861,7 @@
       content: "";
       width: 8px;
       height: 7px;
-      background: url("https://www.figma.com/api/mcp/asset/666d26af-865e-431b-8c19-9f0b1e4d4bc1") center center / contain no-repeat;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%208%207%27%3E%3Cpath%20d%3D%27M1%203.5%20L3%205.5%20L7%201%27%20stroke%3D%27white%27%20stroke-width%3D%271.3%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
     }
 
     .preview-billing-address {
@@ -6041,7 +6106,7 @@
       border: 0;
       border-radius: 9999px;
       background-color: transparent;
-      background-image: url("https://www.figma.com/api/mcp/asset/335248c5-b81b-487e-90cc-4ae2eb4c1e89");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23f3f3f3'/%3E%3Cline x1='10' y1='10' x2='22' y2='22' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='22' y1='10' x2='10' y2='22' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
       background-size: 32px 32px;
       background-repeat: no-repeat;
       background-position: center;
@@ -6508,9 +6573,9 @@
     <div class="global-bar">
       <div class="global-bar-inner">
         <div class="global-brand">
-          <img class="global-logo" src="https://www.figma.com/api/mcp/asset/6640fd2b-fbcb-4b5e-af3b-dd3d416a1ced" alt="Carrier logo" />
+          <img class="global-logo" src="assets/napa-logo.png" alt="Carrier logo" />
           <div class="global-sep" aria-hidden="true"></div>
-          <img class="global-logo salesforce" src="https://www.figma.com/api/mcp/asset/ae79cda9-d8fa-418c-a889-e4281626d11b" alt="Salesforce logo" />
+          <img class="global-logo salesforce" src="assets/salesforce-logo.svg" alt="Salesforce logo" />
         </div>
         <div class="global-meta">
           <p class="global-label">On Screen:</p>
@@ -6537,9 +6602,9 @@
           <path d="M 0,44 L 305,44 Q 320,44 333,36 L 387,8 Q 400,0 415,0 L 1273,0 Q 1288,0 1301,8 L 1355,36 Q 1368,44 1383,44 L 1688,44" stroke="rgba(4,225,203,0.2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
         </svg>
         <div class="home-landing-brand-lockupv2">
-          <img class="home-brand-leftv2" src="https://www.figma.com/api/mcp/asset/e7d2e09a-f2b0-4d21-97de-f40723a8dece" alt="Carrier logo" />
+          <img class="home-brand-leftv2" src="assets/napa-logo.png" alt="Carrier logo" />
           <div class="home-brand-dividerv2" aria-hidden="true"></div>
-          <img class="home-brand-salesforcev2" src="https://www.figma.com/api/mcp/asset/ae79cda9-d8fa-418c-a889-e4281626d11b" alt="Salesforce logo" />
+          <img class="home-brand-salesforcev2" src="assets/salesforce-logo.svg" alt="Salesforce logo" />
         </div>
         <div class="home-landing-contextv2" aria-hidden="true">
           <div class="home-landing-context-colv2">
@@ -6559,8 +6624,8 @@
         <div class="shellv2-timer" id="shellv2Timer" aria-live="polite" aria-label="Elapsed time">
           <span class="shellv2-timer-display" id="shellv2TimerDisplay">00:00</span>
           <button class="shellv2-timer-btn" id="shellv2TimerBtn" type="button" aria-label="Pause timer">
-            <img class="shellv2-timer-pause-icon" src="https://www.figma.com/api/mcp/asset/75405d4f-1e99-422d-8e74-54513b9d60c7" alt="Pause" />
-            <img class="shellv2-timer-resume-icon" src="https://www.figma.com/api/mcp/asset/b9342d43-544f-4b4a-8a3c-b343ca8f0b4b" alt="Resume" />
+            <img class="shellv2-timer-pause-icon" src="assets/timer-pause-icon.svg" alt="Pause" />
+            <img class="shellv2-timer-resume-icon" src="assets/timer-play-icon.svg" alt="Resume" />
           </button>
         </div>
       </div>
@@ -6570,9 +6635,9 @@
       <div class="home-landing-topbar-shell">
         <div class="home-landing-topbar">
           <div class="home-landing-brand-lockup">
-            <img class="home-brand-left" src="https://www.figma.com/api/mcp/asset/a85d4073-6f3b-42f6-a017-b4ee44fa7834" alt="Carrier logo" />
+            <img class="home-brand-left" src="assets/napa-logo.png" alt="Carrier logo" />
             <div class="home-brand-divider" aria-hidden="true"></div>
-            <img class="home-brand-salesforce" src="https://www.figma.com/api/mcp/asset/ae79cda9-d8fa-418c-a889-e4281626d11b" alt="Salesforce logo" />
+            <img class="home-brand-salesforce" src="assets/salesforce-logo.svg" alt="Salesforce logo" />
           </div>
           <div class="home-landing-title-wrap">
             <h1 class="home-landing-title">NAPA + AFT Test App</h1>
@@ -6592,9 +6657,9 @@
             <path d="M 0,44 L 305,44 Q 320,44 333,36 L 387,8 Q 400,0 415,0 L 1273,0 Q 1288,0 1301,8 L 1355,36 Q 1368,44 1383,44 L 1688,44" stroke="rgba(4,225,203,0.2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
           </svg>
           <div class="home-landing-brand-lockupv2">
-            <img class="home-brand-leftv2" src="https://www.figma.com/api/mcp/asset/e7d2e09a-f2b0-4d21-97de-f40723a8dece" alt="Carrier logo" />
+            <img class="home-brand-leftv2" src="assets/napa-logo.png" alt="Carrier logo" />
             <div class="home-brand-dividerv2" aria-hidden="true"></div>
-            <img class="home-brand-salesforcev2" src="https://www.figma.com/api/mcp/asset/ae79cda9-d8fa-418c-a889-e4281626d11b" alt="Salesforce logo" />
+            <img class="home-brand-salesforcev2" src="assets/salesforce-logo.svg" alt="Salesforce logo" />
           </div>
           <div class="home-landing-contextv2" aria-hidden="true">
             <p class="home-landing-context-titlev2">NAPA + AFT Test App</p>
@@ -6614,7 +6679,7 @@
         <div class="home-flow-grid">
           <article class="home-flow-card">
             <div class="home-flow-card-logo">
-              <img class="home-flow-logo-napa" src="https://www.figma.com/api/mcp/asset/ca91d414-01f8-4cf0-8727-f15383e0c164" alt="NAPA" />
+              <img class="home-flow-logo-napa" src="assets/napa-seal.png" alt="NAPA" />
             </div>
             <div class="home-flow-card-body">
               <h3>Test Scenarios:</h3>
@@ -6637,7 +6702,7 @@
 
           <article class="home-flow-card is-disabled">
             <div class="home-flow-card-logo">
-              <img class="home-flow-logo-aft" src="https://www.figma.com/api/mcp/asset/a9e33ae2-d61c-4ada-886b-42a37d051c95" alt="AFT+" />
+              <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
             <div class="home-flow-card-body">
               <h3>Test Scenarios:</h3>
@@ -6652,7 +6717,7 @@
 
           <article class="home-flow-card is-disabled">
             <div class="home-flow-card-logo">
-              <img class="home-flow-logo-aft" src="https://www.figma.com/api/mcp/asset/a9e33ae2-d61c-4ada-886b-42a37d051c95" alt="AFT+" />
+              <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
             <div class="home-flow-card-body">
               <h3>Test Scenarios:</h3>
@@ -6665,9 +6730,9 @@
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
-              <img class="home-flow-logo-aft" src="https://www.figma.com/api/mcp/asset/a9e33ae2-d61c-4ada-886b-42a37d051c95" alt="AFT+" />
+              <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
             <div class="home-flow-card-body">
               <h3>Test Scenarios:</h3>
@@ -6675,7 +6740,7 @@
                 <li>Disability</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="aftDisabilityViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
@@ -6691,7 +6756,7 @@
       <span class="home-scroll-indicator-label">Scroll</span>
     </div>
     <header class="header">
-      <img class="brand-logo" src="https://www.figma.com/api/mcp/asset/2a1af061-b834-4fe4-9779-aad2e6d29632" alt="NAPA logo" />
+      <img class="brand-logo" src="assets/napa-seal.png" alt="NAPA logo" />
       <div class="divider-tall" aria-hidden="true"></div>
       <div class="brand-title">Errors &amp; Omissions (E&amp;O)<br />Insurance Application</div>
       <div class="header-right">
@@ -6772,7 +6837,7 @@
               </div>
 
               <div class="field full">
-                <p class="label"><span class="required">*</span>What Best Describes You?<span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you own an agency and also write personally, you may only need one policy depending on how you operate.&#10;&#10;Selecting the Agency option generally covers owners/officers for claims arising solely from work on behalf of the agency, but coverage is limited to agency activities and shares the agency’s limits.&#10;&#10;The Agent option provides individual coverage with dedicated limits, helping avoid gaps if operating outside the agency or named individually.&#10;&#10;If applying for both, start with the Agency application." data-tooltip-position="bottom-left"></span></p>
+                <p class="label"><span class="required">*</span>What Best Describes You?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you own an agency and also write personally, you may only need one policy depending on how you operate.&#10;&#10;Selecting the Agency option generally covers owners/officers for claims arising solely from work on behalf of the agency, but coverage is limited to agency activities and shares the agency’s limits.&#10;&#10;The Agent option provides individual coverage with dedicated limits, helping avoid gaps if operating outside the agency or named individually.&#10;&#10;If applying for both, start with the Agency application." data-tooltip-position="bottom-left"></span></p>
                 <div class="toggle" role="radiogroup" aria-label="What Best Describes You?">
                   <button class="pill-btn" type="button" role="radio" aria-checked="false" data-radio-option="agent">Agent</button>
                   <button class="pill-btn" type="button" role="radio" aria-checked="false" data-radio-option="agency">Agency</button>
@@ -6826,12 +6891,16 @@
               <h1>Professional Information</h1>
               <div class="title-line"></div>
             </div>
+            <div class="screen-warning-banner is-hidden" id="proInfoWarningBanner" role="alert">
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
+            </div>
             <p class="intro">
               To ensure we provide you with the most appropriate coverage options, now tell us a little about you and your business
             </p>
 
             <div class="field full">
-              <p class="label"><span class="required">*</span>Did you originally obtain your insurance license within the last 2 years?<span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Special rating is available to newly licensed agents if eligible based on their gross annual income tier." data-tooltip-position="bottom-left"></span></p>
+              <p class="label"><span class="required">*</span>Did you originally obtain your insurance license within the last 2 years?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Special rating is available to newly licensed agents primarily selling and servicing L&amp;H products if eligible based on their gross annual income tier." data-tooltip-position="bottom-left"></span></p>
               <div class="mini-radio" role="radiogroup" aria-label="License within last 2 years">
                 <button type="button" role="radio" aria-checked="false" data-license-recent="yes">Yes</button>
                 <button type="button" role="radio" aria-checked="false" data-license-recent="no">No</button>
@@ -6839,7 +6908,7 @@
             </div>
 
             <div class="field full is-hidden" id="originalLicensureDateField" style="margin-top: 10px;">
-              <p class="label"><span class="required">*</span>Original Licensure Date <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The original date that you were licensed to transact business in the insurance industry. If this was more than 3 years ago, you can enter an approximate date." data-tooltip-position="bottom-left"></span></p>
+              <p class="label"><span class="required">*</span>Original Licensure Date <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The original date that you were licensed to transact business in the insurance industry. If this was more than 3 years ago, you can enter an approximate date." data-tooltip-position="bottom-left"></span></p>
               <div class="datepicker" id="licensureDatePicker">
                 <div class="input-field datepicker-input" id="licensureDateInputWrap">
                   <input class="input-text" type="text" id="licensureDateInput" placeholder="Select a date..." readonly />
@@ -6873,7 +6942,7 @@
             </div>
 
             <div class="field full" style="margin-top: 10px;">
-              <p class="label"><span class="required">*</span>What insurance products do you sell and service? <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best describes your book of business.&#10;If you are not yet dual licensed, other lines of business can be added and coverages updated after your policy is in effect." data-tooltip-position="bottom-left"></span></p>
+              <p class="label"><span class="required">*</span>What insurance products do you sell and service? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best describes your book of business.&#10;If you are not yet dual licensed, other lines of business can be added and coverages updated after your policy is in effect." data-tooltip-position="bottom-left"></span></p>
               <div class="option-grid" id="productsGrid" role="radiogroup" aria-label="What insurance products do you sell and service?">
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="lh-only"><span class="dot"></span><span class="option-label">Life &amp; Health (L&amp;H) Only</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="lh-mostly-25"><span class="dot"></span><span class="option-label">Mostly L&amp;H with P&amp;C 25% or less</span></button>
@@ -6907,7 +6976,7 @@
             </p>
 
             <div class="choice-group field full">
-              <p class="label"><span class="required">*</span>What is your gross annual income? <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="This information to important to properly rate your policy.&#10;&#10;Gross Revenue vs Net Revenue&#10;Net Revenue is the total taxable revenues generated by the insured less any deductions for expenses, salaries and/or commission payments." data-tooltip-position="bottom-left"></span></p>
+              <p class="label"><span class="required">*</span>What is your gross annual income? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="This information to important to properly rate your policy.&#10;&#10;Gross Revenue vs Net Revenue&#10;Net Revenue is the total taxable revenues generated by the insured less any deductions for expenses, salaries and/or commission payments." data-tooltip-position="bottom-left"></span></p>
               <div class="choice-grid" id="grossIncomeGrid" role="radiogroup" aria-label="What is your gross annual income?">
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-income-option="lt-100k"><span class="choice-dot"></span><span class="choice-label">&lt;$100K</span></button>
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-income-option="100k-250k"><span class="choice-dot"></span><span class="choice-label">$100K-$250K</span></button>
@@ -6919,7 +6988,7 @@
             </div>
 
             <div class="choice-group field full" style="margin-top: 8px;">
-              <p class="label"><span class="required">*</span>When do you need coverage to start? <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If your most recent coverage has an expiration date other than the 1st of the month, please review the Certificate Period Endorsement information listed below to avoid any lapse in coverage." data-tooltip-position="bottom-left"></span></p>
+              <p class="label"><span class="required">*</span>When do you need coverage to start? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If your most recent coverage has an expiration date other than the 1st of the month, please review the Certificate Period Endorsement information listed below to avoid any lapse in coverage." data-tooltip-position="bottom-left"></span></p>
               <div class="choice-grid" id="coverageStartGrid" role="radiogroup" aria-label="When do you need coverage to start?">
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-coverage-start-option="01-01-2026"><span class="choice-dot"></span><span class="choice-label">01/01/2026</span></button>
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-coverage-start-option="02-01-2026"><span class="choice-dot"></span><span class="choice-label">02/01/2026</span></button>
@@ -6974,7 +7043,7 @@
               <div class="save-later-confirmation-card">
                 <div class="save-later-confirmation-body">
                   <div class="save-later-confirmation-header">
-                    <img class="save-later-confirmation-icon" src="https://www.figma.com/api/mcp/asset/08fc2788-f0d8-4fb2-a55d-a4eaf216e656" alt="" aria-hidden="true" />
+                    <img class="save-later-confirmation-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2048%2048%27%3E%3Ccircle%20cx%3D%2724%27%20cy%3D%2724%27%20r%3D%2722%27%20fill%3D%27%2304e1cb%27%2F%3E%3Cpath%20d%3D%27M14%2024%20L21%2031%20L34%2017%27%20stroke%3D%27white%27%20stroke-width%3D%273%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
                     <p class="save-later-confirmation-title">Your Application is saved for later</p>
                   </div>
                   <p class="save-later-confirmation-copy">To resume, please click or bookmark the following link:</p>
@@ -7085,12 +7154,12 @@
             </p>
 
             <div class="field full">
-              <div class="coverage-warning-note">
+              <div class="coverage-warning-note" style="margin-top: 0;">
                 <strong>IMPORTANT:</strong> Prior acts are NOT included for the sale and servicing of any products other than Medicare Advantage, Medicare Supplemental, and Medicare Part D when purchasing Medicare ONLY coverage. To maintain prior acts for other products, go back and update products you sell and service.*
               </div>
             </div>
 
-            <div class="field full" style="margin-top: 10px;">
+            <div class="field full">
               <p class="coverage-subtitle">Medicare ONLY Products</p>
             </div>
 
@@ -7267,17 +7336,17 @@
             <div class="field full" style="display:flex;flex-direction:column;gap:16px;margin-top:0;">
               <p class="coverage-subtitle">Cyber Liability Coverage</p>
               <div class="cyber-coverage-list" aria-label="Cyber Liability Coverage Included Features">
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Cyber Hacking</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Data Breaches &amp; Lost Information</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Disclosure of Confidential Information</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Defense &amp; Legal Costs</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Regulatory Fines &amp; Penalties</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Multimedia Liability</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="https://www.figma.com/api/mcp/asset/8ee1654b-a743-4bc1-9e21-73f74b4fc09f" alt="" /></span>Cyber Crime &amp; Extortion</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Hacking</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Data Breaches &amp; Lost Information</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Disclosure of Confidential Information</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Defense &amp; Legal Costs</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Regulatory Fines &amp; Penalties</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Multimedia Liability</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Crime &amp; Extortion</div>
               </div>
             </div>
 
-            <div class="field full" style="margin-top: 24px;">
+            <div class="field full">
               <p class="label"><span class="required">*</span>Select the Add-On option you would like to purchase</p>
               <div class="cyber-addons-grid" id="coverageLimitsGrid" role="radiogroup" aria-label="Select the Add-On option you would like to purchase">
                 <button class="cyber-addon-card" type="button" role="radio" aria-checked="false" data-addon-option="basic">
@@ -7509,7 +7578,7 @@
 
             <!-- Agent Information -->
             <div class="enrollment-section">
-              <p class="enrollment-section-title">Agent Information <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Updates can be made to your contact information and name through our customer service team." data-tooltip-position="bottom-left"></span></p>
+              <p class="enrollment-section-title">Agent Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Updates can be made to your contact information and name through our customer service team." data-tooltip-position="bottom-left"></span></p>
               <div class="enrollment-fields-grid">
                 <div class="enrollment-field">
                   <div class="input-field ajg-input-field">
@@ -7625,7 +7694,7 @@
                       <img class="field-icon field-icon-down" src="assets/dropdown-down-icon.png" alt="" aria-hidden="true" />
                     </div>
                   </div>
-                  <img class="enrollment-info-icon" src="https://www.figma.com/api/mcp/asset/c3fdce30-9bed-48d4-995b-429e127b9131" alt="" aria-hidden="true" />
+                  <span class="enrollment-info-icon" aria-hidden="true"></span>
                 </div>
               </div>
 
@@ -7641,18 +7710,44 @@
                       <input class="input-text ajg-input-control" type="text" id="enrollLicenseNumberStep2" name="enrollLicenseNumberStep2" placeholder="License Number" />
                     </div>
                   </div>
-                  <div class="enrollment-readonly-field-wrap">
-                    <div class="enrollment-readonly-field enrollment-field">
-                      <div class="input-field ajg-input-field is-floating is-disabled">
-                        <label class="ajg-input-label" for="enrollOriginalLicensureReadonly">
-                          <span class="ajg-input-label-text">Original Licensure Date</span>
-                          <span class="field-required" aria-hidden="true">*</span>
-                        </label>
-                        <input class="input-text ajg-input-control" type="text" id="enrollOriginalLicensureReadonly" name="enrollOriginalLicensureReadonly" readonly disabled />
-                        <img class="field-icon" src="https://www.figma.com/api/mcp/asset/63917ad9-c80d-4f68-b790-c768c9919c45" alt="" aria-hidden="true" />
+                  <div class="enrollment-license-field enrollment-field enroll-datepicker-field">
+                    <div class="enrollment-readonly-field-wrap">
+                      <div class="datepicker enroll-datepicker-wrap" id="enrollLicensureDatePicker">
+                        <div class="input-field ajg-input-field is-disabled is-disabled-inline" id="enrollLicensureDateInputWrap">
+                          <label class="ajg-input-label" for="enrollLicensureDateInput">
+                            <span class="ajg-input-label-text">Original Licensure Date</span>
+                            <span class="field-required" aria-hidden="true">*</span>
+                          </label>
+                          <input class="input-text ajg-input-control" type="text" id="enrollLicensureDateInput" placeholder="" readonly disabled />
+                          <button class="calendar-icon-btn" type="button" id="enrollLicensureDateToggle" aria-label="Toggle calendar" disabled>
+                            <img src="assets/calendar-icon.png" alt="" aria-hidden="true" />
+                          </button>
+                        </div>
+                        <div class="datepicker-popover" id="enrollLicensureDatePopover">
+                          <div class="dp-header">
+                            <button class="dp-nav" type="button" id="enrollDpPrevMonth" aria-label="Previous month">◀</button>
+                            <div class="dp-month-label" id="enrollDpMonthLabel">January</div>
+                            <button class="dp-nav" type="button" id="enrollDpNextMonth" aria-label="Next month">▶</button>
+                            <div class="dp-year-select">
+                              <button class="dp-year-trigger" type="button" id="enrollDpYearTrigger" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                              <div class="dp-year-list" id="enrollDpYearList" role="listbox" aria-label="Year options"></div>
+                            </div>
+                          </div>
+                          <div class="dp-grid">
+                            <div class="dp-weekday">Sun</div>
+                            <div class="dp-weekday">Mon</div>
+                            <div class="dp-weekday">Tue</div>
+                            <div class="dp-weekday">Wed</div>
+                            <div class="dp-weekday">Thu</div>
+                            <div class="dp-weekday">Fri</div>
+                            <div class="dp-weekday">Sat</div>
+                          </div>
+                          <div class="dp-grid" id="enrollDpDaysGrid"></div>
+                          <button class="dp-today" type="button" id="enrollDpTodayBtn">Today</button>
+                        </div>
                       </div>
+                      <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The original date that you were licensed to transact business in the insurance industry. If this was more than 3 years ago, you can enter an approximate date." data-tooltip-position="bottom-left"></span>
                     </div>
-                    <img class="enrollment-info-icon" src="https://www.figma.com/api/mcp/asset/c3fdce30-9bed-48d4-995b-429e127b9131" alt="" aria-hidden="true" />
                   </div>
                 </div>
               </div>
@@ -7679,7 +7774,7 @@
             <div class="enrollment-third-section">
               <div class="enrollment-third-block">
                 <div class="enrollment-third-title-row">
-                  <p class="enrollment-section-title">Address <span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The address included here will be listed under the insured on the Certificate of Insurance (COI). If you would like to include a different address, or ever need to update the address on the COI, our customer service team is here to help." data-tooltip-position="bottom-left"></span></p>
+                  <p class="enrollment-section-title">Address <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The address included here will be listed under the insured on the Certificate of Insurance (COI). If you would like to include a different address, or ever need to update the address on the COI, our customer service team is here to help." data-tooltip-position="bottom-left"></span></p>
                 </div>
 
                 <div class="enrollment-third-fields">
@@ -7808,7 +7903,7 @@
               <h1>Customer Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">If you need to add the name of an Agency or a DBA to your E&amp;O policy, you may do so now or through our Member Portal once your application is complete. Please allow for up to 2 business days after your application is approved before entities listed here are included on a Certificate of Insurance.</p>
+            <p class="intro">If you need to add the name of an Agency or a Doing Business As (DBA) name to your E&amp;O policy, you may provide the necessary information here. These entities, as well as Certificate Holders, can also be added to your policy after this application has been submitted by contacting our Customer Service Team.<br><br>Please allow up to 2 business days after your application has been approved for entities listed here to be included on a Certificate of Insurance.</p>
 
             <div class="enrollment-fourth-section">
               <div class="enrollment-important-note"><strong>IMPORTANT:</strong> Adding an Agency name or DBA does NOT extend coverage for any other agents or sub-agents. If coverage is needed for other agents, an Agency policy is recommended.</div>
@@ -7825,6 +7920,7 @@
                   </div>
                 </div>
                 <div class="enrollment-detail-card is-hidden" id="agencyInfoCard">
+                  <p class="enrollment-detail-card-title">Agency Details</p>
                   <div class="enrollment-detail-block enrollment-detail-block-input">
                     <p class="enrollment-detail-label"><span class="required">*</span>What is the name of the agency you would like to add</p>
                     <div class="enrollment-detail-input">
@@ -7876,7 +7972,7 @@
               </div>
 
               <div class="enrollment-question-group">
-                <p class="enrollment-question-title">DBA Information</p>
+                <p class="enrollment-question-title">DBA Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="A DBA (&quot;Doing Business As&quot;) is an additional name your agency uses in business other than its legal name." data-tooltip-position="bottom-left"></span></p>
                 <p class="enrollment-question-label"><span class="required">*</span>Would you like to add a DBA?</p>
                 <div class="enrollment-question-options">
                   <div class="mini-radio" role="radiogroup" aria-label="Would you like to add a DBA?">
@@ -7885,17 +7981,19 @@
                   </div>
                 </div>
                 <div class="enrollment-detail-card is-hidden" id="dbaInfoCard">
+                  <p class="enrollment-detail-card-title">DBA Details</p>
                   <div class="enrollment-detail-block enrollment-detail-block-input">
-                    <p class="enrollment-detail-label"><span class="required">*</span>What is the name of the agency you would like to add</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span>What is the DBA name you would like to add</p>
                     <div class="enrollment-detail-input">
                       <input class="input-text" type="text" id="dbaNameInput" name="dbaNameInput" />
                     </div>
+                    <p class="field-supporting-text is-hidden" data-supporting-text>Supporting Text</p>
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Are you the sole owner of the corporation/agency/LLC?</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span>Is the Named Insured the sole owner and producer of the DBA?</p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Are you the sole owner of the DBA entity?">
+                      <div class="mini-radio" role="radiogroup" aria-label="Is the Named Insured the sole owner and producer of the DBA?">
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-owner" data-value="yes">Yes</button>
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-owner" data-value="no">No</button>
                       </div>
@@ -7903,31 +8001,41 @@
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Are you the sole producer of the corporation/agency/LLC, with no other agents (including downline agents) who provide Professional Services on behalf of the entity?</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span>Is the DBA owned or controlled by the Named Insured?</p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Are you the sole producer for the DBA entity?">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-producer" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-producer" data-value="no">No</button>
+                      <div class="mini-radio" role="radiogroup" aria-label="Is the DBA owned or controlled by the Named Insured?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Do you understand that if you hire any producing agents, W-2 or independent contractors, this policy does not cover the agency, or you, for E&amp;O of any other agents at the agency? This includes receiving overrides for production by other agents. If you plan to hire agents or sub-agents, we recommend an agency policy.</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span>Is the DBA operating in the same industry for which you have selected coverage for?</p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Do you understand limits on hired producing agents for DBA?">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-hiring-disclosure" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-hiring-disclosure" data-value="no">No</button>
+                      <div class="mini-radio" role="radiogroup" aria-label="Is the DBA operating in the same industry for which you have selected coverage for?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-same-industry" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-same-industry" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>I understand the policy terms in regards to the definition of an "insured."</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span>When asked for gross annual income earlier in this application, was DBA revenue included in your selection?</p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="I understand insured definition terms for DBA.">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-insured-definition" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-insured-definition" data-value="no">No</button>
+                      <div class="mini-radio" role="radiogroup" aria-label="When asked for gross annual income earlier in this application, was DBA revenue included in your selection?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="no">No</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="enrollment-detail-block">
+                    <p class="enrollment-detail-label"><span class="required">*</span>Are there any known claims or incidents related to the DBA?</p>
+                    <div class="enrollment-question-options">
+                      <div class="mini-radio" role="radiogroup" aria-label="Are there any known claims or incidents related to the DBA?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-known-claims" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-known-claims" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
@@ -8288,7 +8396,7 @@
 
               <div class="preview-expandable-section">
                 <div class="preview-expandable-header">
-                  <p class="preview-expandable-title">Payment Information<span class="ui-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></p>
+                  <p class="preview-expandable-title">Payment Information<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></p>
                 </div>
                 <div class="preview-expandable-content preview-expandable-content--flush">
                   <div class="preview-payment-card" id="previewPaymentInfoCard">
@@ -8520,7 +8628,7 @@
       </main>
 
       <footer class="footer">
-        <img class="footer-logo" src="https://www.figma.com/api/mcp/asset/2a1af061-b834-4fe4-9779-aad2e6d29632" alt="NAPA logo" />
+        <img class="footer-logo" src="assets/napa-seal.png" alt="NAPA logo" />
         <div class="footer-right">
           <a href="#">Terms of Service</a>
           <div class="footer-sep" aria-hidden="true"></div>
@@ -8598,7 +8706,7 @@
         </div>
       </div>
       <button class="app-restart-btn" type="button" id="restartFlowBtn" aria-label="Restart flow">
-        <span class="app-restart-icon" aria-hidden="true"><img src="https://www.figma.com/api/mcp/asset/7a3ba987-f2d4-4533-9c81-c5a50597e796" alt="" /></span>
+        <span class="app-restart-icon" aria-hidden="true"><img src="assets/restart-icon.svg" alt="" /></span>
         <span class="app-restart-label" aria-hidden="true">Restart</span>
       </button>
     </div>
@@ -8813,7 +8921,6 @@
       const enrollStateProvinceInput = document.getElementById("enrollStateProvince");
       const enrollZipPostalCodeInput = document.getElementById("enrollZipPostalCode");
       const enrollCoverageStartReadonlyInput = document.getElementById("enrollCoverageStartReadonly");
-      const enrollOriginalLicensureReadonlyInput = document.getElementById("enrollOriginalLicensureReadonly");
       const previewBillingAddressStreetEl = document.getElementById("previewBillingAddressStreet");
       const previewBillingAddressCityStateZipEl = document.getElementById("previewBillingAddressCityStateZip");
       const previewBillingAddressSummaryRow = document.getElementById("previewBillingAddressSummaryRow");
@@ -8855,8 +8962,57 @@
       const dpYearList = document.getElementById("dpYearList");
       const dpDaysGrid = document.getElementById("dpDaysGrid");
       const dpTodayBtn = document.getElementById("dpTodayBtn");
+      const enrollLicensureDatePicker = document.getElementById("enrollLicensureDatePicker");
+      const enrollLicensureDateInputWrap = document.getElementById("enrollLicensureDateInputWrap");
+      const enrollLicensureDateInput = document.getElementById("enrollLicensureDateInput");
+      const enrollLicensureDateToggle = document.getElementById("enrollLicensureDateToggle");
+      const enrollDpPrevMonth = document.getElementById("enrollDpPrevMonth");
+      const enrollDpNextMonth = document.getElementById("enrollDpNextMonth");
+      const enrollDpMonthLabel = document.getElementById("enrollDpMonthLabel");
+      const enrollDpYearTrigger = document.getElementById("enrollDpYearTrigger");
+      const enrollDpYearList = document.getElementById("enrollDpYearList");
+      const enrollDpDaysGrid = document.getElementById("enrollDpDaysGrid");
+      const enrollDpTodayBtn = document.getElementById("enrollDpTodayBtn");
       const topNavHomeBtn = document.getElementById("topNavHomeBtn");
       const appShellEl = document.querySelector(".app-shell");
+
+      /* ── Scoped Error Banner — reusable component ─────────────────────────
+         Usage:
+           1. Insert into DOM:  insertScopedErrorBanner(parentEl, "myBannerId", "Your message here")
+           2. Show:             showScopedErrorBanner("myBannerId")
+           3. Hide:             hideScopedErrorBanner("myBannerId")
+      ──────────────────────────────────────────────────────────────────────── */
+      function createScopedErrorBanner(id, message) {
+        const banner = document.createElement("div");
+        banner.className = "screen-warning-banner is-hidden";
+        banner.id = id;
+        banner.setAttribute("role", "alert");
+        const icon = document.createElement("img");
+        icon.className = "screen-warning-banner-icon";
+        icon.src = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E";
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        const text = document.createElement("p");
+        text.className = "screen-warning-banner-text";
+        text.textContent = message;
+        banner.appendChild(icon);
+        banner.appendChild(text);
+        return banner;
+      }
+      function insertScopedErrorBanner(parentEl, id, message) {
+        if (!parentEl || document.getElementById(id)) return;
+        const banner = createScopedErrorBanner(id, message);
+        parentEl.insertBefore(banner, parentEl.firstChild);
+        return banner;
+      }
+      function showScopedErrorBanner(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove("is-hidden");
+      }
+      function hideScopedErrorBanner(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("is-hidden");
+      }
       const homeLandingPage = document.getElementById("homeLandingPage");
       const homeLandingHomeBtn = document.getElementById("homeLandingHomeBtn");
       const homeLandingHomeBtnV2 = document.getElementById("homeLandingHomeBtnV2");
@@ -9069,8 +9225,8 @@
         "Any policies placed in captives, risk retention groups or purchasing groups",
         "Surety Boiler & Machinery"
       ];
-      const coverageAcknowledgementIncludedIconUrl = "https://www.figma.com/api/mcp/asset/b272e8c0-baf2-46c7-9207-0f6ef48526ff";
-      const coverageAcknowledgementExcludedIconUrl = "https://www.figma.com/api/mcp/asset/9f444124-1c70-47c2-b53d-d7df27035c53";
+      const coverageAcknowledgementIncludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2710%27%20r%3D%279%27%20fill%3D%27%2327ae60%27%2F%3E%3Cpath%20d%3D%27M5%2010%20L8.5%2013.5%20L15%207%27%20stroke%3D%27white%27%20stroke-width%3D%271.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
+      const coverageAcknowledgementExcludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2710%27%20r%3D%279%27%20fill%3D%27%23c0392b%27%2F%3E%3Cpath%20d%3D%27M7%207%20L13%2013%20M13%207%20L7%2013%27%20stroke%3D%27white%27%20stroke-width%3D%271.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
       const todayDefault = new Date();
       const normalizedToday = new Date(todayDefault.getFullYear(), todayDefault.getMonth(), todayDefault.getDate());
       let selectedLicensureDate = new Date(normalizedToday);
@@ -9149,11 +9305,31 @@
         if (dpYearTrigger) dpYearTrigger.setAttribute("aria-expanded", "false");
       }
 
-      function renderDatepicker() {
-        if (!dpMonthLabel || !dpYearTrigger || !dpYearList || !dpDaysGrid) return;
-        dpMonthLabel.textContent = MONTH_NAMES[visibleMonth];
-        dpYearTrigger.textContent = String(visibleYear);
-        dpYearList.innerHTML = "";
+      function openEnrollDatepicker() {
+        if (!enrollLicensureDatePicker) return;
+        if (!selectedLicensureDate) {
+          selectedLicensureDate = new Date(normalizedToday);
+        }
+        visibleMonth = selectedLicensureDate.getMonth();
+        visibleYear = selectedLicensureDate.getFullYear();
+        enrollLicensureDatePicker.classList.add("open");
+        if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.add("is-open");
+        renderEnrollDatepicker();
+      }
+
+      function closeEnrollDatepicker() {
+        if (!enrollLicensureDatePicker) return;
+        enrollLicensureDatePicker.classList.remove("open");
+        if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.remove("is-open");
+        enrollLicensureDatePicker.classList.remove("year-open");
+        if (enrollDpYearTrigger) enrollDpYearTrigger.setAttribute("aria-expanded", "false");
+      }
+
+      function renderDatepickerFor(pickerEl, monthLabelEl, yearTriggerEl, yearListEl, daysGridEl, onDayPick) {
+        if (!monthLabelEl || !yearTriggerEl || !yearListEl || !daysGridEl) return;
+        monthLabelEl.textContent = MONTH_NAMES[visibleMonth];
+        yearTriggerEl.textContent = String(visibleYear);
+        yearListEl.innerHTML = "";
         YEAR_OPTIONS.forEach(function renderYearOption(year) {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -9164,14 +9340,14 @@
           btn.addEventListener("click", function onYearPick(event) {
             event.stopPropagation();
             visibleYear = year;
-            licensureDatePicker.classList.remove("year-open");
-            dpYearTrigger.setAttribute("aria-expanded", "false");
-            renderDatepicker();
+            pickerEl.classList.remove("year-open");
+            yearTriggerEl.setAttribute("aria-expanded", "false");
+            renderDatepickerFor(pickerEl, monthLabelEl, yearTriggerEl, yearListEl, daysGridEl, onDayPick);
           });
-          dpYearList.appendChild(btn);
+          yearListEl.appendChild(btn);
         });
 
-        dpDaysGrid.innerHTML = "";
+        daysGridEl.innerHTML = "";
         const firstDayIndex = new Date(visibleYear, visibleMonth, 1).getDay();
         const daysInMonth = new Date(visibleYear, visibleMonth + 1, 0).getDate();
         const daysInPrevMonth = new Date(visibleYear, visibleMonth, 0).getDate();
@@ -9188,7 +9364,6 @@
         }
 
         const previewDate = selectedLicensureDate ? new Date(selectedLicensureDate.getFullYear(), selectedLicensureDate.getMonth(), selectedLicensureDate.getDate() - 1) : null;
-
         const todayStart = new Date();
         todayStart.setHours(0, 0, 0, 0);
 
@@ -9202,7 +9377,7 @@
             button.classList.add("is-future");
             button.setAttribute("aria-disabled", "true");
             button.textContent = String(cell.day);
-            dpDaysGrid.appendChild(button);
+            daysGridEl.appendChild(button);
             return;
           }
 
@@ -9224,13 +9399,32 @@
             button.classList.add("preview");
           }
           button.textContent = String(cell.day);
-          button.addEventListener("click", function onDayPick() {
+          button.addEventListener("click", function onDayPickClick() {
             selectedLicensureDate = cellDate;
-            if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
-            closeDatepicker();
+            onDayPick(cellDate);
           });
-          dpDaysGrid.appendChild(button);
+          daysGridEl.appendChild(button);
         });
+      }
+
+      function renderDatepicker() {
+        renderDatepickerFor(
+          licensureDatePicker, dpMonthLabel, dpYearTrigger, dpYearList, dpDaysGrid,
+          function onProInfoDayPick(date) {
+            if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(date);
+            closeDatepicker();
+          }
+        );
+      }
+
+      function renderEnrollDatepicker() {
+        renderDatepickerFor(
+          enrollLicensureDatePicker, enrollDpMonthLabel, enrollDpYearTrigger, enrollDpYearList, enrollDpDaysGrid,
+          function onEnrollDayPick(date) {
+            if (enrollLicensureDateInput) enrollLicensureDateInput.value = formatDateMMDDYYYY(date);
+            closeEnrollDatepicker();
+          }
+        );
       }
 
       function setGlobalContext(flowLabel, productLabel) {
@@ -10380,7 +10574,32 @@
         const selectedCoverageStart = getSelectedCoverageStartLabel();
         const selectedLicensure = (licensureDateInput ? licensureDateInput.value.trim() : "") || formatDateMMDDYYYY(selectedLicensureDate);
         if (enrollCoverageStartReadonlyInput) enrollCoverageStartReadonlyInput.value = selectedCoverageStart;
-        if (enrollOriginalLicensureReadonlyInput) enrollOriginalLicensureReadonlyInput.value = selectedLicensure;
+
+        // Disable Original Licensure Date only when user said "Yes" to licensed within last 2 years
+        const licensedRecentYes = licenseRadios.find(function(r) {
+          return r.getAttribute("data-license-recent") === "yes" && r.getAttribute("aria-checked") === "true";
+        });
+        if (enrollLicensureDateInput) {
+          if (licensedRecentYes) {
+            // Disabled + has value: floating label (is-floating) in gray, gray bg
+            enrollLicensureDateInput.value = selectedLicensure;
+            enrollLicensureDateInput.disabled = true;
+            if (enrollLicensureDateToggle) enrollLicensureDateToggle.disabled = true;
+            if (enrollLicensureDateInputWrap) {
+              enrollLicensureDateInputWrap.classList.remove("is-disabled-inline", "is-open");
+              enrollLicensureDateInputWrap.classList.add("is-floating", "is-disabled");
+            }
+            closeEnrollDatepicker();
+          } else {
+            // Enabled: label inline at center, white bg, normal border
+            enrollLicensureDateInput.value = "";
+            enrollLicensureDateInput.disabled = false;
+            if (enrollLicensureDateToggle) enrollLicensureDateToggle.disabled = false;
+            if (enrollLicensureDateInputWrap) {
+              enrollLicensureDateInputWrap.classList.remove("is-floating", "is-disabled", "is-disabled-inline", "is-open");
+            }
+          }
+        }
       }
 
       function goToEnrollmentSecondScreen() {
@@ -10561,6 +10780,12 @@
         window.addEventListener("resize", checkHomeCardCompact);
       }
 
+      // Ensure scroll indicator is evaluated once all assets (images) are loaded,
+      // so layout dimensions are final and the check is accurate.
+      window.addEventListener("load", function() {
+        requestAnimationFrame(checkHomeCardCompact);
+      });
+
       function goToSaveLaterConfirmationPage() {
         setHomeLandingActive(false);
         showScreen("save-later-confirmation");
@@ -10718,6 +10943,7 @@
         });
         selectedProductKey = selectedOption ? (selectedOption.getAttribute("data-product-option") || null) : null;
         window.prototypeSelections.selectedProductKey = selectedProductKey;
+        if (selectedOption) hideScopedErrorBanner("proInfoWarningBanner");
         if (productSelectionNote) {
           if (!selectedOption) {
             productSelectionNote.classList.add("hidden");
@@ -10885,6 +11111,13 @@
         });
       }
 
+      var aftDisabilityViewFlowBtn = document.getElementById("aftDisabilityViewFlowBtn");
+      if (aftDisabilityViewFlowBtn) {
+        aftDisabilityViewFlowBtn.addEventListener("click", function () {
+          window.open("aft-disability-enrollment-prototype.html", "_blank");
+        });
+      }
+
       deductibleModalLinks.forEach(function bindDeductibleLink(link) {
         link.addEventListener("click", function onDeductibleClick(event) {
           event.preventDefault();
@@ -10950,7 +11183,7 @@
           const option = targetButton.getAttribute("data-radio-option");
           agencyFlowNote.classList.toggle("visible", option === "agency");
           if (nextBtn) {
-            nextBtn.disabled = option !== "agent";
+            nextBtn.disabled = option !== "agent" && option !== "agency";
           }
         }
         // Update monthly processing fee based on Agent ($5.00) vs Agency ($15.00)
@@ -11003,7 +11236,12 @@
       if (basicNextBtn) {
         basicNextBtn.addEventListener("click", function onBasicNext() {
           const selectedProductLabel = getSelectedProductLabel();
-          if (!selectedProductLabel) return;
+          if (!selectedProductLabel) {
+            showScopedErrorBanner("proInfoWarningBanner");
+            if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          hideScopedErrorBanner("proInfoWarningBanner");
           setGlobalContext("Agent", selectedProductLabel);
           goToBasicFollowupScreen();
           if (mainScrollEl) {
@@ -11569,6 +11807,66 @@
         });
       }
 
+      if (enrollLicensureDateToggle) {
+        enrollLicensureDateToggle.addEventListener("click", function onEnrollToggleClick(event) {
+          event.stopPropagation();
+          if (enrollLicensureDatePicker && enrollLicensureDatePicker.classList.contains("open")) {
+            closeEnrollDatepicker();
+          } else {
+            openEnrollDatepicker();
+          }
+        });
+      }
+
+      if (enrollLicensureDateInput) {
+        enrollLicensureDateInput.addEventListener("click", function onEnrollInputClick() {
+          if (!enrollLicensureDateInput.disabled) openEnrollDatepicker();
+        });
+      }
+
+      if (enrollLicensureDateInputWrap) {
+        enrollLicensureDateInputWrap.addEventListener("click", function onEnrollWrapClick(event) {
+          if (event.target === enrollLicensureDateInputWrap && !enrollLicensureDateInput.disabled) {
+            openEnrollDatepicker();
+          }
+        });
+      }
+
+      if (enrollDpPrevMonth) {
+        enrollDpPrevMonth.addEventListener("click", function onEnrollPrevMonth() {
+          if (visibleMonth === 0) { visibleMonth = 11; visibleYear -= 1; }
+          else { visibleMonth -= 1; }
+          renderEnrollDatepicker();
+        });
+      }
+
+      if (enrollDpNextMonth) {
+        enrollDpNextMonth.addEventListener("click", function onEnrollNextMonth() {
+          if (visibleMonth === 11) { visibleMonth = 0; visibleYear += 1; }
+          else { visibleMonth += 1; }
+          renderEnrollDatepicker();
+        });
+      }
+
+      if (enrollDpYearTrigger) {
+        enrollDpYearTrigger.addEventListener("click", function onEnrollYearTriggerClick(event) {
+          event.stopPropagation();
+          if (!enrollLicensureDatePicker) return;
+          const isOpen = enrollLicensureDatePicker.classList.toggle("year-open");
+          enrollDpYearTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      }
+
+      if (enrollDpTodayBtn) {
+        enrollDpTodayBtn.addEventListener("click", function onEnrollTodayClick() {
+          selectedLicensureDate = new Date();
+          if (enrollLicensureDateInput) enrollLicensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
+          visibleYear = selectedLicensureDate.getFullYear();
+          visibleMonth = selectedLicensureDate.getMonth();
+          closeEnrollDatepicker();
+        });
+      }
+
       document.addEventListener("click", function onDocClick(event) {
         let clickedInsideDropdown = false;
         ajgDropdowns.forEach(function(dropdown) {
@@ -11578,20 +11876,32 @@
           closeAllAjgDropdowns();
         }
 
-        if (!licensureDatePicker) return;
-        if (!licensureDatePicker.contains(event.target)) {
-          closeDatepicker();
-          return;
+        if (licensureDatePicker) {
+          if (!licensureDatePicker.contains(event.target)) {
+            closeDatepicker();
+          } else if (
+            licensureDatePicker.classList.contains("year-open") &&
+            dpYearTrigger && dpYearList &&
+            !dpYearTrigger.contains(event.target) &&
+            !dpYearList.contains(event.target)
+          ) {
+            licensureDatePicker.classList.remove("year-open");
+            dpYearTrigger.setAttribute("aria-expanded", "false");
+          }
         }
-        if (
-          licensureDatePicker.classList.contains("year-open") &&
-          dpYearTrigger &&
-          dpYearList &&
-          !dpYearTrigger.contains(event.target) &&
-          !dpYearList.contains(event.target)
-        ) {
-          licensureDatePicker.classList.remove("year-open");
-          dpYearTrigger.setAttribute("aria-expanded", "false");
+
+        if (enrollLicensureDatePicker) {
+          if (!enrollLicensureDatePicker.contains(event.target)) {
+            closeEnrollDatepicker();
+          } else if (
+            enrollLicensureDatePicker.classList.contains("year-open") &&
+            enrollDpYearTrigger && enrollDpYearList &&
+            !enrollDpYearTrigger.contains(event.target) &&
+            !enrollDpYearList.contains(event.target)
+          ) {
+            enrollLicensureDatePicker.classList.remove("year-open");
+            enrollDpYearTrigger.setAttribute("aria-expanded", "false");
+          }
         }
       });
 

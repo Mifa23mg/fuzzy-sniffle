@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFT+ Disability Enrollment</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sansita+One&family=Short+Stack&display=swap");
+
+    /* science-gothic-latin-wght-normal */
+    @font-face {
+      font-family: "Science Gothic Variable";
+      font-style: normal;
+      font-display: swap;
+      font-weight: 100 900;
+      src: url("https://cdn.jsdelivr.net/fontsource/fonts/science-gothic:vf@latest/latin-wght-normal.woff2") format("woff2-variations");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      background: #ffffff;
+    }
+
+    a { text-decoration: none; }
+    ul, ol { list-style: none; margin: 0; padding: 0; }
+    h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+    p { margin: 0; }
+    button { font-family: inherit; cursor: pointer; }
+    input { font-family: inherit; }
+
+    /* ─── App Shell ────────────────────────────────────────────────── */
+    .app-shell {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
+
+    /* ─── Top Bar v2 ────────────────────────────────────────────────── */
+    .home-landing-topbarv2 {
+      position: relative;
+      height: 140px;
+      width: 100%;
+      background: #171717;
+      border-radius: 0;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    @keyframes dividerLinePulse {
+      0%   { filter: none; }
+      15%  { filter: drop-shadow(0 0 3px rgba(4,225,203,0.9)) drop-shadow(0 0 8px rgba(4,225,203,0.6)) drop-shadow(0 0 16px rgba(4,225,203,0.3)); }
+      100% { filter: none; }
+    }
+
+    .home-landing-dividerv2 {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 52px;
+      height: 48px;
+      width: calc(100% - 40px);
+      overflow: visible;
+      pointer-events: none;
+      filter:
+        drop-shadow(0 -3px 3px rgba(0,0,0,1))
+        drop-shadow(0 2px 6px rgba(0,0,0,0.2))
+        drop-shadow(0 0 8px rgba(4,225,203,0.25));
+    }
+
+    .home-landing-brand-lockupv2 {
+      position: absolute;
+      left: 72px;
+      top: 28px;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 4px 12px;
+      border-radius: 40px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: transparent;
+      box-shadow: inset 0 4px 4px 0 rgba(0,0,0,0.25);
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    .home-brand-leftv2 {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .home-brand-dividerv2 {
+      width: 1px;
+      height: 35px;
+      background: rgba(243,243,243,0.52);
+      flex: 0 0 auto;
+    }
+
+    .home-brand-salesforcev2 {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .home-landing-contextv2 {
+      position: absolute;
+      left: 50%;
+      top: 64px;
+      transform: translateX(-50%);
+      height: 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    .home-landing-context-titlev2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      line-height: 35px;
+      font-weight: 400;
+      color: #fcc003;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .home-landing-context-colv2 {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+      height: 100%;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .home-landing-context-labelv2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #fcc003;
+      white-space: nowrap;
+    }
+
+    .home-landing-context-valuev2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .home-landing-context-slashv2 {
+      margin: 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      height: 100%;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #fcc003;
+    }
+
+    /* ── Timer ── */
+    .aft-topbar-timer {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 8px;
+      width: 92px;
+      min-width: 92px;
+      max-width: 92px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0);
+      white-space: nowrap;
+      z-index: 2;
+      backdrop-filter: blur(2px) saturate(200%);
+      -webkit-backdrop-filter: blur(2px) saturate(200%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 0 8px rgba(4, 225, 203, 0.25);
+    }
+
+    .aft-topbar-timer-display {
+      font-family: "Short Stack", "SF Pro Text", sans-serif;
+      font-size: 14px;
+      line-height: 35px;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      width: 42px;
+      flex: 0 0 42px;
+      flex-shrink: 0;
+    }
+
+    .aft-topbar-timer-btn {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      flex: 0 0 24px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: transparent;
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.1);
+      transition: filter 0.15s ease;
+    }
+
+    .aft-topbar-timer-btn:hover {
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
+    }
+
+    .aft-topbar-timer-pause-icon,
+    .aft-topbar-timer-resume-icon {
+      width: 24px;
+      height: 24px;
+      display: block;
+      position: absolute;
+      inset: 0;
+      transition: opacity 0.15s ease;
+      filter:
+        blur(1.5px)
+        saturate(200%)
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 8px rgba(4, 225, 203, 0.6));
+    }
+
+    .aft-topbar-timer-resume-icon {
+      opacity: 0;
+    }
+
+    .aft-topbar-timer.is-paused .aft-topbar-timer-pause-icon {
+      opacity: 0;
+    }
+
+    .aft-topbar-timer.is-paused .aft-topbar-timer-resume-icon {
+      opacity: 1;
+    }
+
+    /* Home icon mask */
+    .home-landing-home-icon {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 18px;
+      top: 10px;
+      margin: 0;
+    }
+
+    .home-landing-home-icon::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      transform: translate(-50%, -50%);
+      background-color: #04e1cb;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      -webkit-mask-size: 20px 20px;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      mask-size: 20px 20px;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      transition: background-color 160ms ease;
+    }
+
+    .home-landing-topbarv2 .app-home-btn-label {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 400;
+      color: #04e1cb;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* Home button inside topbarv2 */
+    .home-landing-topbarv2 .home-landing-home-btn {
+      position: absolute;
+      right: 72px;
+      top: 28px;
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.8), 0 1px 1px rgba(0,0,0,0.1);
+      padding: 0;
+      cursor: pointer;
+      color: #04e1cb;
+      z-index: 1;
+      transition: background 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover {
+      background: transparent;
+      border-color: transparent;
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4,225,203,0.5));
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover .home-landing-home-icon::before {
+      background-color: #04e1cb;
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover .app-home-btn-label {
+      color: #ffffff;
+      text-shadow: 0 4px 4px rgba(0,0,0,0.25);
+      filter: drop-shadow(0 -1px 0 rgba(255,255,255,0.8)) drop-shadow(0 0 6px rgba(4,225,203,0.6));
+    }
+
+    /* ─── Header ───────────────────────────────────────────────────── */
+    .header {
+      background: #ffffff;
+      padding: 20px 64px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: none;
+      transition: box-shadow 140ms ease;
+    }
+
+    .header.is-scrolled {
+      box-shadow: 0 4px 14px rgba(3, 35, 77, 0.12);
+    }
+
+    .brand-logo {
+      height: 60px;
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .divider-tall {
+      width: 1px;
+      height: 100px;
+      background: #d9d9d9;
+      flex: 0 0 auto;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .help-label {
+      font-weight: 700;
+      color: #2e2e2e;
+    }
+
+    .help-phone {
+      color: #0250d9;
+      text-decoration: none;
+    }
+
+    .divider-short {
+      width: 1px;
+      height: 22px;
+      background: #d9d9d9;
+      margin-left: 4px;
+      margin-right: 4px;
+      flex: 0 0 auto;
+    }
+
+    .login-label {
+      font-weight: 700;
+      color: #2e2e2e;
+      padding: 0 12px;
+    }
+
+    /* ─── Main Scroll ──────────────────────────────────────────────── */
+    .main-scroll {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #ffffff;
+    }
+
+    /* ─── Main Surface ─────────────────────────────────────────────── */
+    .main-surface {
+      flex: 1 0 auto;
+      display: flex;
+      padding: 8px 220px;
+      background: #ffffff;
+    }
+
+    /* ─── Steps Sidebar ────────────────────────────────────────────── */
+    .steps {
+      width: 200px;
+      flex: 0 0 200px;
+      padding: 8px 8px 8px 16px;
+      border-right: 1px solid #c9c9c9;
+      background: #ffffff;
+    }
+
+    .steps h3 {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      line-height: 32px;
+      color: #03234d;
+      font-weight: 400;
+    }
+
+    .step-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-item {
+      min-height: 44px;
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .step-item[data-state="complete"] { cursor: pointer; }
+
+    .step-rail {
+      width: 16px;
+      flex: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rail-top,
+    .rail-bottom {
+      width: 2px;
+      flex: 1;
+      background: #c9c9c9;
+      min-height: 12px;
+    }
+
+    .step-item[data-position="top"]    .rail-top    { background: transparent; }
+    .step-item[data-position="bottom"] .rail-bottom { background: transparent; }
+
+    .step-indicator {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      position: relative;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-indicator::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c9c9c9;
+    }
+
+    .step-item[data-state="active"] .step-indicator {
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    .step-item[data-state="active"] .step-indicator::before,
+    .step-item[data-state="active"] .step-indicator::after { content: none; }
+
+    .step-item[data-state="complete"] .step-indicator {
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.7' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    .step-item[data-state="complete"] .step-indicator::before,
+    .step-item[data-state="complete"] .step-indicator::after { content: none; }
+
+    .step-item[data-state="complete"]:hover .step-indicator,
+    .step-item[data-state="complete"]:focus-visible .step-indicator {
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #03234d;
+    }
+
+    .step-item[data-position="middle"][data-state="active"]   .rail-top,
+    .step-item[data-position="bottom"][data-state="active"]   .rail-top,
+    .step-item[data-position="middle"][data-state="complete"] .rail-top,
+    .step-item[data-position="bottom"][data-state="complete"] .rail-top { background: #066afe; }
+
+    .step-item[data-position="top"][data-state="complete"]    .rail-bottom,
+    .step-item[data-position="middle"][data-state="complete"] .rail-bottom { background: #066afe; }
+
+    .step-item[data-position="top"]    .rail-top,
+    .step-item[data-position="bottom"] .rail-bottom { background: transparent; }
+
+    .step-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      font-weight: 400;
+      max-width: 156px;
+    }
+
+    .step-item[data-state="active"] .step-text {
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* ─── Content Area ─────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding: 16px 12px 8px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Screen ───────────────────────────────────────────────────── */
+    .screen {
+      display: none;
+      width: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ─── Screen Header ────────────────────────────────────────────── */
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .title-wrap h1 {
+      color: #001e5b;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .title-line {
+      width: 148px;
+      height: 2px;
+      background: #066afe;
+    }
+
+    .intro {
+      color: #181818;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 400;
+      max-width: 100%;
+    }
+
+    /* ─── Form Grid ────────────────────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .form-grid .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .label {
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+      color: #444444;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+    }
+
+    .required {
+      color: #b60554;
+      font-size: 12px;
+      line-height: 17px;
+      margin-right: 2px;
+    }
+
+    .input-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-text {
+      width: 100%;
+      height: 32px;
+      padding: 2px 8px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      outline: none;
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .input-text:focus {
+      border-color: #066afe;
+      box-shadow: 0 0 0 1px #066afe;
+    }
+
+
+    /* ─── Datepicker ───────────────────────────────────────────────── */
+    .datepicker {
+      position: relative;
+      width: 100%;
+    }
+
+    .datepicker-input {
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      height: 32px;
+      padding: 0 6px 0 8px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .datepicker.open .datepicker-input {
+      border: 2px solid #03234d;
+      padding: 0 5px 0 7px;
+    }
+
+    .datepicker-input .input-text {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      height: 100%;
+      flex: 1;
+    }
+
+    .datepicker-input .input-text:focus {
+      border: none;
+      box-shadow: none;
+    }
+
+    .datepicker-input .input-text[readonly] {
+      cursor: pointer;
+    }
+
+    .calendar-icon-btn {
+      border: 0;
+      background: transparent;
+      color: #0250d9;
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .calendar-icon-btn img {
+      width: 14px;
+      height: 14px;
+      display: block;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .datepicker-popover {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 308px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #d8dde6;
+      box-shadow: 0 -1px 2px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.2), 0 0 5px rgba(0,0,0,0.2);
+      z-index: 25;
+      display: none;
+      padding: 8px 8px 6px;
+      box-sizing: border-box;
+    }
+
+    .datepicker.open .datepicker-popover {
+      display: block;
+    }
+
+    .dp-header {
+      display: grid;
+      grid-template-columns: 24px 1fr 24px 80px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+      position: relative;
+      min-height: 40px;
+    }
+
+    .dp-nav {
+      border: 0;
+      background: transparent;
+      color: #066afe;
+      font-size: 12px;
+      cursor: pointer;
+      height: 24px;
+      width: 24px;
+      border-radius: 6px;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .dp-nav:hover { background: #eef4ff; }
+
+    .dp-month-label {
+      text-align: center;
+      font-size: 12px;
+      line-height: 17px;
+      color: #181818;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .dp-year-select {
+      position: relative;
+      width: 80px;
+    }
+
+    .dp-year-trigger {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #f3f3f3;
+      font-size: 13px;
+      line-height: 18px;
+      color: #444;
+      padding: 0 24px 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dp-year-trigger::after {
+      content: "";
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translateY(-50%);
+      background: url("assets/dropdown-down-icon.png") center center / 16px 16px no-repeat;
+    }
+
+    .datepicker.year-open .dp-year-trigger {
+      border: 2px solid #03234d;
+      padding-left: 7px;
+      padding-right: 23px;
+    }
+
+    .dp-year-list {
+      display: none;
+      position: absolute;
+      top: 34px;
+      right: 0;
+      width: 87px;
+      border: 1px solid #d8dde6;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 -1px 2px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.2), 0 0 5px rgba(0,0,0,0.2);
+      overflow: hidden;
+      z-index: 30;
+      padding: 2px 0;
+    }
+
+    .datepicker.year-open .dp-year-list { display: block; }
+
+    .dp-year-option {
+      height: 35px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      font-size: 13px;
+      line-height: 18px;
+      color: #444;
+      cursor: pointer;
+      text-align: left;
+      padding: 0 8px 0 30px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      position: relative;
+    }
+
+    .dp-year-option:hover { background: #f3f3f3; }
+
+    .dp-year-option.selected::before {
+      content: "✓";
+      color: #066afe;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-52%);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .dp-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+
+    .dp-weekday {
+      text-align: center;
+      font-size: 12px;
+      line-height: 17px;
+      color: #03234d;
+      padding: 2px 0;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .dp-day {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: #2e2e2e;
+      font-size: 12px;
+      line-height: 17px;
+      text-align: center;
+      cursor: pointer;
+      justify-self: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    .dp-day.other-month { color: #6b6b6b; }
+    .dp-day.is-future { color: #c9c9c9; cursor: not-allowed; pointer-events: none; }
+    .dp-day:not(.is-future):hover { background: #eef4ff; }
+    .dp-day.selected { background: transparent; color: #fff; }
+    .dp-day.preview { background: transparent; color: #03234d; }
+
+    .dp-day.selected::before,
+    .dp-day.preview::before {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 9999px;
+      z-index: -1;
+    }
+
+    .dp-day.selected::before { background: #066afe; }
+    .dp-day.preview::before  { background: #d6e6ff; }
+
+    .dp-today {
+      border: 0;
+      background: transparent;
+      color: #066afe;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      text-align: center;
+      width: 100%;
+      cursor: pointer;
+      padding: 0 0 2px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    /* ─── Row Actions ──────────────────────────────────────────────── */
+    .row-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 8px 0;
+    }
+
+    .row-actions.has-prev {
+      justify-content: space-between;
+    }
+
+    /* ─── Secondary (Previous) Button — matches agents flow ───────── */
+    .btn-secondary {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 14px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      color: #03234d;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: #444444;
+      background: #f3f3f3;
+      color: #03234d;
+    }
+
+    .btn-secondary:active:not(:disabled) {
+      border-color: #2e2e2e;
+      background: #e7e7e7;
+      color: #03234d;
+    }
+
+    .btn-secondary:disabled {
+      border-color: #c9c9c9;
+      background: #f3f3f3;
+      color: #9d9d9d;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
+    }
+
+    /* ─── Brand Button — matches agents flow ──────────────────────── */
+    .btn-brand {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      border: 1px solid #066afe;
+      background: #066afe;
+      color: #ffffff;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-brand:hover:not(:disabled) {
+      border-color: #0250d9;
+      background: #0250d9;
+    }
+
+    .btn-brand:active:not(:disabled) {
+      border-color: #013ca8;
+      background: #013ca8;
+    }
+
+    .btn-brand:disabled {
+      border-color: #b8d2ff;
+      background: #b8d2ff;
+      color: #f8fbff;
+      cursor: not-allowed;
+    }
+
+    .btn-brand:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
+    }
+
+    /* ─── Footer ───────────────────────────────────────────────────── */
+    .footer {
+      background: #f7f7f7;
+      margin-top: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      padding: 16px 64px;
+    }
+
+    .footer-logo {
+      height: 54px;
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .footer-columns {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .footer-col-title {
+      font-weight: 700;
+      color: #2e2e2e;
+      line-height: 24px;
+    }
+
+    .footer-col-body {
+      color: #2e2e2e;
+      line-height: 24px;
+    }
+
+    .footer-col-body a {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: #c9c9c9;
+      margin: 0 40px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 64px;
+    }
+
+    .footer-copyright {
+      font-size: 16px;
+      line-height: 24px;
+      color: #2e2e2e;
+      font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-link {
+      color: #0250d9;
+      font-size: 14px;
+      line-height: 18px;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-link-divider {
+      width: 1px;
+      height: 22px;
+      background: #c9c9c9;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ═══ TOP BAR V2 ═══════════════════════════════════════════════ -->
+    <div class="home-landing-topbarv2">
+      <svg class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M 0,44 L 305,44 Q 320,44 333,36 L 387,8 Q 400,0 415,0 L 1273,0 Q 1288,0 1301,8 L 1355,36 Q 1368,44 1383,44 L 1688,44" stroke="rgba(4,225,203,0.2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <div class="home-landing-brand-lockupv2">
+        <img class="home-brand-leftv2" src="assets/napa-logo.png" alt="Carrier logo" />
+        <div class="home-brand-dividerv2" aria-hidden="true"></div>
+        <img class="home-brand-salesforcev2" src="assets/salesforce-logo.svg" alt="Salesforce" />
+      </div>
+      <div class="aft-topbar-timer" id="aftTopbarTimer" aria-live="polite" aria-label="Elapsed time">
+        <span class="aft-topbar-timer-display" id="aftTopbarTimerDisplay">00:00</span>
+        <button class="aft-topbar-timer-btn" id="aftTopbarTimerBtn" type="button" aria-label="Pause timer">
+          <img class="aft-topbar-timer-pause-icon" src="assets/timer-pause-icon.svg" alt="Pause" />
+          <img class="aft-topbar-timer-resume-icon" src="assets/timer-play-icon.svg" alt="Resume" />
+        </button>
+      </div>
+      <div class="home-landing-contextv2" aria-hidden="true">
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Flow</p>
+          <p class="home-landing-context-valuev2">Disability</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">1st Year?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxFirstYear">–</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Hospitalization?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxHospitalization">–</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Ft. + Lb.?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxWeight">–</p>
+        </div>
+      </div>
+      <button class="home-landing-home-btn" type="button" id="aftTopBarHomeBtn" aria-label="Go to Home">
+        <span class="home-landing-home-icon" aria-hidden="true"></span>
+        <span class="app-home-btn-label">Home</span>
+      </button>
+    </div>
+
+    <!-- ═══ HEADER ═══════════════════════════════════════════════════ -->
+    <header class="header" id="aftHeader">
+      <img
+        class="brand-logo"
+        src="assets/aft-logo.png"
+        alt="AFT+ Member Benefits"
+      />
+      <div class="divider-tall" aria-hidden="true"></div>
+      <div class="header-right">
+        <span class="help-label">Need Help:</span>
+        <a class="help-phone" href="tel:8884238700">Call 888-423-8700</a>
+        <div class="divider-short" aria-hidden="true"></div>
+        <span class="login-label">Login</span>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN ══════════════════════════════════════════════════════ -->
+    <div class="main-scroll" id="mainScroll">
+      <main class="main-surface">
+
+        <!-- Steps Sidebar -->
+        <aside class="steps">
+          <h3>Steps</h3>
+          <ul class="step-list" id="stepList">
+            <li class="step-item" data-position="top" data-state="active" data-screen="screen-start-here">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Start here</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-consent">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Consent</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-coverage">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Coverage</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-health">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Health Information</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-enrollment">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Enrollment</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-physician">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Physician &amp; Prescriptions</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-notices">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Notices</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-opt-ins">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Opt Ins</span>
+            </li>
+            <li class="step-item" data-position="bottom" data-state="default" data-screen="screen-payment">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Payment</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Step Content -->
+        <section class="content">
+
+          <!-- ── Start Here ─────────────────────────────────────── -->
+          <div class="screen active" id="screen-start-here">
+            <div class="title-wrap">
+              <h1>Start Here</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">
+              To match you with the best plan, we'll need a few details about you and your business.
+            </p>
+            <div class="form-grid">
+              <div class="field">
+                <p class="label"><span class="required">*</span>First Name</p>
+                <div class="input-field">
+                  <input class="input-text" type="text" name="firstName" aria-label="First Name" />
+                </div>
+              </div>
+              <div class="field">
+                <p class="label"><span class="required">*</span>Last Name</p>
+                <div class="input-field">
+                  <input class="input-text" type="text" name="lastName" aria-label="Last Name" />
+                </div>
+              </div>
+              <div class="field">
+                <p class="label"><span class="required">*</span>Email Address</p>
+                <div class="input-field">
+                  <input class="input-text" type="email" name="emailAddress" aria-label="Email Address" />
+                </div>
+              </div>
+              <div class="field">
+                <p class="label"><span class="required">*</span>Original date you joined AFT?</p>
+                <div class="datepicker" id="aftJoinDatePicker">
+                  <div class="input-field datepicker-input" id="aftJoinDateInputWrap">
+                    <input class="input-text" type="text" id="aftJoinDateInput" name="aftJoinDate" aria-label="Original date you joined AFT?" placeholder="Select a date..." readonly />
+                    <button class="calendar-icon-btn" type="button" id="aftJoinDateToggle" aria-label="Toggle calendar">
+                      <img src="assets/calendar-icon.png" alt="" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <div class="datepicker-popover" id="aftJoinDatePopover">
+                    <div class="dp-header">
+                      <button class="dp-nav" type="button" id="aftDpPrevMonth" aria-label="Previous month">◀</button>
+                      <div class="dp-month-label" id="aftDpMonthLabel">January</div>
+                      <button class="dp-nav" type="button" id="aftDpNextMonth" aria-label="Next month">▶</button>
+                      <div class="dp-year-select">
+                        <button class="dp-year-trigger" type="button" id="aftDpYearTrigger" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                        <div class="dp-year-list" id="aftDpYearList" role="listbox" aria-label="Year options"></div>
+                      </div>
+                    </div>
+                    <div class="dp-grid">
+                      <div class="dp-weekday">Sun</div>
+                      <div class="dp-weekday">Mon</div>
+                      <div class="dp-weekday">Tue</div>
+                      <div class="dp-weekday">Wed</div>
+                      <div class="dp-weekday">Thu</div>
+                      <div class="dp-weekday">Fri</div>
+                      <div class="dp-weekday">Sat</div>
+                    </div>
+                    <div class="dp-grid" id="aftDpDaysGrid"></div>
+                    <button class="dp-today" type="button" id="aftDpTodayBtn">Today</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-actions">
+              <button class="btn-brand" id="startNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Consent (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-consent">
+            <div class="title-wrap">
+              <h1>Consent</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Consent screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="consentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="consentNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Coverage (placeholder) ─────────────────────────── -->
+          <div class="screen" id="screen-coverage">
+            <div class="title-wrap">
+              <h1>Coverage</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Coverage screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="coveragePrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="coverageNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Health Information (placeholder) ───────────────── -->
+          <div class="screen" id="screen-health">
+            <div class="title-wrap">
+              <h1>Health Information</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Health Information screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="healthPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="healthNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Enrollment (placeholder) ───────────────────────── -->
+          <div class="screen" id="screen-enrollment">
+            <div class="title-wrap">
+              <h1>Enrollment</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Enrollment screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="enrollmentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="enrollmentNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Physician & Prescriptions (placeholder) ────────── -->
+          <div class="screen" id="screen-physician">
+            <div class="title-wrap">
+              <h1>Physician &amp; Prescriptions</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Physician &amp; Prescriptions screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="physicianPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="physicianNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Notices (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-notices">
+            <div class="title-wrap">
+              <h1>Notices</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Notices screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="noticesPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="noticesNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Opt Ins (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-opt-ins">
+            <div class="title-wrap">
+              <h1>Opt Ins</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Opt Ins screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="optInsPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="optInsNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Payment (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-payment">
+            <div class="title-wrap">
+              <h1>Payment</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Payment screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="paymentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" type="button">Submit</button>
+            </div>
+          </div>
+
+        </section>
+      </main>
+
+      <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+      <footer class="footer">
+        <div class="footer-top">
+          <img
+            class="footer-logo"
+            src="assets/aft-logo.png"
+            alt="AFT+ Member Benefits"
+          />
+          <div class="footer-columns">
+            <div>
+              <p class="footer-col-title">Contact Us</p>
+              <p class="footer-col-body">Call <a href="tel:8884238700">888-423-8700</a></p>
+            </div>
+            <div>
+              <p class="footer-col-title">Business Hours</p>
+              <p class="footer-col-body">Mon - Fri....8:00 am - 8:00 pm EST</p>
+              <p class="footer-col-body">Sat - Sun....Closed</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">© 2026 Arthur J. Gallagher &amp; Co.</p>
+          <div class="footer-links">
+            <a class="footer-link" href="#">Privacy Policy</a>
+            <div class="footer-link-divider"></div>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /main-scroll -->
+
+  </div><!-- /app-shell -->
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ── Datepicker ───────────────────────────────────────────── */
+      var aftJoinDatePicker  = document.getElementById("aftJoinDatePicker");
+      var aftJoinDateInput   = document.getElementById("aftJoinDateInput");
+      var aftJoinDateToggle  = document.getElementById("aftJoinDateToggle");
+      var aftDpPrevMonth     = document.getElementById("aftDpPrevMonth");
+      var aftDpNextMonth     = document.getElementById("aftDpNextMonth");
+      var aftDpMonthLabel    = document.getElementById("aftDpMonthLabel");
+      var aftDpYearTrigger   = document.getElementById("aftDpYearTrigger");
+      var aftDpYearList      = document.getElementById("aftDpYearList");
+      var aftDpDaysGrid      = document.getElementById("aftDpDaysGrid");
+      var aftDpTodayBtn      = document.getElementById("aftDpTodayBtn");
+
+      var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      var YEAR_OPTIONS = [];
+      for (var y = 2000; y <= 2030; y++) YEAR_OPTIONS.push(y);
+
+      var today = new Date();
+      var normalizedToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      var selectedDate = null;
+      var visibleMonth = normalizedToday.getMonth();
+      var visibleYear  = normalizedToday.getFullYear();
+
+      function formatDateMMDDYYYY(date) {
+        var mm = String(date.getMonth() + 1).padStart(2, "0");
+        var dd = String(date.getDate()).padStart(2, "0");
+        var yyyy = date.getFullYear();
+        return mm + "/" + dd + "/" + yyyy;
+      }
+
+      function openDatepicker() {
+        if (!aftJoinDatePicker) return;
+        if (!selectedDate) {
+          selectedDate = new Date(normalizedToday);
+          if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(selectedDate);
+        }
+        visibleMonth = selectedDate.getMonth();
+        visibleYear  = selectedDate.getFullYear();
+        aftJoinDatePicker.classList.add("open");
+        renderDatepicker();
+      }
+
+      function closeDatepicker() {
+        if (!aftJoinDatePicker) return;
+        aftJoinDatePicker.classList.remove("open");
+        aftJoinDatePicker.classList.remove("year-open");
+        if (aftDpYearTrigger) aftDpYearTrigger.setAttribute("aria-expanded", "false");
+      }
+
+      function renderDatepicker() {
+        if (!aftDpMonthLabel || !aftDpYearTrigger || !aftDpYearList || !aftDpDaysGrid) return;
+
+        aftDpMonthLabel.textContent = MONTH_NAMES[visibleMonth];
+        aftDpYearTrigger.textContent = String(visibleYear);
+
+        aftDpYearList.innerHTML = "";
+        YEAR_OPTIONS.forEach(function(year) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "dp-year-option" + (year === visibleYear ? " selected" : "");
+          btn.setAttribute("role", "option");
+          btn.setAttribute("aria-selected", year === visibleYear ? "true" : "false");
+          btn.textContent = String(year);
+          btn.addEventListener("click", function(e) {
+            e.stopPropagation();
+            visibleYear = year;
+            aftJoinDatePicker.classList.remove("year-open");
+            aftDpYearTrigger.setAttribute("aria-expanded", "false");
+            renderDatepicker();
+          });
+          aftDpYearList.appendChild(btn);
+        });
+
+        aftDpDaysGrid.innerHTML = "";
+        var firstDayIndex = new Date(visibleYear, visibleMonth, 1).getDay();
+        var daysInMonth   = new Date(visibleYear, visibleMonth + 1, 0).getDate();
+        var daysInPrev    = new Date(visibleYear, visibleMonth, 0).getDate();
+        var cells = [];
+
+        for (var i = firstDayIndex - 1; i >= 0; i--) cells.push({ day: daysInPrev - i, offset: -1 });
+        for (var d = 1; d <= daysInMonth; d++) cells.push({ day: d, offset: 0 });
+        while (cells.length % 7 !== 0) cells.push({ day: cells.length - (firstDayIndex + daysInMonth) + 1, offset: 1 });
+
+        var todayStart = new Date(normalizedToday);
+
+        cells.forEach(function(cell) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "dp-day" + (cell.offset !== 0 ? " other-month" : "");
+          var cellDate = new Date(visibleYear, visibleMonth + cell.offset, cell.day);
+
+          if (cellDate > todayStart) {
+            btn.classList.add("is-future");
+            btn.setAttribute("aria-disabled", "true");
+            btn.textContent = String(cell.day);
+            aftDpDaysGrid.appendChild(btn);
+            return;
+          }
+
+          if (selectedDate &&
+              cellDate.getFullYear() === selectedDate.getFullYear() &&
+              cellDate.getMonth()    === selectedDate.getMonth() &&
+              cellDate.getDate()     === selectedDate.getDate()) {
+            btn.classList.add("selected");
+          }
+
+          btn.textContent = String(cell.day);
+          btn.addEventListener("click", function() {
+            selectedDate = cellDate;
+            if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(cellDate);
+            closeDatepicker();
+          });
+          aftDpDaysGrid.appendChild(btn);
+        });
+      }
+
+      /* Datepicker event bindings */
+      if (aftJoinDateToggle) {
+        aftJoinDateToggle.addEventListener("click", function(e) {
+          e.stopPropagation();
+          if (aftJoinDatePicker && aftJoinDatePicker.classList.contains("open")) {
+            closeDatepicker();
+          } else {
+            openDatepicker();
+          }
+        });
+      }
+
+      if (aftJoinDateInput) {
+        aftJoinDateInput.addEventListener("click", function() { openDatepicker(); });
+      }
+
+      if (aftDpPrevMonth) {
+        aftDpPrevMonth.addEventListener("click", function() {
+          if (visibleMonth === 0) { visibleMonth = 11; visibleYear--; }
+          else { visibleMonth--; }
+          renderDatepicker();
+        });
+      }
+
+      if (aftDpNextMonth) {
+        aftDpNextMonth.addEventListener("click", function() {
+          if (visibleMonth === 11) { visibleMonth = 0; visibleYear++; }
+          else { visibleMonth++; }
+          renderDatepicker();
+        });
+      }
+
+      if (aftDpYearTrigger) {
+        aftDpYearTrigger.addEventListener("click", function(e) {
+          e.stopPropagation();
+          if (!aftJoinDatePicker) return;
+          var isOpen = aftJoinDatePicker.classList.toggle("year-open");
+          aftDpYearTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      }
+
+      if (aftDpTodayBtn) {
+        aftDpTodayBtn.addEventListener("click", function() {
+          selectedDate = new Date(normalizedToday);
+          if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(selectedDate);
+          visibleYear  = selectedDate.getFullYear();
+          visibleMonth = selectedDate.getMonth();
+          closeDatepicker();
+        });
+      }
+
+      /* Close datepicker on outside click */
+      document.addEventListener("click", function(e) {
+        if (aftJoinDatePicker && !aftJoinDatePicker.contains(e.target)) {
+          closeDatepicker();
+        }
+      });
+
+      /* ── Timer ───────────────────────────────────────────────── */
+      var aftTopbarTimer = document.getElementById("aftTopbarTimer");
+      var aftTopbarTimerDisplay = document.getElementById("aftTopbarTimerDisplay");
+      var aftTopbarTimerBtn = document.getElementById("aftTopbarTimerBtn");
+      var aftTimerSeconds = 0;
+      var aftTimerInterval = null;
+      var aftTimerPaused = false;
+
+      function formatAftTime(s) {
+        var m = Math.floor(s / 60);
+        var sec = s % 60;
+        return (m < 10 ? "0" + m : m) + ":" + (sec < 10 ? "0" + sec : sec);
+      }
+
+      function startAftTimer() {
+        if (aftTimerInterval) return;
+        aftTimerSeconds = 0;
+        aftTimerPaused = false;
+        if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
+        if (aftTopbarTimer) aftTopbarTimer.classList.remove("is-paused");
+        aftTimerInterval = setInterval(function () {
+          if (!aftTimerPaused) {
+            aftTimerSeconds++;
+            if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = formatAftTime(aftTimerSeconds);
+          }
+        }, 1000);
+      }
+
+      if (aftTopbarTimerBtn) {
+        aftTopbarTimerBtn.addEventListener("click", function () {
+          if (!aftTimerInterval) return;
+          aftTimerPaused = !aftTimerPaused;
+          if (aftTopbarTimer) aftTopbarTimer.classList.toggle("is-paused", aftTimerPaused);
+          aftTopbarTimerBtn.setAttribute("aria-label", aftTimerPaused ? "Resume timer" : "Pause timer");
+        });
+      }
+
+      startAftTimer();
+
+      /* ── Home button ──────────────────────────────────────────── */
+      var aftTopBarHomeBtn = document.getElementById("aftTopBarHomeBtn");
+      if (aftTopBarHomeBtn) {
+        aftTopBarHomeBtn.addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+      }
+
+      /* ── Step navigation ──────────────────────────────────────── */
+      const stepItems   = Array.from(document.querySelectorAll(".step-list .step-item"));
+      const screens     = Array.from(document.querySelectorAll(".content .screen"));
+      const mainScroll  = document.getElementById("mainScroll");
+      const header      = document.getElementById("aftHeader");
+
+      let currentIndex = 0;
+
+      function goToStep(index) {
+        if (index < 0 || index >= stepItems.length) return;
+
+        stepItems.forEach(function (item, i) {
+          if (i < index) {
+            item.dataset.state = "complete";
+          } else if (i === index) {
+            item.dataset.state = "active";
+          } else {
+            item.dataset.state = "default";
+          }
+        });
+
+        screens.forEach(function (s) { s.classList.remove("active"); });
+        if (screens[index]) { screens[index].classList.add("active"); }
+
+        currentIndex = index;
+        mainScroll.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* Allow clicking completed steps to go back */
+      stepItems.forEach(function (item, index) {
+        item.addEventListener("click", function () {
+          if (item.dataset.state === "complete") {
+            goToStep(index);
+          }
+        });
+      });
+
+      /* ── Next buttons ─────────────────────────────────────────── */
+      function bindNextBtn(id) {
+        var btn = document.getElementById(id);
+        if (btn) {
+          btn.addEventListener("click", function () {
+            goToStep(currentIndex + 1);
+          });
+        }
+      }
+
+      function bindPrevBtn(id) {
+        var btn = document.getElementById(id);
+        if (btn) {
+          btn.addEventListener("click", function () {
+            goToStep(currentIndex - 1);
+          });
+        }
+      }
+
+      bindNextBtn("startNextBtn");
+      bindNextBtn("consentNextBtn");
+      bindNextBtn("coverageNextBtn");
+      bindNextBtn("healthNextBtn");
+      bindNextBtn("enrollmentNextBtn");
+      bindNextBtn("physicianNextBtn");
+      bindNextBtn("noticesNextBtn");
+      bindNextBtn("optInsNextBtn");
+
+      bindPrevBtn("consentPrevBtn");
+      bindPrevBtn("coveragePrevBtn");
+      bindPrevBtn("healthPrevBtn");
+      bindPrevBtn("enrollmentPrevBtn");
+      bindPrevBtn("physicianPrevBtn");
+      bindPrevBtn("noticesPrevBtn");
+      bindPrevBtn("optInsPrevBtn");
+      bindPrevBtn("paymentPrevBtn");
+
+      /* ── Header scroll shadow ─────────────────────────────────── */
+      mainScroll.addEventListener("scroll", function () {
+        header.classList.toggle("is-scrolled", mainScroll.scrollTop > 4);
+      });
+
+    }());
+  </script>
+</body>
+</html>
