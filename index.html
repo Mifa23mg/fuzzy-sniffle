@@ -509,7 +509,7 @@
     }
 
     .app-shell.home-landing-active {
-      background: #2e2e2e;
+      background: linear-gradient(160deg, #3a3a3a 0%, #2e2e2e 50%, #242424 100%);
       margin-top: 0;
       padding-top: 0;
       gap: 10px;
@@ -528,7 +528,7 @@
       width: 100%;
       max-width: none;
       height: 100vh;
-      background: #2e2e2e;
+      background: transparent;
     }
 
     .app-shell.home-landing-active .header,
@@ -542,7 +542,7 @@
       display: none;
       width: 100%;
       height: 100%;
-      background: #2e2e2e;
+      background: transparent;
       overflow: auto;
     }
 
@@ -2482,7 +2482,13 @@
 
     /* Reusable info icon component */
     .app-tooltip-anchor {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
       cursor: help;
+      vertical-align: middle;
+      flex: 0 0 14px;
+      background: transparent url("assets/info-button-icon-hover.png") center center / 14px 14px no-repeat !important;
     }
 
     .app-tooltip-bubble {
@@ -2524,10 +2530,8 @@
       position: absolute;
       width: 28px;
       height: 10px;
-      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2728%27%20height%3D%2710%27%20viewBox%3D%270%200%2028%2010%27%3E%3Cpath%20d%3D%27M0%200%20L28%200%20L14%2010%20Z%27%20fill%3D%27%231c1c2e%27%2F%3E%3C%2Fsvg%3E");
-      background-size: 28px 10px;
-      background-repeat: no-repeat;
-      background-position: center;
+      background: #032D60;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
       box-sizing: border-box;
       transform-origin: center center;
       z-index: 5;
@@ -2709,7 +2713,7 @@
       height: 32px;
       border: 1px solid #5c5c5c;
       border-radius: 8px;
-      background: #f3f3f3;
+      background: #ffffff;
       font-size: 13px;
       line-height: 18px;
       color: #444;
@@ -2746,11 +2750,14 @@
       top: 34px;
       right: 0;
       width: 87px;
+      max-height: 245px;
       border: 1px solid #d8dde6;
       border-radius: 12px;
       background: #fff;
       box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16), 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
       z-index: 30;
       padding: 2px 0;
     }
@@ -2838,6 +2845,14 @@
 
     .dp-day:not(.is-future):hover {
       background: #eef4ff;
+    }
+
+    .dp-day.selected:hover {
+      background: transparent !important;
+    }
+
+    .dp-day.selected:hover::before {
+      background: #066afe !important;
     }
 
     .dp-day.selected {
@@ -4195,25 +4210,7 @@
     }
 
     .enrollment-info-icon {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
       margin-left: 8px;
-      vertical-align: middle;
-      background-color: transparent;
-      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2014%2014%27%3E%3Ccircle%20cx%3D%277%27%20cy%3D%277%27%20r%3D%277%27%20fill%3D%27%230070d2%27%2F%3E%3Ctext%20x%3D%277%27%20y%3D%2711%27%20text-anchor%3D%27middle%27%20fill%3D%27white%27%20font-size%3D%279%27%20font-family%3D%27sans-serif%27%20font-weight%3D%27bold%27%3Ei%3C%2Ftext%3E%3C%2Fsvg%3E");
-      background-repeat: no-repeat;
-      background-size: 14px 14px;
-      background-position: center;
-      flex: 0 0 auto;
-    }
-
-    .enrollment-info-icon.app-tooltip-anchor:hover,
-    .enrollment-info-icon.app-tooltip-anchor:focus-visible {
-      background-image: url("assets/info-button-icon-hover.png");
-      background-size: 14px 14px;
-      background-position: center;
-      background-repeat: no-repeat;
     }
 
     /* In flex containers that already use gap: 8px, let the gap handle spacing */
@@ -5791,20 +5788,8 @@
     }
 
     .preview-method-label.with-info .preview-method-info {
-      width: 14px;
-      height: 14px;
       margin-left: 8px;
-      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2014%2014%27%3E%3Ccircle%20cx%3D%277%27%20cy%3D%277%27%20r%3D%277%27%20fill%3D%27%230070d2%27%2F%3E%3Ctext%20x%3D%277%27%20y%3D%2711%27%20text-anchor%3D%27middle%27%20fill%3D%27white%27%20font-size%3D%279%27%20font-family%3D%27sans-serif%27%20font-weight%3D%27bold%27%3Ei%3C%2Ftext%3E%3C%2Fsvg%3E") center center / 14px 14px no-repeat;
-      flex: 0 0 14px;
-      transform: translateY(-1px);
-    }
-
-    .preview-method-label.with-info .preview-method-info:hover,
-    .preview-method-label.with-info .preview-method-info:focus-visible {
-      background-image: url("assets/info-button-icon-hover.png");
-      background-size: 14px 14px;
-      background-position: center;
-      background-repeat: no-repeat;
+      transform: none;
     }
 
     .preview-method-input {
@@ -9098,7 +9083,7 @@
 
       const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const YEAR_OPTIONS = [];
-      for (let y = 2024; y <= 2030; y += 1) YEAR_OPTIONS.push(y);
+      for (let y = 1970; y <= 2030; y += 1) YEAR_OPTIONS.push(y);
       const startHereApplicant = {
         firstName: "",
         emailAddress: ""
@@ -9286,146 +9271,195 @@
         });
       }
 
-      function openDatepicker() {
-        if (!licensureDatePicker) return;
-        if (!selectedLicensureDate) {
-          selectedLicensureDate = new Date(normalizedToday);
-          if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
+      function makeDatepicker(wrapId, options) {
+        options = options || {};
+        var onSelectCb = options.onSelect || null;
+        var onOpenCb = options.onOpen || null;
+        var onCloseCb = options.onClose || null;
+
+        var wrap = document.getElementById(wrapId);
+        if (!wrap) return { setDate: function() {}, open: function() {}, close: function() {} };
+
+        var input = wrap.querySelector(".input-text");
+        var toggle = wrap.querySelector(".calendar-icon-btn");
+        var navBtns = wrap.querySelectorAll(".dp-nav");
+        var prevBtn = wrap.querySelector(".dp-prev") || (navBtns.length ? navBtns[0] : null);
+        var nextBtn = wrap.querySelector(".dp-next") || (navBtns.length > 1 ? navBtns[1] : null);
+        var monthLbl = wrap.querySelector(".dp-month-label");
+        var yearTrig = wrap.querySelector(".dp-year-trigger");
+        var yearList = wrap.querySelector(".dp-year-list");
+        var daysGrid = wrap.querySelector(".dp-days-grid") || wrap.querySelector(".dp-grid[id$='DaysGrid']");
+        var todayBtn = wrap.querySelector(".dp-today");
+
+        if (yearList) {
+          yearList.addEventListener("wheel", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var delta = e.deltaMode === 0 ? e.deltaY : (e.deltaMode === 1 ? e.deltaY * 35 : e.deltaY * 245);
+            yearList.scrollTop += delta;
+          }, { passive: false });
         }
-        visibleMonth = selectedLicensureDate.getMonth();
-        visibleYear = selectedLicensureDate.getFullYear();
-        licensureDatePicker.classList.add("open");
-        renderDatepicker();
-      }
 
-      function closeDatepicker() {
-        if (!licensureDatePicker) return;
-        licensureDatePicker.classList.remove("open");
-        licensureDatePicker.classList.remove("year-open");
-        if (dpYearTrigger) dpYearTrigger.setAttribute("aria-expanded", "false");
-      }
+        var sel = null;
+        var vm = normalizedToday.getMonth();
+        var vy = normalizedToday.getFullYear();
 
-      function openEnrollDatepicker() {
-        if (!enrollLicensureDatePicker) return;
-        if (!selectedLicensureDate) {
-          selectedLicensureDate = new Date(normalizedToday);
-        }
-        visibleMonth = selectedLicensureDate.getMonth();
-        visibleYear = selectedLicensureDate.getFullYear();
-        enrollLicensureDatePicker.classList.add("open");
-        if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.add("is-open");
-        renderEnrollDatepicker();
-      }
-
-      function closeEnrollDatepicker() {
-        if (!enrollLicensureDatePicker) return;
-        enrollLicensureDatePicker.classList.remove("open");
-        if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.remove("is-open");
-        enrollLicensureDatePicker.classList.remove("year-open");
-        if (enrollDpYearTrigger) enrollDpYearTrigger.setAttribute("aria-expanded", "false");
-      }
-
-      function renderDatepickerFor(pickerEl, monthLabelEl, yearTriggerEl, yearListEl, daysGridEl, onDayPick) {
-        if (!monthLabelEl || !yearTriggerEl || !yearListEl || !daysGridEl) return;
-        monthLabelEl.textContent = MONTH_NAMES[visibleMonth];
-        yearTriggerEl.textContent = String(visibleYear);
-        yearListEl.innerHTML = "";
-        YEAR_OPTIONS.forEach(function renderYearOption(year) {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "dp-year-option" + (year === visibleYear ? " selected" : "");
-          btn.setAttribute("role", "option");
-          btn.setAttribute("aria-selected", year === visibleYear ? "true" : "false");
-          btn.textContent = String(year);
-          btn.addEventListener("click", function onYearPick(event) {
-            event.stopPropagation();
-            visibleYear = year;
-            pickerEl.classList.remove("year-open");
-            yearTriggerEl.setAttribute("aria-expanded", "false");
-            renderDatepickerFor(pickerEl, monthLabelEl, yearTriggerEl, yearListEl, daysGridEl, onDayPick);
+        function open() {
+          if (!sel) {
+            sel = new Date(normalizedToday);
+            if (input) input.value = formatDateMMDDYYYY(sel);
+          }
+          vm = sel.getMonth();
+          vy = sel.getFullYear();
+          document.querySelectorAll(".datepicker.open").forEach(function(dp) {
+            if (dp !== wrap) {
+              dp.classList.remove("open");
+              dp.classList.remove("year-open");
+            }
           });
-          yearListEl.appendChild(btn);
+          wrap.classList.add("open");
+          render();
+          if (onOpenCb) onOpenCb();
+        }
+
+        function close() {
+          wrap.classList.remove("open");
+          wrap.classList.remove("year-open");
+          if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
+          if (onCloseCb) onCloseCb();
+        }
+
+        function render() {
+          if (!monthLbl || !yearTrig || !yearList || !daysGrid) return;
+          monthLbl.textContent = MONTH_NAMES[vm];
+          yearTrig.textContent = String(vy);
+
+          yearList.innerHTML = "";
+          var curYr = normalizedToday.getFullYear();
+          YEAR_OPTIONS.forEach(function(year) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            var isFuture = year > curYr;
+            btn.className = "dp-year-option" + (year === vy ? " selected" : "") + (isFuture ? " future-year" : "");
+            btn.setAttribute("role", "option");
+            btn.setAttribute("aria-selected", year === vy ? "true" : "false");
+            btn.setAttribute("aria-disabled", isFuture ? "true" : "false");
+            btn.textContent = String(year);
+            if (!isFuture) {
+              btn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                vy = year;
+                wrap.classList.remove("year-open");
+                yearTrig.setAttribute("aria-expanded", "false");
+                render();
+              });
+            }
+            yearList.appendChild(btn);
+          });
+
+          daysGrid.innerHTML = "";
+          var first = new Date(vy, vm, 1).getDay();
+          var dim = new Date(vy, vm + 1, 0).getDate();
+          var dipm = new Date(vy, vm, 0).getDate();
+          var cells = [];
+          for (var i = first - 1; i >= 0; i -= 1) cells.push({ day: dipm - i, offset: -1 });
+          for (var d = 1; d <= dim; d += 1) cells.push({ day: d, offset: 0 });
+          while (cells.length % 7 !== 0) cells.push({ day: cells.length - (first + dim) + 1, offset: 1 });
+
+          cells.forEach(function(cell) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "dp-day" + (cell.offset !== 0 ? " other-month" : "");
+            var cd = new Date(vy, vm + cell.offset, cell.day);
+            if (cd > normalizedToday) {
+              btn.classList.add("is-future");
+              btn.setAttribute("aria-disabled", "true");
+              btn.textContent = String(cell.day);
+              daysGrid.appendChild(btn);
+              return;
+            }
+            if (sel && cd.getFullYear() === sel.getFullYear() && cd.getMonth() === sel.getMonth() && cd.getDate() === sel.getDate()) {
+              btn.classList.add("selected");
+            }
+            btn.textContent = String(cell.day);
+            btn.addEventListener("click", function() {
+              sel = cd;
+              if (input) input.value = formatDateMMDDYYYY(cd);
+              if (onSelectCb) onSelectCb(cd);
+              close();
+            });
+            daysGrid.appendChild(btn);
+          });
+        }
+
+        if (toggle) toggle.addEventListener("click", function(e) {
+          e.stopPropagation();
+          if (input && input.disabled) return;
+          wrap.classList.contains("open") ? close() : open();
+        });
+        if (input) input.addEventListener("click", function() {
+          if (!input.disabled) open();
+        });
+        if (prevBtn) prevBtn.addEventListener("click", function() {
+          if (vm === 0) {
+            vm = 11;
+            vy -= 1;
+          } else {
+            vm -= 1;
+          }
+          render();
+        });
+        if (nextBtn) nextBtn.addEventListener("click", function() {
+          if (vm === 11) {
+            vm = 0;
+            vy += 1;
+          } else {
+            vm += 1;
+          }
+          render();
+        });
+        if (yearTrig) yearTrig.addEventListener("click", function(e) {
+          e.stopPropagation();
+          var isOpen = wrap.classList.toggle("year-open");
+          yearTrig.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          if (isOpen && yearList) {
+            requestAnimationFrame(function() {
+              var selBtn = yearList.querySelector(".dp-year-option.selected");
+              if (selBtn) yearList.scrollTop = Math.max(0, selBtn.offsetTop - 2 * 35);
+            });
+          }
+        });
+        if (todayBtn) todayBtn.addEventListener("click", function() {
+          sel = new Date(normalizedToday);
+          if (input) input.value = formatDateMMDDYYYY(sel);
+          if (onSelectCb) onSelectCb(sel);
+          vy = sel.getFullYear();
+          vm = sel.getMonth();
+          close();
+        });
+        document.addEventListener("click", function(e) {
+          if (!wrap.contains(e.target)) close();
         });
 
-        daysGridEl.innerHTML = "";
-        const firstDayIndex = new Date(visibleYear, visibleMonth, 1).getDay();
-        const daysInMonth = new Date(visibleYear, visibleMonth + 1, 0).getDate();
-        const daysInPrevMonth = new Date(visibleYear, visibleMonth, 0).getDate();
-        const cells = [];
-
-        for (let i = firstDayIndex - 1; i >= 0; i -= 1) {
-          cells.push({ day: daysInPrevMonth - i, monthOffset: -1 });
-        }
-        for (let d = 1; d <= daysInMonth; d += 1) {
-          cells.push({ day: d, monthOffset: 0 });
-        }
-        while (cells.length % 7 !== 0) {
-          cells.push({ day: cells.length - (firstDayIndex + daysInMonth) + 1, monthOffset: 1 });
-        }
-
-        const previewDate = selectedLicensureDate ? new Date(selectedLicensureDate.getFullYear(), selectedLicensureDate.getMonth(), selectedLicensureDate.getDate() - 1) : null;
-        const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);
-
-        cells.forEach(function renderCell(cell) {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "dp-day" + (cell.monthOffset !== 0 ? " other-month" : "");
-          const cellDate = new Date(visibleYear, visibleMonth + cell.monthOffset, cell.day);
-
-          if (cellDate > todayStart) {
-            button.classList.add("is-future");
-            button.setAttribute("aria-disabled", "true");
-            button.textContent = String(cell.day);
-            daysGridEl.appendChild(button);
-            return;
-          }
-
-          if (
-            selectedLicensureDate &&
-            cellDate.getFullYear() === selectedLicensureDate.getFullYear() &&
-            cellDate.getMonth() === selectedLicensureDate.getMonth() &&
-            cellDate.getDate() === selectedLicensureDate.getDate()
-          ) {
-            button.classList.add("selected");
-          }
-          if (
-            previewDate &&
-            cellDate.getFullYear() === previewDate.getFullYear() &&
-            cellDate.getMonth() === previewDate.getMonth() &&
-            cellDate.getDate() === previewDate.getDate() &&
-            cell.monthOffset !== 0
-          ) {
-            button.classList.add("preview");
-          }
-          button.textContent = String(cell.day);
-          button.addEventListener("click", function onDayPickClick() {
-            selectedLicensureDate = cellDate;
-            onDayPick(cellDate);
-          });
-          daysGridEl.appendChild(button);
-        });
+        return {
+          setDate: function(date) {
+            sel = date ? new Date(date) : null;
+            if (input) input.value = sel ? formatDateMMDDYYYY(sel) : "";
+          },
+          open: function() { open(); },
+          close: function() { close(); }
+        };
       }
 
-      function renderDatepicker() {
-        renderDatepickerFor(
-          licensureDatePicker, dpMonthLabel, dpYearTrigger, dpYearList, dpDaysGrid,
-          function onProInfoDayPick(date) {
-            if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(date);
-            closeDatepicker();
-          }
-        );
-      }
+      var proInfoDP = null;
+      var enrollDP = null;
 
-      function renderEnrollDatepicker() {
-        renderDatepickerFor(
-          enrollLicensureDatePicker, enrollDpMonthLabel, enrollDpYearTrigger, enrollDpYearList, enrollDpDaysGrid,
-          function onEnrollDayPick(date) {
-            if (enrollLicensureDateInput) enrollLicensureDateInput.value = formatDateMMDDYYYY(date);
-            closeEnrollDatepicker();
-          }
-        );
-      }
+      function openDatepicker() { if (proInfoDP) proInfoDP.open(); }
+      function closeDatepicker() { if (proInfoDP) proInfoDP.close(); }
+      function openEnrollDatepicker() { if (enrollDP) enrollDP.open(); }
+      function closeEnrollDatepicker() { if (enrollDP) enrollDP.close(); }
+      function renderDatepicker() {}
+      function renderEnrollDatepicker() {}
 
       function setGlobalContext(flowLabel, productLabel) {
         if (flowValueEl) flowValueEl.textContent = flowLabel;
@@ -11016,7 +11050,9 @@
         selectedLicensureDate = new Date(normalizedToday);
         visibleMonth = normalizedToday.getMonth();
         visibleYear = normalizedToday.getFullYear();
-        if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
+        if (proInfoDP) proInfoDP.setDate(selectedLicensureDate);
+        if (enrollDP) enrollDP.setDate(selectedLicensureDate);
+        window.__ajgLicensureDate = new Date(selectedLicensureDate);
         closeDatepicker();
         clearRadioSelection();
         updateProductSelection(null, false);
@@ -11114,7 +11150,7 @@
       var aftDisabilityViewFlowBtn = document.getElementById("aftDisabilityViewFlowBtn");
       if (aftDisabilityViewFlowBtn) {
         aftDisabilityViewFlowBtn.addEventListener("click", function () {
-          window.open("aft-disability-enrollment-prototype.html", "_blank");
+          window.location.href = "aft-disability-enrollment-prototype.html";
         });
       }
 
@@ -11747,123 +11783,36 @@
       initUnderwritingQuestionRadios();
       syncOriginalLicensureDateVisibility();
 
-      if (licensureDateToggle) {
-        licensureDateToggle.addEventListener("click", function onToggleClick(event) {
-          event.stopPropagation();
-          if (licensureDatePicker && licensureDatePicker.classList.contains("open")) {
-            closeDatepicker();
-          } else {
-            openDatepicker();
-          }
-        });
-      }
+      proInfoDP = makeDatepicker("licensureDatePicker", {
+        onSelect: function(date) {
+          selectedLicensureDate = new Date(date);
+          window.__ajgLicensureDate = new Date(date);
+          if (enrollDP) enrollDP.setDate(date);
+        }
+      });
 
-      if (licensureDateInput) {
-        licensureDateInput.addEventListener("click", function onInputClick() {
-          openDatepicker();
-        });
-      }
-
-      if (dpPrevMonth) {
-        dpPrevMonth.addEventListener("click", function onPrevMonth() {
-          if (visibleMonth === 0) {
-            visibleMonth = 11;
-            visibleYear -= 1;
-          } else {
-            visibleMonth -= 1;
-          }
-          renderDatepicker();
-        });
-      }
-
-      if (dpNextMonth) {
-        dpNextMonth.addEventListener("click", function onNextMonth() {
-          if (visibleMonth === 11) {
-            visibleMonth = 0;
-            visibleYear += 1;
-          } else {
-            visibleMonth += 1;
-          }
-          renderDatepicker();
-        });
-      }
-
-      if (dpYearTrigger) {
-        dpYearTrigger.addEventListener("click", function onYearTriggerClick(event) {
-          event.stopPropagation();
-          if (!licensureDatePicker) return;
-          const isOpen = licensureDatePicker.classList.toggle("year-open");
-          dpYearTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        });
-      }
-
-      if (dpTodayBtn) {
-        dpTodayBtn.addEventListener("click", function onTodayClick() {
-          selectedLicensureDate = new Date();
-          if (licensureDateInput) licensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
-          visibleYear = selectedLicensureDate.getFullYear();
-          visibleMonth = selectedLicensureDate.getMonth();
-          closeDatepicker();
-        });
-      }
-
-      if (enrollLicensureDateToggle) {
-        enrollLicensureDateToggle.addEventListener("click", function onEnrollToggleClick(event) {
-          event.stopPropagation();
-          if (enrollLicensureDatePicker && enrollLicensureDatePicker.classList.contains("open")) {
-            closeEnrollDatepicker();
-          } else {
-            openEnrollDatepicker();
-          }
-        });
-      }
-
-      if (enrollLicensureDateInput) {
-        enrollLicensureDateInput.addEventListener("click", function onEnrollInputClick() {
-          if (!enrollLicensureDateInput.disabled) openEnrollDatepicker();
-        });
-      }
+      enrollDP = makeDatepicker("enrollLicensureDatePicker", {
+        onOpen: function() {
+          if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.add("is-open");
+        },
+        onClose: function() {
+          if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.remove("is-open");
+        },
+        onSelect: function(date) {
+          selectedLicensureDate = new Date(date);
+          window.__ajgLicensureDate = new Date(date);
+          if (proInfoDP) proInfoDP.setDate(date);
+        }
+      });
+      if (proInfoDP) proInfoDP.setDate(selectedLicensureDate);
+      enrollDP.setDate(selectedLicensureDate);
+      window.__ajgLicensureDate = new Date(selectedLicensureDate);
 
       if (enrollLicensureDateInputWrap) {
         enrollLicensureDateInputWrap.addEventListener("click", function onEnrollWrapClick(event) {
-          if (event.target === enrollLicensureDateInputWrap && !enrollLicensureDateInput.disabled) {
+          if (event.target === enrollLicensureDateInputWrap && enrollLicensureDateInput && !enrollLicensureDateInput.disabled) {
             openEnrollDatepicker();
           }
-        });
-      }
-
-      if (enrollDpPrevMonth) {
-        enrollDpPrevMonth.addEventListener("click", function onEnrollPrevMonth() {
-          if (visibleMonth === 0) { visibleMonth = 11; visibleYear -= 1; }
-          else { visibleMonth -= 1; }
-          renderEnrollDatepicker();
-        });
-      }
-
-      if (enrollDpNextMonth) {
-        enrollDpNextMonth.addEventListener("click", function onEnrollNextMonth() {
-          if (visibleMonth === 11) { visibleMonth = 0; visibleYear += 1; }
-          else { visibleMonth += 1; }
-          renderEnrollDatepicker();
-        });
-      }
-
-      if (enrollDpYearTrigger) {
-        enrollDpYearTrigger.addEventListener("click", function onEnrollYearTriggerClick(event) {
-          event.stopPropagation();
-          if (!enrollLicensureDatePicker) return;
-          const isOpen = enrollLicensureDatePicker.classList.toggle("year-open");
-          enrollDpYearTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        });
-      }
-
-      if (enrollDpTodayBtn) {
-        enrollDpTodayBtn.addEventListener("click", function onEnrollTodayClick() {
-          selectedLicensureDate = new Date();
-          if (enrollLicensureDateInput) enrollLicensureDateInput.value = formatDateMMDDYYYY(selectedLicensureDate);
-          visibleYear = selectedLicensureDate.getFullYear();
-          visibleMonth = selectedLicensureDate.getMonth();
-          closeEnrollDatepicker();
         });
       }
 
@@ -11876,33 +11825,6 @@
           closeAllAjgDropdowns();
         }
 
-        if (licensureDatePicker) {
-          if (!licensureDatePicker.contains(event.target)) {
-            closeDatepicker();
-          } else if (
-            licensureDatePicker.classList.contains("year-open") &&
-            dpYearTrigger && dpYearList &&
-            !dpYearTrigger.contains(event.target) &&
-            !dpYearList.contains(event.target)
-          ) {
-            licensureDatePicker.classList.remove("year-open");
-            dpYearTrigger.setAttribute("aria-expanded", "false");
-          }
-        }
-
-        if (enrollLicensureDatePicker) {
-          if (!enrollLicensureDatePicker.contains(event.target)) {
-            closeEnrollDatepicker();
-          } else if (
-            enrollLicensureDatePicker.classList.contains("year-open") &&
-            enrollDpYearTrigger && enrollDpYearList &&
-            !enrollDpYearTrigger.contains(event.target) &&
-            !enrollDpYearList.contains(event.target)
-          ) {
-            enrollLicensureDatePicker.classList.remove("year-open");
-            enrollDpYearTrigger.setAttribute("aria-expanded", "false");
-          }
-        }
       });
 
       if (saveLaterCopyLinkBtn) {
@@ -11922,6 +11844,7 @@
         if (event.key === "Escape") {
           closeAllAjgDropdowns();
           closeDatepicker();
+          closeEnrollDatepicker();
           closeSharedInfoModal();
           closeSaveForLaterModal();
         }

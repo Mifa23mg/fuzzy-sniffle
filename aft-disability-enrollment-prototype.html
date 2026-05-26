@@ -43,7 +43,7 @@
 
     /* ─── App Shell ────────────────────────────────────────────────── */
     .app-shell {
-      min-height: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       background: #ffffff;
@@ -64,6 +64,10 @@
       0%   { filter: none; }
       15%  { filter: drop-shadow(0 0 3px rgba(4,225,203,0.9)) drop-shadow(0 0 8px rgba(4,225,203,0.6)) drop-shadow(0 0 16px rgba(4,225,203,0.3)); }
       100% { filter: none; }
+    }
+
+    .home-landing-dividerv2.line-pulse {
+      animation: dividerLinePulse 0.8s ease-out;
     }
 
     .home-landing-dividerv2 {
@@ -176,7 +180,17 @@
       font-variation-settings: "wght" 400;
       color: #ffffff;
       white-space: nowrap;
+      transition: color 0.2s;
     }
+
+    /* App-bar context indicator states */
+    .home-landing-context-valuev2.ctx-ok   { color: #4cff91; } /* green check  */
+    .home-landing-context-valuev2.ctx-fail { color: #ff6b6b; } /* red X        */
+    .home-landing-context-valuev2.ctx-yes  { color: #ffffff; } /* hosp Yes — white */
+    .home-landing-context-valuev2.ctx-no   { color: #ffffff; } /* hosp No      */
+
+    /* Generic utility — used by #hi-q-extended and other toggled sections */
+    .hidden { display: none !important; }
 
     .home-landing-context-slashv2 {
       margin: 0;
@@ -671,20 +685,24 @@
     .input-text {
       width: 100%;
       height: 32px;
-      padding: 2px 8px;
+      padding: 2px 12px;
       border: 1px solid #5c5c5c;
       border-radius: 8px;
       background: #ffffff;
       font-size: 13px;
       line-height: 18px;
-      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      color: #181818;
       outline: none;
-      transition: border-color 120ms ease, box-shadow 120ms ease;
+      box-sizing: border-box;
+    }
+
+    .input-text::placeholder {
+      color: #5c5c5c;
     }
 
     .input-text:focus {
-      border-color: #066afe;
-      box-shadow: 0 0 0 1px #066afe;
+      outline: none;
     }
 
 
@@ -699,14 +717,13 @@
       border-radius: 8px;
       background: #ffffff;
       height: 32px;
-      padding: 0 6px 0 8px;
+      padding: 0 6px 0 12px;
       cursor: pointer;
       overflow: hidden;
     }
 
     .datepicker.open .datepicker-input {
-      border: 2px solid #03234d;
-      padding: 0 5px 0 7px;
+      border-color: #5c5c5c;
     }
 
     .datepicker-input .input-text {
@@ -853,13 +870,22 @@
       top: 34px;
       right: 0;
       width: 87px;
+      max-height: 245px; /* exactly 7 rows × 35px */
       border: 1px solid #d8dde6;
       border-radius: 12px;
       background: #fff;
       box-shadow: 0 -1px 2px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.2), 0 0 5px rgba(0,0,0,0.2);
-      overflow: hidden;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
       z-index: 30;
       padding: 2px 0;
+    }
+
+    .dp-year-option.future-year {
+      color: #c9c9c9;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     .datepicker.year-open .dp-year-list { display: block; }
@@ -924,29 +950,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      position: relative;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-weight: 400;
     }
 
     .dp-day.other-month { color: #6b6b6b; }
-    .dp-day.is-future { color: #c9c9c9; cursor: not-allowed; pointer-events: none; }
-    .dp-day:not(.is-future):hover { background: #eef4ff; }
-    .dp-day.selected { background: transparent; color: #fff; }
-    .dp-day.preview { background: transparent; color: #03234d; }
+    .dp-day.is-future   { color: #c9c9c9; cursor: not-allowed; pointer-events: none; }
 
-    .dp-day.selected::before,
-    .dp-day.preview::before {
-      content: "";
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      border-radius: 9999px;
-      z-index: -1;
-    }
+    .dp-day:hover                 { background: #eef4ff; }
+    .dp-day.is-future:hover       { background: transparent !important; }
 
-    .dp-day.selected::before { background: #066afe; }
-    .dp-day.preview::before  { background: #d6e6ff; }
+    .dp-day.selected,
+    .dp-day.selected:hover        { background: radial-gradient(circle, #066afe 16px, transparent 16px) !important; color: #fff; }
+
+    .dp-day.preview               { background: radial-gradient(circle, #d6e6ff 16px, transparent 16px); color: #03234d; }
 
     .dp-today {
       border: 0;
@@ -1063,6 +1080,491 @@
       box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
     }
 
+    /* ─── Consent Screen ─────────────────────────────────────────── */
+
+    /* ── Reset h1 browser defaults globally so it never shifts layout ── */
+    .title-wrap h1 {
+      margin: 0;
+    }
+
+    /* ── Consent Screen ──────────────────────────────────────────────── */
+
+    /* gap: 0 — each section controls its own vertical spacing via padding */
+    #screen-consent {
+      gap: 0;
+      align-items: stretch;
+    }
+
+    /* Title area: 16px top, 12px bottom (gap to tagline) */
+    #screen-consent .title-wrap {
+      padding-top: 16px;
+      padding-bottom: 12px;
+      margin: 0;
+    }
+
+    /* Tagline sits flush at the left edge — same as the h1 */
+    .consent-tagline {
+      color: #181818;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Body: 8px top gap after tagline, full width, left-aligned */
+    .consent-body {
+      width: 100%;
+      box-sizing: border-box;
+      color: #2e2e2e;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+      padding-top: 8px;
+      margin: 0;
+      text-align: left;
+    }
+
+    /* Paragraphs: no margin, exact line-height, left-aligned */
+    .consent-body p {
+      margin: 0;
+      padding: 0;
+      line-height: 20px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    /* Outer numbered list: starts at the SAME left edge as paragraphs.
+       padding-left: 0 removes the browser indent so "1." aligns with
+       paragraph text. list-style-position: inside puts the marker
+       inside the content box. */
+    .consent-body > ol {
+      margin: 0;
+      padding-left: 0;
+      list-style-position: inside;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    /* Alpha sub-list: indented 20px from the outer list */
+    .consent-body ol.alpha {
+      list-style-type: lower-alpha;
+      list-style-position: outside;
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    /* Second outer ol (items 2-6) — same as the first */
+    .consent-body ol[start="2"] {
+      margin: 0;
+      padding-left: 0;
+      list-style-position: inside;
+    }
+
+    .consent-body li {
+      font-size: 13px;
+      line-height: 20px;
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    /* Note paragraph */
+    .consent-note {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Checkbox row: py-12 per Figma, gap-10 between items */
+    .consent-agree-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Checkbox + label: gap-8, items-start per Figma */
+    .consent-agree-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* "I Agree" text: SF Pro Semibold 13px / 18px, #2e2e2e */
+    .consent-agree-text {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      font-weight: 590;
+      white-space: nowrap;
+    }
+
+    /* Checkbox: 16×16, border-radius 4px, gray border per Figma */
+    .consent-agree-checkbox {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #5c5c5c;
+      border-radius: 4px;
+      background: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .consent-agree-checkbox:checked {
+      background: #066afe;
+      border-color: #5c5c5c;
+      box-shadow:
+        inset 0 1px 0 rgba(0,0,0,.25),
+        inset 0 .5px 2px rgba(0,0,0,.5),
+        inset 2px 2px 5px rgba(0,0,0,.1);
+    }
+
+    .consent-agree-checkbox:checked::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 8px;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%208%27%3E%3Cpath%20d%3D%27M1%204%20L3.5%207%20L9%201%27%20stroke%3D%27white%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
+    }
+
+    /* Actions row: py-8, BOTH buttons on the RIGHT (justify-end) per Figma */
+    #screen-consent .row-actions {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      justify-content: flex-end;   /* overrides the global has-prev space-between */
+    }
+
+    /* Previous button in consent screen: blue text + correct padding per Figma */
+    #consentPrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
+    #consentPrevBtn:hover:not(:disabled) {
+      color: #013ca8;
+    }
+
+    /* Disabled Next: bg-#c9c9c9, text-#757575 per Figma */
+    #consentNextBtn:disabled {
+      border-color: #c9c9c9;
+      background: #c9c9c9;
+      color: #757575;
+      cursor: not-allowed;
+    }
+
+    /* ─── Coverage Screen ──────────────────────────────────────────── */
+
+    #screen-coverage {
+      gap: 0;
+    }
+
+    #screen-coverage .title-wrap {
+      padding-top: 16px;
+      padding-bottom: 12px;
+      margin: 0;
+    }
+
+    .cov-tagline {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 21px;
+      color: #181818;
+    }
+
+    .cov-tagline .req-star { color: #8e030f; }
+
+    /* Fields section: 16px gap between fields, matches Figma gap-[16px] */
+    .cov-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      margin-top: 16px;
+      padding-top: 4px;
+    }
+
+    /* Individual field wrapper: label + control stacked, 4px gap */
+    .cov-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    /* Field label row: asterisk + text, SF Pro Semibold */
+    .cov-field-label {
+      display: flex;
+      align-items: flex-end;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-weight: 590;
+    }
+
+    .cov-field-label .req {
+      color: #b60554;
+      font-size: 12px;
+      line-height: 17px;
+      width: 10px;
+      flex-shrink: 0;
+    }
+
+    .cov-field-label .lbl {
+      color: #2e2e2e;
+      font-size: 13px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    /* Larger label variant for radio group (14px / 19px per Figma) */
+    .cov-field-label .lbl-lg {
+      color: #2e2e2e;
+      font-size: 14px;
+      line-height: 19px;
+      white-space: normal;
+    }
+
+    /* Text input: h-32, border-radius 8px, px-8 py-2 per Figma */
+    .cov-input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 2px 12px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #181818;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .cov-input::placeholder { color: #5c5c5c; }
+
+    .cov-input:focus {
+      outline: none;
+    }
+
+    .cov-input:focus::placeholder {
+      color: transparent;
+    }
+
+    /* ─── Custom Dropdown (ajg-dropdown) ────────────────────────── */
+    .cov-dropdown {
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cov-dropdown .ajg-dropdown-trigger {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .cov-dropdown .ajg-dropdown-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cov-dropdown.has-value .ajg-dropdown-value {
+      color: #181818;
+    }
+
+    .cov-chevron-icon {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin-left: 8px;
+      background: url("assets/dropdown-down-icon.png") center center / 16px 16px no-repeat;
+      pointer-events: none;
+    }
+
+    .ajg-dropdown-listbox {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: -1px;
+      right: -1px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow:
+        0 0 5px rgba(0, 0, 0, 0.16),
+        0 3px 3px rgba(0, 0, 0, 0.16),
+        0 -1px 2px rgba(0, 0, 0, 0.09);
+      padding: 4px 0;
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .ajg-dropdown.open .ajg-dropdown-listbox {
+      display: block;
+    }
+
+    .ajg-dropdown-option {
+      width: 100%;
+      min-height: 36px;
+      border: 0;
+      background: #ffffff;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .ajg-dropdown-option:hover,
+    .ajg-dropdown-option:focus-visible {
+      background: #d6e6ff;
+      outline: none;
+    }
+
+    .ajg-dropdown-check {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ajg-dropdown-check::before {
+      content: "";
+      width: 5px;
+      height: 9px;
+      border: 2px solid #0250d9;
+      border-top: 0;
+      border-left: 0;
+      transform: rotate(45deg);
+      display: none;
+    }
+
+    .ajg-dropdown-option.selected .ajg-dropdown-check::before {
+      display: block;
+    }
+
+    /* Helper text below select: 12px #5c5c5c per Figma */
+    .cov-helper {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      color: #5c5c5c;
+    }
+
+    /* Radio group container */
+    .cov-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Radio option row: gap-8 items-start per Figma */
+    .cov-radio-opt {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* Custom radio input: 16×16, rounded-full, #5c5c5c border */
+    .cov-radio-input {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      margin-top: 1px;
+      border: 1px solid #5c5c5c;
+      border-radius: 50%;
+      background: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cov-radio-input:checked {
+      border: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* Radio label: SF Pro Regular 13px / 18px, #5c5c5c */
+    .cov-radio-label {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #5c5c5c;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Coverage actions: both buttons right per Figma (same as consent) */
+    #screen-coverage .row-actions,
+    #screen-health .row-actions {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      justify-content: flex-end;
+    }
+
+    /* Allow labels to wrap inside question rows */
+    .hi-qrow .cov-field-label { align-items: flex-start; }
+    .hi-qrow .cov-field-label .lbl { white-space: normal; font-size: 13px; line-height: 18px; }
+
+    #healthPrevBtn, #healthPage2PrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
+    #coveragePrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
     /* ─── Footer ───────────────────────────────────────────────────── */
     .footer {
       background: #f7f7f7;
@@ -1146,6 +1648,268 @@
       height: 22px;
       background: #c9c9c9;
     }
+
+    /* ─── Health Information — internal page toggle ─────────────── */
+    .health-page { width: 100%; }
+    .health-page.hidden { display: none; }
+
+    /* Yes/No pill button group */
+    .hi-yn-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .hi-yn-btn {
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      padding: 1px 16px;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      color: #0250d9;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .hi-yn-btn:first-child {
+      border-radius: 9999px 0 0 9999px;
+      margin-right: -1px;
+    }
+
+    .hi-yn-btn:last-child {
+      border-radius: 0 9999px 9999px 0;
+    }
+
+    .hi-yn-btn.active {
+      background: #d6e6ff;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Question row */
+    .hi-qrow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .hi-qrow.hi-indent-24 { padding-left: 24px; }
+    .hi-qrow.hi-indent-16 { padding-left: 16px; }
+
+    /* Sub-header "Have you ever been..." */
+    .hi-sub-header {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 19px;
+      color: #2e2e2e;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* ─── Health Information Screen ─────────────────────────────── */
+    .hi-three-col {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-three-col > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .hi-section-title {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 590;
+      line-height: 22px;
+      color: #181818;
+      margin: 0;
+    }
+
+    .hi-radio-helper {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      color: #5c5c5c;
+      margin: 0;
+      width: 100%;
+    }
+
+    .hi-card {
+      border: 1px solid #c9c9c9;
+      border-radius: 20px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .hi-card.hidden {
+      display: none;
+    }
+
+    .hi-two-col {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-two-col > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .hi-city-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-city-row > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .cov-field-label.lbl-multi {
+      align-items: flex-start;
+    }
+
+    .cov-field-label.lbl-multi .lbl {
+      white-space: normal;
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .hi-date-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .hi-date-wrap .cov-input {
+      padding-right: 32px;
+    }
+
+    .hi-date-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hi-date-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
+
+    /* ── Restart button ───────────────────────────────────────────── */
+    .app-restart-btn {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 80;
+      width: 48px;
+      height: 48px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.1);
+      color: #04e1cb;
+      overflow: hidden;
+      isolation: isolate;
+      cursor: pointer;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      transition:
+        width 240ms cubic-bezier(0.22, 0.8, 0.25, 1),
+        padding 240ms cubic-bezier(0.22, 0.8, 0.25, 1),
+        filter 180ms ease,
+        transform 180ms ease;
+    }
+    .app-restart-btn::before { display: none; }
+
+    .app-restart-icon {
+      width: 40px;
+      max-width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+      background: none;
+      transition: max-width 220ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+    .app-restart-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+      filter:
+        blur(0.5px)
+        saturate(200%)
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 8px rgba(4, 225, 203, 0.6));
+    }
+    .app-restart-label {
+      font-family: "Short Stack", cursive;
+      font-size: 24px;
+      line-height: 32px;
+      font-weight: 600;
+      white-space: nowrap;
+      max-width: 0;
+      opacity: 0;
+      transform: translateX(-6px);
+      overflow: hidden;
+      pointer-events: none;
+      color: #04e1cb;
+      transition: max-width 220ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+    .app-restart-btn:hover {
+      width: 148px;
+      padding: 4px 8px;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      border-color: #04e1cb;
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
+    }
+    .app-restart-btn:hover .app-restart-icon {
+      max-width: 0;
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .app-restart-btn:hover .app-restart-label {
+      max-width: 132px;
+      opacity: 1;
+      transform: translateX(0);
+      filter:
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 0 6px rgba(4, 225, 203, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    }
+
   </style>
 </head>
 <body>
@@ -1153,7 +1917,7 @@
 
     <!-- ═══ TOP BAR V2 ═══════════════════════════════════════════════ -->
     <div class="home-landing-topbarv2">
-      <svg class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
+      <svg id="aftAppBarDividerSvg" class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
         <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
         <path d="M 0,44 L 305,44 Q 320,44 333,36 L 387,8 Q 400,0 415,0 L 1273,0 Q 1288,0 1301,8 L 1355,36 Q 1368,44 1383,44 L 1688,44" stroke="rgba(4,225,203,0.2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
       </svg>
@@ -1301,12 +2065,12 @@
                   </div>
                   <div class="datepicker-popover" id="aftJoinDatePopover">
                     <div class="dp-header">
-                      <button class="dp-nav" type="button" id="aftDpPrevMonth" aria-label="Previous month">◀</button>
-                      <div class="dp-month-label" id="aftDpMonthLabel">January</div>
-                      <button class="dp-nav" type="button" id="aftDpNextMonth" aria-label="Next month">▶</button>
+                      <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                      <div class="dp-month-label">January</div>
+                      <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
                       <div class="dp-year-select">
-                        <button class="dp-year-trigger" type="button" id="aftDpYearTrigger" aria-haspopup="listbox" aria-expanded="false">2024</button>
-                        <div class="dp-year-list" id="aftDpYearList" role="listbox" aria-label="Year options"></div>
+                        <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                        <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
                       </div>
                     </div>
                     <div class="dp-grid">
@@ -1318,8 +2082,8 @@
                       <div class="dp-weekday">Fri</div>
                       <div class="dp-weekday">Sat</div>
                     </div>
-                    <div class="dp-grid" id="aftDpDaysGrid"></div>
-                    <button class="dp-today" type="button" id="aftDpTodayBtn">Today</button>
+                    <div class="dp-grid dp-days-grid"></div>
+                    <button class="dp-today" type="button">Today</button>
                   </div>
                 </div>
               </div>
@@ -1329,26 +2093,134 @@
             </div>
           </div>
 
-          <!-- ── Consent (placeholder) ──────────────────────────── -->
+          <!-- ── Consent ────────────────────────────────────────── -->
           <div class="screen" id="screen-consent">
             <div class="title-wrap">
-              <h1>Consent</h1>
+              <h1>Consent Statement</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Consent screen content coming soon.</p>
+            <p class="consent-tagline">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
+            <div class="consent-body">
+              <p>Consent Statement</p>
+              <p>In this Agreement, "we," "us," "our," and "the company" refer to Metropolitan Life Insurance Company and MetLife Investors USA Insurance Company. "You" and "yours" refer to the applicant for a policy offered by us.</p>
+              <p>&nbsp;</p>
+              <ol>
+                <li>
+                  <strong>Consent to do business with, and receive communications from, MetLife electronically.</strong> To the extent permitted by law, this Agreement is a "global" consent. You agree to:
+                  <ol class="alpha">
+                    <li>Complete transactions electronically and use electronic signatures on a website we make available to you.</li>
+                    <li>As applicable, allow us to replace paper delivery with electronic delivery of your documents and communications relating to policies you own or are applying for. Electronic delivery of the documents will be by e-mails transmitting such documents, whether as text in, attachments to, and/or hyperlinks from such e-mails to the documents stored on a MetLife website or a third party's website. You specifically agree that delivery of the link to your policy constitutes delivery of the policy and starts the free look period under your policy.</li>
+                    <li>As applicable, receive text messages with important updates on your application and policy. You agree to allow us to send text messages to the mobile number you provide. You understand that standard message and data rates apply.</li>
+                    <li>Make sure that neither your software nor your internet service provider inhibits or interferes with your receipt of electronic communications from us. Update your electronic mail address when it changes.</li>
+                  </ol>
+                </li>
+              </ol>
+              <p class="consent-note"><strong>Note:</strong> You'll continue to receive paper copies of certain documents until the electronic versions become available.</p>
+              <p>&nbsp;</p>
+              <ol start="2">
+                <li><strong>Withdrawal of consent.</strong> You can easily withdraw your consent at any time by calling <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>Effect of not consenting or withdrawing consent.</strong> If you choose not to consent or to withdraw your consent, you can still submit an application by signing a paper copy of the application.</li>
+                <li><strong>How to obtain paper copies of the documents you sign electronically.</strong> To obtain paper copies of the documents you sign electronically, you can either print the document on your printer or call us at <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>Hardware requirements.</strong> To use this service, you must have access to a computer with an Internet connection. If you would like to be able to save the documents that you receive, the computer should have a hard drive or other storage device or be connected to a printer. You must also have an email account to receive communications.</li>
+                <li><strong>Software Requirements</strong> In order to complete the electronic signature process and to download your application, you will need Adobe Acrobat Reader 3.0 (or greater).</li>
+              </ol>
+            </div>
+            <div class="consent-agree-row">
+              <label class="consent-agree-label" for="consentAgreeCheckbox">
+                <input class="consent-agree-checkbox" type="checkbox" id="consentAgreeCheckbox" />
+                <span class="consent-agree-text">I Agree</span>
+              </label>
+            </div>
+            <!-- Both buttons right-aligned per Figma node 15666:190734 -->
             <div class="row-actions has-prev">
               <button class="btn-secondary" id="consentPrevBtn" type="button">Previous</button>
-              <button class="btn-brand" id="consentNextBtn" type="button">Next</button>
+              <button class="btn-brand" id="consentNextBtn" type="button" disabled>Next</button>
             </div>
           </div>
 
-          <!-- ── Coverage (placeholder) ─────────────────────────── -->
+          <!-- ── Coverage ──────────────────────────────────────────── -->
           <div class="screen" id="screen-coverage">
             <div class="title-wrap">
               <h1>Coverage</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Coverage screen content coming soon.</p>
+            <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+            <div class="cov-fields">
+
+              <!-- Basic Annual Earnings -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Basic Annual Earnings</span>
+                </div>
+                <input class="cov-input" type="text" id="covAnnualEarnings" inputmode="decimal" placeholder="$0.00" aria-label="Basic Annual Earnings" />
+              </div>
+
+              <!-- Monthly Benefit Amount -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Monthly benefit amount</span>
+                </div>
+                <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select your benefit amount">
+                  <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="ajg-dropdown-value" data-dropdown-value></span>
+                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  </button>
+                  <input type="hidden" id="covMonthlyBenefit" name="covMonthlyBenefit" data-dropdown-input />
+                  <div class="ajg-dropdown-listbox" role="listbox" aria-label="Monthly benefit amount options">
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="100"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$100</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="200"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$200</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="300"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$300</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="400"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$400</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="600"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$600</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="700"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$700</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="800"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$800</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="900"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$900</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1100"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,100</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1200"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,200</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1300"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,300</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1400"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,400</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1600"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,600</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1700"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,700</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1800"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,800</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1900"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,900</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="2000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="2500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="3000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$3,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="3500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$3,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="4000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$4,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="4500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$4,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="5000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$5,000</span></button>
+                  </div>
+                </div>
+                <p class="cov-helper">Select an increment of $100 up to a maximum of 60% of your Predisability Earnings, maximum of $5,000</p>
+              </div>
+
+              <!-- Select Elimination Period -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl-lg">Select elimination period</span>
+                </div>
+                <div class="cov-radio-group" role="radiogroup" aria-label="Select elimination period">
+                  <label class="cov-radio-opt">
+                    <input class="cov-radio-input" type="radio" name="eliminationPeriod" value="60" id="elim60" />
+                    <span class="cov-radio-label">Elimination Period 60 Days / Maximum Benefit Period is the earlier of 5 years or your normal retirement age</span>
+                  </label>
+                  <label class="cov-radio-opt">
+                    <input class="cov-radio-input" type="radio" name="eliminationPeriod" value="90" id="elim90" />
+                    <span class="cov-radio-label">Elimination Period 90 Days / Maximum Benefit Period is the earlier of 5 years or your normal retirement age</span>
+                  </label>
+                </div>
+              </div>
+
+            </div><!-- /cov-fields -->
+
             <div class="row-actions has-prev">
               <button class="btn-secondary" id="coveragePrevBtn" type="button">Previous</button>
               <button class="btn-brand" id="coverageNextBtn" type="button">Next</button>
@@ -1357,15 +2229,537 @@
 
           <!-- ── Health Information (placeholder) ───────────────── -->
           <div class="screen" id="screen-health">
+
+            <!-- ─── Page 1: Hospitalization ─────────────────────── -->
+            <div class="health-page" id="health-page-1">
             <div class="title-wrap">
               <h1>Health Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Health Information screen content coming soon.</p>
+            <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+            <div class="cov-fields">
+
+              <!-- Height / Weight row -->
+              <div class="hi-three-col">
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
+                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" />
+                </div>
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
+                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" />
+                </div>
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
+                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
+                </div>
+              </div>
+
+              <!-- Section heading -->
+              <p class="hi-section-title">Member Health Information</p>
+
+              <!-- Hospitalization question -->
+              <div class="cov-radio-group">
+                <div class="cov-field-label"><span class="req">*</span><span class="lbl-lg">Have you been Hospitalized as defined below (not including well-baby delivery) in the past 90 days?</span></div>
+                <label class="cov-radio-opt">
+                  <input class="cov-radio-input" type="radio" name="hospitalized" value="yes" id="hospYes" />
+                  <span class="cov-radio-label">Yes</span>
+                </label>
+                <label class="cov-radio-opt">
+                  <input class="cov-radio-input" type="radio" name="hospitalized" value="no" id="hospNo" />
+                  <span class="cov-radio-label">No</span>
+                </label>
+                <p class="hi-radio-helper">Hospitalized means admission for inpatient care in a hospital; receipt of care in a hospice facility, intermediate care facility, or long term care facility; or receipt of the following treatment wherever performed: chemotherapy, radiation therapy, or dialysis.</p>
+              </div>
+
+              <!-- Hospitalization details card (shown when Yes is selected) -->
+              <div class="hi-card hidden" id="hospCard">
+
+                <!-- Condition / Diagnosis -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Condition / Diagnosis?</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter condition" />
+                </div>
+
+                <!-- Medication -->
+                <div>
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Please list any medication prescribed that you did not already identify in the Prescription Information above.</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter medication" />
+                </div>
+
+                <!-- Date of last treatment / Date of diagnosis -->
+                <div class="hi-two-col">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last treatment (Month/Year)</span></div>
+                    <div class="datepicker" id="hospTreatmentDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of diagnosis (Month/Year)</span></div>
+                    <div class="datepicker" id="hospDiagnosisDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Type of treatment -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Type of treatment</span></div>
+                  <input class="cov-input" type="text" placeholder="Describe type of treatment" />
+                </div>
+
+                <!-- Physician's Name / Date of last visit -->
+                <div class="hi-two-col">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician's Name</span></div>
+                    <input class="cov-input" type="text" placeholder="Enter name" />
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last visit</span></div>
+                    <div class="datepicker" id="hospVisitDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Reason for visit -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Reason for visit</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter reason" />
+                </div>
+
+                <!-- Physician Street Address -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician Street Address</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter address" />
+                </div>
+
+                <!-- City / State / Zip -->
+                <div class="hi-city-row">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">City</span></div>
+                    <input class="cov-input" type="text" name="hospCity" placeholder="Enter city" />
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">State</span></div>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select state">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="hospState" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="State options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Alabama</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AK"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Alaska</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AZ"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Arizona</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AR"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Arkansas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>California</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CO"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Colorado</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Connecticut</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="DE"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Delaware</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="FL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Florida</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="GA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Georgia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="HI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Hawaii</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ID"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Idaho</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Illinois</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Indiana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Iowa</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="KS"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Kansas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="KY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Kentucky</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="LA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Louisiana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ME"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Maine</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MD"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Maryland</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Massachusetts</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Michigan</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Minnesota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MS"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Mississippi</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MO"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Missouri</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Montana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NE"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Nebraska</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NV"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Nevada</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NH"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Hampshire</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NJ"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Jersey</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NM"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Mexico</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New York</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NC"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>North Carolina</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ND"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>North Dakota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OH"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Ohio</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OK"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Oklahoma</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OR"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Oregon</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="PA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Pennsylvania</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="RI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Rhode Island</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="SC"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>South Carolina</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="SD"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>South Dakota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="TN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Tennessee</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="TX"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Texas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="UT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Utah</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="VT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Vermont</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="VA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Virginia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Washington</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WV"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>West Virginia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Wisconsin</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Wyoming</span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Zip Code</span></div>
+                    <input class="cov-input" id="hospZipInput" type="text" placeholder="Enter zip" inputmode="numeric" maxlength="5" pattern="[0-9]*" />
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Phone Number</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter number" inputmode="tel" />
+                </div>
+
+              </div><!-- /.hi-card -->
+
+            </div><!-- /.cov-fields -->
+
             <div class="row-actions has-prev">
               <button class="btn-secondary" id="healthPrevBtn" type="button">Previous</button>
-              <button class="btn-brand" id="healthNextBtn" type="button">Next</button>
+              <button class="btn-brand" id="healthPage1NextBtn" type="button">Next</button>
             </div>
+            </div><!-- /.health-page#health-page-1 -->
+
+            <!-- ─── Page 2: Health Questionnaire ────────────────── -->
+            <div class="health-page hidden" id="health-page-2">
+              <div class="title-wrap">
+                <h1>Health Information</h1>
+                <div class="title-line"></div>
+              </div>
+              <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+              <div class="cov-fields">
+
+                <p class="hi-section-title">Member Health Information</p>
+
+                <!-- Q1: Alcohol / drugs -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">In the past 5 years, have you received medical treatment or counseling by a physician or other health care provider for, or been advised by a physician or other health care provider to discontinue, the use of alcohol or prescribed or non-prescribed drugs?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q2: Insurance declined -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Have you had any application for life, accidental death and dismemberment or disability insurance declined, postponed, withdrawn, rated, modified, or issued other than as applied for?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q3: Disability benefits -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now receiving or applying for any disability benefits, including workers' compensation?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Sub-header 1 -->
+                <p class="hi-sub-header">Have you ever been diagnosed, treated, or given medical advice by a physician or other healthcare provider for:</p>
+
+                <!-- Q4: AIDS/HIV -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Acquired Immunodeficiency Syndrome (AIDS), AIDS Related Complex (ARC) or the Human Immunodeficiency Virus (HIV) infection?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q5: Cardiac -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Cardiac or cardiovascular disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q6: Stroke -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Stroke or circulatory disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q7: High blood pressure -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">High blood pressure?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q8: Cancer -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Cancer, Hodgkins disease, lymphoma, or tumors?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q9: Diabetes -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Diabetes?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q10: Musculoskeletal -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Back, neck, knee, spinal, joint or other musculoskeletal disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q11: Mental/anxiety -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Mental, anxiety, depression, attempted suicide or nervous disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- ── Extended section (Q12–Q28): shown for Full questionnaire only ── -->
+                <div id="hi-q-extended" class="hidden">
+
+                <!-- Q12: Diet -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now on a diet prescribed by a physician or other health care provider?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q13: Pregnant -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now pregnant?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q14: Tobacco -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now, or have you in the past 2 years, used tobacco in any form?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q15: DWI -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">In the past 5 years, have you been convicted of driving while intoxicated or under the influence of alcohol and/or any drug?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Sub-header 2 -->
+                <p class="hi-sub-header">Have you ever been diagnosed, treated, or given medical advice by a physician or other healthcare provider for:</p>
+
+                <!-- Q16: Asthma -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Asthma, COPD, emphysema or other lung disease?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q17: Ulcers -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Ulcers, stomach, hepatitis or other liver disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q18: Colitis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Colitis, Crohn's, diverticulitis or other intestinal disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q19: Memory loss -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Memory loss?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q20: Epilepsy -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Epilepsy, paralysis, seizures, dizziness or other neurological disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q21: Epstein-Barr -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Epstein-Barr, chronic fatigue syndrome or fibromyalgia?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q22: Multiple sclerosis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Multiple sclerosis, ALS or muscular dystrophy?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q23: Lupus -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Lupus, scleroderma, auto immune disease or connective tissue disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q24: Arthritis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Arthritis?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q25: Carpal tunnel -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Carpal tunnel syndrome?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q26: Kidney -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Kidney, urinary tract or prostate disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q27: Thyroid -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Thyroid or other gland disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q28: Sleep apnea -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Sleep apnea?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                </div><!-- /#hi-q-extended -->
+
+              </div><!-- /.cov-fields -->
+
+              <div class="row-actions has-prev">
+                <button class="btn-secondary" id="healthPage2PrevBtn" type="button">Previous</button>
+                <button class="btn-brand" id="healthNextBtn" type="button">Next</button>
+              </div>
+            </div><!-- /.health-page#health-page-2 -->
+
           </div>
 
           <!-- ── Enrollment (placeholder) ───────────────────────── -->
@@ -1467,33 +2861,97 @@
       </footer>
     </div><!-- /main-scroll -->
 
+    <!-- ═══ RESTART BUTTON ══════════════════════════════════════════ -->
+    <button class="app-restart-btn" type="button" id="disRestartBtn" aria-label="Restart flow">
+      <span class="app-restart-icon" aria-hidden="true"><img src="assets/restart-icon.svg" alt="" /></span>
+      <span class="app-restart-label" aria-hidden="true">Restart</span>
+    </button>
+
   </div><!-- /app-shell -->
 
   <script>
+    /* ── Global enrollment data store ───────────────────────────────────
+       Access from any screen via window.aftEnrollmentData.
+       Keys added here as they are collected through the flow:
+         .joinDate         — Date object   (Original date you joined AFT?)
+         .joinDateFormatted — "MM/DD/YYYY" string
+    ──────────────────────────────────────────────────────────────────── */
+    window.aftEnrollmentData = {
+      joinDate:          null,
+      joinDateFormatted: ""
+    };
+
+    /* ─────────────────────────────────────────────────────────────────
+       MetLife LIFE UNISEX Height / Max-Weight Matrix
+       Key   = total height in inches (feet × 12 + inches)
+       Value = maximum acceptable weight in lbs (inclusive)
+       Source: MetLife LIFE UNISEX table (rounding rule: ≥ .5 → round up)
+    ───────────────────────────────────────────────────────────────── */
+    window.aftHeightWeightMatrix = {
+      56: 179,  /* 4'8"  */
+      57: 183,  /* 4'9"  */
+      58: 189,  /* 4'10" */
+      59: 191,  /* 4'11" */
+      60: 195,  /* 5'0"  */
+      61: 201,  /* 5'1"  */
+      62: 205,  /* 5'2"  */
+      63: 210,  /* 5'3"  */
+      64: 216,  /* 5'4"  */
+      65: 222,  /* 5'5"  */
+      66: 228,  /* 5'6"  */
+      67: 234,  /* 5'7"  */
+      68: 240,  /* 5'8"  */
+      69: 246,  /* 5'9"  */
+      70: 252,  /* 5'10" */
+      71: 258,  /* 5'11" */
+      72: 267,  /* 6'0"  */
+      73: 274,  /* 6'1"  */
+      74: 281,  /* 6'2"  */
+      75: 288,  /* 6'3"  */
+      76: 297,  /* 6'4"  */
+      77: 304,  /* 6'5"  */
+      78: 311,  /* 6'6"  */
+      79: 320,  /* 6'7"  */
+      80: 327,  /* 6'8"  */
+      81: 335   /* 6'9"  */
+    };
+
+    /**
+     * meetsWeightCriteria(feet, inches, weightLbs)
+     *
+     * Applies the MetLife rounding rule (≥ .5 → round up to next whole number)
+     * then checks the matrix.
+     *
+     * @param {number} feet       - whole feet (e.g. 5)
+     * @param {number} inches     - inches portion, may be fractional (e.g. 10.5)
+     * @param {number} weightLbs  - weight in lbs, may be fractional (e.g. 143.5)
+     * @returns {boolean|null}    - true = meets criteria, false = does not,
+     *                             null = height not in table
+     */
+    window.meetsWeightCriteria = function(feet, inches, weightLbs) {
+      /* Round height inches: ≥ .5 → next whole inch */
+      var roundedInches = Math.floor(inches) + (inches % 1 >= 0.5 ? 1 : 0);
+      var totalInches   = (feet * 12) + roundedInches;
+
+      /* Round weight: ≥ .5 → next whole lb */
+      var roundedWeight = Math.floor(weightLbs) + (weightLbs % 1 >= 0.5 ? 1 : 0);
+
+      var maxWeight = window.aftHeightWeightMatrix[totalInches];
+      if (maxWeight === undefined) return null; /* height not in table */
+
+      return roundedWeight <= maxWeight;
+    };
+
     (function () {
       "use strict";
 
       /* ── Datepicker ───────────────────────────────────────────── */
-      var aftJoinDatePicker  = document.getElementById("aftJoinDatePicker");
-      var aftJoinDateInput   = document.getElementById("aftJoinDateInput");
-      var aftJoinDateToggle  = document.getElementById("aftJoinDateToggle");
-      var aftDpPrevMonth     = document.getElementById("aftDpPrevMonth");
-      var aftDpNextMonth     = document.getElementById("aftDpNextMonth");
-      var aftDpMonthLabel    = document.getElementById("aftDpMonthLabel");
-      var aftDpYearTrigger   = document.getElementById("aftDpYearTrigger");
-      var aftDpYearList      = document.getElementById("aftDpYearList");
-      var aftDpDaysGrid      = document.getElementById("aftDpDaysGrid");
-      var aftDpTodayBtn      = document.getElementById("aftDpTodayBtn");
-
       var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       var YEAR_OPTIONS = [];
-      for (var y = 2000; y <= 2030; y++) YEAR_OPTIONS.push(y);
+      for (var y = 1970; y <= 2030; y++) YEAR_OPTIONS.push(y);
 
       var today = new Date();
       var normalizedToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      var selectedDate = null;
-      var visibleMonth = normalizedToday.getMonth();
-      var visibleYear  = normalizedToday.getFullYear();
 
       function formatDateMMDDYYYY(date) {
         var mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -1502,157 +2960,212 @@
         return mm + "/" + dd + "/" + yyyy;
       }
 
-      function openDatepicker() {
-        if (!aftJoinDatePicker) return;
-        if (!selectedDate) {
-          selectedDate = new Date(normalizedToday);
-          if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(selectedDate);
-        }
-        visibleMonth = selectedDate.getMonth();
-        visibleYear  = selectedDate.getFullYear();
-        aftJoinDatePicker.classList.add("open");
-        renderDatepicker();
+      function updateFirstYearCtx(date) {
+        var el = document.getElementById("aftCtxFirstYear");
+        if (!el || !date) return;
+        var oneYearAgo = new Date(normalizedToday);
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        el.textContent = date >= oneYearAgo ? "Yes" : "No";
       }
 
-      function closeDatepicker() {
-        if (!aftJoinDatePicker) return;
-        aftJoinDatePicker.classList.remove("open");
-        aftJoinDatePicker.classList.remove("year-open");
-        if (aftDpYearTrigger) aftDpYearTrigger.setAttribute("aria-expanded", "false");
-      }
+      /* ── Unified reusable datepicker factory ─────────────────────
+         makeDatepicker(wrapId, options)
+           options.onSelect(date) — called when a date is committed
+      ──────────────────────────────────────────────────────────── */
+      function makeDatepicker(wrapId, options) {
+        options = options || {};
+        var onSelectCb = options.onSelect || null;
 
-      function renderDatepicker() {
-        if (!aftDpMonthLabel || !aftDpYearTrigger || !aftDpYearList || !aftDpDaysGrid) return;
+        var wrap = document.getElementById(wrapId);
+        if (!wrap) return;
 
-        aftDpMonthLabel.textContent = MONTH_NAMES[visibleMonth];
-        aftDpYearTrigger.textContent = String(visibleYear);
+        var input    = wrap.querySelector(".input-text");
+        var toggle   = wrap.querySelector(".calendar-icon-btn");
+        var prevBtn  = wrap.querySelector(".dp-prev");
+        var nextBtn  = wrap.querySelector(".dp-next");
+        var monthLbl = wrap.querySelector(".dp-month-label");
+        var yearTrig = wrap.querySelector(".dp-year-trigger");
+        var yearList = wrap.querySelector(".dp-year-list");
+        var daysGrid = wrap.querySelector(".dp-days-grid");
+        var todayBtn = wrap.querySelector(".dp-today");
 
-        aftDpYearList.innerHTML = "";
-        YEAR_OPTIONS.forEach(function(year) {
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "dp-year-option" + (year === visibleYear ? " selected" : "");
-          btn.setAttribute("role", "option");
-          btn.setAttribute("aria-selected", year === visibleYear ? "true" : "false");
-          btn.textContent = String(year);
-          btn.addEventListener("click", function(e) {
+        if (yearList) {
+          yearList.addEventListener("wheel", function(e) {
+            e.preventDefault();
             e.stopPropagation();
-            visibleYear = year;
-            aftJoinDatePicker.classList.remove("year-open");
-            aftDpYearTrigger.setAttribute("aria-expanded", "false");
-            renderDatepicker();
+            var delta = e.deltaMode === 0 ? e.deltaY : (e.deltaMode === 1 ? e.deltaY * 35 : e.deltaY * 245);
+            yearList.scrollTop += delta;
+          }, { passive: false });
+        }
+
+        var sel = null;
+        var vm  = normalizedToday.getMonth();
+        var vy  = normalizedToday.getFullYear();
+
+        function open() {
+          if (!sel) {
+            sel = new Date(normalizedToday);
+            if (input) input.value = formatDateMMDDYYYY(sel);
+          }
+          vm = sel.getMonth();
+          vy = sel.getFullYear();
+          document.querySelectorAll(".datepicker.open").forEach(function(dp) {
+            if (dp !== wrap) { dp.classList.remove("open"); dp.classList.remove("year-open"); }
           });
-          aftDpYearList.appendChild(btn);
-        });
+          wrap.classList.add("open");
+          render();
+        }
 
-        aftDpDaysGrid.innerHTML = "";
-        var firstDayIndex = new Date(visibleYear, visibleMonth, 1).getDay();
-        var daysInMonth   = new Date(visibleYear, visibleMonth + 1, 0).getDate();
-        var daysInPrev    = new Date(visibleYear, visibleMonth, 0).getDate();
-        var cells = [];
+        function close() {
+          wrap.classList.remove("open");
+          wrap.classList.remove("year-open");
+          if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
+        }
 
-        for (var i = firstDayIndex - 1; i >= 0; i--) cells.push({ day: daysInPrev - i, offset: -1 });
-        for (var d = 1; d <= daysInMonth; d++) cells.push({ day: d, offset: 0 });
-        while (cells.length % 7 !== 0) cells.push({ day: cells.length - (firstDayIndex + daysInMonth) + 1, offset: 1 });
+        function render() {
+          if (!monthLbl || !yearTrig || !yearList || !daysGrid) return;
+          monthLbl.textContent = MONTH_NAMES[vm];
+          yearTrig.textContent = String(vy);
 
-        var todayStart = new Date(normalizedToday);
+          yearList.innerHTML = "";
+          var curYr = normalizedToday.getFullYear();
+          YEAR_OPTIONS.forEach(function(year) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            var isFuture = year > curYr;
+            btn.className = "dp-year-option"
+              + (year === vy ? " selected" : "")
+              + (isFuture ? " future-year" : "");
+            btn.setAttribute("role", "option");
+            btn.setAttribute("aria-selected", year === vy ? "true" : "false");
+            btn.setAttribute("aria-disabled", isFuture ? "true" : "false");
+            btn.textContent = String(year);
+            if (!isFuture) {
+              btn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                vy = year;
+                wrap.classList.remove("year-open");
+                yearTrig.setAttribute("aria-expanded", "false");
+                render();
+              });
+            }
+            yearList.appendChild(btn);
+          });
+          /* scrollTop set via requestAnimationFrame when year list becomes visible */
 
-        cells.forEach(function(cell) {
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "dp-day" + (cell.offset !== 0 ? " other-month" : "");
-          var cellDate = new Date(visibleYear, visibleMonth + cell.offset, cell.day);
+          daysGrid.innerHTML = "";
+          var first = new Date(vy, vm, 1).getDay();
+          var dim   = new Date(vy, vm + 1, 0).getDate();
+          var dipm  = new Date(vy, vm, 0).getDate();
+          var cells = [];
+          for (var i = first - 1; i >= 0; i--) cells.push({ day: dipm - i, offset: -1 });
+          for (var d = 1; d <= dim; d++) cells.push({ day: d, offset: 0 });
+          while (cells.length % 7 !== 0) cells.push({ day: cells.length - (first + dim) + 1, offset: 1 });
 
-          if (cellDate > todayStart) {
-            btn.classList.add("is-future");
-            btn.setAttribute("aria-disabled", "true");
+          cells.forEach(function(cell) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "dp-day" + (cell.offset !== 0 ? " other-month" : "");
+            var cd = new Date(vy, vm + cell.offset, cell.day);
+            if (cd > normalizedToday) {
+              btn.classList.add("is-future");
+              btn.setAttribute("aria-disabled", "true");
+              btn.textContent = String(cell.day);
+              daysGrid.appendChild(btn);
+              return;
+            }
+            if (sel && cd.getFullYear() === sel.getFullYear() && cd.getMonth() === sel.getMonth() && cd.getDate() === sel.getDate()) {
+              btn.classList.add("selected");
+            }
             btn.textContent = String(cell.day);
-            aftDpDaysGrid.appendChild(btn);
-            return;
-          }
-
-          if (selectedDate &&
-              cellDate.getFullYear() === selectedDate.getFullYear() &&
-              cellDate.getMonth()    === selectedDate.getMonth() &&
-              cellDate.getDate()     === selectedDate.getDate()) {
-            btn.classList.add("selected");
-          }
-
-          btn.textContent = String(cell.day);
-          btn.addEventListener("click", function() {
-            selectedDate = cellDate;
-            if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(cellDate);
-            closeDatepicker();
+            btn.addEventListener("click", function() {
+              sel = cd;
+              if (input) input.value = formatDateMMDDYYYY(cd);
+              if (onSelectCb) onSelectCb(cd);
+              close();
+            });
+            daysGrid.appendChild(btn);
           });
-          aftDpDaysGrid.appendChild(btn);
-        });
-      }
+        }
 
-      /* Datepicker event bindings */
-      if (aftJoinDateToggle) {
-        aftJoinDateToggle.addEventListener("click", function(e) {
+        if (toggle) toggle.addEventListener("click", function(e) {
           e.stopPropagation();
-          if (aftJoinDatePicker && aftJoinDatePicker.classList.contains("open")) {
-            closeDatepicker();
-          } else {
-            openDatepicker();
+          wrap.classList.contains("open") ? close() : open();
+        });
+        if (input) input.addEventListener("click", open);
+        if (prevBtn) prevBtn.addEventListener("click", function() {
+          if (vm === 0) { vm = 11; vy--; } else { vm--; }
+          render();
+        });
+        if (nextBtn) nextBtn.addEventListener("click", function() {
+          if (vm === 11) { vm = 0; vy++; } else { vm++; }
+          render();
+        });
+        if (yearTrig) yearTrig.addEventListener("click", function(e) {
+          e.stopPropagation();
+          var isOpen = wrap.classList.toggle("year-open");
+          yearTrig.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          if (isOpen && yearList) {
+            requestAnimationFrame(function() {
+              var selBtn = yearList.querySelector(".dp-year-option.selected");
+              if (selBtn) yearList.scrollTop = Math.max(0, selBtn.offsetTop - 2 * 35);
+            });
           }
         });
-      }
-
-      if (aftJoinDateInput) {
-        aftJoinDateInput.addEventListener("click", function() { openDatepicker(); });
-      }
-
-      if (aftDpPrevMonth) {
-        aftDpPrevMonth.addEventListener("click", function() {
-          if (visibleMonth === 0) { visibleMonth = 11; visibleYear--; }
-          else { visibleMonth--; }
-          renderDatepicker();
+        if (todayBtn) todayBtn.addEventListener("click", function() {
+          sel = new Date(normalizedToday);
+          if (input) input.value = formatDateMMDDYYYY(sel);
+          if (onSelectCb) onSelectCb(sel);
+          vy = sel.getFullYear();
+          vm = sel.getMonth();
+          close();
+        });
+        document.addEventListener("click", function(e) {
+          if (!wrap.contains(e.target)) close();
         });
       }
 
-      if (aftDpNextMonth) {
-        aftDpNextMonth.addEventListener("click", function() {
-          if (visibleMonth === 11) { visibleMonth = 0; visibleYear++; }
-          else { visibleMonth++; }
-          renderDatepicker();
-        });
-      }
-
-      if (aftDpYearTrigger) {
-        aftDpYearTrigger.addEventListener("click", function(e) {
-          e.stopPropagation();
-          if (!aftJoinDatePicker) return;
-          var isOpen = aftJoinDatePicker.classList.toggle("year-open");
-          aftDpYearTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        });
-      }
-
-      if (aftDpTodayBtn) {
-        aftDpTodayBtn.addEventListener("click", function() {
-          selectedDate = new Date(normalizedToday);
-          if (aftJoinDateInput) aftJoinDateInput.value = formatDateMMDDYYYY(selectedDate);
-          visibleYear  = selectedDate.getFullYear();
-          visibleMonth = selectedDate.getMonth();
-          closeDatepicker();
-        });
-      }
-
-      /* Close datepicker on outside click */
-      document.addEventListener("click", function(e) {
-        if (aftJoinDatePicker && !aftJoinDatePicker.contains(e.target)) {
-          closeDatepicker();
+      /* ── Datepicker instances ──────────────────────────────────── */
+      makeDatepicker("aftJoinDatePicker", {
+        onSelect: function(date) {
+          window.aftEnrollmentData.joinDate          = new Date(date);
+          window.aftEnrollmentData.joinDateFormatted = formatDateMMDDYYYY(date);
+          updateFirstYearCtx(date);
         }
       });
+      makeDatepicker("hospTreatmentDatePicker");
+      makeDatepicker("hospDiagnosisDatePicker");
+      makeDatepicker("hospVisitDatePicker");
+
+      /* Zip code — numbers only */
+      (function() {
+        var zipInput = document.getElementById("hospZipInput");
+        if (!zipInput) return;
+        zipInput.addEventListener("input", function() {
+          this.value = this.value.replace(/\D/g, "").slice(0, 5);
+        });
+        zipInput.addEventListener("keydown", function(e) {
+          var allowed = ["Backspace","Delete","Tab","ArrowLeft","ArrowRight","Home","End"];
+          if (allowed.indexOf(e.key) === -1 && !/^\d$/.test(e.key)) {
+            e.preventDefault();
+          }
+        });
+      }());
 
       /* ── Timer ───────────────────────────────────────────────── */
       var aftTopbarTimer = document.getElementById("aftTopbarTimer");
       var aftTopbarTimerDisplay = document.getElementById("aftTopbarTimerDisplay");
       var aftTopbarTimerBtn = document.getElementById("aftTopbarTimerBtn");
+      var aftAppBarDividerSvg = document.getElementById("aftAppBarDividerSvg");
       var aftTimerSeconds = 0;
       var aftTimerInterval = null;
       var aftTimerPaused = false;
+
+      if (aftAppBarDividerSvg) {
+        aftAppBarDividerSvg.addEventListener("animationend", function () {
+          aftAppBarDividerSvg.classList.remove("line-pulse");
+        });
+      }
 
       function formatAftTime(s) {
         var m = Math.floor(s / 60);
@@ -1670,6 +3183,14 @@
           if (!aftTimerPaused) {
             aftTimerSeconds++;
             if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = formatAftTime(aftTimerSeconds);
+            if (aftTimerSeconds % 10 === 0 && aftAppBarDividerSvg) {
+              aftAppBarDividerSvg.classList.remove("line-pulse");
+              requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                  aftAppBarDividerSvg.classList.add("line-pulse");
+                });
+              });
+            }
           }
         }, 1000);
       }
@@ -1759,6 +3280,307 @@
       bindNextBtn("optInsNextBtn");
 
       bindPrevBtn("consentPrevBtn");
+
+      /* Coverage: color select text dark once a value is chosen */
+      (function () {
+      }());
+
+      /* ── Custom dropdown init ─────────────────────────────────── */
+      (function () {
+        var dropdowns = Array.from(document.querySelectorAll(".ajg-dropdown[data-dropdown]"));
+
+        function closeDropdown(dd) {
+          var trigger = dd.querySelector(".ajg-dropdown-trigger");
+          dd.classList.remove("open");
+          if (trigger) trigger.setAttribute("aria-expanded", "false");
+        }
+
+        function closeAll(except) {
+          dropdowns.forEach(function (dd) {
+            if (dd !== except) closeDropdown(dd);
+          });
+        }
+
+        function selectOption(dd, opt) {
+          var options = Array.from(dd.querySelectorAll(".ajg-dropdown-option"));
+          var hiddenInput = dd.querySelector("[data-dropdown-input]");
+          var valueEl = dd.querySelector("[data-dropdown-value]");
+          var selectedValue = opt ? (opt.getAttribute("data-value") || "") : "";
+          var selectedText = opt ? opt.querySelector("span:last-child").textContent.trim() : "";
+          var placeholder = dd.getAttribute("data-dropdown-placeholder") || "";
+
+          options.forEach(function (o) {
+            var isSel = o === opt && Boolean(selectedValue);
+            o.classList.toggle("selected", isSel);
+            o.setAttribute("aria-selected", isSel ? "true" : "false");
+          });
+
+          if (hiddenInput) hiddenInput.value = selectedValue;
+          if (valueEl) valueEl.textContent = selectedValue ? selectedText : placeholder;
+          dd.classList.toggle("has-value", Boolean(selectedValue));
+        }
+
+        dropdowns.forEach(function (dd) {
+          var trigger = dd.querySelector(".ajg-dropdown-trigger");
+          var options = Array.from(dd.querySelectorAll(".ajg-dropdown-option"));
+          if (!trigger || !options.length) return;
+
+          selectOption(dd, null);
+
+          trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            var willOpen = !dd.classList.contains("open");
+            closeAll(dd);
+            dd.classList.toggle("open", willOpen);
+            trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+          });
+
+          options.forEach(function (opt) {
+            opt.addEventListener("click", function () {
+              selectOption(dd, opt);
+              closeDropdown(dd);
+            });
+          });
+
+          trigger.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { closeDropdown(dd); return; }
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              closeAll(dd);
+              dd.classList.add("open");
+              trigger.setAttribute("aria-expanded", "true");
+              if (options[0]) options[0].focus();
+            }
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          dropdowns.forEach(function (dd) {
+            if (!dd.contains(e.target)) closeDropdown(dd);
+          });
+        });
+      }());
+
+      /* Basic Annual Earnings — currency formatting */
+      (function () {
+        var el = document.getElementById("covAnnualEarnings");
+        if (!el) return;
+
+        function formatCurrency(raw) {
+          var num = parseFloat(raw.replace(/[^0-9.]/g, ""));
+          if (isNaN(num)) return "";
+          return "$" + num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        el.addEventListener("focus", function () {
+          var raw = el.value.replace(/[^0-9.]/g, "");
+          el.value = raw === "0.00" || raw === "0" ? "" : raw;
+        });
+
+        el.addEventListener("blur", function () {
+          var formatted = formatCurrency(el.value);
+          el.value = formatted;
+        });
+      }());
+
+      /* Enable Consent Next only when "I Agree" is checked */
+      (function () {
+        var checkbox = document.getElementById("consentAgreeCheckbox");
+        var nextBtn  = document.getElementById("consentNextBtn");
+        if (checkbox && nextBtn) {
+          checkbox.addEventListener("change", function () {
+            nextBtn.disabled = !checkbox.checked;
+          });
+        }
+      }());
+
+      /* Health Information — show/hide hospitalization card */
+      (function () {
+        var radios = document.querySelectorAll('input[name="hospitalized"]');
+        var card   = document.getElementById("hospCard");
+        if (!radios.length || !card) return;
+        radios.forEach(function (radio) {
+          radio.addEventListener("change", function () {
+            card.classList.toggle("hidden", radio.value !== "yes");
+          });
+        });
+      }());
+
+      /* ── Health Information — smart routing logic ────────────────
+         Rule 1: Joined < 1 year AND not hospitalized  → skip page 2,
+                 go straight to Enrollment (goToStep +1)
+         Rule 2: > 1 year AND weight/height NOT acceptable → Full questionnaire
+         Rule 3: > 1 year AND weight/height acceptable    → Short questionnaire
+         Rule 4: Any "Yes" on Short questionnaire         → reveal Full extension
+      ──────────────────────────────────────────────────────────── */
+      (function () {
+        var page1      = document.getElementById("health-page-1");
+        var page2      = document.getElementById("health-page-2");
+        var page1Next  = document.getElementById("healthPage1NextBtn");
+        var page2Prev  = document.getElementById("healthPage2PrevBtn");
+        var extended   = document.getElementById("hi-q-extended");
+        var scroll     = document.getElementById("mainScroll");
+
+        if (!page1 || !page2 || !page1Next || !page2Prev) return;
+
+        /* ── helpers ── */
+        function showPage2(showFull) {
+          page1.classList.add("hidden");
+          page2.classList.remove("hidden");
+          if (extended) {
+            extended.classList.toggle("hidden", !showFull);
+          }
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function showPage1() {
+          page2.classList.add("hidden");
+          page1.classList.remove("hidden");
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        /* ── Next on page 1 ── */
+        page1Next.addEventListener("click", function () {
+
+          /* --- gather inputs --- */
+          var joinDate   = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+          var hospNo     = document.getElementById("hospNo");
+          var notHosp    = hospNo && hospNo.checked;
+
+          var feetVal    = parseFloat(document.getElementById("hiHeightFeet")   && document.getElementById("hiHeightFeet").value)   || 0;
+          var inchesVal  = parseFloat(document.getElementById("hiHeightInches") && document.getElementById("hiHeightInches").value) || 0;
+          var weightVal  = parseFloat(document.getElementById("hiWeight")       && document.getElementById("hiWeight").value)       || 0;
+
+          /* --- Rule 1: joined < 1 year AND not hospitalized → Enrollment --- */
+          if (joinDate) {
+            var today       = new Date();
+            today.setHours(0, 0, 0, 0);
+            var oneYearAgo  = new Date(today);
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            var underOneYear = joinDate > oneYearAgo;
+
+            if (underOneYear && notHosp) {
+              goToStep(currentIndex + 1);   /* skip questionnaire entirely */
+              return;
+            }
+          }
+
+          /* --- Rules 2 & 3: check weight / height --- */
+          var acceptable = window.meetsWeightCriteria
+            ? window.meetsWeightCriteria(feetVal, inchesVal, weightVal)
+            : null;
+
+          /* acceptable === true  → Short (Rule 3)
+             acceptable === false → Full  (Rule 2)
+             acceptable === null  → height not in table → show Full to be safe */
+          showPage2(acceptable !== true);
+        });
+
+        /* ── Previous on page 2 → back to page 1 ── */
+        page2Prev.addEventListener("click", showPage1);
+
+        /* ── Rule 4: any "Yes" on Short section → reveal extended ── */
+        var shortArea = page2.querySelector(".cov-fields");
+        if (shortArea && extended) {
+          shortArea.addEventListener("click", function (e) {
+            var btn = e.target.closest(".hi-yn-btn");
+            if (!btn) return;
+            /* only act when extended is still hidden and "yes" was clicked */
+            if (btn.dataset.yn === "yes" && extended.classList.contains("hidden")) {
+              extended.classList.remove("hidden");
+              /* smooth-scroll so the newly revealed content is visible */
+              if (scroll) {
+                setTimeout(function () {
+                  extended.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 50);
+              }
+            }
+          });
+        }
+      }());
+
+      /* Yes / No pill button toggle */
+      (function () {
+        document.querySelectorAll("[data-yn-group]").forEach(function (group) {
+          group.querySelectorAll(".hi-yn-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              group.querySelectorAll(".hi-yn-btn").forEach(function (b) {
+                b.classList.remove("active");
+              });
+              btn.classList.add("active");
+            });
+          });
+        });
+      }());
+
+      /* ── App-bar context indicators ──────────────────────────────── */
+      (function () {
+        var ctxHosp   = document.getElementById("aftCtxHospitalization");
+        var ctxWeight = document.getElementById("aftCtxWeight");
+
+        /* ── Hospitalization: update on radio change ── */
+        function updateHospCtx() {
+          if (!ctxHosp) return;
+          var yesRadio = document.getElementById("hospYes");
+          var noRadio  = document.getElementById("hospNo");
+          if (yesRadio && yesRadio.checked) {
+            ctxHosp.textContent = "Yes";
+            ctxHosp.className   = "home-landing-context-valuev2 ctx-yes";
+          } else if (noRadio && noRadio.checked) {
+            ctxHosp.textContent = "No";
+            ctxHosp.className   = "home-landing-context-valuev2 ctx-no";
+          } else {
+            ctxHosp.textContent = "–";
+            ctxHosp.className   = "home-landing-context-valuev2";
+          }
+        }
+
+        document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
+          r.addEventListener("change", updateHospCtx);
+        });
+
+        /* ── Height + Weight: update on any input change ── */
+        function updateWeightCtx() {
+          if (!ctxWeight) return;
+          var fEl = document.getElementById("hiHeightFeet");
+          var iEl = document.getElementById("hiHeightInches");
+          var wEl = document.getElementById("hiWeight");
+          if (!fEl || !iEl || !wEl) return;
+
+          var feet    = parseFloat(fEl.value);
+          var inches  = parseFloat(iEl.value);
+          var weight  = parseFloat(wEl.value);
+
+          /* wait until all three have values */
+          if (isNaN(feet) || isNaN(inches) || isNaN(weight)) {
+            ctxWeight.textContent = "–";
+            ctxWeight.className   = "home-landing-context-valuev2";
+            return;
+          }
+
+          var result = window.meetsWeightCriteria
+            ? window.meetsWeightCriteria(feet, inches, weight)
+            : null;
+
+          if (result === true) {
+            ctxWeight.textContent = "✓";
+            ctxWeight.className   = "home-landing-context-valuev2 ctx-ok";
+          } else if (result === false) {
+            ctxWeight.textContent = "✕";
+            ctxWeight.className   = "home-landing-context-valuev2 ctx-fail";
+          } else {
+            /* null = height not in table */
+            ctxWeight.textContent = "?";
+            ctxWeight.className   = "home-landing-context-valuev2";
+          }
+        }
+
+        ["hiHeightFeet", "hiHeightInches", "hiWeight"].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.addEventListener("input", updateWeightCtx);
+        });
+      }());
+
       bindPrevBtn("coveragePrevBtn");
       bindPrevBtn("healthPrevBtn");
       bindPrevBtn("enrollmentPrevBtn");
@@ -1771,6 +3593,66 @@
       mainScroll.addEventListener("scroll", function () {
         header.classList.toggle("is-scrolled", mainScroll.scrollTop > 4);
       });
+
+      /* ── Restart button → reset flow to Start Here ────────────────── */
+      var disRestartBtn = document.getElementById("disRestartBtn");
+      if (disRestartBtn) {
+        disRestartBtn.addEventListener("click", function () {
+
+          /* Navigate to step 0 */
+          goToStep(0);
+
+          /* Reset health sub-pages */
+          var hp1      = document.getElementById("health-page-1");
+          var hp2      = document.getElementById("health-page-2");
+          var extended = document.getElementById("hi-q-extended");
+          var hospCard = document.getElementById("hospCard");
+          if (hp1)      hp1.classList.remove("hidden");
+          if (hp2)      hp2.classList.add("hidden");
+          if (extended) extended.classList.add("hidden");
+          if (hospCard) hospCard.classList.add("hidden");
+
+          /* Deselect Yes/No pill buttons */
+          document.querySelectorAll(".hi-yn-btn").forEach(function (b) {
+            b.classList.remove("active");
+          });
+
+          /* Uncheck hospitalization radios */
+          document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
+            r.checked = false;
+          });
+
+          /* Uncheck I Agree checkbox */
+          var agreeChk = document.getElementById("consentAgree");
+          if (agreeChk) agreeChk.checked = false;
+
+          /* Clear join-date picker */
+          var joinDateInput = document.getElementById("aftJoinDateInput");
+          if (joinDateInput) joinDateInput.value = "";
+
+          /* Clear all text inputs and selects in the flow */
+          document.querySelectorAll(".content input[type='text'], .content input[type='tel'], .content select, .content textarea").forEach(function (el) {
+            el.value = "";
+          });
+
+          /* Reset global data store */
+          window.aftEnrollmentData = { joinDate: null, joinDateFormatted: "" };
+
+          /* Reset app-bar context indicators */
+          ["aftCtxFirstYear", "aftCtxHospitalization", "aftCtxWeight"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) { el.textContent = "–"; el.className = "home-landing-context-valuev2"; }
+          });
+
+          /* Reset timer */
+          if (aftTimerInterval) { clearInterval(aftTimerInterval); aftTimerInterval = null; }
+          aftTimerSeconds = 0;
+          aftTimerPaused  = false;
+          if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
+          if (aftTopbarTimer)        aftTopbarTimer.classList.remove("is-paused");
+          startAftTimer();
+        });
+      }
 
     }());
   </script>
