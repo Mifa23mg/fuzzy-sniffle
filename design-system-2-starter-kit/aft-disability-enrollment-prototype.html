@@ -1,0 +1,4615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFT+ Disability Enrollment</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sansita+One&family=Short+Stack&display=swap");
+
+    /* science-gothic-latin-wght-normal */
+    @font-face {
+      font-family: "Science Gothic Variable";
+      font-style: normal;
+      font-display: swap;
+      font-weight: 100 900;
+      src: url("https://cdn.jsdelivr.net/fontsource/fonts/science-gothic:vf@latest/latin-wght-normal.woff2") format("woff2-variations");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ─── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      background: #ffffff;
+    }
+
+    a { text-decoration: none; }
+    ul, ol { list-style: none; margin: 0; padding: 0; }
+    h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+    p { margin: 0; }
+    button { font-family: inherit; cursor: pointer; }
+    input { font-family: inherit; }
+
+    /* ─── App Shell ────────────────────────────────────────────────── */
+    .app-shell {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
+
+    /* ─── Top Bar v2 ────────────────────────────────────────────────── */
+    .home-landing-topbarv2 {
+      position: relative;
+      height: 140px;
+      width: 100%;
+      background: #171717;
+      border-radius: 0;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    @keyframes dividerLinePulse {
+      0%   { filter: none; }
+      15%  { filter: drop-shadow(0 0 3px rgba(4,225,203,0.9)) drop-shadow(0 0 8px rgba(4,225,203,0.6)) drop-shadow(0 0 16px rgba(4,225,203,0.3)); }
+      100% { filter: none; }
+    }
+
+    .home-landing-dividerv2.line-pulse {
+      animation: dividerLinePulse 0.8s ease-out;
+    }
+
+    .home-landing-dividerv2 {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 52px;
+      height: 48px;
+      width: calc(100% - 40px);
+      overflow: visible;
+      pointer-events: none;
+      filter:
+        drop-shadow(0 -3px 3px rgba(0,0,0,1))
+        drop-shadow(0 2px 6px rgba(0,0,0,0.2))
+        drop-shadow(0 0 8px rgba(4,225,203,0.25));
+    }
+
+    .home-landing-brand-lockupv2 {
+      position: absolute;
+      left: 72px;
+      top: 28px;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 4px 12px;
+      border-radius: 40px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: transparent;
+      box-shadow: inset 0 4px 4px 0 rgba(0,0,0,0.25);
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    .home-brand-leftv2 {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .home-brand-dividerv2 {
+      width: 1px;
+      height: 35px;
+      background: rgba(243,243,243,0.52);
+      flex: 0 0 auto;
+    }
+
+    .home-brand-salesforcev2 {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .home-landing-contextv2 {
+      position: absolute;
+      left: 50%;
+      top: 64px;
+      transform: translateX(-50%);
+      height: 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    .home-landing-context-titlev2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      line-height: 35px;
+      font-weight: 400;
+      color: #fcc003;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .home-landing-context-colv2 {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 10px;
+      height: 100%;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .home-landing-context-labelv2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #fcc003;
+      white-space: nowrap;
+    }
+
+    .home-landing-context-valuev2 {
+      margin: 0;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #ffffff;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    /* App-bar context indicator states */
+    .home-landing-context-valuev2.ctx-ok   { color: #4cff91; } /* green check  */
+    .home-landing-context-valuev2.ctx-fail { color: #ff6b6b; } /* red X        */
+    .home-landing-context-valuev2.ctx-yes  { color: #ffffff; } /* hosp Yes — white */
+    .home-landing-context-valuev2.ctx-no   { color: #ffffff; } /* hosp No      */
+
+    /* Generic utility — used by #hi-q-extended and other toggled sections */
+    .hidden { display: none !important; }
+
+    .home-landing-context-slashv2 {
+      margin: 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      height: 100%;
+      font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+      font-variation-settings: "wght" 400;
+      color: #fcc003;
+    }
+
+    /* ── Timer ── */
+    .aft-topbar-timer {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 8px;
+      width: 92px;
+      min-width: 92px;
+      max-width: 92px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0);
+      white-space: nowrap;
+      z-index: 2;
+      backdrop-filter: blur(2px) saturate(200%);
+      -webkit-backdrop-filter: blur(2px) saturate(200%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 0 8px rgba(4, 225, 203, 0.25);
+    }
+
+    .aft-topbar-timer-display {
+      font-family: "Short Stack", "SF Pro Text", sans-serif;
+      font-size: 14px;
+      line-height: 35px;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      width: 42px;
+      flex: 0 0 42px;
+      flex-shrink: 0;
+    }
+
+    .aft-topbar-timer-btn {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      flex: 0 0 24px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: transparent;
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.1);
+      transition: filter 0.15s ease;
+    }
+
+    .aft-topbar-timer-btn:hover {
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
+    }
+
+    .aft-topbar-timer-pause-icon,
+    .aft-topbar-timer-resume-icon {
+      width: 24px;
+      height: 24px;
+      display: block;
+      position: absolute;
+      inset: 0;
+      transition: opacity 0.15s ease;
+      filter:
+        blur(1.5px)
+        saturate(200%)
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 8px rgba(4, 225, 203, 0.6));
+    }
+
+    .aft-topbar-timer-resume-icon {
+      opacity: 0;
+    }
+
+    .aft-topbar-timer.is-paused .aft-topbar-timer-pause-icon {
+      opacity: 0;
+    }
+
+    .aft-topbar-timer.is-paused .aft-topbar-timer-resume-icon {
+      opacity: 1;
+    }
+
+    /* Home icon mask */
+    .home-landing-home-icon {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 18px;
+      top: 10px;
+      margin: 0;
+    }
+
+    .home-landing-home-icon::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      transform: translate(-50%, -50%);
+      background-color: #04e1cb;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      -webkit-mask-size: 20px 20px;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+      mask-size: 20px 20px;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      transition: background-color 160ms ease;
+    }
+
+    .home-landing-topbarv2 .app-home-btn-label {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 400;
+      color: #04e1cb;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* Home button inside topbarv2 */
+    .home-landing-topbarv2 .home-landing-home-btn {
+      position: absolute;
+      right: 72px;
+      top: 28px;
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.8), 0 1px 1px rgba(0,0,0,0.1);
+      padding: 0;
+      cursor: pointer;
+      color: #04e1cb;
+      z-index: 1;
+      transition: background 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover {
+      background: transparent;
+      border-color: transparent;
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4,225,203,0.5));
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover .home-landing-home-icon::before {
+      background-color: #04e1cb;
+    }
+
+    .home-landing-topbarv2 .home-landing-home-btn:hover .app-home-btn-label {
+      color: #ffffff;
+      text-shadow: 0 4px 4px rgba(0,0,0,0.25);
+      filter: drop-shadow(0 -1px 0 rgba(255,255,255,0.8)) drop-shadow(0 0 6px rgba(4,225,203,0.6));
+    }
+
+    /* ─── Header ───────────────────────────────────────────────────── */
+    .header {
+      background: #ffffff;
+      padding: 20px 64px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: none;
+      transition: box-shadow 140ms ease;
+    }
+
+    .header.is-scrolled {
+      box-shadow: 0 4px 14px rgba(3, 35, 77, 0.12);
+    }
+
+    .brand-logo {
+      height: 60px;
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .divider-tall {
+      width: 1px;
+      height: 100px;
+      background: #d9d9d9;
+      flex: 0 0 auto;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .help-label {
+      font-weight: 700;
+      color: #2e2e2e;
+    }
+
+    .help-phone {
+      color: #0250d9;
+      text-decoration: none;
+    }
+
+    .divider-short {
+      width: 1px;
+      height: 22px;
+      background: #d9d9d9;
+      margin-left: 4px;
+      margin-right: 4px;
+      flex: 0 0 auto;
+    }
+
+    .login-label {
+      font-weight: 700;
+      color: #2e2e2e;
+      padding: 0 12px;
+    }
+
+    /* ─── Main Scroll ──────────────────────────────────────────────── */
+    .main-scroll {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #ffffff;
+    }
+
+    /* ─── Main Surface ─────────────────────────────────────────────── */
+    .main-surface {
+      flex: 1 0 auto;
+      display: flex;
+      padding: 8px 220px;
+      background: #ffffff;
+    }
+
+    /* ─── Steps Sidebar ────────────────────────────────────────────── */
+    .steps {
+      width: 200px;
+      flex: 0 0 200px;
+      padding: 8px 8px 8px 16px;
+      border-right: 1px solid #c9c9c9;
+      background: #ffffff;
+    }
+
+    .steps h3 {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      line-height: 32px;
+      color: #03234d;
+      font-weight: 400;
+    }
+
+    .step-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-item {
+      min-height: 44px;
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .step-item[data-state="complete"] { cursor: pointer; }
+
+    .step-rail {
+      width: 16px;
+      flex: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rail-top,
+    .rail-bottom {
+      width: 2px;
+      flex: 1;
+      background: #c9c9c9;
+      min-height: 12px;
+    }
+
+    .step-item[data-position="top"]    .rail-top    { background: transparent; }
+    .step-item[data-position="bottom"] .rail-bottom { background: transparent; }
+
+    .step-indicator {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      min-height: 16px;
+      max-width: 16px;
+      max-height: 16px;
+      box-sizing: border-box;
+      border-radius: 50%;
+      background: #ffffff;
+      position: relative;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-indicator::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c9c9c9;
+    }
+
+    .step-item[data-state="active"] .step-indicator {
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    .step-item[data-state="active"] .step-indicator::before,
+    .step-item[data-state="active"] .step-indicator::after { content: none; }
+
+    .step-item[data-state="complete"] .step-indicator {
+      background: #ffffff;
+      background-image: none;
+    }
+
+    .step-item[data-state="complete"] .step-indicator::before { content: none; }
+
+    .step-item[data-state="complete"] .step-indicator::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: #066afe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M1 4.1l1.5 1.5L7 1.1' stroke='white' stroke-width='1.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center center / 8px 8px no-repeat;
+    }
+
+    .step-item[data-state="complete"]:hover .step-indicator,
+    .step-item[data-state="complete"]:focus-visible .step-indicator {
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #03234d;
+    }
+
+    .step-item[data-position="middle"][data-state="active"]   .rail-top,
+    .step-item[data-position="bottom"][data-state="active"]   .rail-top,
+    .step-item[data-position="middle"][data-state="complete"] .rail-top,
+    .step-item[data-position="bottom"][data-state="complete"] .rail-top { background: #066afe; }
+
+    .step-item[data-position="top"][data-state="complete"]    .rail-bottom,
+    .step-item[data-position="middle"][data-state="complete"] .rail-bottom { background: #066afe; }
+
+    .step-item[data-position="top"]    .rail-top,
+    .step-item[data-position="bottom"] .rail-bottom { background: transparent; }
+
+    .step-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      font-weight: 400;
+      max-width: 156px;
+    }
+
+    .step-item[data-state="active"] .step-text {
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Top step state refinements from updated "First Step states" */
+    .step-item[data-position="top"][data-state="active"] .rail-bottom {
+      margin-bottom: 4px;
+      background: #c9c9c9;
+    }
+
+    .step-item[data-position="top"][data-state="active"] .step-indicator {
+      background-color: transparent;
+      border: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 16px 16px;
+    }
+
+    .step-item[data-position="top"][data-state="active"] .step-indicator::before,
+    .step-item[data-position="top"][data-state="active"] .step-indicator::after {
+      content: none;
+    }
+
+    .step-item[data-position="top"][data-state="complete"]:hover .rail-bottom,
+    .step-item[data-position="top"][data-state="complete"]:focus-visible .rail-bottom {
+      background: #066afe;
+    }
+
+    .step-item[data-position="top"][data-state="complete"]:hover .step-indicator,
+    .step-item[data-position="top"][data-state="complete"]:focus-visible .step-indicator {
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #03234d;
+    }
+
+    .step-item[data-position="top"][data-state="complete"]:hover .step-indicator::before,
+    .step-item[data-position="top"][data-state="complete"]:focus-visible .step-indicator::before {
+      content: none;
+    }
+
+    /* Middle step state refinements from Figma "Middle Step states" */
+    .step-item[data-position="middle"][data-state="default"] .step-indicator {
+      background: #ffffff;
+      background-image: none;
+    }
+
+    .step-item[data-position="middle"][data-state="default"] .step-indicator::before {
+      background: #c9c9c9;
+    }
+
+    .step-item[data-position="middle"][data-state="active"] .rail-top {
+      margin-top: 0;
+    }
+
+    .step-item[data-position="middle"][data-state="active"] .rail-bottom {
+      margin-bottom: 0;
+      background: #c9c9c9;
+    }
+
+    .step-item[data-position="middle"][data-state="complete"] .step-indicator {
+      background: #ffffff;
+      background-image: none;
+    }
+
+    .step-item[data-position="middle"][data-state="complete"]:hover .rail-top,
+    .step-item[data-position="middle"][data-state="complete"]:focus-visible .rail-top {
+      background: #066afe;
+    }
+
+    .step-item[data-position="middle"][data-state="complete"]:hover .rail-bottom,
+    .step-item[data-position="middle"][data-state="complete"]:focus-visible .rail-bottom {
+      background: #066afe;
+    }
+
+    .step-item[data-position="middle"][data-state="complete"]:hover .step-indicator::before,
+    .step-item[data-position="middle"][data-state="complete"]:focus-visible .step-indicator::before {
+      content: none;
+    }
+
+    /* Bottom step state refinements from Figma "Last Step states" */
+    .step-item[data-position="bottom"][data-state="default"] .step-indicator {
+      background: #ffffff;
+      background-image: none;
+    }
+
+    .step-item[data-position="bottom"][data-state="default"] .step-indicator::before {
+      background: #c9c9c9;
+    }
+
+    .step-item[data-position="bottom"][data-state="active"] .rail-top {
+      margin-top: 4px;
+      background: #066afe;
+    }
+
+    .step-item[data-position="bottom"][data-state="complete"] .rail-top {
+      margin-top: 2px;
+      background: #066afe;
+    }
+
+    .step-item[data-position="bottom"][data-state="complete"] .step-indicator {
+      background: #ffffff;
+      background-image: none;
+    }
+
+    /* ─── Content Area ─────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding: 16px 12px 8px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Screen ───────────────────────────────────────────────────── */
+    .screen {
+      display: none;
+      width: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ─── Screen Header ────────────────────────────────────────────── */
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .title-wrap h1 {
+      color: #001e5b;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .title-line {
+      width: 148px;
+      height: 2px;
+      background: #066afe;
+    }
+
+    .intro {
+      color: #181818;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 400;
+      max-width: 100%;
+    }
+
+    .screen .title-wrap + .consent-tagline,
+    .screen .title-wrap + .cov-tagline,
+    .health-page .title-wrap + .cov-tagline {
+      margin-top: 12px;
+    }
+
+    /* ─── Form Grid ────────────────────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .form-grid .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    :root {
+      --aff-input-height: 32px;
+      --aff-label-control-gap: 4px;
+    }
+
+    .label {
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+      color: #444444;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+    }
+
+    .required {
+      color: #b60554;
+      font-size: 12px;
+      line-height: 17px;
+      margin-right: 2px;
+      align-self: flex-start;
+    }
+
+    .input-field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-text {
+      width: 100%;
+      height: var(--aff-input-height);
+      min-height: var(--aff-input-height);
+      padding: 2px 12px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      font-size: 13px;
+      line-height: 18px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      color: #181818;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .input-text::placeholder {
+      color: #5c5c5c;
+    }
+
+    .input-text:focus {
+      outline: none;
+    }
+
+
+    /* ─── Datepicker ───────────────────────────────────────────────── */
+    .datepicker {
+      position: relative;
+      width: 100%;
+    }
+
+    .datepicker-input {
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      height: var(--aff-input-height);
+      min-height: var(--aff-input-height);
+      padding: 0 6px 0 12px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .datepicker.open .datepicker-input {
+      border-color: #5c5c5c;
+    }
+
+    .datepicker-input .input-text {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      height: 100%;
+      flex: 1;
+    }
+
+    .datepicker-input .input-text:focus {
+      border: none;
+      box-shadow: none;
+    }
+
+    .datepicker-input .input-text[readonly] {
+      cursor: pointer;
+    }
+
+    .datepicker-input.is-error {
+      border-color: #b60554;
+      box-shadow: inset 0 0 0 1px #b60554;
+    }
+
+    .field-error-text {
+      margin: 4px 0 0;
+      color: #b60554;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      display: none;
+    }
+
+    .field-error-text.is-visible {
+      display: block;
+    }
+
+    .cov-input.is-error {
+      border-color: #b60554;
+      box-shadow: inset 0 0 0 1px #b60554;
+    }
+
+    .field-date-inline-error {
+      gap: 0;
+    }
+
+    .field-date-inline-error > .label {
+      margin-bottom: 4px;
+    }
+
+    .calendar-icon-btn {
+      border: 0;
+      background: transparent;
+      color: #0250d9;
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .calendar-icon-btn img {
+      width: 14px;
+      height: 14px;
+      display: block;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .datepicker-popover {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 308px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #d8dde6;
+      box-shadow: 0 -1px 2px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.2), 0 0 5px rgba(0,0,0,0.2);
+      z-index: 25;
+      display: none;
+      padding: 8px 8px 6px;
+      box-sizing: border-box;
+    }
+
+    .datepicker.open .datepicker-popover {
+      display: block;
+    }
+
+    .dp-header {
+      display: grid;
+      grid-template-columns: 24px 1fr 24px 80px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+      position: relative;
+      min-height: 40px;
+    }
+
+    .dp-nav {
+      border: 0;
+      background: transparent;
+      color: #066afe;
+      font-size: 12px;
+      cursor: pointer;
+      height: 24px;
+      width: 24px;
+      border-radius: 6px;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .dp-nav:hover { background: #eef4ff; }
+
+    .dp-month-label {
+      text-align: center;
+      font-size: 12px;
+      line-height: 17px;
+      color: #181818;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .dp-year-select {
+      position: relative;
+      width: 80px;
+    }
+
+    .dp-year-trigger {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #f3f3f3;
+      font-size: 13px;
+      line-height: 18px;
+      color: #444;
+      padding: 0 24px 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dp-year-trigger::after {
+      content: "";
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      transform: translateY(-50%);
+      background: url("assets/dropdown-down-icon.png") center center / 16px 16px no-repeat;
+    }
+
+    .datepicker.year-open .dp-year-trigger {
+      border: 2px solid #03234d;
+      padding-left: 7px;
+      padding-right: 23px;
+    }
+
+    .dp-year-list {
+      display: none;
+      position: absolute;
+      top: 34px;
+      right: 0;
+      width: 87px;
+      max-height: 245px; /* exactly 7 rows × 35px */
+      border: 1px solid #d8dde6;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 -1px 2px rgba(0,0,0,0.16), 0 3px 3px rgba(0,0,0,0.2), 0 0 5px rgba(0,0,0,0.2);
+      overflow-y: scroll;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      z-index: 30;
+      padding: 2px 0;
+    }
+
+    .dp-year-option.future-year {
+      color: #c9c9c9;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .datepicker.year-open .dp-year-list { display: block; }
+
+    .dp-year-option {
+      height: 35px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      font-size: 13px;
+      line-height: 18px;
+      color: #444;
+      cursor: pointer;
+      text-align: left;
+      padding: 0 8px 0 30px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      position: relative;
+    }
+
+    .dp-year-option:hover { background: #f3f3f3; }
+
+    .dp-year-option.selected::before {
+      content: "✓";
+      color: #066afe;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-52%);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .dp-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 6px;
+    }
+
+    .dp-weekday {
+      text-align: center;
+      font-size: 12px;
+      line-height: 17px;
+      color: #03234d;
+      padding: 2px 0;
+      font-weight: 400;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .dp-day {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 9999px;
+      background: transparent;
+      color: #2e2e2e;
+      font-size: 12px;
+      line-height: 17px;
+      text-align: center;
+      cursor: pointer;
+      justify-self: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-weight: 400;
+    }
+
+    .dp-day.other-month { color: #6b6b6b; }
+    .dp-day.is-future   { color: #c9c9c9; cursor: not-allowed; pointer-events: none; }
+
+    .dp-day:hover                 { background: #eef4ff; }
+    .dp-day.is-future:hover       { background: transparent !important; }
+
+    .dp-day.selected,
+    .dp-day.selected:hover        { background: radial-gradient(circle, #066afe 16px, transparent 16px) !important; color: #fff; }
+
+    .dp-day.preview               { background: radial-gradient(circle, #d6e6ff 16px, transparent 16px); color: #03234d; }
+
+    .dp-today {
+      border: 0;
+      background: transparent;
+      color: #066afe;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      text-align: center;
+      width: 100%;
+      cursor: pointer;
+      padding: 0 0 2px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    /* ─── Row Actions ──────────────────────────────────────────────── */
+    .row-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 8px 0;
+    }
+
+    .row-actions.has-prev {
+      justify-content: space-between;
+    }
+
+    /* ─── Secondary (Previous) Button — matches agents flow ───────── */
+    .btn-secondary {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 14px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      color: #03234d;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: #444444;
+      background: #f3f3f3;
+      color: #03234d;
+    }
+
+    .btn-secondary:active:not(:disabled) {
+      border-color: #2e2e2e;
+      background: #e7e7e7;
+      color: #03234d;
+    }
+
+    .btn-secondary:disabled {
+      border-color: #c9c9c9;
+      background: #f3f3f3;
+      color: #9d9d9d;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
+    }
+
+    /* ─── Brand Button — matches agents flow ──────────────────────── */
+    .btn-brand {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      border: 1px solid #066afe;
+      background: #066afe;
+      color: #ffffff;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-brand:hover:not(:disabled) {
+      border-color: #0250d9;
+      background: #0250d9;
+    }
+
+    .btn-brand:active:not(:disabled) {
+      border-color: #013ca8;
+      background: #013ca8;
+    }
+
+    .btn-brand:disabled {
+      border-color: #b8d2ff;
+      background: #b8d2ff;
+      color: #f8fbff;
+      cursor: not-allowed;
+    }
+
+    .btn-brand:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
+    }
+
+    /* ─── Base Button ("Save for later") ─────────────────────────── */
+    .btn-base {
+      border: 0;
+      background: transparent;
+      color: #0250d9;
+      padding: 0;
+      height: auto;
+      border-radius: 0;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+    }
+
+    .btn-base:hover:not(:disabled) {
+      color: #014486;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .btn-base:active:not(:disabled) {
+      color: #03234d;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ─── Neutral Button (outline + blue text) ───────────────────── */
+    .btn-neutral {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      color: #0250d9;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-neutral:hover:not(:disabled) {
+      border-color: #444444;
+      background: #f3f3f3;
+      color: #014486;
+    }
+
+    .btn-neutral:active:not(:disabled) {
+      border-color: #2e2e2e;
+      background: #e7e7e7;
+      color: #03234d;
+    }
+
+    .btn-neutral .btn-icon-add {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 520'%3E%3Cpath fill='%230250d9' d='M285 235V74c0-8-6-14-14-14h-22c-8 0-14 6-14 14v161H74c-8 0-14 6-14 14v22c0 8 6 14 14 14h161v161c0 8 6 14 14 14h22c8 0 14-6 14-14V285h161c8 0 14-6 14-14v-22c0-8-6-14-14-14H285z'/%3E%3C/svg%3E") center center / 14px 14px no-repeat;
+    }
+
+    /* ─── Destructive Buttons ─────────────────────────────────────── */
+    .btn-destructive {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      border: 1px solid #e3066a;
+      background: #e3066a;
+      color: #ffffff;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-destructive:hover:not(:disabled) {
+      border-color: #b60554;
+      background: #b60554;
+    }
+
+    .btn-destructive:active:not(:disabled) {
+      border-color: #8f0041;
+      background: #8f0041;
+    }
+
+    .btn-destructive-outline {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 14px;
+      border: 1px solid #e3066a;
+      background: #ffffff;
+      color: #e3066a;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-destructive-outline:hover:not(:disabled) {
+      border-color: #b60554;
+      background: #fff1f7;
+      color: #b60554;
+    }
+
+    .btn-destructive-outline:active:not(:disabled) {
+      border-color: #8f0041;
+      background: #ffe3ef;
+      color: #8f0041;
+    }
+
+    /* ─── Consent Screen ─────────────────────────────────────────── */
+
+    /* ── Reset h1 browser defaults globally so it never shifts layout ── */
+    .title-wrap h1 {
+      margin: 0;
+    }
+
+    /* ── Consent Screen ──────────────────────────────────────────────── */
+
+    /* gap: 0 — each section controls its own vertical spacing via padding */
+    #screen-consent {
+      gap: 0;
+      align-items: stretch;
+    }
+
+    /* Title area: no padding */
+    #screen-consent .title-wrap {
+      margin: 0;
+    }
+
+    /* Tagline sits flush at the left edge — same as the h1 */
+    .consent-tagline {
+      color: #181818;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      width: 100%;
+    }
+
+    /* Body: 8px top gap after tagline, full width, left-aligned */
+    .consent-body {
+      width: 100%;
+      box-sizing: border-box;
+      color: #2e2e2e;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+      padding-top: 8px;
+      margin: 0;
+      text-align: left;
+    }
+
+    /* Paragraphs: no margin, exact line-height, left-aligned */
+    .consent-body p {
+      margin: 0;
+      padding: 0;
+      line-height: 20px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    /* Outer numbered list: starts at the SAME left edge as paragraphs.
+       padding-left: 0 removes the browser indent so "1." aligns with
+       paragraph text. list-style-position: inside puts the marker
+       inside the content box. */
+    .consent-body > ol {
+      margin: 0;
+      padding-left: 0;
+      list-style-position: inside;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    /* Alpha sub-list: indented 20px from the outer list */
+    .consent-body ol.alpha {
+      list-style-type: lower-alpha;
+      list-style-position: outside;
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    /* Second outer ol (items 2-6) — same as the first */
+    .consent-body ol[start="2"] {
+      margin: 0;
+      padding-left: 0;
+      list-style-position: inside;
+    }
+
+    .consent-body li {
+      font-size: 13px;
+      line-height: 20px;
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    /* Note paragraph */
+    .consent-note {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Checkbox row: py-12 per Figma, gap-10 between items */
+    .consent-agree-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Checkbox + label: gap-8, items-start per Figma */
+    .consent-agree-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* "I Agree" text: SF Pro Semibold 13px / 18px, #2e2e2e */
+    .consent-agree-text {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      font-weight: 590;
+      white-space: nowrap;
+    }
+
+    /* Checkbox: 16×16, border-radius 4px, gray border per Figma */
+    .consent-agree-checkbox {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #5c5c5c;
+      border-radius: 4px;
+      background: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .consent-agree-checkbox:checked {
+      background: #066afe;
+      border-color: #5c5c5c;
+      box-shadow:
+        inset 0 1px 0 rgba(0,0,0,.25),
+        inset 0 .5px 2px rgba(0,0,0,.5),
+        inset 2px 2px 5px rgba(0,0,0,.1);
+    }
+
+    .consent-agree-checkbox:checked::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 8px;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%208%27%3E%3Cpath%20d%3D%27M1%204%20L3.5%207%20L9%201%27%20stroke%3D%27white%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
+    }
+
+    /* Actions row: py-8, BOTH buttons on the RIGHT (justify-end) per Figma */
+    #screen-consent .row-actions {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      justify-content: flex-end;   /* overrides the global has-prev space-between */
+    }
+
+    /* Previous button in consent screen: blue text + correct padding per Figma */
+    #consentPrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
+    #consentPrevBtn:hover:not(:disabled) {
+      color: #013ca8;
+    }
+
+    /* Disabled Next: bg-#c9c9c9, text-#757575 per Figma */
+    #consentNextBtn:disabled {
+      border-color: #c9c9c9;
+      background: #c9c9c9;
+      color: #757575;
+      cursor: not-allowed;
+    }
+
+    /* ─── Coverage Screen ──────────────────────────────────────────── */
+
+    #screen-coverage {
+      gap: 0;
+    }
+
+    #screen-coverage .title-wrap {
+      margin: 0;
+    }
+
+    .cov-tagline {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 21px;
+      color: #181818;
+    }
+
+    .cov-tagline .req-star { color: #8e030f; }
+
+    /* Fields section: 16px gap between fields, matches Figma gap-[16px] */
+    .cov-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      margin-top: 16px;
+      padding-top: 4px;
+    }
+
+    /* Individual field wrapper: label + control stacked, 4px gap */
+    .cov-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+    }
+
+    /* Field label row: asterisk + text, SF Pro Semibold */
+    .cov-field-label {
+      display: flex;
+      align-items: flex-end;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-weight: 590;
+    }
+
+    .cov-field-label .req {
+      color: #b60554;
+      font-size: 12px;
+      line-height: 17px;
+      width: 10px;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+
+    .cov-field-label .lbl {
+      color: #2e2e2e;
+      font-size: 13px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    /* Larger label variant for radio group (14px / 19px per Figma) */
+    .cov-field-label .lbl-lg {
+      color: #2e2e2e;
+      font-size: 14px;
+      line-height: 19px;
+      white-space: normal;
+    }
+
+    /* Text input: h-32, border-radius 8px, px-8 py-2 per Figma */
+    .cov-input {
+      width: 100%;
+      height: var(--aff-input-height);
+      min-height: var(--aff-input-height);
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 2px 12px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #181818;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .cov-input::placeholder { color: #5c5c5c; }
+
+    .cov-input:focus {
+      outline: none;
+    }
+
+    .cov-input:focus::placeholder {
+      color: transparent;
+    }
+
+    .cov-field-label + .cov-input,
+    .cov-field-label + .cov-dropdown,
+    .cov-field-label + .datepicker,
+    .cov-field-label + .hi-date-wrap {
+      margin-top: var(--aff-label-control-gap);
+    }
+
+    .cov-field-label + .cov-radio-group {
+      margin-top: var(--aff-label-control-gap);
+    }
+
+    /* ─── Custom Dropdown (ajg-dropdown) ────────────────────────── */
+    .cov-dropdown {
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .cov-dropdown .ajg-dropdown-trigger {
+      width: 100%;
+      height: 100%;
+      min-height: var(--aff-input-height);
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .cov-dropdown .ajg-dropdown-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cov-dropdown.has-value .ajg-dropdown-value {
+      color: #181818;
+    }
+
+    .cov-chevron-icon {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin-left: 8px;
+      background: url("assets/dropdown-down-icon.png") center center / 16px 16px no-repeat;
+      pointer-events: none;
+    }
+
+    .ajg-dropdown-listbox {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: -1px;
+      right: -1px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow:
+        0 0 5px rgba(0, 0, 0, 0.16),
+        0 3px 3px rgba(0, 0, 0, 0.16),
+        0 -1px 2px rgba(0, 0, 0, 0.09);
+      padding: 4px 0;
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .ajg-dropdown.open .ajg-dropdown-listbox {
+      display: block;
+    }
+
+    .ajg-dropdown-option {
+      width: 100%;
+      min-height: 36px;
+      border: 0;
+      background: #ffffff;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .ajg-dropdown-option:hover,
+    .ajg-dropdown-option:focus-visible {
+      background: #d6e6ff;
+      outline: none;
+    }
+
+    .ajg-dropdown-check {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ajg-dropdown-check::before {
+      content: "";
+      width: 5px;
+      height: 9px;
+      border: 2px solid #0250d9;
+      border-top: 0;
+      border-left: 0;
+      transform: rotate(45deg);
+      display: none;
+    }
+
+    .ajg-dropdown-option.selected .ajg-dropdown-check::before {
+      display: block;
+    }
+
+    /* Helper text below select: 12px #5c5c5c per Figma */
+    .cov-helper {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      color: #5c5c5c;
+    }
+
+    .cov-input + .cov-helper,
+    .cov-dropdown + .cov-helper,
+    .datepicker + .cov-helper,
+    .hi-date-wrap + .cov-helper {
+      margin-top: var(--aff-label-control-gap);
+    }
+
+    /* Radio group container */
+    .cov-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Radio option row: gap-8 items-start per Figma */
+    .cov-radio-opt {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* Custom radio input: 16×16, rounded-full, #5c5c5c border */
+    .cov-radio-input {
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      margin-top: 1px;
+      border: 1px solid #5c5c5c;
+      border-radius: 50%;
+      background: #ffffff;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cov-radio-input:checked {
+      border: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23066afe'/%3E%3Ccircle cx='8' cy='8' r='3' fill='white'/%3E%3C/svg%3E");
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* Radio label: SF Pro Regular 13px / 18px, #5c5c5c */
+    .cov-radio-label {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #5c5c5c;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Coverage actions: both buttons right per Figma (same as consent) */
+    #screen-coverage .row-actions,
+    #screen-health .row-actions {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      justify-content: flex-end;
+    }
+
+    /* Allow labels to wrap inside question rows */
+    .hi-qrow .cov-field-label { align-items: flex-start; }
+    .hi-qrow .cov-field-label .lbl { white-space: normal; font-size: 13px; line-height: 18px; }
+
+    #healthPrevBtn, #healthPage2PrevBtn, #healthPage3PrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
+    #coveragePrevBtn {
+      color: #0250d9;
+      padding: 1px 16px;
+    }
+
+    /* ─── Footer ───────────────────────────────────────────────────── */
+    .footer {
+      background: #f7f7f7;
+      margin-top: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      padding: 16px 64px;
+    }
+
+    .footer-logo {
+      height: 54px;
+      width: auto;
+      flex: 0 0 auto;
+    }
+
+    .footer-columns {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .footer-col-title {
+      font-weight: 700;
+      color: #2e2e2e;
+      line-height: 24px;
+    }
+
+    .footer-col-body {
+      color: #2e2e2e;
+      line-height: 24px;
+    }
+
+    .footer-col-body a {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: #c9c9c9;
+      margin: 0 40px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 64px;
+    }
+
+    .footer-copyright {
+      font-size: 16px;
+      line-height: 24px;
+      color: #2e2e2e;
+      font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-link {
+      color: #0250d9;
+      font-size: 14px;
+      line-height: 18px;
+      text-decoration: none;
+    }
+
+    .footer-link:hover { text-decoration: underline; }
+
+    .footer-link-divider {
+      width: 1px;
+      height: 22px;
+      background: #c9c9c9;
+    }
+
+    /* ─── Health Information — internal page toggle ─────────────── */
+    .health-page { width: 100%; }
+    .health-page.hidden { display: none; }
+
+    /* Yes/No pill button group */
+    .hi-yn-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .hi-yn-btn {
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      padding: 1px 16px;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      color: #0250d9;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+    }
+
+    .hi-yn-btn:first-child {
+      border-radius: 9999px 0 0 9999px;
+      margin-right: -1px;
+    }
+
+    .hi-yn-btn:last-child {
+      border-radius: 0 9999px 9999px 0;
+    }
+
+    .hi-yn-btn.active {
+      background: #066afe;
+      color: #ffffff;
+      box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.08), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(0, 0, 0, 0.15);
+      z-index: 1;
+      position: relative;
+    }
+
+    .hi-yn-btn:hover:not(.active) {
+      background: #f3f3f3;
+      color: #03234d;
+      box-shadow: 0 1.5px 0 0 #2e2e2e;
+    }
+
+    .hi-yn-btn.active:hover {
+      background: #0250d9;
+      box-shadow: 0 2px 0 0 #002775;
+    }
+
+    .hi-yn-btn:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 4px #ffffff, inset 0 0 0 2px #03234d;
+      z-index: 2;
+    }
+
+    .hi-yn-btn.active:focus-visible {
+      box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.08), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 0 0 4px #ffffff, inset 0 0 0 2px #03234d;
+    }
+
+    /* Question row */
+    .hi-qrow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .hi-qrow.hi-indent-24 { padding-left: 24px; }
+    .hi-qrow.hi-indent-16 { padding-left: 16px; }
+
+    .hi-q-detail-card {
+      margin-top: 8px;
+    }
+
+    /* Sub-header "Have you ever been..." */
+    .hi-sub-header {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 19px;
+      color: #2e2e2e;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* ─── Health Information Screen ─────────────────────────────── */
+    .hi-three-col {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-three-col > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .hi-section-title {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 590;
+      line-height: 22px;
+      color: #181818;
+      margin: 0;
+    }
+
+    .hi-radio-helper {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      color: #5c5c5c;
+      margin: 0;
+      width: 100%;
+    }
+
+    .hi-card {
+      border: 1px solid #c9c9c9;
+      border-radius: 20px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .hi-phys-section-title {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 590;
+      line-height: 22px;
+      color: #181818;
+      margin: 0;
+      width: 100%;
+    }
+
+    .hi-prescription-card {
+      background: #f7f7f7;
+      border: 1px solid #bebebe;
+      border-radius: 16px;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .hi-prescription-title {
+      margin: 0;
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+      color: #2e2e2e;
+    }
+
+    .hi-inline-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .hi-inline-actions-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hi-taking-checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      cursor: pointer;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .hi-taking-checkbox .consent-agree-checkbox {
+      margin: 0;
+    }
+
+    .hi-additional-physician-wrap {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    #health-page-3 .title-wrap {
+      margin: 0;
+    }
+
+    #health-page-3 .cov-tagline {
+      margin: 0;
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    #health-page-3 .cov-fields {
+      margin-top: 8px;
+      padding-top: 0;
+      padding-left: 16px;
+      padding-right: 12px;
+      gap: 12px;
+    }
+
+    #health-page-3 .hi-card {
+      padding: 16px;
+      gap: 16px;
+    }
+
+    #health-page-3 .hi-street-input {
+      height: var(--aff-input-height);
+      min-height: var(--aff-input-height);
+      resize: none;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      line-height: 18px;
+    }
+
+    .hi-prescription-divider {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 32px;
+      margin: 0;
+    }
+
+    .hi-prescription-divider::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 16px;
+      border-top: 1px solid #c9c9c9;
+    }
+
+    .hi-add-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .hi-physicians-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .js-prescription-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    #health-page-3 .row-actions.has-prev {
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 8px 12px 8px 16px;
+    }
+
+    .hi-card.hidden {
+      display: none;
+    }
+
+    .hi-two-col {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-two-col > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .hi-city-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .hi-city-row > * {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .cov-field-label.lbl-multi {
+      align-items: flex-start;
+    }
+
+    .cov-field-label.lbl-multi .lbl {
+      white-space: normal;
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .hi-date-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .hi-date-wrap .cov-input {
+      padding-right: 32px;
+    }
+
+    .hi-date-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hi-date-icon img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
+
+    /* ── Restart button ───────────────────────────────────────────── */
+    .app-restart-btn {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 80;
+      width: 48px;
+      height: 48px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px) saturate(220%);
+      -webkit-backdrop-filter: blur(20px) saturate(220%);
+      box-shadow:
+        0 -1px 0 rgba(255, 255, 255, 0.8),
+        0 1px 1px rgba(0, 0, 0, 0.1);
+      color: #04e1cb;
+      overflow: hidden;
+      isolation: isolate;
+      cursor: pointer;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      transition:
+        width 240ms cubic-bezier(0.22, 0.8, 0.25, 1),
+        padding 240ms cubic-bezier(0.22, 0.8, 0.25, 1),
+        filter 180ms ease,
+        transform 180ms ease;
+    }
+    .app-restart-btn::before { display: none; }
+
+    .app-restart-icon {
+      width: 40px;
+      max-width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+      background: none;
+      transition: max-width 220ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+    .app-restart-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+      filter:
+        blur(0.5px)
+        saturate(200%)
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 0 8px rgba(4, 225, 203, 0.6));
+    }
+    .app-restart-label {
+      font-family: "Short Stack", cursive;
+      font-size: 24px;
+      line-height: 32px;
+      font-weight: 600;
+      white-space: nowrap;
+      max-width: 0;
+      opacity: 0;
+      transform: translateX(-6px);
+      overflow: hidden;
+      pointer-events: none;
+      color: #04e1cb;
+      transition: max-width 220ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+    .app-restart-btn:hover {
+      width: 148px;
+      padding: 4px 8px;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.3);
+      border-color: #04e1cb;
+      filter: brightness(1.15) drop-shadow(0 0 4px rgba(4, 225, 203, 0.5));
+    }
+    .app-restart-btn:hover .app-restart-icon {
+      max-width: 0;
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .app-restart-btn:hover .app-restart-label {
+      max-width: 132px;
+      opacity: 1;
+      transform: translateX(0);
+      filter:
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.8))
+        drop-shadow(0 0 6px rgba(4, 225, 203, 0.8))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ═══ TOP BAR V2 ═══════════════════════════════════════════════ -->
+    <div class="home-landing-topbarv2">
+      <svg id="aftAppBarDividerSvg" class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
+        <path d="M 0,44 L 305,44 Q 320,44 333,36 L 387,8 Q 400,0 415,0 L 1273,0 Q 1288,0 1301,8 L 1355,36 Q 1368,44 1383,44 L 1688,44" stroke="rgba(4,225,203,0.2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <div class="home-landing-brand-lockupv2">
+        <img class="home-brand-leftv2" src="assets/napa-logo.png" alt="Carrier logo" />
+        <div class="home-brand-dividerv2" aria-hidden="true"></div>
+        <img class="home-brand-salesforcev2" src="assets/salesforce-logo.svg" alt="Salesforce" />
+      </div>
+      <div class="aft-topbar-timer" id="aftTopbarTimer" aria-live="polite" aria-label="Elapsed time">
+        <span class="aft-topbar-timer-display" id="aftTopbarTimerDisplay">00:00</span>
+        <button class="aft-topbar-timer-btn" id="aftTopbarTimerBtn" type="button" aria-label="Pause timer">
+          <img class="aft-topbar-timer-pause-icon" src="assets/timer-pause-icon.svg" alt="Pause" />
+          <img class="aft-topbar-timer-resume-icon" src="assets/timer-play-icon.svg" alt="Resume" />
+        </button>
+      </div>
+      <div class="home-landing-contextv2" aria-hidden="true">
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Flow</p>
+          <p class="home-landing-context-valuev2">Disability</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">1st Year?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxFirstYear">–</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Hospitalization?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxHospitalization">–</p>
+        </div>
+        <div class="home-landing-context-slashv2">/</div>
+        <div class="home-landing-context-colv2">
+          <p class="home-landing-context-labelv2">Ft. + Lb.?</p>
+          <p class="home-landing-context-valuev2" id="aftCtxWeight">–</p>
+        </div>
+      </div>
+      <button class="home-landing-home-btn" type="button" id="aftTopBarHomeBtn" aria-label="Go to Home">
+        <span class="home-landing-home-icon" aria-hidden="true"></span>
+        <span class="app-home-btn-label">Home</span>
+      </button>
+    </div>
+
+    <!-- ═══ HEADER ═══════════════════════════════════════════════════ -->
+    <header class="header" id="aftHeader">
+      <img
+        class="brand-logo"
+        src="assets/aft-logo.png"
+        alt="AFT+ Member Benefits"
+      />
+      <div class="divider-tall" aria-hidden="true"></div>
+      <div class="header-right">
+        <span class="help-label">Need Help:</span>
+        <a class="help-phone" href="tel:8884238700">Call 888-423-8700</a>
+        <div class="divider-short" aria-hidden="true"></div>
+        <span class="login-label">Login</span>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN ══════════════════════════════════════════════════════ -->
+    <div class="main-scroll" id="mainScroll">
+      <main class="main-surface">
+
+        <!-- Steps Sidebar -->
+        <aside class="steps">
+          <h3>Steps</h3>
+          <ul class="step-list" id="stepList">
+            <li class="step-item" data-position="top" data-state="active" data-screen="screen-start-here">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Start here</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-consent">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Consent</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-coverage">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Coverage</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-health">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Health Information</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-enrollment">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Enrollment</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-physician">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Physician &amp; Prescriptions</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-notices">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Notices</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-opt-ins">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Opt Ins</span>
+            </li>
+            <li class="step-item" data-position="bottom" data-state="default" data-screen="screen-payment">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Payment</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Step Content -->
+        <section class="content">
+
+          <!-- ── Start Here ─────────────────────────────────────── -->
+          <div class="screen active" id="screen-start-here">
+            <div class="title-wrap">
+              <h1>Start Here</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">
+              To match you with the best plan, we'll need a few details about you and your business.
+            </p>
+            <div class="form-grid">
+              <div class="field">
+                <p class="label"><span class="required">*</span>First Name</p>
+                <div class="input-field">
+                  <input class="input-text" type="text" name="firstName" aria-label="First Name" />
+                </div>
+              </div>
+              <div class="field">
+                <p class="label"><span class="required">*</span>Last Name</p>
+                <div class="input-field">
+                  <input class="input-text" type="text" name="lastName" aria-label="Last Name" />
+                </div>
+              </div>
+              <div class="field">
+                <p class="label"><span class="required">*</span>Email Address</p>
+                <div class="input-field">
+                  <input class="input-text" type="email" name="emailAddress" aria-label="Email Address" />
+                </div>
+              </div>
+              <div class="field field-date-inline-error">
+                <p class="label"><span class="required">*</span>Original date you joined AFT?</p>
+                <div class="datepicker" id="aftJoinDatePicker">
+                  <div class="input-field datepicker-input" id="aftJoinDateInputWrap">
+                    <input class="input-text" type="text" id="aftJoinDateInput" name="aftJoinDate" aria-label="Original date you joined AFT?" placeholder="Select a date..." readonly />
+                    <button class="calendar-icon-btn" type="button" id="aftJoinDateToggle" aria-label="Toggle calendar">
+                      <img src="assets/calendar-icon.png" alt="" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <div class="datepicker-popover" id="aftJoinDatePopover">
+                    <div class="dp-header">
+                      <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                      <div class="dp-month-label">January</div>
+                      <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                      <div class="dp-year-select">
+                        <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                        <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                      </div>
+                    </div>
+                    <div class="dp-grid">
+                      <div class="dp-weekday">Sun</div>
+                      <div class="dp-weekday">Mon</div>
+                      <div class="dp-weekday">Tue</div>
+                      <div class="dp-weekday">Wed</div>
+                      <div class="dp-weekday">Thu</div>
+                      <div class="dp-weekday">Fri</div>
+                      <div class="dp-weekday">Sat</div>
+                    </div>
+                    <div class="dp-grid dp-days-grid"></div>
+                    <button class="dp-today" type="button">Today</button>
+                  </div>
+                </div>
+                <p class="field-error-text" id="aftJoinDateError" role="alert" aria-live="polite">Provide the Original date you joined AFT</p>
+              </div>
+            </div>
+            <div class="row-actions">
+              <button class="btn-brand" id="startNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Consent ────────────────────────────────────────── -->
+          <div class="screen" id="screen-consent">
+            <div class="title-wrap">
+              <h1>Consent Statement</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="consent-tagline">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
+            <div class="consent-body">
+              <p>Consent Statement</p>
+              <p>In this Agreement, "we," "us," "our," and "the company" refer to Metropolitan Life Insurance Company and MetLife Investors USA Insurance Company. "You" and "yours" refer to the applicant for a policy offered by us.</p>
+              <p>&nbsp;</p>
+              <ol>
+                <li>
+                  <strong>Consent to do business with, and receive communications from, MetLife electronically.</strong> To the extent permitted by law, this Agreement is a "global" consent. You agree to:
+                  <ol class="alpha">
+                    <li>Complete transactions electronically and use electronic signatures on a website we make available to you.</li>
+                    <li>As applicable, allow us to replace paper delivery with electronic delivery of your documents and communications relating to policies you own or are applying for. Electronic delivery of the documents will be by e-mails transmitting such documents, whether as text in, attachments to, and/or hyperlinks from such e-mails to the documents stored on a MetLife website or a third party's website. You specifically agree that delivery of the link to your policy constitutes delivery of the policy and starts the free look period under your policy.</li>
+                    <li>As applicable, receive text messages with important updates on your application and policy. You agree to allow us to send text messages to the mobile number you provide. You understand that standard message and data rates apply.</li>
+                    <li>Make sure that neither your software nor your internet service provider inhibits or interferes with your receipt of electronic communications from us. Update your electronic mail address when it changes.</li>
+                  </ol>
+                </li>
+              </ol>
+              <p class="consent-note"><strong>Note:</strong> You'll continue to receive paper copies of certain documents until the electronic versions become available.</p>
+              <p>&nbsp;</p>
+              <ol start="2">
+                <li><strong>Withdrawal of consent.</strong> You can easily withdraw your consent at any time by calling <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>Effect of not consenting or withdrawing consent.</strong> If you choose not to consent or to withdraw your consent, you can still submit an application by signing a paper copy of the application.</li>
+                <li><strong>How to obtain paper copies of the documents you sign electronically.</strong> To obtain paper copies of the documents you sign electronically, you can either print the document on your printer or call us at <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>Hardware requirements.</strong> To use this service, you must have access to a computer with an Internet connection. If you would like to be able to save the documents that you receive, the computer should have a hard drive or other storage device or be connected to a printer. You must also have an email account to receive communications.</li>
+                <li><strong>Software Requirements</strong> In order to complete the electronic signature process and to download your application, you will need Adobe Acrobat Reader 3.0 (or greater).</li>
+              </ol>
+            </div>
+            <div class="consent-agree-row">
+              <label class="consent-agree-label" for="consentAgreeCheckbox">
+                <input class="consent-agree-checkbox" type="checkbox" id="consentAgreeCheckbox" />
+                <span class="consent-agree-text">I Agree</span>
+              </label>
+            </div>
+            <!-- Both buttons right-aligned per Figma node 15666:190734 -->
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="consentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="consentNextBtn" type="button" disabled>Next</button>
+            </div>
+          </div>
+
+          <!-- ── Coverage ──────────────────────────────────────────── -->
+          <div class="screen" id="screen-coverage">
+            <div class="title-wrap">
+              <h1>Coverage</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+            <div class="cov-fields">
+
+              <!-- Basic Annual Earnings -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Basic Annual Earnings</span>
+                </div>
+                <input class="cov-input" type="text" id="covAnnualEarnings" inputmode="decimal" placeholder="$0.00" aria-label="Basic Annual Earnings" />
+              </div>
+
+              <!-- Monthly Benefit Amount -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Monthly benefit amount</span>
+                </div>
+                <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select your benefit amount">
+                  <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="ajg-dropdown-value" data-dropdown-value></span>
+                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  </button>
+                  <input type="hidden" id="covMonthlyBenefit" name="covMonthlyBenefit" data-dropdown-input />
+                  <div class="ajg-dropdown-listbox" role="listbox" aria-label="Monthly benefit amount options">
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="100"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$100</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="200"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$200</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="300"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$300</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="400"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$400</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="600"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$600</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="700"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$700</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="800"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$800</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="900"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$900</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1100"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,100</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1200"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,200</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1300"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,300</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1400"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,400</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1600"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,600</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1700"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,700</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1800"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,800</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="1900"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1,900</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="2000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="2500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="3000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$3,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="3500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$3,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="4000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$4,000</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="4500"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$4,500</span></button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="5000"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$5,000</span></button>
+                  </div>
+                </div>
+                <p class="cov-helper">Select an increment of $100 up to a maximum of 60% of your Predisability Earnings, maximum of $5,000</p>
+              </div>
+
+              <!-- Select Elimination Period -->
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl-lg">Select elimination period</span>
+                </div>
+                <div class="cov-radio-group" role="radiogroup" aria-label="Select elimination period">
+                  <label class="cov-radio-opt">
+                    <input class="cov-radio-input" type="radio" name="eliminationPeriod" value="60" id="elim60" />
+                    <span class="cov-radio-label">Elimination Period 60 Days / Maximum Benefit Period is the earlier of 5 years or your normal retirement age</span>
+                  </label>
+                  <label class="cov-radio-opt">
+                    <input class="cov-radio-input" type="radio" name="eliminationPeriod" value="90" id="elim90" />
+                    <span class="cov-radio-label">Elimination Period 90 Days / Maximum Benefit Period is the earlier of 5 years or your normal retirement age</span>
+                  </label>
+                </div>
+              </div>
+
+            </div><!-- /cov-fields -->
+
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="coveragePrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="coverageNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Health Information (placeholder) ───────────────── -->
+          <div class="screen" id="screen-health">
+
+            <!-- ─── Page 1: Hospitalization ─────────────────────── -->
+            <div class="health-page" id="health-page-1">
+            <div class="title-wrap">
+              <h1>Health Information</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+            <div class="cov-fields">
+
+              <!-- Height / Weight row -->
+              <div class="hi-three-col">
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
+                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <p class="field-error-text" id="hiHeightFeetError" role="alert" aria-live="polite">Provide Height (Feet)</p>
+                </div>
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
+                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <p class="field-error-text" id="hiHeightInchesError" role="alert" aria-live="polite">Provide Height (Inches)</p>
+                </div>
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
+                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <p class="field-error-text" id="hiWeightError" role="alert" aria-live="polite">Provide Weight (Lbs)</p>
+                </div>
+              </div>
+
+              <!-- Section heading -->
+              <p class="hi-section-title">Member Health Information</p>
+
+              <!-- Hospitalization question -->
+              <div class="cov-radio-group">
+                <div class="cov-field-label"><span class="req">*</span><span class="lbl-lg">Have you been Hospitalized as defined below (not including well-baby delivery) in the past 90 days?</span></div>
+                <label class="cov-radio-opt">
+                  <input class="cov-radio-input" type="radio" name="hospitalized" value="yes" id="hospYes" />
+                  <span class="cov-radio-label">Yes</span>
+                </label>
+                <label class="cov-radio-opt">
+                  <input class="cov-radio-input" type="radio" name="hospitalized" value="no" id="hospNo" />
+                  <span class="cov-radio-label">No</span>
+                </label>
+                <p class="hi-radio-helper">Hospitalized means admission for inpatient care in a hospital; receipt of care in a hospice facility, intermediate care facility, or long term care facility; or receipt of the following treatment wherever performed: chemotherapy, radiation therapy, or dialysis.</p>
+                <p class="field-error-text" id="hospQuestionError" role="alert" aria-live="polite">Answer Yes or No for Hospitalization question</p>
+              </div>
+
+              <!-- Hospitalization details card (shown when Yes is selected) -->
+              <div class="hi-card hidden" id="hospCard">
+
+                <!-- Condition / Diagnosis -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Condition / Diagnosis?</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter condition" />
+                </div>
+
+                <!-- Medication -->
+                <div>
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Please list any medication prescribed that you did not already identify in the Prescription Information above.</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter medication" />
+                </div>
+
+                <!-- Date of last treatment / Date of diagnosis -->
+                <div class="hi-two-col">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last treatment (Month/Year)</span></div>
+                    <div class="datepicker" id="hospTreatmentDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of diagnosis (Month/Year)</span></div>
+                    <div class="datepicker" id="hospDiagnosisDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Type of treatment -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Type of treatment</span></div>
+                  <input class="cov-input" type="text" placeholder="Describe type of treatment" />
+                </div>
+
+                <!-- Physician's Name / Date of last visit -->
+                <div class="hi-two-col">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician's Name</span></div>
+                    <input class="cov-input" type="text" placeholder="Enter name" />
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last visit</span></div>
+                    <div class="datepicker" id="hospVisitDatePicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Reason for visit -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Reason for visit</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter reason" />
+                </div>
+
+                <!-- Physician Street Address -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician Street Address</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter address" />
+                </div>
+
+                <!-- City / State / Zip -->
+                <div class="hi-city-row">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">City</span></div>
+                    <input class="cov-input" type="text" name="hospCity" placeholder="Enter city" />
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">State</span></div>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select state">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="hospState" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="State options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Alabama</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AK"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Alaska</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AZ"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Arizona</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="AR"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Arkansas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>California</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CO"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Colorado</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Connecticut</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="DE"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Delaware</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="FL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Florida</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="GA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Georgia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="HI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Hawaii</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ID"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Idaho</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IL"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Illinois</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Indiana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="IA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Iowa</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="KS"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Kansas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="KY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Kentucky</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="LA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Louisiana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ME"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Maine</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MD"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Maryland</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Massachusetts</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Michigan</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Minnesota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MS"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Mississippi</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MO"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Missouri</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Montana</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NE"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Nebraska</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NV"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Nevada</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NH"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Hampshire</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NJ"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Jersey</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NM"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New Mexico</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>New York</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="NC"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>North Carolina</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="ND"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>North Dakota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OH"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Ohio</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OK"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Oklahoma</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="OR"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Oregon</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="PA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Pennsylvania</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="RI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Rhode Island</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="SC"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>South Carolina</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="SD"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>South Dakota</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="TN"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Tennessee</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="TX"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Texas</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="UT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Utah</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="VT"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Vermont</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="VA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Virginia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Washington</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WV"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>West Virginia</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WI"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Wisconsin</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="WY"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Wyoming</span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Zip Code</span></div>
+                    <input class="cov-input" id="hospZipInput" type="text" placeholder="Enter zip" inputmode="numeric" maxlength="5" pattern="[0-9]*" />
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Phone Number</span></div>
+                  <input class="cov-input" type="text" placeholder="Enter number" inputmode="tel" />
+                </div>
+
+              </div><!-- /.hi-card -->
+
+            </div><!-- /.cov-fields -->
+
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="healthPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="healthPage1NextBtn" type="button">Next</button>
+            </div>
+            </div><!-- /.health-page#health-page-1 -->
+
+            <!-- ─── Page 2: Health Questionnaire ────────────────── -->
+            <div class="health-page hidden" id="health-page-2">
+              <div class="title-wrap">
+                <h1>Health Information</h1>
+                <div class="title-line"></div>
+              </div>
+              <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+              <div class="cov-fields">
+
+                <p class="hi-section-title">Member Health Information</p>
+
+                <!-- Q1: Alcohol / drugs -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">In the past 5 years, have you received medical treatment or counseling by a physician or other health care provider for, or been advised by a physician or other health care provider to discontinue, the use of alcohol or prescribed or non-prescribed drugs?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q2: Insurance declined -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Have you had any application for life, accidental death and dismemberment or disability insurance declined, postponed, withdrawn, rated, modified, or issued other than as applied for?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q3: Disability benefits -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now receiving or applying for any disability benefits, including workers' compensation?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Sub-header 1 -->
+                <p class="hi-sub-header">Have you ever been diagnosed, treated, or given medical advice by a physician or other healthcare provider for:</p>
+
+                <!-- Q4: AIDS/HIV -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Acquired Immunodeficiency Syndrome (AIDS), AIDS Related Complex (ARC) or the Human Immunodeficiency Virus (HIV) infection?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q5: Cardiac -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Cardiac or cardiovascular disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q6: Stroke -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Stroke or circulatory disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q7: High blood pressure -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">High blood pressure?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q8: Cancer -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Cancer, Hodgkins disease, lymphoma, or tumors?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q9: Diabetes -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Diabetes?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q10: Musculoskeletal -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Back, neck, knee, spinal, joint or other musculoskeletal disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q11: Mental/anxiety -->
+                <div class="hi-qrow hi-indent-24">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Mental, anxiety, depression, attempted suicide or nervous disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- ── Extended section (Q12–Q28): shown for Full questionnaire only ── -->
+                <div id="hi-q-extended" class="hidden">
+
+                <!-- Q12: Diet -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now on a diet prescribed by a physician or other health care provider?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q13: Pregnant -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now pregnant?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q14: Tobacco -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now, or have you in the past 2 years, used tobacco in any form?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q15: DWI -->
+                <div class="hi-qrow">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">In the past 5 years, have you been convicted of driving while intoxicated or under the influence of alcohol and/or any drug?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Sub-header 2 -->
+                <p class="hi-sub-header">Have you ever been diagnosed, treated, or given medical advice by a physician or other healthcare provider for:</p>
+
+                <!-- Q16: Asthma -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Asthma, COPD, emphysema or other lung disease?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q17: Ulcers -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Ulcers, stomach, hepatitis or other liver disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q18: Colitis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Colitis, Crohn's, diverticulitis or other intestinal disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q19: Memory loss -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Memory loss?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q20: Epilepsy -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Epilepsy, paralysis, seizures, dizziness or other neurological disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q21: Epstein-Barr -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Epstein-Barr, chronic fatigue syndrome or fibromyalgia?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q22: Multiple sclerosis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Multiple sclerosis, ALS or muscular dystrophy?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q23: Lupus -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Lupus, scleroderma, auto immune disease or connective tissue disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q24: Arthritis -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Arthritis?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q25: Carpal tunnel -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Carpal tunnel syndrome?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q26: Kidney -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Kidney, urinary tract or prostate disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q27: Thyroid -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Thyroid or other gland disorder?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                <!-- Q28: Sleep apnea -->
+                <div class="hi-qrow hi-indent-16">
+                  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Sleep apnea?</span></div>
+                  <div class="hi-yn-group" data-yn-group>
+                    <button class="hi-yn-btn" type="button" data-yn="yes">Yes</button>
+                    <button class="hi-yn-btn" type="button" data-yn="no">No</button>
+                  </div>
+                </div>
+
+                </div><!-- /#hi-q-extended -->
+
+              </div><!-- /.cov-fields -->
+
+              <div class="row-actions has-prev">
+                <button class="btn-secondary" id="healthPage2PrevBtn" type="button">Previous</button>
+                <button class="btn-brand" id="healthPage2NextBtn" type="button">Next</button>
+              </div>
+            </div><!-- /.health-page#health-page-2 -->
+
+            <!-- ─── Page 3: Physician & Prescriptions ─────────────── -->
+            <div class="health-page hidden" id="health-page-3">
+              <div class="title-wrap">
+                <h1>Physician &amp; Prescriptions</h1>
+                <div class="title-line"></div>
+              </div>
+              <p class="cov-tagline">Please enter any physician that you did not mention in the questions previously.</p>
+
+              <div class="cov-fields">
+                <p class="hi-phys-section-title">Member Physician &amp; Prescription Information</p>
+
+                <div id="healthPhysicianCardsContainer" class="hi-physicians-stack">
+                <div class="hi-card js-physician-card">
+                  <p class="hi-prescription-title">Physician Information</p>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">First Name</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter first name" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Last Name</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter last name" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Street</span></div>
+                    <textarea class="cov-input hi-street-input" rows="2" placeholder="Enter street address"></textarea>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing City</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter city" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing State/Province</span></div>
+                      <input class="cov-input" type="text" placeholder="Select state/province" />
+                    </div>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Zip/Postal Code</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter zip/postal code" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Country</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter country" />
+                    </div>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Reason for Visit</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter reason" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of Last Visit</span></div>
+                      <input class="cov-input" type="text" placeholder="MM/DD/YYYY" />
+                    </div>
+                  </div>
+
+                  <div class="hi-prescription-divider"></div>
+                  <p class="hi-prescription-title">Prescriptions from this physician</p>
+
+                  <div class="js-prescription-list">
+                  <div class="hi-prescription-card js-prescription-card">
+                    <p class="hi-prescription-title">Prescription</p>
+                    <div class="hi-two-col">
+                      <div>
+                        <div class="cov-field-label"><span class="req">*</span><span class="lbl">Medication</span></div>
+                        <input class="cov-input" type="text" placeholder="Enter medication" />
+                      </div>
+                      <div>
+                        <div class="cov-field-label"><span class="req">*</span><span class="lbl">Condition/Diagnosis</span></div>
+                        <input class="cov-input" type="text" placeholder="Enter diagnosis" />
+                      </div>
+                    </div>
+                    <div class="hi-inline-actions">
+                      <label class="hi-taking-checkbox">
+                        <input class="consent-agree-checkbox" type="checkbox" />
+                        <span>Currently taking</span>
+                      </label>
+                      <div class="hi-inline-actions-right">
+                        <button class="btn-destructive js-remove-prescription" type="button">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="hi-add-actions">
+                    <button class="btn-neutral js-add-prescription" type="button">
+                      <span class="btn-icon-add" aria-hidden="true"></span>
+                      <span>Add Prescription</span>
+                    </button>
+                  </div>
+                </div>
+                </div>
+                <div class="hi-additional-physician-wrap">
+                  <button class="btn-neutral" id="healthAddPhysicianBtn" type="button">
+                    <span class="btn-icon-add" aria-hidden="true"></span>
+                    <span>Add Additional Physician</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row-actions has-prev">
+                <button class="btn-secondary" id="healthPage3PrevBtn" type="button">Previous</button>
+                <button class="btn-brand" id="healthPage3NextBtn" type="button">Next</button>
+              </div>
+            </div><!-- /.health-page#health-page-3 -->
+
+          </div>
+
+          <!-- ── Enrollment (placeholder) ───────────────────────── -->
+          <div class="screen" id="screen-enrollment">
+            <div class="title-wrap">
+              <h1>Enrollment</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Enrollment screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="enrollmentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="enrollmentNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Physician & Prescriptions (placeholder) ────────── -->
+          <div class="screen" id="screen-physician">
+            <div class="title-wrap">
+              <h1>Physician &amp; Prescriptions</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Physician &amp; Prescriptions screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="physicianPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="physicianNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Notices (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-notices">
+            <div class="title-wrap">
+              <h1>Notices</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Notices screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="noticesPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="noticesNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Opt Ins (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-opt-ins">
+            <div class="title-wrap">
+              <h1>Opt Ins</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Opt Ins screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="optInsPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="optInsNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Payment (placeholder) ──────────────────────────── -->
+          <div class="screen" id="screen-payment">
+            <div class="title-wrap">
+              <h1>Payment</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="intro">Payment screen content coming soon.</p>
+            <div class="row-actions has-prev">
+              <button class="btn-secondary" id="paymentPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" type="button">Submit</button>
+            </div>
+          </div>
+
+        </section>
+      </main>
+
+      <!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+      <footer class="footer">
+        <div class="footer-top">
+          <img
+            class="footer-logo"
+            src="assets/aft-logo.png"
+            alt="AFT+ Member Benefits"
+          />
+          <div class="footer-columns">
+            <div>
+              <p class="footer-col-title">Contact Us</p>
+              <p class="footer-col-body">Call <a href="tel:8884238700">888-423-8700</a></p>
+            </div>
+            <div>
+              <p class="footer-col-title">Business Hours</p>
+              <p class="footer-col-body">Mon - Fri…8:00 am - 8:00 pm EST</p>
+              <p class="footer-col-body">Sat - Sun…Closed</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">© 2026 Arthur J. Gallagher &amp; Co.</p>
+          <div class="footer-links">
+            <a class="footer-link" href="#">Privacy Policy</a>
+            <div class="footer-link-divider"></div>
+          </div>
+        </div>
+      </footer>
+    </div><!-- /main-scroll -->
+
+    <!-- ═══ RESTART BUTTON ══════════════════════════════════════════ -->
+    <button class="app-restart-btn" type="button" id="disRestartBtn" aria-label="Restart flow">
+      <span class="app-restart-icon" aria-hidden="true"><img src="assets/restart-icon.svg" alt="" /></span>
+      <span class="app-restart-label" aria-hidden="true">Restart</span>
+    </button>
+
+  </div><!-- /app-shell -->
+
+  <script>
+    /* ── Global enrollment data store ───────────────────────────────────
+       Access from any screen via window.aftEnrollmentData.
+       Keys added here as they are collected through the flow:
+         .joinDate         — Date object   (Original date you joined AFT?)
+         .joinDateFormatted — "MM/DD/YYYY" string
+    ──────────────────────────────────────────────────────────────────── */
+    window.aftEnrollmentData = {
+      joinDate:          null,
+      joinDateFormatted: ""
+    };
+
+    /* ─────────────────────────────────────────────────────────────────
+       MetLife LIFE UNISEX Height / Max-Weight Matrix
+       Key   = total height in inches (feet × 12 + inches)
+       Value = maximum acceptable weight in lbs (inclusive)
+       Source: MetLife LIFE UNISEX table (rounding rule: ≥ .5 → round up)
+    ───────────────────────────────────────────────────────────────── */
+    window.aftHeightWeightMatrix = {
+      56: 179,  /* 4'8"  */
+      57: 183,  /* 4'9"  */
+      58: 189,  /* 4'10" */
+      59: 191,  /* 4'11" */
+      60: 195,  /* 5'0"  */
+      61: 201,  /* 5'1"  */
+      62: 205,  /* 5'2"  */
+      63: 210,  /* 5'3"  */
+      64: 216,  /* 5'4"  */
+      65: 222,  /* 5'5"  */
+      66: 228,  /* 5'6"  */
+      67: 234,  /* 5'7"  */
+      68: 240,  /* 5'8"  */
+      69: 246,  /* 5'9"  */
+      70: 252,  /* 5'10" */
+      71: 258,  /* 5'11" */
+      72: 267,  /* 6'0"  */
+      73: 274,  /* 6'1"  */
+      74: 281,  /* 6'2"  */
+      75: 288,  /* 6'3"  */
+      76: 297,  /* 6'4"  */
+      77: 304,  /* 6'5"  */
+      78: 311,  /* 6'6"  */
+      79: 320,  /* 6'7"  */
+      80: 327,  /* 6'8"  */
+      81: 335   /* 6'9"  */
+    };
+
+    /**
+     * meetsWeightCriteria(feet, inches, weightLbs)
+     *
+     * Applies the MetLife rounding rule (≥ .5 → round up to next whole number)
+     * then checks the matrix.
+     *
+     * @param {number} feet       - whole feet (e.g. 5)
+     * @param {number} inches     - inches portion, may be fractional (e.g. 10.5)
+     * @param {number} weightLbs  - weight in lbs, may be fractional (e.g. 143.5)
+     * @returns {boolean|null}    - true = meets criteria, false = does not,
+     *                             null = height not in table
+     */
+    window.meetsWeightCriteria = function(feet, inches, weightLbs) {
+      /* Round height inches: ≥ .5 → next whole inch */
+      var roundedInches = Math.floor(inches) + (inches % 1 >= 0.5 ? 1 : 0);
+      var totalInches   = (feet * 12) + roundedInches;
+
+      /* Round weight: ≥ .5 → next whole lb */
+      var roundedWeight = Math.floor(weightLbs) + (weightLbs % 1 >= 0.5 ? 1 : 0);
+
+      var maxWeight = window.aftHeightWeightMatrix[totalInches];
+      if (maxWeight === undefined) return null; /* height not in table */
+
+      return roundedWeight <= maxWeight;
+    };
+
+    (function () {
+      "use strict";
+
+      /* ── Datepicker ───────────────────────────────────────────── */
+      var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      var YEAR_OPTIONS = [];
+      for (var y = 1970; y <= 2030; y++) YEAR_OPTIONS.push(y);
+
+      var today = new Date();
+      var normalizedToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      function formatDateMMDDYYYY(date) {
+        var mm = String(date.getMonth() + 1).padStart(2, "0");
+        var dd = String(date.getDate()).padStart(2, "0");
+        var yyyy = date.getFullYear();
+        return mm + "/" + dd + "/" + yyyy;
+      }
+
+      function updateFirstYearCtx(date) {
+        var el = document.getElementById("aftCtxFirstYear");
+        if (!el || !date) return;
+        var oneYearAgo = new Date(normalizedToday);
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        el.textContent = date >= oneYearAgo ? "Yes" : "No";
+      }
+
+      /* ── Unified reusable datepicker factory ─────────────────────
+         makeDatepicker(wrapId, options)
+           options.onSelect(date) — called when a date is committed
+      ──────────────────────────────────────────────────────────── */
+      function makeDatepicker(wrapId, options) {
+        options = options || {};
+        var onSelectCb = options.onSelect || null;
+
+        var wrap = document.getElementById(wrapId);
+        if (!wrap) return;
+
+        var input    = wrap.querySelector(".input-text");
+        var toggle   = wrap.querySelector(".calendar-icon-btn");
+        var prevBtn  = wrap.querySelector(".dp-prev");
+        var nextBtn  = wrap.querySelector(".dp-next");
+        var monthLbl = wrap.querySelector(".dp-month-label");
+        var yearTrig = wrap.querySelector(".dp-year-trigger");
+        var yearList = wrap.querySelector(".dp-year-list");
+        var daysGrid = wrap.querySelector(".dp-days-grid");
+        var todayBtn = wrap.querySelector(".dp-today");
+
+        if (yearList) {
+          yearList.addEventListener("wheel", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var delta = e.deltaMode === 0 ? e.deltaY : (e.deltaMode === 1 ? e.deltaY * 35 : e.deltaY * 245);
+            yearList.scrollTop += delta;
+          }, { passive: false });
+        }
+
+        var sel = null;
+        var vm  = normalizedToday.getMonth();
+        var vy  = normalizedToday.getFullYear();
+
+        function open() {
+          if (!sel) {
+            sel = new Date(normalizedToday);
+            if (input) input.value = formatDateMMDDYYYY(sel);
+          }
+          vm = sel.getMonth();
+          vy = sel.getFullYear();
+          document.querySelectorAll(".datepicker.open").forEach(function(dp) {
+            if (dp !== wrap) { dp.classList.remove("open"); dp.classList.remove("year-open"); }
+          });
+          wrap.classList.add("open");
+          render();
+        }
+
+        function close() {
+          wrap.classList.remove("open");
+          wrap.classList.remove("year-open");
+          if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
+        }
+
+        function render() {
+          if (!monthLbl || !yearTrig || !yearList || !daysGrid) return;
+          monthLbl.textContent = MONTH_NAMES[vm];
+          yearTrig.textContent = String(vy);
+
+          yearList.innerHTML = "";
+          var curYr = normalizedToday.getFullYear();
+          YEAR_OPTIONS.forEach(function(year) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            var isFuture = year > curYr;
+            btn.className = "dp-year-option"
+              + (year === vy ? " selected" : "")
+              + (isFuture ? " future-year" : "");
+            btn.setAttribute("role", "option");
+            btn.setAttribute("aria-selected", year === vy ? "true" : "false");
+            btn.setAttribute("aria-disabled", isFuture ? "true" : "false");
+            btn.textContent = String(year);
+            if (!isFuture) {
+              btn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                vy = year;
+                wrap.classList.remove("year-open");
+                yearTrig.setAttribute("aria-expanded", "false");
+                render();
+              });
+            }
+            yearList.appendChild(btn);
+          });
+          /* scrollTop set via requestAnimationFrame when year list becomes visible */
+
+          daysGrid.innerHTML = "";
+          var first = new Date(vy, vm, 1).getDay();
+          var dim   = new Date(vy, vm + 1, 0).getDate();
+          var dipm  = new Date(vy, vm, 0).getDate();
+          var cells = [];
+          for (var i = first - 1; i >= 0; i--) cells.push({ day: dipm - i, offset: -1 });
+          for (var d = 1; d <= dim; d++) cells.push({ day: d, offset: 0 });
+          while (cells.length % 7 !== 0) cells.push({ day: cells.length - (first + dim) + 1, offset: 1 });
+
+          cells.forEach(function(cell) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "dp-day" + (cell.offset !== 0 ? " other-month" : "");
+            var cd = new Date(vy, vm + cell.offset, cell.day);
+            if (cd > normalizedToday) {
+              btn.classList.add("is-future");
+              btn.setAttribute("aria-disabled", "true");
+              btn.textContent = String(cell.day);
+              daysGrid.appendChild(btn);
+              return;
+            }
+            if (sel && cd.getFullYear() === sel.getFullYear() && cd.getMonth() === sel.getMonth() && cd.getDate() === sel.getDate()) {
+              btn.classList.add("selected");
+            }
+            btn.textContent = String(cell.day);
+            btn.addEventListener("click", function() {
+              sel = cd;
+              if (input) input.value = formatDateMMDDYYYY(cd);
+              if (onSelectCb) onSelectCb(cd);
+              close();
+            });
+            daysGrid.appendChild(btn);
+          });
+        }
+
+        if (toggle) toggle.addEventListener("click", function(e) {
+          e.stopPropagation();
+          wrap.classList.contains("open") ? close() : open();
+        });
+        if (input) input.addEventListener("click", open);
+        if (prevBtn) prevBtn.addEventListener("click", function() {
+          if (vm === 0) { vm = 11; vy--; } else { vm--; }
+          render();
+        });
+        if (nextBtn) nextBtn.addEventListener("click", function() {
+          if (vm === 11) { vm = 0; vy++; } else { vm++; }
+          render();
+        });
+        if (yearTrig) yearTrig.addEventListener("click", function(e) {
+          e.stopPropagation();
+          var isOpen = wrap.classList.toggle("year-open");
+          yearTrig.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          if (isOpen && yearList) {
+            requestAnimationFrame(function() {
+              var selBtn = yearList.querySelector(".dp-year-option.selected");
+              if (selBtn) yearList.scrollTop = Math.max(0, selBtn.offsetTop - 2 * 35);
+            });
+          }
+        });
+        if (todayBtn) todayBtn.addEventListener("click", function() {
+          sel = new Date(normalizedToday);
+          if (input) input.value = formatDateMMDDYYYY(sel);
+          if (onSelectCb) onSelectCb(sel);
+          vy = sel.getFullYear();
+          vm = sel.getMonth();
+          close();
+        });
+        document.addEventListener("click", function(e) {
+          if (!wrap.contains(e.target)) close();
+        });
+      }
+
+      /* ── Datepicker instances ──────────────────────────────────── */
+      var aftJoinDateInput = document.getElementById("aftJoinDateInput");
+      var aftJoinDateInputWrap = document.getElementById("aftJoinDateInputWrap");
+      var aftJoinDateError = document.getElementById("aftJoinDateError");
+
+      function setAftJoinDateError(show) {
+        if (aftJoinDateInputWrap) aftJoinDateInputWrap.classList.toggle("is-error", show);
+        if (aftJoinDateError) aftJoinDateError.classList.toggle("is-visible", show);
+        if (aftJoinDateInput) aftJoinDateInput.setAttribute("aria-invalid", show ? "true" : "false");
+      }
+
+      function validateAftJoinDateRequired() {
+        var hasDate = Boolean(aftJoinDateInput && aftJoinDateInput.value.trim());
+        setAftJoinDateError(!hasDate);
+        return hasDate;
+      }
+
+      makeDatepicker("aftJoinDatePicker", {
+        onSelect: function(date) {
+          window.aftEnrollmentData.joinDate          = new Date(date);
+          window.aftEnrollmentData.joinDateFormatted = formatDateMMDDYYYY(date);
+          updateFirstYearCtx(date);
+          setAftJoinDateError(false);
+        }
+      });
+      makeDatepicker("hospTreatmentDatePicker");
+      makeDatepicker("hospDiagnosisDatePicker");
+      makeDatepicker("hospVisitDatePicker");
+
+      /* Zip code — numbers only */
+      (function() {
+        var zipInput = document.getElementById("hospZipInput");
+        if (!zipInput) return;
+        zipInput.addEventListener("input", function() {
+          this.value = this.value.replace(/\D/g, "").slice(0, 5);
+        });
+        zipInput.addEventListener("keydown", function(e) {
+          var allowed = ["Backspace","Delete","Tab","ArrowLeft","ArrowRight","Home","End"];
+          if (allowed.indexOf(e.key) === -1 && !/^\d$/.test(e.key)) {
+            e.preventDefault();
+          }
+        });
+      }());
+
+      /* ── Timer ───────────────────────────────────────────────── */
+      var aftTopbarTimer = document.getElementById("aftTopbarTimer");
+      var aftTopbarTimerDisplay = document.getElementById("aftTopbarTimerDisplay");
+      var aftTopbarTimerBtn = document.getElementById("aftTopbarTimerBtn");
+      var aftAppBarDividerSvg = document.getElementById("aftAppBarDividerSvg");
+      var aftTimerSeconds = 0;
+      var aftTimerInterval = null;
+      var aftTimerPaused = false;
+
+      if (aftAppBarDividerSvg) {
+        aftAppBarDividerSvg.addEventListener("animationend", function () {
+          aftAppBarDividerSvg.classList.remove("line-pulse");
+        });
+      }
+
+      function formatAftTime(s) {
+        var m = Math.floor(s / 60);
+        var sec = s % 60;
+        return (m < 10 ? "0" + m : m) + ":" + (sec < 10 ? "0" + sec : sec);
+      }
+
+      function startAftTimer() {
+        if (aftTimerInterval) return;
+        aftTimerSeconds = 0;
+        aftTimerPaused = false;
+        if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
+        if (aftTopbarTimer) aftTopbarTimer.classList.remove("is-paused");
+        aftTimerInterval = setInterval(function () {
+          if (!aftTimerPaused) {
+            aftTimerSeconds++;
+            if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = formatAftTime(aftTimerSeconds);
+            if (aftTimerSeconds % 10 === 0 && aftAppBarDividerSvg) {
+              aftAppBarDividerSvg.classList.remove("line-pulse");
+              requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                  aftAppBarDividerSvg.classList.add("line-pulse");
+                });
+              });
+            }
+          }
+        }, 1000);
+      }
+
+      if (aftTopbarTimerBtn) {
+        aftTopbarTimerBtn.addEventListener("click", function () {
+          if (!aftTimerInterval) return;
+          aftTimerPaused = !aftTimerPaused;
+          if (aftTopbarTimer) aftTopbarTimer.classList.toggle("is-paused", aftTimerPaused);
+          aftTopbarTimerBtn.setAttribute("aria-label", aftTimerPaused ? "Resume timer" : "Pause timer");
+        });
+      }
+
+      startAftTimer();
+
+      /* ── Home button ──────────────────────────────────────────── */
+      var aftTopBarHomeBtn = document.getElementById("aftTopBarHomeBtn");
+      if (aftTopBarHomeBtn) {
+        aftTopBarHomeBtn.addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+      }
+
+      /* ── Step navigation ──────────────────────────────────────── */
+      const stepItems   = Array.from(document.querySelectorAll(".step-list .step-item"));
+      const screens     = Array.from(document.querySelectorAll(".content .screen"));
+      const mainScroll  = document.getElementById("mainScroll");
+      const header      = document.getElementById("aftHeader");
+
+      let currentIndex = 0;
+
+      function goToStep(index) {
+        if (index < 0 || index >= stepItems.length) return;
+
+        stepItems.forEach(function (item, i) {
+          if (i < index) {
+            item.dataset.state = "complete";
+          } else if (i === index) {
+            item.dataset.state = "active";
+          } else {
+            item.dataset.state = "default";
+          }
+        });
+
+        screens.forEach(function (s) { s.classList.remove("active"); });
+        if (screens[index]) { screens[index].classList.add("active"); }
+
+        currentIndex = index;
+        mainScroll.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      /* Allow clicking completed steps to go back */
+      stepItems.forEach(function (item, index) {
+        item.addEventListener("click", function () {
+          if (item.dataset.state === "complete") {
+            goToStep(index);
+          }
+        });
+      });
+
+      /* ── Next buttons ─────────────────────────────────────────── */
+      function bindNextBtn(id) {
+        var btn = document.getElementById(id);
+        if (btn) {
+          btn.addEventListener("click", function () {
+            goToStep(currentIndex + 1);
+          });
+        }
+      }
+
+      function bindPrevBtn(id) {
+        var btn = document.getElementById(id);
+        if (btn) {
+          btn.addEventListener("click", function () {
+            goToStep(currentIndex - 1);
+          });
+        }
+      }
+
+      (function () {
+        var startNextBtn = document.getElementById("startNextBtn");
+        if (!startNextBtn) return;
+        startNextBtn.addEventListener("click", function () {
+          if (!validateAftJoinDateRequired()) return;
+          goToStep(currentIndex + 1);
+        });
+      }());
+      bindNextBtn("consentNextBtn");
+      bindNextBtn("coverageNextBtn");
+      bindNextBtn("healthPage3NextBtn");
+      bindNextBtn("enrollmentNextBtn");
+      bindNextBtn("physicianNextBtn");
+      bindNextBtn("noticesNextBtn");
+      bindNextBtn("optInsNextBtn");
+
+      bindPrevBtn("consentPrevBtn");
+
+      /* Coverage: color select text dark once a value is chosen */
+      (function () {
+      }());
+
+      /* ── Custom dropdown init ─────────────────────────────────── */
+      (function () {
+        var dropdowns = Array.from(document.querySelectorAll(".ajg-dropdown[data-dropdown]"));
+
+        function closeDropdown(dd) {
+          var trigger = dd.querySelector(".ajg-dropdown-trigger");
+          dd.classList.remove("open");
+          if (trigger) trigger.setAttribute("aria-expanded", "false");
+        }
+
+        function closeAll(except) {
+          dropdowns.forEach(function (dd) {
+            if (dd !== except) closeDropdown(dd);
+          });
+        }
+
+        function selectOption(dd, opt) {
+          var options = Array.from(dd.querySelectorAll(".ajg-dropdown-option"));
+          var hiddenInput = dd.querySelector("[data-dropdown-input]");
+          var valueEl = dd.querySelector("[data-dropdown-value]");
+          var selectedValue = opt ? (opt.getAttribute("data-value") || "") : "";
+          var selectedText = opt ? opt.querySelector("span:last-child").textContent.trim() : "";
+          var placeholder = dd.getAttribute("data-dropdown-placeholder") || "";
+
+          options.forEach(function (o) {
+            var isSel = o === opt && Boolean(selectedValue);
+            o.classList.toggle("selected", isSel);
+            o.setAttribute("aria-selected", isSel ? "true" : "false");
+          });
+
+          if (hiddenInput) hiddenInput.value = selectedValue;
+          if (valueEl) valueEl.textContent = selectedValue ? selectedText : placeholder;
+          dd.classList.toggle("has-value", Boolean(selectedValue));
+        }
+
+        dropdowns.forEach(function (dd) {
+          var trigger = dd.querySelector(".ajg-dropdown-trigger");
+          var options = Array.from(dd.querySelectorAll(".ajg-dropdown-option"));
+          if (!trigger || !options.length) return;
+
+          selectOption(dd, null);
+
+          trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            var willOpen = !dd.classList.contains("open");
+            closeAll(dd);
+            dd.classList.toggle("open", willOpen);
+            trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+          });
+
+          options.forEach(function (opt) {
+            opt.addEventListener("click", function () {
+              selectOption(dd, opt);
+              closeDropdown(dd);
+            });
+          });
+
+          trigger.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { closeDropdown(dd); return; }
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              closeAll(dd);
+              dd.classList.add("open");
+              trigger.setAttribute("aria-expanded", "true");
+              if (options[0]) options[0].focus();
+            }
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          dropdowns.forEach(function (dd) {
+            if (!dd.contains(e.target)) closeDropdown(dd);
+          });
+        });
+      }());
+
+      /* Basic Annual Earnings — currency formatting */
+      (function () {
+        var el = document.getElementById("covAnnualEarnings");
+        if (!el) return;
+
+        function formatCurrency(raw) {
+          var num = parseFloat(raw.replace(/[^0-9.]/g, ""));
+          if (isNaN(num)) return "";
+          return "$" + num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        el.addEventListener("focus", function () {
+          var raw = el.value.replace(/[^0-9.]/g, "");
+          el.value = raw === "0.00" || raw === "0" ? "" : raw;
+        });
+
+        el.addEventListener("blur", function () {
+          var formatted = formatCurrency(el.value);
+          el.value = formatted;
+        });
+      }());
+
+      /* Enable Consent Next only when "I Agree" is checked */
+      (function () {
+        var checkbox = document.getElementById("consentAgreeCheckbox");
+        var nextBtn  = document.getElementById("consentNextBtn");
+        if (checkbox && nextBtn) {
+          checkbox.addEventListener("change", function () {
+            nextBtn.disabled = !checkbox.checked;
+          });
+        }
+      }());
+
+      /* Health Information — show/hide hospitalization card */
+      (function () {
+        var radios = document.querySelectorAll('input[name="hospitalized"]');
+        var card   = document.getElementById("hospCard");
+        if (!radios.length || !card) return;
+        radios.forEach(function (radio) {
+          radio.addEventListener("change", function () {
+            card.classList.toggle("hidden", radio.value !== "yes");
+          });
+        });
+      }());
+
+      /* ── Health Information — smart routing logic ────────────────
+         Rule 1: Joined < 1 year AND not hospitalized  → skip page 2,
+                 go straight to Enrollment (goToStep +1)
+         Rule 2: > 1 year AND weight/height NOT acceptable → Full questionnaire
+         Rule 3: > 1 year AND weight/height acceptable    → Short questionnaire
+         Rule 4: Any "Yes" on Short questionnaire         → reveal Full extension
+      ──────────────────────────────────────────────────────────── */
+      (function () {
+        var page1      = document.getElementById("health-page-1");
+        var page2      = document.getElementById("health-page-2");
+        var page3      = document.getElementById("health-page-3");
+        var page1Next  = document.getElementById("healthPage1NextBtn");
+        var page2Next  = document.getElementById("healthPage2NextBtn");
+        var page2Prev  = document.getElementById("healthPage2PrevBtn");
+        var page3Prev  = document.getElementById("healthPage3PrevBtn");
+        var extended   = document.getElementById("hi-q-extended");
+        var scroll     = document.getElementById("mainScroll");
+        var feetInput  = document.getElementById("hiHeightFeet");
+        var inchesInput = document.getElementById("hiHeightInches");
+        var weightInput = document.getElementById("hiWeight");
+        var hospYes = document.getElementById("hospYes");
+        var hospNo = document.getElementById("hospNo");
+        var feetError = document.getElementById("hiHeightFeetError");
+        var inchesError = document.getElementById("hiHeightInchesError");
+        var weightError = document.getElementById("hiWeightError");
+        var hospError = document.getElementById("hospQuestionError");
+
+        if (!page1 || !page2 || !page3 || !page1Next || !page2Next || !page2Prev || !page3Prev) return;
+
+        /* ── helpers ── */
+        function toggleInputError(inputEl, errorEl, show) {
+          if (inputEl) inputEl.classList.toggle("is-error", show);
+          if (errorEl) errorEl.classList.toggle("is-visible", show);
+          if (inputEl) inputEl.setAttribute("aria-invalid", show ? "true" : "false");
+        }
+
+        function toggleHospError(show) {
+          if (hospError) hospError.classList.toggle("is-visible", show);
+        }
+
+        function validateHealthPage1Required() {
+          var feetMissing = !feetInput || !feetInput.value.trim();
+          var inchesMissing = !inchesInput || !inchesInput.value.trim();
+          var weightMissing = !weightInput || !weightInput.value.trim();
+          var hospMissing = !((hospYes && hospYes.checked) || (hospNo && hospNo.checked));
+
+          toggleInputError(feetInput, feetError, feetMissing);
+          toggleInputError(inchesInput, inchesError, inchesMissing);
+          toggleInputError(weightInput, weightError, weightMissing);
+          toggleHospError(hospMissing);
+
+          return !feetMissing && !inchesMissing && !weightMissing && !hospMissing;
+        }
+
+        if (feetInput) {
+          feetInput.addEventListener("input", function () {
+            if (feetInput.value.trim()) toggleInputError(feetInput, feetError, false);
+          });
+        }
+        if (inchesInput) {
+          inchesInput.addEventListener("input", function () {
+            if (inchesInput.value.trim()) toggleInputError(inchesInput, inchesError, false);
+          });
+        }
+        if (weightInput) {
+          weightInput.addEventListener("input", function () {
+            if (weightInput.value.trim()) toggleInputError(weightInput, weightError, false);
+          });
+        }
+        [hospYes, hospNo].forEach(function (radio) {
+          if (!radio) return;
+          radio.addEventListener("change", function () {
+            toggleHospError(false);
+          });
+        });
+
+        function showPage2(showFull) {
+          page1.classList.add("hidden");
+          page2.classList.remove("hidden");
+          page3.classList.add("hidden");
+          page2.dataset.questionnaireMode = showFull ? "full" : "short";
+          if (extended) {
+            extended.classList.toggle("hidden", !showFull);
+          }
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function showPage1() {
+          page2.classList.add("hidden");
+          page3.classList.add("hidden");
+          page1.classList.remove("hidden");
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function showPage3() {
+          page1.classList.add("hidden");
+          page2.classList.add("hidden");
+          page3.classList.remove("hidden");
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        /* ── Next on page 1 ── */
+        page1Next.addEventListener("click", function () {
+          if (!validateHealthPage1Required()) return;
+
+          /* --- gather inputs --- */
+          var joinDate   = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+          var hospNo     = document.getElementById("hospNo");
+          var notHosp    = hospNo && hospNo.checked;
+
+          var feetVal    = parseFloat(document.getElementById("hiHeightFeet")   && document.getElementById("hiHeightFeet").value)   || 0;
+          var inchesVal  = parseFloat(document.getElementById("hiHeightInches") && document.getElementById("hiHeightInches").value) || 0;
+          var weightVal  = parseFloat(document.getElementById("hiWeight")       && document.getElementById("hiWeight").value)       || 0;
+
+          /* --- Rule 1: joined < 1 year AND not hospitalized → Enrollment --- */
+          if (joinDate) {
+            var today       = new Date();
+            today.setHours(0, 0, 0, 0);
+            var oneYearAgo  = new Date(today);
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            var underOneYear = joinDate > oneYearAgo;
+
+            if (underOneYear && notHosp) {
+              goToStep(currentIndex + 1);   /* skip questionnaire entirely */
+              return;
+            }
+          }
+
+          /* --- Rules 2 & 3: check weight / height --- */
+          var acceptable = window.meetsWeightCriteria
+            ? window.meetsWeightCriteria(feetVal, inchesVal, weightVal)
+            : null;
+
+          /* acceptable === true  → Short (Rule 3)
+             acceptable === false → Full  (Rule 2)
+             acceptable === null  → height not in table → show Full to be safe */
+          showPage2(acceptable !== true);
+        });
+
+        /* ── Previous on page 2 → back to page 1 ── */
+        page2Prev.addEventListener("click", showPage1);
+        page2Next.addEventListener("click", showPage3);
+        page3Prev.addEventListener("click", function () {
+          page3.classList.add("hidden");
+          page2.classList.remove("hidden");
+          if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        /* ── Rule 4: any "Yes" on Short section → reveal extended ── */
+        var shortArea = page2.querySelector(".cov-fields");
+        if (shortArea && extended) {
+          var shortQuestionGroups = Array.from(page2.querySelectorAll("[data-yn-group]")).filter(function (group) {
+            return !extended.contains(group);
+          });
+          shortArea.addEventListener("click", function (e) {
+            var btn = e.target.closest(".hi-yn-btn");
+            if (!btn) return;
+            if (page2.dataset.questionnaireMode !== "short") return;
+
+            var clickedGroup = btn.closest("[data-yn-group]");
+            if (!clickedGroup || extended.contains(clickedGroup)) return;
+
+            var hasAnyYes = shortQuestionGroups.some(function (group) {
+              if (group === clickedGroup) return btn.dataset.yn === "yes";
+              return Boolean(group.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
+            });
+
+            extended.classList.toggle("hidden", !hasAnyYes);
+          });
+        }
+      }());
+
+      /* Yes / No pill button toggle */
+      (function () {
+        document.querySelectorAll("[data-yn-group]").forEach(function (group) {
+          group.querySelectorAll(".hi-yn-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              group.querySelectorAll(".hi-yn-btn").forEach(function (b) {
+                b.classList.remove("active");
+              });
+              btn.classList.add("active");
+            });
+          });
+        });
+      }());
+
+      /* Health Questionnaire "Yes" details cards (reuse existing field patterns) */
+      (function () {
+        var page2 = document.getElementById("health-page-2");
+        if (!page2) return;
+
+        function buildSimpleDetailsCardHtml() {
+          return ''
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">If "yes" provide details</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter details" />'
+            + '</div>';
+        }
+
+        function buildApplicationDeclineCardHtml() {
+          return ''
+            + '<div class="hi-two-col">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Which?</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select a value" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Please list all details</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Describe the reason" />'
+            + '  </div>'
+            + '</div>';
+        }
+
+        function buildDiabetesCardHtml() {
+          return ''
+            + '<div class="hi-two-col">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Age at diagnosis</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select age" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Type</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select a value" />'
+            + '  </div>'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Condition / Diagnosis?</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter condition" />'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Please list any medication prescribed that you did not already identify in the Prescription Information above.</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter medication" />'
+            + '</div>';
+        }
+
+        function buildPregnantCardHtml() {
+          return ''
+            + '<div class="hi-two-col">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Due Date</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select a date" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician Name</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Enter name" />'
+            + '  </div>'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician Phone</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter number" inputmode="tel" />'
+            + '</div>';
+        }
+
+        function buildStandardCardHtml() {
+          return ''
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Condition / Diagnosis?</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter condition" />'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Please list any medication prescribed that you did not already identify in the Prescription Information above.</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter medication" />'
+            + '</div>'
+            + '<div class="hi-two-col">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last treatment (Month/Year)</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select date" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of diagnosis (Month/Year)</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select date" />'
+            + '  </div>'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Type of treatement</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Describe type of treatment" />'
+            + '</div>'
+            + '<div class="hi-two-col">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician’s Name</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Enter name" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of last visit</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select date" />'
+            + '  </div>'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Reason for visit</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter reason" />'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Physician Street Address</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter address" />'
+            + '</div>'
+            + '<div class="hi-city-row">'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">City</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select city" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">State</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Select state" />'
+            + '  </div>'
+            + '  <div>'
+            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Zip Code</span></div>'
+            + '    <input class="cov-input" type="text" placeholder="Enter zip" />'
+            + '  </div>'
+            + '</div>'
+            + '<div>'
+            + '  <div class="cov-field-label"><span class="req">*</span><span class="lbl">Phone Number</span></div>'
+            + '  <input class="cov-input" type="text" placeholder="Enter number" inputmode="tel" />'
+            + '</div>';
+        }
+
+        function buildDisabilityDetailsCardHtml() {
+          return buildSimpleDetailsCardHtml() + buildStandardCardHtml();
+        }
+
+        function resolveQuestionDetailType(questionText) {
+          var txt = (questionText || "").toLowerCase();
+          if (!txt) return "standard";
+          if (txt.indexOf("application for life") >= 0 || txt.indexOf("declined, postponed") >= 0) return "application-decline";
+          if (txt.indexOf("receiving or applying for any disability benefits") >= 0) return "disability-details";
+          if (txt.indexOf("diabetes") >= 0) return "diabetes";
+          if (txt.indexOf("are you now pregnant") >= 0) return "pregnant";
+          if (txt.indexOf("acquired immunodeficiency") >= 0) return "simple-details";
+          if (txt.indexOf("on a diet prescribed") >= 0) return "simple-details";
+          if (txt.indexOf("used tobacco") >= 0) return "simple-details";
+          if (txt.indexOf("driving while intoxicated") >= 0) return "simple-details";
+          if (txt.indexOf("arthritis") >= 0) return "simple-details";
+          return "standard";
+        }
+
+        function buildCardByType(type) {
+          var card = document.createElement("div");
+          card.className = "hi-card hi-q-detail-card hidden";
+          if (type === "application-decline") card.innerHTML = buildApplicationDeclineCardHtml();
+          else if (type === "disability-details") card.innerHTML = buildDisabilityDetailsCardHtml();
+          else if (type === "diabetes") card.innerHTML = buildDiabetesCardHtml();
+          else if (type === "pregnant") card.innerHTML = buildPregnantCardHtml();
+          else if (type === "simple-details") card.innerHTML = buildSimpleDetailsCardHtml();
+          else card.innerHTML = buildStandardCardHtml();
+          return card;
+        }
+
+        var groups = Array.from(page2.querySelectorAll(".hi-qrow [data-yn-group]"));
+        groups.forEach(function (group) {
+          var row = group.closest(".hi-qrow");
+          if (!row) return;
+          var label = row.querySelector(".cov-field-label .lbl");
+          var detailType = resolveQuestionDetailType(label ? label.textContent : "");
+          var detailCard = buildCardByType(detailType);
+          row.appendChild(detailCard);
+          group.dataset.detailCardAttached = "true";
+        });
+
+        page2.addEventListener("click", function (e) {
+          var btn = e.target.closest(".hi-yn-btn");
+          if (!btn) return;
+          var group = btn.closest("[data-yn-group]");
+          var row = group ? group.closest(".hi-qrow") : null;
+          if (!row) return;
+          var card = row.querySelector(".hi-q-detail-card");
+          if (!card) return;
+          card.classList.toggle("hidden", btn.dataset.yn !== "yes");
+        });
+      }());
+
+      /* Physician & Prescriptions: dynamic physician/prescription cards */
+      (function () {
+        var page3 = document.getElementById("health-page-3");
+        var cardsContainer = document.getElementById("healthPhysicianCardsContainer");
+        var addPhysicianBtn = document.getElementById("healthAddPhysicianBtn");
+        if (!page3 || !cardsContainer || !addPhysicianBtn) return;
+
+        var firstPhysicianCard = cardsContainer.querySelector(".js-physician-card");
+        if (!firstPhysicianCard) return;
+
+        var firstPrescriptionCard = firstPhysicianCard.querySelector(".js-prescription-card");
+        if (!firstPrescriptionCard) return;
+
+        var physicianTemplateHTML = firstPhysicianCard.outerHTML;
+        var prescriptionTemplateHTML = firstPrescriptionCard.outerHTML;
+
+        function createNodeFromHTML(html) {
+          var wrapper = document.createElement("div");
+          wrapper.innerHTML = html.trim();
+          return wrapper.firstElementChild;
+        }
+
+        function resetFormValues(root) {
+          root.querySelectorAll("input, textarea, select").forEach(function (el) {
+            var type = (el.getAttribute("type") || "").toLowerCase();
+            if (type === "checkbox" || type === "radio") {
+              el.checked = false;
+            } else {
+              el.value = "";
+            }
+          });
+        }
+
+        function setSingleEmptyPrescription(card) {
+          var list = card.querySelector(".js-prescription-list");
+          if (!list) return;
+          list.innerHTML = "";
+          var prescription = createNodeFromHTML(prescriptionTemplateHTML);
+          if (!prescription) return;
+          resetFormValues(prescription);
+          list.appendChild(prescription);
+        }
+
+        addPhysicianBtn.addEventListener("click", function () {
+          var newCard = createNodeFromHTML(physicianTemplateHTML);
+          if (!newCard) return;
+          resetFormValues(newCard);
+          setSingleEmptyPrescription(newCard);
+          cardsContainer.appendChild(newCard);
+        });
+
+        page3.addEventListener("click", function (e) {
+          var addPrescriptionBtn = e.target.closest(".js-add-prescription");
+          if (addPrescriptionBtn) {
+            var ownerCard = addPrescriptionBtn.closest(".js-physician-card");
+            if (!ownerCard) return;
+            var list = ownerCard.querySelector(".js-prescription-list");
+            if (!list) return;
+            var newPrescription = createNodeFromHTML(prescriptionTemplateHTML);
+            if (!newPrescription) return;
+            resetFormValues(newPrescription);
+            list.appendChild(newPrescription);
+            return;
+          }
+
+          var removeBtn = e.target.closest(".js-remove-prescription");
+          if (removeBtn) {
+            var prescriptionCard = removeBtn.closest(".js-prescription-card");
+            if (prescriptionCard) prescriptionCard.remove();
+          }
+        });
+      }());
+
+      /* ── App-bar context indicators ──────────────────────────────── */
+      (function () {
+        var ctxHosp   = document.getElementById("aftCtxHospitalization");
+        var ctxWeight = document.getElementById("aftCtxWeight");
+
+        /* ── Hospitalization: update on radio change ── */
+        function updateHospCtx() {
+          if (!ctxHosp) return;
+          var yesRadio = document.getElementById("hospYes");
+          var noRadio  = document.getElementById("hospNo");
+          if (yesRadio && yesRadio.checked) {
+            ctxHosp.textContent = "Yes";
+            ctxHosp.className   = "home-landing-context-valuev2 ctx-yes";
+          } else if (noRadio && noRadio.checked) {
+            ctxHosp.textContent = "No";
+            ctxHosp.className   = "home-landing-context-valuev2 ctx-no";
+          } else {
+            ctxHosp.textContent = "–";
+            ctxHosp.className   = "home-landing-context-valuev2";
+          }
+        }
+
+        document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
+          r.addEventListener("change", updateHospCtx);
+        });
+
+        /* ── Height + Weight: update on any input change ── */
+        function updateWeightCtx() {
+          if (!ctxWeight) return;
+          var fEl = document.getElementById("hiHeightFeet");
+          var iEl = document.getElementById("hiHeightInches");
+          var wEl = document.getElementById("hiWeight");
+          if (!fEl || !iEl || !wEl) return;
+
+          var feet    = parseFloat(fEl.value);
+          var inches  = parseFloat(iEl.value);
+          var weight  = parseFloat(wEl.value);
+
+          /* wait until all three have values */
+          if (isNaN(feet) || isNaN(inches) || isNaN(weight)) {
+            ctxWeight.textContent = "–";
+            ctxWeight.className   = "home-landing-context-valuev2";
+            return;
+          }
+
+          var result = window.meetsWeightCriteria
+            ? window.meetsWeightCriteria(feet, inches, weight)
+            : null;
+
+          if (result === true) {
+            ctxWeight.textContent = "✓";
+            ctxWeight.className   = "home-landing-context-valuev2 ctx-ok";
+          } else if (result === false) {
+            ctxWeight.textContent = "✕";
+            ctxWeight.className   = "home-landing-context-valuev2 ctx-fail";
+          } else {
+            /* null = height not in table */
+            ctxWeight.textContent = "?";
+            ctxWeight.className   = "home-landing-context-valuev2";
+          }
+        }
+
+        ["hiHeightFeet", "hiHeightInches", "hiWeight"].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.addEventListener("input", updateWeightCtx);
+        });
+      }());
+
+      bindPrevBtn("coveragePrevBtn");
+      bindPrevBtn("healthPrevBtn");
+      bindPrevBtn("enrollmentPrevBtn");
+      bindPrevBtn("physicianPrevBtn");
+      bindPrevBtn("noticesPrevBtn");
+      bindPrevBtn("optInsPrevBtn");
+      bindPrevBtn("paymentPrevBtn");
+
+      /* ── Header scroll shadow ─────────────────────────────────── */
+      mainScroll.addEventListener("scroll", function () {
+        header.classList.toggle("is-scrolled", mainScroll.scrollTop > 4);
+      });
+
+      /* ── Restart button → reset flow to Start Here ────────────────── */
+      var disRestartBtn = document.getElementById("disRestartBtn");
+      if (disRestartBtn) {
+        disRestartBtn.addEventListener("click", function () {
+
+          /* Navigate to step 0 */
+          goToStep(0);
+
+          /* Reset health sub-pages */
+          var hp1      = document.getElementById("health-page-1");
+          var hp2      = document.getElementById("health-page-2");
+          var extended = document.getElementById("hi-q-extended");
+          var hospCard = document.getElementById("hospCard");
+          if (hp1)      hp1.classList.remove("hidden");
+          if (hp2)      hp2.classList.add("hidden");
+          if (extended) extended.classList.add("hidden");
+          if (hospCard) hospCard.classList.add("hidden");
+
+          /* Deselect Yes/No pill buttons */
+          document.querySelectorAll(".hi-yn-btn").forEach(function (b) {
+            b.classList.remove("active");
+          });
+
+          /* Uncheck hospitalization radios */
+          document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
+            r.checked = false;
+          });
+
+          /* Uncheck I Agree checkbox */
+          var agreeChk = document.getElementById("consentAgree");
+          if (agreeChk) agreeChk.checked = false;
+
+          /* Clear join-date picker */
+          var joinDateInput = document.getElementById("aftJoinDateInput");
+          if (joinDateInput) joinDateInput.value = "";
+
+          /* Clear all text inputs and selects in the flow */
+          document.querySelectorAll(".content input[type='text'], .content input[type='tel'], .content select, .content textarea").forEach(function (el) {
+            el.value = "";
+          });
+
+          /* Reset global data store */
+          window.aftEnrollmentData = { joinDate: null, joinDateFormatted: "" };
+
+          /* Reset app-bar context indicators */
+          ["aftCtxFirstYear", "aftCtxHospitalization", "aftCtxWeight"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) { el.textContent = "–"; el.className = "home-landing-context-valuev2"; }
+          });
+
+          /* Reset timer */
+          if (aftTimerInterval) { clearInterval(aftTimerInterval); aftTimerInterval = null; }
+          aftTimerSeconds = 0;
+          aftTimerPaused  = false;
+          if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
+          if (aftTopbarTimer)        aftTopbarTimer.classList.remove("is-paused");
+          startAftTimer();
+        });
+      }
+
+    }());
+  </script>
+</body>
+</html>
