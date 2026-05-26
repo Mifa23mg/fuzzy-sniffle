@@ -1,0 +1,142 @@
+<template>
+    <div class="slds-container_x-large slds-container_center slds-p-around_medium">
+        <div class="slds-page-header slds-m-bottom_medium">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="standard:channel_program_levels" size="medium"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h1 class="slds-page-header__title slds-truncate" title="Reconciliation">
+                                Reconciliation
+                            </h1>
+                            <p class="slds-page-header__name-meta">
+                                Match bank statements, GL journal entries, and carrier billing records.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <lightning-card title="Trial Balance Summary (GL Account)">
+            <div class="slds-p-around_medium">
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate" title="GL Account">GL Account</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Opening Balance">Opening Balance</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Debits">Debits</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Credits">Credits</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Ending Balance">Ending Balance</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={trialBalanceRows} for:item="row">
+                                <tr key={row.id}>
+                                    <th scope="row"><div class="slds-truncate" title={row.glAccount}>{row.glAccount}</div></th>
+                                    <td><div class="slds-truncate">{row.openingBalance}</div></td>
+                                    <td><div class="slds-truncate">{row.debits}</div></td>
+                                    <td><div class="slds-truncate">{row.credits}</div></td>
+                                    <td><div class="slds-truncate">{row.endingBalance}</div></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </lightning-card>
+
+        <div style="height: 12px;"></div>
+
+        <lightning-card title="Bank Statement to GL Journal Manual Matching">
+            <div class="slds-p-horizontal_medium slds-p-top_small slds-text-body_small">
+                Matched: {matchedCount} | Unmatched: {unmatchedCount}
+            </div>
+            <div class="slds-p-around_medium">
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate" title="Statement Date">Statement Date</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Statement Line">Statement Line</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Amount">Amount</div></th>
+                                <th scope="col"><div class="slds-truncate" title="GL Journal Entry">GL Journal Entry</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Bank Reference Number">Bank Reference Number</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Status">Status</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Action">Action</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={manualMatchingRowsWithUiState} for:item="row">
+                                <tr key={row.id}>
+                                    <td><div class="slds-truncate">{row.statementDate}</div></td>
+                                    <td><div class="slds-truncate">{row.statementLine}</div></td>
+                                    <td><div class="slds-truncate">{row.amount}</div></td>
+                                    <td><div class="slds-truncate">{row.journalEntry}</div></td>
+                                    <td>
+                                        <lightning-input
+                                            type="text"
+                                            variant="label-hidden"
+                                            placeholder="Enter bank reference"
+                                            value={row.bankReference}
+                                            data-id={row.id}
+                                            onchange={handleBankReferenceChange}>
+                                        </lightning-input>
+                                    </td>
+                                    <td><span class={row.statusClass}>{row.status}</span></td>
+                                    <td>
+                                        <lightning-button
+                                            label={row.actionLabel}
+                                            variant="neutral"
+                                            data-id={row.id}
+                                            disabled={row.actionDisabled}
+                                            onclick={handleMarkMatched}>
+                                        </lightning-button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </lightning-card>
+
+        <div style="height: 12px;"></div>
+
+        <lightning-card title="Billing Reconciliation Against Carrier Documents and Client Funds">
+            <div class="slds-p-around_medium">
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate" title="Billing Record">Billing Record</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Carrier Support Doc">Carrier Support Doc</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Billed">Billed</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Carrier Supported">Carrier Supported</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Client Funds Received">Client Funds Received</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Variance">Variance</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Status">Status</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={billingRowsWithUiState} for:item="row">
+                                <tr key={row.id}>
+                                    <td><div class="slds-truncate">{row.billingRecord}</div></td>
+                                    <td><div class="slds-truncate">{row.carrierSupportDoc}</div></td>
+                                    <td><div class="slds-truncate">{row.billed}</div></td>
+                                    <td><div class="slds-truncate">{row.carrierSupported}</div></td>
+                                    <td><div class="slds-truncate">{row.clientFundsReceived}</div></td>
+                                    <td><div class="slds-truncate">{row.variance}</div></td>
+                                    <td><span class={row.statusClass}>{row.status}</span></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

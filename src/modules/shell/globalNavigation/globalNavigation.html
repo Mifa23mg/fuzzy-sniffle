@@ -1,0 +1,44 @@
+<template>
+    <div class="slds-context-bar">
+        <div class="slds-context-bar__primary">
+            <div class="slds-context-bar__item slds-context-bar__dropdown-trigger">
+                <lightning-button-menu
+                    class="slds-context-bar__icon-action"
+                    variant="bare"
+                    icon-name="utility:apps"
+                    alternative-text="Application launcher"
+                    menu-alignment="left"
+                    onselect={handleMenuNavigate}>
+                    <template for:each={menuItems} for:item="item">
+                        <lightning-menu-item
+                            key={item.page}
+                            value={item.page}
+                            label={item.label}
+                            checked={item.isActive}>
+                        </lightning-menu-item>
+                    </template>
+                </lightning-button-menu>
+                <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                    <span class="slds-truncate" title="Salesforce UI Starter Kit">Salesforce UI Starter Kit</span>
+                </span>
+            </div>
+        </div>
+        <nav class="slds-context-bar__secondary" role="navigation" aria-label="App navigation">
+            <ul class="slds-grid slds-container_fluid">
+                <template for:each={navItemsWithActive} for:item="item">
+                    <li key={item.page} class={item.tabClass}>
+                        <a
+                            href={item.path}
+                            class="slds-context-bar__label-action"
+                            title={item.label}
+                            data-page={item.page}
+                            onclick={handleNavItemClick}>
+                            <span class="slds-assistive-text" if:true={item.isActive}>Current Page:</span>
+                            <span class="slds-truncate" title={item.label}>{item.label}</span>
+                        </a>
+                    </li>
+                </template>
+            </ul>
+        </nav>
+    </div>
+</template>
