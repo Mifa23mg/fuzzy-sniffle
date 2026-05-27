@@ -458,7 +458,7 @@
     .main-surface {
       flex: 1 0 auto;
       display: flex;
-      padding: 8px 220px;
+      padding: 0 220px;
       background: #ffffff;
     }
 
@@ -1912,6 +1912,147 @@
       font-weight: 700;
     }
 
+    #screen-guaranteed-confirmation .pay-kv-value-wrap {
+      white-space: normal;
+    }
+
+    #screen-guaranteed-confirmation .pay-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #screen-guaranteed-submission-confirmation {
+      gap: 0;
+      padding: 0;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-content {
+      padding: 0 0 24px;
+      gap: 16px;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-copy {
+      margin-bottom: 0;
+      font-weight: 590;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-subtitle {
+      margin-top: 0;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-summary .pay-kv-row {
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-summary .pay-kv-label {
+      flex: 0 0 124px;
+      min-width: 124px;
+      max-width: 124px;
+      white-space: nowrap;
+    }
+
+    #screen-guaranteed-submission-confirmation .pay-confirm-summary .pay-kv-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: 12px;
+      line-height: 17px;
+      white-space: normal;
+      padding-top: 0;
+    }
+
+    #screen-guaranteed-confirmation .pay-review-grid {
+      align-items: flex-start;
+      row-gap: 12px;
+      column-gap: 8px;
+    }
+
+    #screen-guaranteed-confirmation .pay-card-payment {
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+
+    #screen-guaranteed-confirmation .guaranteed-kv-row-top {
+      align-items: flex-start;
+    }
+
+    #screen-guaranteed-confirmation .pay-card-coverages .pay-kv-row {
+      justify-content: flex-start;
+      gap: 8px;
+    }
+
+    #screen-guaranteed-confirmation .pay-card-coverages .pay-kv-label {
+      flex: 0 0 124px;
+      min-width: 124px;
+      max-width: 124px;
+    }
+
+    #screen-guaranteed-confirmation .pay-card-coverages .pay-kv-value {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    #screen-guaranteed-confirmation .pay-effective-note {
+      white-space: normal;
+    }
+
+    .confirmation-marketing {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .confirmation-marketing-title {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 590;
+    }
+
+    .confirmation-marketing-row {
+      display: flex;
+      align-items: flex-start;
+      min-height: 54px;
+      padding: 4px 0;
+      box-sizing: border-box;
+    }
+
+    .confirmation-marketing-row .consent-agree-label {
+      align-items: flex-start;
+    }
+
+    .confirmation-marketing-copy {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .confirmation-marketing-copy strong {
+      font-weight: 700;
+    }
+
+    .confirmation-marketing-link {
+      color: #066afe;
+      text-decoration: none;
+    }
+
     .pay-billing-sections {
       width: 100%;
       padding: 0 16px;
@@ -2782,6 +2923,36 @@
       color: transparent;
     }
 
+    .cov-input-static-select {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #e5e5e5;
+      border-color: #757575;
+      color: #757575;
+      cursor: default;
+    }
+
+    .cov-input-static-select .cov-static-value {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cov-input-static-white {
+      background: #ffffff;
+      border-color: #5c5c5c;
+      color: #2e2e2e;
+      cursor: default;
+    }
+
+    .cov-input-static-white.is-placeholder .cov-static-value {
+      color: #5c5c5c;
+    }
+
     .cov-field-label + .cov-input,
     .cov-field-label + .cov-dropdown,
     .cov-field-label + .datepicker,
@@ -3350,6 +3521,48 @@
       flex-direction: column;
       gap: 12px;
       width: 100%;
+    }
+
+    .guaranteed-beneficiary-copy {
+      margin: 0;
+      color: #444444;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .guaranteed-beneficiary-stack {
+      padding-left: 16px;
+      box-sizing: border-box;
+    }
+
+    .guaranteed-beneficiary-card {
+      width: calc(100% - 16px);
+      padding: 24px;
+    }
+
+    .guaranteed-beneficiary-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .beneficiary-remove-row {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .beneficiary-max-note {
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 700;
+      color: #2e2e2e;
     }
 
     .js-prescription-list {
@@ -4246,7 +4459,7 @@
               <h1>Start Here</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">
+            <p class="intro" id="startHereIntroText">
               To help you start this process, please share the following information.
             </p>
             <div class="form-grid">
@@ -4321,7 +4534,7 @@
               <p>&nbsp;</p>
               <ol>
                 <li>
-                  <strong>Consent to do business with, and receive communications from, MetLife electronically.</strong> To the extent permitted by law, this Agreement is a "global" consent. You agree to:
+                  <strong>1. Consent to do business with, and receive communications from, MetLife electronically.</strong> To the extent permitted by law, this Agreement is a "global" consent. You agree to:
                   <ol class="alpha">
                     <li>Complete transactions electronically and use electronic signatures on a website we make available to you.</li>
                     <li>As applicable, allow us to replace paper delivery with electronic delivery of your documents and communications relating to policies you own or are applying for. Electronic delivery of the documents will be by e-mails transmitting such documents, whether as text in, attachments to, and/or hyperlinks from such e-mails to the documents stored on a MetLife website or a third party's website. You specifically agree that delivery of the link to your policy constitutes delivery of the policy and starts the free look period under your policy.</li>
@@ -4333,11 +4546,11 @@
               <p class="consent-note"><strong>Note:</strong> You'll continue to receive paper copies of certain documents until the electronic versions become available.</p>
               <p>&nbsp;</p>
               <ol start="2">
-                <li><strong>Withdrawal of consent.</strong> You can easily withdraw your consent at any time by calling <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
-                <li><strong>Effect of not consenting or withdrawing consent.</strong> If you choose not to consent or to withdraw your consent, you can still submit an application by signing a paper copy of the application.</li>
-                <li><strong>How to obtain paper copies of the documents you sign electronically.</strong> To obtain paper copies of the documents you sign electronically, you can either print the document on your printer or call us at <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
-                <li><strong>Hardware requirements.</strong> To use this service, you must have access to a computer with an Internet connection. If you would like to be able to save the documents that you receive, the computer should have a hard drive or other storage device or be connected to a printer. You must also have an email account to receive communications.</li>
-                <li><strong>Software Requirements</strong> In order to complete the electronic signature process and to download your application, you will need Adobe Acrobat Reader 3.0 (or greater).</li>
+                <li><strong>2. Withdrawal of consent.</strong> You can easily withdraw your consent at any time by calling <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>3. Effect of not consenting or withdrawing consent.</strong> If you choose not to consent or to withdraw your consent, you can still submit an application by signing a paper copy of the application.</li>
+                <li><strong>4. How to obtain paper copies of the documents you sign electronically.</strong> To obtain paper copies of the documents you sign electronically, you can either print the document on your printer or call us at <a href="tel:8884238700" style="color:#0250d9;text-decoration:underline;">(888) 423-8700</a>.</li>
+                <li><strong>5. Hardware requirements.</strong> To use this service, you must have access to a computer with an Internet connection. If you would like to be able to save the documents that you receive, the computer should have a hard drive or other storage device or be connected to a printer. You must also have an email account to receive communications.</li>
+                <li><strong>6. Software Requirements</strong> In order to complete the electronic signature process and to download your application, you will need Adobe Acrobat Reader 3.0 (or greater).</li>
               </ol>
             </div>
             <div class="consent-agree-row">
@@ -4361,7 +4574,7 @@
             </div>
             <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
 
-            <div class="cov-fields">
+            <div class="cov-fields" id="coverageDisabilityFields">
 
               <!-- Basic Annual Earnings -->
               <div class="cov-field">
@@ -4435,6 +4648,28 @@
               </div>
 
             </div><!-- /cov-fields -->
+
+            <div class="cov-fields hidden" id="coverageGuaranteedFields">
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Age</span>
+                </div>
+                <input class="cov-input" type="text" id="guaranteedCoverageAge" inputmode="numeric" placeholder="Enter your age" aria-label="Age" />
+              </div>
+
+              <div class="cov-field">
+                <div class="cov-field-label">
+                  <span class="req">*</span>
+                  <span class="lbl">Benefit Amount</span>
+                </div>
+                <div class="cov-input cov-input-static-select" aria-label="Benefit Amount">
+                  <span class="cov-static-value">$5,000.00</span>
+                  <span class="cov-chevron-icon" aria-hidden="true"></span>
+                </div>
+                <p class="cov-helper">If you are aged 65 to 70, then you are entitled to 50% of $5,000 and if over 70, you are entitled to 25% of $5,000.</p>
+              </div>
+            </div>
 
             <div class="row-actions has-prev">
               <button class="btn-secondary" id="coveragePrevBtn" type="button">Previous</button>
@@ -5268,6 +5503,132 @@
             </div>
           </div>
 
+          <!-- ── Beneficiaries (guaranteed flow scaffold) ────────── -->
+          <div class="screen" id="screen-beneficiaries">
+            <div class="title-wrap">
+              <h1>Beneficiaries</h1>
+              <div class="title-line"></div>
+            </div>
+            <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+            <div class="guaranteed-beneficiary-content">
+              <p class="guaranteed-beneficiary-copy">I designate the following person(s) as primary beneficiary(ies) for any amount payable upon my death for the MetLife insurance coverage applied for in this enrollment form. With such designation, any previous designation of a beneficiary for such coverage is hereby revoked. I understand I have the right to change this designation at any time. I also understand that unless otherwise specified in the group insurance certificate, insurance due upon the death of a Dependent is payable to the member.</p>
+
+              <div id="guaranteedBeneficiaryCardsContainer" class="hi-physicians-stack guaranteed-beneficiary-stack">
+                <div class="hi-card js-beneficiary-card guaranteed-beneficiary-card">
+                  <p class="hi-prescription-title">Beneficiary Information</p>
+
+                  <div class="cov-field">
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Beneficiary Type</span></div>
+                    <div class="cov-input cov-input-static-select cov-input-static-white" aria-label="Beneficiary Type">
+                      <span class="cov-static-value">Person</span>
+                      <span class="cov-chevron-icon" aria-hidden="true"></span>
+                    </div>
+                  </div>
+
+                  <div class="cov-field">
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Relationship</span></div>
+                    <div class="cov-input cov-input-static-select cov-input-static-white is-placeholder" aria-label="Relationship">
+                      <span class="cov-static-value">Make a selection</span>
+                      <span class="cov-chevron-icon" aria-hidden="true"></span>
+                    </div>
+                  </div>
+
+                  <div class="hi-three-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">First Name</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter name" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="lbl">Middle Name</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter name" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Last Name</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter name" />
+                    </div>
+                  </div>
+
+                  <div class="cov-field">
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Street</span></div>
+                    <input class="cov-input" type="text" placeholder="Enter address" />
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing City</span></div>
+                      <input class="cov-input" type="text" placeholder="Enter City" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing State/Province</span></div>
+                      <div class="cov-input cov-input-static-select cov-input-static-white is-placeholder" aria-label="Mailing State/Province">
+                        <span class="cov-static-value">Select State</span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Zip/Postal Code</span></div>
+                      <input class="cov-input" type="text" inputmode="numeric" placeholder="Enter Zip" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Country</span></div>
+                      <div class="cov-input cov-input-static-select cov-input-static-white is-placeholder" aria-label="Mailing Country">
+                        <span class="cov-static-value">Select Country</span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of Birth</span></div>
+                      <div class="hi-date-wrap">
+                        <input class="cov-input" type="text" placeholder="Enter date" />
+                        <span class="hi-date-icon" aria-hidden="true"><img src="assets/calendar-icon.png" alt="" /></span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Phone Number</span></div>
+                      <input class="cov-input" type="text" inputmode="tel" placeholder="Enter number" />
+                    </div>
+                  </div>
+
+                  <div class="hi-two-col">
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Social Security Number</span></div>
+                      <input class="cov-input" type="text" inputmode="numeric" placeholder="Enter number" />
+                    </div>
+                    <div>
+                      <div class="cov-field-label"><span class="req">*</span><span class="lbl">Share Percentage (%)</span></div>
+                      <input class="cov-input" type="text" inputmode="numeric" placeholder="Enter percentage" />
+                    </div>
+                  </div>
+
+                  <div class="beneficiary-remove-row">
+                    <button class="btn-destructive js-remove-beneficiary" type="button">Remove</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hi-additional-physician-wrap">
+                <button class="btn-neutral" id="guaranteedAddBeneficiaryBtn" type="button">
+                  <span class="btn-icon-add" aria-hidden="true"></span>
+                  <span>Add Additional Beneficiaries</span>
+                </button>
+              </div>
+
+              <p class="cov-helper beneficiary-max-note hidden" id="guaranteedBeneficiaryMaxText">You&rsquo;ve reached the Max. number of beneficiaries allowed</p>
+            </div>
+
+            <div class="row-actions">
+              <button class="btn-secondary" id="beneficiariesPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="beneficiariesNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
           <!-- ── Physician & Prescriptions (placeholder) ────────── -->
           <div class="screen" id="screen-physician">
             <div class="title-wrap">
@@ -5409,9 +5770,10 @@
                 <p class="declaration-section-title">Member Declaration &amp; Signatures</p>
                 <p>By signing below, I acknowledge:</p>
                 <ol class="declaration-list">
-                  <li>I have read this enrollment form and declare that all information I have given, including my health information, is true and complete to the best of my knowledge and belief. I understand that this information will be used by MetLife to determine insurability.</li>
+                  <li>I have read this enrollment form and declare that all information I have given is true and complete to the best of my knowledge and belief.</li>
                   <li>I declare that I am actively at work on the date I am enrolling.</li>
-                  <li>I understand that if I do not enroll for disability coverage during the initial enrollment period, or if I do not enroll for the maximum amount of coverage for which I am eligible, evidence of insurability satisfactory to MetLife may be required to enroll for or increase such coverage after the initial enrollment period has expired. Coverage will not take effect, or it will be limited, until notice is received that MetLife has approved the coverage or increase.</li>
+                  <li>I understand that if I do not enroll for Life coverage during the enrollment period, or if I do not enroll for the maximum amount of coverage for which I am eligible, evidence of insurability satisfactory to MetLife may be required to enroll for or increase such coverage after the enrollment period has expired. Coverage will not take effect, or it will be limited, until notice is received that MetLife has approved the coverage or increase.</li>
+                  <li>I have read the Beneficiary Designation section provided in this enrollment form and I have made a designation if I so choose.</li>
                   <li>I have read the applicable Fraud Warning(s) provided in this enrollment form.</li>
                 </ol>
                 <div class="declaration-sign-block">
@@ -5421,7 +5783,6 @@
                   </button>
                   <div class="declaration-signed-display hidden" id="declarationSignedDisplay">
                     <p class="auth-signature-name" id="declarationSignatureName">Name</p>
-                    <p class="auth-signature-date" id="declarationSignatureDate"></p>
                   </div>
                   <div class="declaration-sign-row">
                     <div class="input-field declaration-disabled-field">
@@ -5630,6 +5991,119 @@
             <div class="row-actions">
               <button class="btn-secondary" id="optInsPrevBtn" type="button">Previous</button>
               <button class="btn-brand" id="optInsNextBtn" type="button">Next</button>
+            </div>
+          </div>
+
+          <!-- ── Confirmation (guaranteed flow) ─────────── -->
+          <div class="screen" id="screen-guaranteed-confirmation">
+            <div class="title-wrap">
+              <h1>Confirmation</h1>
+              <div class="title-line"></div>
+            </div>
+            <div class="pay-body">
+              <div class="pay-review-grid">
+                <section class="pay-card pay-card-coverages" aria-label="Product and coverage information">
+                  <h2 class="pay-card-title">Product &amp; Coverage Information</h2>
+                  <div class="pay-kv-grid">
+                    <div class="pay-kv-row guaranteed-kv-row-top">
+                      <p class="pay-kv-label">Product</p>
+                      <p class="pay-kv-value pay-kv-value-wrap">$5k, 12-Month Guaranteed Issue Term Life</p>
+                    </div>
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Coverage Amount</p>
+                      <p class="pay-kv-value">$5,000.00</p>
+                    </div>
+                  </div>
+                  <div class="pay-effective-block">
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Coverage Period</p>
+                      <p class="pay-kv-value" id="guaranteedCoveragePeriod">01/01/2026 - 01/01/2027</p>
+                    </div>
+                    <p class="pay-effective-note">For all Active Eligible Members, your Noncontributory Life Insurance coverage continues for a period of 12 months. At the end of 12 month period, your Noncontributory Life Insurance ends.</p>
+                  </div>
+                </section>
+
+                <section class="pay-card pay-card-payment" aria-label="Payment information">
+                  <h2 class="pay-card-title pay-payment-title">Payment Information</h2>
+                  <div class="pay-summary-wrap">
+                    <div class="pay-summary-grid" role="table" aria-label="Payment information table">
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-item" role="columnheader">Line Item</div>
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-value" role="columnheader">Monthly</div>
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-value" role="columnheader">Annual</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item" role="cell">Member Coverage</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$0.00</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$0.00</div>
+
+                      <div class="pay-summary-cell pay-summary-total" role="cell">Total</div>
+                      <div class="pay-summary-cell pay-summary-total" role="cell">$0.00</div>
+                      <div class="pay-summary-cell pay-summary-total" role="cell">$0.00</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="confirmation-marketing">
+                <p class="confirmation-marketing-title">Marketing Communications</p>
+                <div class="confirmation-marketing-row">
+                  <label class="consent-agree-label" for="guaranteedMarketingCommsCheckbox">
+                    <input class="consent-agree-checkbox" type="checkbox" id="guaranteedMarketingCommsCheckbox" />
+                    <span class="confirmation-marketing-copy">
+                      <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
+                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See
+                      <a class="confirmation-marketing-link" href="#" aria-label="Terms of Service"> Terms of Service</a>
+                      and
+                      <a class="confirmation-marketing-link" href="#" aria-label="Privacy Policy"> Privacy Policy</a>.
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-actions">
+              <button class="btn-secondary" id="guaranteedConfirmationPrevBtn" type="button">Previous</button>
+              <button class="btn-brand" id="guaranteedConfirmationSubmitBtn" type="button">Submit</button>
+            </div>
+          </div>
+
+          <!-- ── Submission Confirmation (guaranteed flow) ─────────── -->
+          <div class="screen" id="screen-guaranteed-submission-confirmation">
+            <div class="pay-confirm-wrap">
+              <div class="pay-confirm-content">
+                <p class="pay-confirm-title">Thank you for choosing AFT + Member Benefits for your insurance needs.</p>
+                <p class="pay-confirm-copy">Your $5K, 12-Month Guaranteed Issue Term Life application has been approved.</p>
+                <p class="pay-confirm-subtitle">Summary of your coverage:</p>
+
+                <div class="pay-confirm-summary">
+                  <div class="pay-kv-row">
+                    <p class="pay-kv-label">Product:</p>
+                    <p class="pay-kv-value">$5k, 12-Month Guaranteed Issue Term Life</p>
+                  </div>
+                  <div class="pay-kv-row">
+                    <p class="pay-kv-label">Coverage Amount:</p>
+                    <p class="pay-kv-value">$5,000.00</p>
+                  </div>
+                  <div class="pay-kv-row">
+                    <p class="pay-kv-label">Coverage Period:</p>
+                    <p class="pay-kv-value" id="guaranteedConfirmCoveragePeriod">03/01/2026 - 03/01/2027</p>
+                  </div>
+                </div>
+
+                <p class="pay-confirm-contact">If you have any questions, please feel free to contact us.
+
+We thank you for the opportunity to be of service.
+
+Customer service: 888-423-8700
+
+Monday - Friday 8:00am – 8:00pm EST
+
+<a href="mailto:GSP.Sarasota.AFT@ajg.com">GSP.Sarasota.AFT@ajg.com</a></p>
+              </div>
+
+              <div class="pay-confirm-actions">
+                <button class="btn-secondary" type="button" id="guaranteedGoPortalBtn">Go to Customer Portal</button>
+                <button class="btn-brand" type="button" id="guaranteedDownloadCertificateBtn">Download Certificate of Insurance</button>
+              </div>
             </div>
           </div>
 
@@ -5869,6 +6343,22 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div class="confirmation-marketing">
+                <p class="confirmation-marketing-title">Marketing Communications</p>
+                <div class="confirmation-marketing-row">
+                  <label class="consent-agree-label" for="paymentMarketingCommsCheckbox">
+                    <input class="consent-agree-checkbox" type="checkbox" id="paymentMarketingCommsCheckbox" />
+                    <span class="confirmation-marketing-copy">
+                      <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
+                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See
+                      <a class="confirmation-marketing-link" href="#" aria-label="Terms of Service"> Terms of Service</a>
+                      and
+                      <a class="confirmation-marketing-link" href="#" aria-label="Privacy Policy"> Privacy Policy</a>.
+                    </span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -6338,6 +6828,61 @@ Monday - Friday 8:00am – 8:00pm EST
         });
       }
 
+      /* Guaranteed Issue flow scaffold: available via URL only, not home-enabled yet. */
+      var flowParams = new URLSearchParams(window.location.search);
+      var isGuaranteedIssueFlow = /^(guaranteed|guaranteed-issue)$/i.test((flowParams.get("flow") || "").trim());
+      if (isGuaranteedIssueFlow) {
+        var topContextWrap = document.querySelector(".home-landing-contextv2");
+        if (topContextWrap) {
+          topContextWrap.innerHTML =
+            '<div class="home-landing-context-colv2">'
+            + '<p class="home-landing-context-labelv2">Flow</p>'
+            + '<p class="home-landing-context-valuev2">$5k, 12-Month Guaranteed Issue Term Life</p>'
+            + '</div>';
+        }
+
+        var startHereIntroText = document.getElementById("startHereIntroText");
+        if (startHereIntroText) {
+          startHereIntroText.textContent = "To match you with the best plan, we'll need a few details about you and your.";
+        }
+
+        var coverageDisabilityFields = document.getElementById("coverageDisabilityFields");
+        var coverageGuaranteedFields = document.getElementById("coverageGuaranteedFields");
+        if (coverageDisabilityFields) coverageDisabilityFields.classList.add("hidden");
+        if (coverageGuaranteedFields) coverageGuaranteedFields.classList.remove("hidden");
+
+        var noticesScreenEl = document.getElementById("screen-notices");
+        if (noticesScreenEl) {
+          var mibPreNoticeSubstep = noticesScreenEl.querySelector('[data-notices-step="3"]');
+          if (mibPreNoticeSubstep) mibPreNoticeSubstep.remove();
+
+          var declarationsSubstep = noticesScreenEl.querySelector('[data-notices-step="4"]');
+          var authorizationsSubstep = noticesScreenEl.querySelector('[data-notices-step="5"]');
+          if (declarationsSubstep) declarationsSubstep.setAttribute("data-notices-step", "3");
+          if (authorizationsSubstep) authorizationsSubstep.remove();
+        }
+
+        var stepListEl = document.getElementById("stepList");
+        if (stepListEl) {
+          var guaranteedSteps = [
+            { screen: "screen-start-here", text: "Start here", position: "top", state: "active" },
+            { screen: "screen-consent", text: "Consent", position: "middle", state: "default" },
+            { screen: "screen-coverage", text: "Coverage", position: "middle", state: "default" },
+            { screen: "screen-enrollment", text: "Enrollment", position: "middle", state: "default" },
+            { screen: "screen-beneficiaries", text: "Beneficiaries", position: "middle", state: "default" },
+            { screen: "screen-notices", text: "Notices", position: "middle", state: "default" },
+            { screen: "screen-opt-ins", text: "Opt Ins", position: "middle", state: "default" },
+            { screen: "screen-guaranteed-confirmation", text: "Confirmation", position: "bottom", state: "default" }
+          ];
+          stepListEl.innerHTML = guaranteedSteps.map(function (step) {
+            return '<li class="step-item" data-position="' + step.position + '" data-state="' + step.state + '" data-screen="' + step.screen + '">'
+              + '<span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>'
+              + '<span class="step-text">' + step.text + '</span>'
+              + '</li>';
+          }).join("");
+        }
+      }
+
       /* ── Step navigation ──────────────────────────────────────── */
       const stepItems   = Array.from(document.querySelectorAll(".step-list .step-item"));
       const screens     = Array.from(document.querySelectorAll(".content .screen"));
@@ -6388,6 +6933,10 @@ Monday - Friday 8:00am – 8:00pm EST
         screens.forEach(function (s) { s.classList.remove("active"); });
         if (targetScreen) { targetScreen.classList.add("active"); }
         setStepsVisible(true);
+        if (targetScreen && targetScreen.id === "screen-guaranteed-submission-confirmation") {
+          freezeAftTimerForConfirmation();
+          setStepsVisible(false);
+        }
         if (targetScreen && targetScreen.id === "screen-enrollment") {
           syncEnrollmentNameFields();
         }
@@ -6399,6 +6948,9 @@ Monday - Friday 8:00am – 8:00pm EST
         }
         if (targetScreen && targetScreen.id === "screen-payment" && typeof window.syncDisabilityPaymentEffectiveDate === "function") {
           window.syncDisabilityPaymentEffectiveDate();
+        }
+        if (targetScreen && targetScreen.id === "screen-guaranteed-confirmation" && typeof window.syncGuaranteedCoveragePeriod === "function") {
+          window.syncGuaranteedCoveragePeriod();
         }
         resetViewToTop();
       }
@@ -6586,6 +7138,7 @@ Monday - Friday 8:00am – 8:00pm EST
       bindNextBtn("coverageNextBtn");
       bindNextBtn("healthPage3NextBtn");
       bindNextBtn("enrollmentNextBtn");
+      bindNextBtn("beneficiariesNextBtn");
       bindNextBtn("physicianNextBtn");
       bindNextBtn("optInsNextBtn");
 
@@ -6610,7 +7163,8 @@ Monday - Friday 8:00am – 8:00pm EST
         var prevBtn = document.getElementById("noticesPrevBtn");
         var nextBtn = document.getElementById("noticesNextBtn");
         var substeps = noticesScreen ? Array.from(noticesScreen.querySelectorAll("[data-notices-step]")) : [];
-        var declarationCopy = noticesScreen ? noticesScreen.querySelector('[data-notices-step="4"] .notices-copy') : null;
+        var declarationStepNumber = isGuaranteedIssueFlow ? 3 : 4;
+        var declarationCopy = noticesScreen ? noticesScreen.querySelector('[data-notices-step="' + declarationStepNumber + '"] .notices-copy') : null;
         var declarationSignErrorBannerId = "declarationSignErrorBanner";
         if (!noticesScreen || !prevBtn || !nextBtn || !substeps.length) return;
         insertScopedErrorBanner(declarationCopy, declarationSignErrorBannerId, "You must sign to continue");
@@ -6622,13 +7176,21 @@ Monday - Friday 8:00am – 8:00pm EST
           var n = Math.max(1, Math.min(totalSubsteps, Number(stepNum) || 1));
           currentSubstep = n;
           if (noticesTitle) {
-            noticesTitle.textContent =
-              n === 1 ? "Fraud Representations" :
-              n === 2 ? "Privacy Notice" :
-              n === 3 ? "MIB Pre Notice" :
-              n === 4 ? "Declarations & Signatures" :
-              n === 5 ? "Authorizations" :
-              "Notices";
+            if (isGuaranteedIssueFlow) {
+              noticesTitle.textContent =
+                n === 1 ? "Fraud Representations" :
+                n === 2 ? "Privacy Notice" :
+                n === 3 ? "Declarations & Signatures" :
+                "Notices";
+            } else {
+              noticesTitle.textContent =
+                n === 1 ? "Fraud Representations" :
+                n === 2 ? "Privacy Notice" :
+                n === 3 ? "MIB Pre Notice" :
+                n === 4 ? "Declarations & Signatures" :
+                n === 5 ? "Authorizations" :
+                "Notices";
+            }
           }
           substeps.forEach(function (el) {
             var isActive = Number(el.getAttribute("data-notices-step")) === n;
@@ -6649,7 +7211,7 @@ Monday - Friday 8:00am – 8:00pm EST
         });
 
         nextBtn.addEventListener("click", function () {
-          if (currentSubstep === 4 && !declarationSignatureSigned) {
+          if (currentSubstep === declarationStepNumber && !declarationSignatureSigned) {
             showScopedErrorBanner(declarationSignErrorBannerId);
             return;
           }
@@ -6678,9 +7240,11 @@ Monday - Friday 8:00am – 8:00pm EST
             "physician": "screen-physician",
             "physician-prescriptions": "screen-physician",
             "enrollment": "screen-enrollment",
+            "beneficiaries": "screen-beneficiaries",
             "notices": "screen-notices",
             "optins": "screen-opt-ins",
             "opt-ins": "screen-opt-ins",
+            "confirmation": "screen-guaranteed-confirmation",
             "payment": "screen-payment",
             "last": "screen-payment",
             "final": "screen-payment"
@@ -6932,6 +7496,32 @@ Monday - Friday 8:00am – 8:00pm EST
 
         window.syncDisabilityPaymentEffectiveDate = syncPaymentEffectiveDate;
         syncPaymentEffectiveDate();
+      }());
+
+      /* Guaranteed confirmation coverage period (today - one year ahead) */
+      (function () {
+        var guaranteedConfirmCoveragePeriod = document.getElementById("guaranteedConfirmCoveragePeriod");
+        var guaranteedCoveragePeriod = document.getElementById("guaranteedCoveragePeriod");
+        if (!guaranteedConfirmCoveragePeriod && !guaranteedCoveragePeriod) return;
+
+        function formatMMDDYYYY(dateValue) {
+          var mm = String(dateValue.getMonth() + 1).padStart(2, "0");
+          var dd = String(dateValue.getDate()).padStart(2, "0");
+          var yyyy = dateValue.getFullYear();
+          return mm + "/" + dd + "/" + yyyy;
+        }
+
+        function syncGuaranteedCoveragePeriod() {
+          var startDate = new Date();
+          var endDate = new Date(startDate.getTime());
+          endDate.setFullYear(endDate.getFullYear() + 1);
+          var periodText = formatMMDDYYYY(startDate) + " - " + formatMMDDYYYY(endDate);
+          if (guaranteedConfirmCoveragePeriod) guaranteedConfirmCoveragePeriod.textContent = periodText;
+          if (guaranteedCoveragePeriod) guaranteedCoveragePeriod.textContent = periodText;
+        }
+
+        window.syncGuaranteedCoveragePeriod = syncGuaranteedCoveragePeriod;
+        syncGuaranteedCoveragePeriod();
       }());
 
       /* Reuse full 50-state list from existing Health state dropdown */
@@ -7509,6 +8099,71 @@ Monday - Friday 8:00am – 8:00pm EST
         });
       }());
 
+      /* Guaranteed Beneficiaries: dynamic cards with max 5 */
+      (function () {
+        var cardsContainer = document.getElementById("guaranteedBeneficiaryCardsContainer");
+        var addBeneficiaryBtn = document.getElementById("guaranteedAddBeneficiaryBtn");
+        var maxText = document.getElementById("guaranteedBeneficiaryMaxText");
+        if (!cardsContainer || !addBeneficiaryBtn) return;
+
+        var maxBeneficiaries = 5;
+        var firstCard = cardsContainer.querySelector(".js-beneficiary-card");
+        if (!firstCard) return;
+        var cardTemplateHTML = firstCard.outerHTML;
+
+        function createNodeFromHTML(html) {
+          var wrapper = document.createElement("div");
+          wrapper.innerHTML = html.trim();
+          return wrapper.firstElementChild;
+        }
+
+        function updateBeneficiaryLimitUI() {
+          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
+          var reachedMax = count >= maxBeneficiaries;
+          addBeneficiaryBtn.classList.toggle("hidden", reachedMax);
+          addBeneficiaryBtn.hidden = reachedMax;
+          if (maxText) maxText.classList.toggle("hidden", !reachedMax);
+        }
+
+        function addBeneficiaryCard() {
+          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
+          if (count >= maxBeneficiaries) {
+            updateBeneficiaryLimitUI();
+            return;
+          }
+          var newCard = createNodeFromHTML(cardTemplateHTML);
+          if (!newCard) return;
+
+          newCard.querySelectorAll("input, textarea, select").forEach(function (el) {
+            var type = (el.getAttribute("type") || "").toLowerCase();
+            if (type === "checkbox" || type === "radio") {
+              el.checked = false;
+            } else {
+              el.value = "";
+            }
+          });
+
+          var removeBtn = newCard.querySelector(".js-remove-beneficiary");
+          if (removeBtn) removeBtn.classList.remove("hidden");
+          cardsContainer.appendChild(newCard);
+          updateBeneficiaryLimitUI();
+        }
+
+        cardsContainer.addEventListener("click", function (e) {
+          var removeBtn = e.target.closest(".js-remove-beneficiary");
+          if (!removeBtn) return;
+          var card = removeBtn.closest(".js-beneficiary-card");
+          if (!card) return;
+          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
+          if (count <= 1) return;
+          card.remove();
+          updateBeneficiaryLimitUI();
+        });
+
+        addBeneficiaryBtn.addEventListener("click", addBeneficiaryCard);
+        updateBeneficiaryLimitUI();
+      }());
+
       /* ── App-bar context indicators ──────────────────────────────── */
       (function () {
         var ctxHosp   = document.getElementById("aftCtxHospitalization");
@@ -7580,9 +8235,31 @@ Monday - Friday 8:00am – 8:00pm EST
       bindPrevBtn("coveragePrevBtn");
       bindPrevBtn("healthPrevBtn");
       bindPrevBtn("enrollmentPrevBtn");
+      bindPrevBtn("beneficiariesPrevBtn");
       bindPrevBtn("physicianPrevBtn");
       bindPrevBtn("optInsPrevBtn");
+      bindPrevBtn("guaranteedConfirmationPrevBtn");
       bindPrevBtn("paymentPrevBtn");
+
+      (function () {
+        var guaranteedSubmitBtn = document.getElementById("guaranteedConfirmationSubmitBtn");
+        var guaranteedSubmissionScreen = document.getElementById("screen-guaranteed-submission-confirmation");
+        if (!guaranteedSubmitBtn || !guaranteedSubmissionScreen) return;
+        guaranteedSubmitBtn.addEventListener("click", function () {
+          freezeAftTimerForConfirmation();
+          screens.forEach(function (screenEl) { screenEl.classList.remove("active"); });
+          guaranteedSubmissionScreen.classList.add("active");
+          if (typeof window.syncGuaranteedCoveragePeriod === "function") {
+            window.syncGuaranteedCoveragePeriod();
+          }
+          if (guaranteedSubmissionScreen.classList.contains("active")) {
+            setStepsVisible(false);
+          }
+          setStepsVisible(false);
+          setStepStateOnly(stepItems.length - 1);
+          resetViewToTop();
+        });
+      }());
 
       (function () {
         var paymentSubmitBtn = document.getElementById("paymentSubmitBtn");
@@ -7658,8 +8335,13 @@ Monday - Friday 8:00am – 8:00pm EST
       var disRestartBtn = document.getElementById("disRestartBtn");
       if (disRestartBtn) {
         disRestartBtn.addEventListener("click", function () {
-          var cleanUrl = window.location.pathname;
-          window.location.href = cleanUrl;
+          var currentUrl = new URL(window.location.href);
+          var flow = (currentUrl.searchParams.get("flow") || "").trim();
+          var restartUrl = window.location.pathname;
+          if (flow) {
+            restartUrl += "?flow=" + encodeURIComponent(flow);
+          }
+          window.location.href = restartUrl;
         });
       }
 
