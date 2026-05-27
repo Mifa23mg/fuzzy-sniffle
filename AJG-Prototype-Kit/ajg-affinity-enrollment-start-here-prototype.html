@@ -1803,7 +1803,7 @@
     .steps {
       width: 200px;
       flex: 0 0 200px;
-      padding: 8px 8px 8px 16px;
+      padding: 8px;
       border-right: 1px solid var(--line);
       background: var(--bg-surface);
     }
@@ -1949,6 +1949,10 @@
       background: #066afe;
     }
 
+    .step-item[data-position="top"][data-state="active"] .rail-bottom {
+      background: var(--line);
+    }
+
     .step-item[data-position="top"][data-state="complete"] .rail-bottom,
     .step-item[data-position="middle"][data-state="complete"] .rail-bottom {
       background: #066afe;
@@ -2025,6 +2029,10 @@
       line-height: 21px;
       font-weight: 400;
       max-width: 100%;
+    }
+
+    .screen .title-wrap + .intro {
+      margin-top: 12px;
     }
 
     .screen-warning-banner {

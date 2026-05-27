@@ -466,7 +466,7 @@
     .steps {
       width: 200px;
       flex: 0 0 200px;
-      padding: 8px 8px 8px 16px;
+      padding: 8px;
       border-right: 1px solid #c9c9c9;
       background: #ffffff;
     }
@@ -567,6 +567,10 @@
     .step-item[data-position="middle"][data-state="complete"] .rail-top,
     .step-item[data-position="bottom"][data-state="complete"] .rail-top { background: #066afe; }
 
+    .step-item[data-position="top"][data-state="active"] .rail-bottom {
+      background: #c9c9c9;
+    }
+
     .step-item[data-position="top"][data-state="complete"]    .rail-bottom,
     .step-item[data-position="middle"][data-state="complete"] .rail-bottom { background: #066afe; }
 
@@ -639,6 +643,19 @@
       line-height: 21px;
       font-weight: 400;
       max-width: 100%;
+      margin: 0;
+    }
+
+    #screen-start-here .title-wrap + .intro,
+    #screen-physician .title-wrap + .intro,
+    #screen-opt-ins .title-wrap + .intro,
+    #screen-payment .title-wrap + .intro {
+      margin-top: -4px;
+    }
+
+    #screen-consent .title-wrap + .intro,
+    #screen-enrollment .title-wrap + .intro {
+      margin-top: 12px;
     }
 
     /* ─── Form Grid ────────────────────────────────────────────────── */
@@ -1103,7 +1120,7 @@
     }
 
     /* Tagline sits flush at the left edge — same as the h1 */
-    .consent-tagline {
+    #screen-consent .intro {
       color: #181818;
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: 13px;
@@ -2033,7 +2050,7 @@
               <div class="title-line"></div>
             </div>
             <p class="intro">
-              To match you with the best plan, we'll need a few details about you and your business.
+              To help you start this process, please share the following information.
             </p>
             <div class="form-grid">
               <div class="field">
@@ -2099,7 +2116,7 @@
               <h1>Consent Statement</h1>
               <div class="title-line"></div>
             </div>
-            <p class="consent-tagline">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
+            <p class="intro">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
             <div class="consent-body">
               <p>Consent Statement</p>
               <p>In this Agreement, "we," "us," "our," and "the company" refer to Metropolitan Life Insurance Company and MetLife Investors USA Insurance Company. "You" and "yours" refer to the applicant for a policy offered by us.</p>
@@ -2244,15 +2261,15 @@
               <div class="hi-three-col">
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
-                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" value="5" />
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
-                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" value="10" />
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
-                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" value="180" />
                 </div>
               </div>
 

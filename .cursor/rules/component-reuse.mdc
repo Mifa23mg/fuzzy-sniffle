@@ -1,0 +1,41 @@
+---
+description: Always reuse existing UI components; ask before creating new ones
+alwaysApply: true
+---
+
+# Component Reuse
+
+Always check for existing components before building anything new.
+
+## Rules
+
+- **Reuse first**: Before implementing any UI element, scan the prototype files for an existing component that matches — dropdowns, inputs, radio buttons, checkboxes, app bar, buttons, typography, spacing patterns.
+- **Ask before creating**: If no existing component covers the need, explicitly ask the user for confirmation before building a new one. Describe what would be new and why.
+- **Match exactly**: When reusing a component, replicate its full HTML structure, CSS class names, and JS behavior — do not simplify or invent variations.
+
+## Existing components in this project
+
+| Component | Reference location |
+|---|---|
+| Custom dropdown | `ajg-affinity-enrollment-start-here-prototype.html` — "How did you hear about us?" (`select-display ajg-dropdown`) |
+| Floating label dropdown | Same file — "State/Province" (`ajg-dropdown-floating`) |
+| Text input | Same file — "First Name" (`.input-field`) |
+| Date picker | `aft-disability-enrollment-prototype.html` — "Original date you joined AFT?" |
+| Radio button group | `aft-disability-enrollment-prototype.html` — Coverage screen (`.cov-radio-input`) |
+| Checkbox | `aft-disability-enrollment-prototype.html` — Consent screen (`consent-agree-checkbox`) |
+| App bar (sticky) | `aft-disability-enrollment-prototype.html` — `.app-shell` with `height: 100%` |
+| Currency input | `aft-disability-enrollment-prototype.html` — "Basic Annual Earnings" |
+
+## Dropdown arrow
+
+Always use `assets/dropdown-down-icon.png` as the chevron — never inline SVG paths.
+
+```html
+<span class="chevron" aria-hidden="true"></span>
+```
+```css
+.chevron {
+  width: 16px; height: 16px;
+  background: url("assets/dropdown-down-icon.png") center / 16px 16px no-repeat;
+}
+```

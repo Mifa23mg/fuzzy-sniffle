@@ -1,0 +1,54 @@
+---
+description: Protects logo and icon assets in the AJG prototype from accidental modification
+alwaysApply: true
+---
+
+# Protected Assets — DO NOT MODIFY WITHOUT EXPLICIT USER REQUEST
+
+## Protected HTML Elements
+
+These elements must NEVER be changed unless the user explicitly asks to change them:
+
+### `home-landing-topbarv2` brand lockup (in ALL prototype files)
+```html
+<div class="home-landing-brand-lockupv2">
+  <img class="home-brand-leftv2" src="assets/napa-logo.png" alt="Carrier logo" />
+  <div class="home-brand-dividerv2" aria-hidden="true"></div>
+  <img class="home-brand-salesforcev2" src="assets/salesforce-logo.svg" alt="Salesforce logo" />
+</div>
+```
+
+### `home-flow-card-logo` logos (in `ajg-affinity-enrollment-start-here-prototype.html`)
+```html
+<!-- NAPA card -->
+<div class="home-flow-card-logo">
+  <img class="home-flow-logo-napa" src="assets/napa-seal.png" alt="NAPA" />
+</div>
+
+<!-- AFT+ cards (all three) -->
+<div class="home-flow-card-logo">
+  <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
+</div>
+```
+
+## Protected Local Asset Files
+
+These files in `design-system-2-starter-kit/assets/` must NEVER be replaced, overwritten, or deleted without an explicit user request:
+
+| File | Used for |
+|------|----------|
+| `napa-logo.png` | Top bar left logo (carrier) |
+| `napa-seal.png` | NAPA home flow card logo |
+| `salesforce-logo.svg` | Top bar right logo |
+| `aft-logo.png` | AFT+ home flow card logos & AFT disability header/footer |
+| `timer-pause-icon.svg` | Timer pause state icon (two bars) |
+| `timer-play-icon.svg` | Timer resume state icon (play triangle) |
+| `restart-icon.svg` | Restart flow button icon |
+| `calendar-icon.png` | Date picker calendar icon |
+
+## Rules
+
+- NEVER replace any of the above `src` paths with Figma CDN URLs (`figma.com/api/mcp/asset/...`).
+- NEVER overwrite the above asset files when fetching fresh Figma assets — always write to a new filename first.
+- NEVER modify the CSS classes `home-landing-brand-lockupv2`, `home-flow-card-logo`, `home-flow-logo-napa`, `home-flow-logo-aft` without being asked.
+- If a Figma fetch returns a new URL for any of the above logos, download to a temp file for review — do NOT replace the existing protected asset directly.
