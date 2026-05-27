@@ -2162,7 +2162,7 @@
     }
 
     .preview-billing-address-row {
-      padding: 0 8px;
+      padding: 0;
       box-sizing: border-box;
       border-radius: 8px;
       display: flex;
@@ -3670,6 +3670,14 @@
       gap: 8px;
     }
 
+    .auth-field-select.auth-field-native {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 2px;
+    }
+
     .auth-field-copy {
       min-width: 0;
       display: flex;
@@ -3710,6 +3718,23 @@
       flex: 0 0 16px;
       background-size: 16px 16px;
       opacity: 0.9;
+    }
+
+    .auth-field-native-select {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      padding: 0;
+    }
+
+    .auth-field-native-select:focus {
+      outline: none;
     }
 
     .auth-sign-checkbox-row {
@@ -3786,7 +3811,7 @@
       height: 32px;
       border-radius: 9999px;
       padding: 1px 16px;
-      border: 0;
+      border: 1px solid #0b827c;
       background: #0b827c;
       color: #ffffff;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
@@ -3795,6 +3820,22 @@
       line-height: 19px;
       cursor: pointer;
       align-self: flex-start;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    .btn-sign:hover:not(:disabled) {
+      border-color: #024d4c;
+      background: #024d4c;
+    }
+
+    .btn-sign:active:not(:disabled) {
+      border-color: #013534;
+      background: #013534;
+    }
+
+    .btn-sign:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0250d9;
     }
 
     .btn-sign .btn-icon-sign {
@@ -3803,6 +3844,13 @@
       flex: 0 0 14px;
       display: block;
       object-fit: contain;
+    }
+
+    .declaration-signed-display {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 32px;
     }
 
     .declaration-sign-row {
@@ -3856,6 +3904,43 @@
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: 14px 14px;
+    }
+
+    .screen-warning-banner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      padding: 12px;
+      height: 42px;
+      border-radius: 8px;
+      background: #fddde3;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .screen-warning-banner-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      display: block;
+    }
+
+    .screen-warning-banner-text {
+      color: #b60554;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px;
+      margin: 0;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .screen-warning-banner.is-hidden {
+      display: none;
     }
 
     #screen-notices .row-actions {
@@ -5330,16 +5415,20 @@
                   <li>I have read the applicable Fraud Warning(s) provided in this enrollment form.</li>
                 </ol>
                 <div class="declaration-sign-block">
-                  <button class="btn-sign" type="button">
+                  <button class="btn-sign" type="button" id="declarationSignBtn">
                     <img class="btn-icon-sign" src="https://www.figma.com/api/mcp/asset/f665b4e0-2e93-47aa-9744-965f0bc5ddd5" alt="" aria-hidden="true" />
                     Sign
                   </button>
+                  <div class="declaration-signed-display hidden" id="declarationSignedDisplay">
+                    <p class="auth-signature-name" id="declarationSignatureName">Name</p>
+                    <p class="auth-signature-date" id="declarationSignatureDate"></p>
+                  </div>
                   <div class="declaration-sign-row">
                     <div class="input-field declaration-disabled-field">
-                      <input class="input-text" type="text" aria-label="Name" placeholder="Name" disabled />
+                      <input class="input-text" type="text" id="declarationNameInput" aria-label="Name" placeholder="Name" disabled />
                     </div>
                     <div class="input-field declaration-disabled-field declaration-date-wrap">
-                      <input class="input-text" type="text" aria-label="Today's Date" placeholder="Today's Date" disabled />
+                      <input class="input-text" type="text" id="declarationDateInput" aria-label="Today's Date" placeholder="Today's Date" disabled />
                       <span class="declaration-date-icon" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -5396,20 +5485,70 @@
                     </div>
                   </div>
 
-                  <div class="auth-field-static auth-field-select">
-                    <div class="auth-field-copy">
-                      <p class="auth-field-label">State of Birth <span class="req-star">*</span></p>
-                      <p class="auth-field-value">Select a State</p>
-                    </div>
-                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  <div class="auth-field-static auth-field-select auth-field-native">
+                    <label class="auth-field-label" for="authBirthState">State of Birth <span class="req-star">*</span></label>
+                    <select class="auth-field-native-select" id="authBirthState" name="authBirthState" aria-label="State of Birth">
+                      <option value="">Select a State</option>
+                      <option value="AL">Alabama</option>
+                      <option value="AK">Alaska</option>
+                      <option value="AZ">Arizona</option>
+                      <option value="AR">Arkansas</option>
+                      <option value="CA">California</option>
+                      <option value="CO">Colorado</option>
+                      <option value="CT">Connecticut</option>
+                      <option value="DE">Delaware</option>
+                      <option value="FL">Florida</option>
+                      <option value="GA">Georgia</option>
+                      <option value="HI">Hawaii</option>
+                      <option value="ID">Idaho</option>
+                      <option value="IL">Illinois</option>
+                      <option value="IN">Indiana</option>
+                      <option value="IA">Iowa</option>
+                      <option value="KS">Kansas</option>
+                      <option value="KY">Kentucky</option>
+                      <option value="LA">Louisiana</option>
+                      <option value="ME">Maine</option>
+                      <option value="MD">Maryland</option>
+                      <option value="MA">Massachusetts</option>
+                      <option value="MI">Michigan</option>
+                      <option value="MN">Minnesota</option>
+                      <option value="MS">Mississippi</option>
+                      <option value="MO">Missouri</option>
+                      <option value="MT">Montana</option>
+                      <option value="NE">Nebraska</option>
+                      <option value="NV">Nevada</option>
+                      <option value="NH">New Hampshire</option>
+                      <option value="NJ">New Jersey</option>
+                      <option value="NM">New Mexico</option>
+                      <option value="NY">New York</option>
+                      <option value="NC">North Carolina</option>
+                      <option value="ND">North Dakota</option>
+                      <option value="OH">Ohio</option>
+                      <option value="OK">Oklahoma</option>
+                      <option value="OR">Oregon</option>
+                      <option value="PA">Pennsylvania</option>
+                      <option value="RI">Rhode Island</option>
+                      <option value="SC">South Carolina</option>
+                      <option value="SD">South Dakota</option>
+                      <option value="TN">Tennessee</option>
+                      <option value="TX">Texas</option>
+                      <option value="UT">Utah</option>
+                      <option value="VT">Vermont</option>
+                      <option value="VA">Virginia</option>
+                      <option value="WA">Washington</option>
+                      <option value="WV">West Virginia</option>
+                      <option value="WI">Wisconsin</option>
+                      <option value="WY">Wyoming</option>
+                    </select>
                   </div>
 
-                  <div class="auth-field-static auth-field-select">
-                    <div class="auth-field-copy">
-                      <p class="auth-field-label">Birth Country <span class="req-star">*</span></p>
-                      <p class="auth-field-value">United States of America</p>
-                    </div>
-                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  <div class="auth-field-static auth-field-select auth-field-native">
+                    <label class="auth-field-label" for="authBirthCountry">Birth Country <span class="req-star">*</span></label>
+                    <select class="auth-field-native-select" id="authBirthCountry" name="authBirthCountry" aria-label="Birth Country">
+                      <option value="US" selected>United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="MX">Mexico</option>
+                    </select>
                   </div>
                 </div>
 
@@ -5528,7 +5667,7 @@
                   <div class="pay-effective-block">
                     <div class="pay-kv-row">
                       <p class="pay-kv-label">Effective Date</p>
-                      <p class="pay-kv-value">01/01/2026</p>
+                    <p class="pay-kv-value" id="payEffectiveDate">01/01/2026</p>
                     </div>
                     <p class="pay-effective-note">Coverage takes effect after payment is collected.</p>
                   </div>
@@ -6149,6 +6288,10 @@ Monday - Friday 8:00am – 8:00pm EST
         aftTimerPaused = false;
         if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
         if (aftTopbarTimer) aftTopbarTimer.classList.remove("is-paused");
+        if (aftTopbarTimerBtn) {
+          aftTopbarTimerBtn.hidden = false;
+          aftTopbarTimerBtn.setAttribute("aria-label", "Pause timer");
+        }
         aftTimerInterval = setInterval(function () {
           if (!aftTimerPaused) {
             aftTimerSeconds++;
@@ -6172,6 +6315,17 @@ Monday - Friday 8:00am – 8:00pm EST
           if (aftTopbarTimer) aftTopbarTimer.classList.toggle("is-paused", aftTimerPaused);
           aftTopbarTimerBtn.setAttribute("aria-label", aftTimerPaused ? "Resume timer" : "Pause timer");
         });
+      }
+
+      function freezeAftTimerForConfirmation() {
+        clearInterval(aftTimerInterval);
+        aftTimerInterval = null;
+        aftTimerPaused = false;
+        if (aftTopbarTimer) aftTopbarTimer.classList.remove("is-paused");
+        if (aftTopbarTimerBtn) {
+          aftTopbarTimerBtn.hidden = true;
+          aftTopbarTimerBtn.setAttribute("aria-label", "Pause timer");
+        }
       }
 
       startAftTimer();
@@ -6240,6 +6394,12 @@ Monday - Friday 8:00am – 8:00pm EST
         if (targetScreen && targetScreen.id === "screen-notices" && typeof setNoticesSubStep === "function") {
           setNoticesSubStep(1);
         }
+        if (targetScreen && targetScreen.id === "screen-payment" && typeof window.syncDisabilityPaymentBillingAddressFromEnrollment === "function") {
+          window.syncDisabilityPaymentBillingAddressFromEnrollment();
+        }
+        if (targetScreen && targetScreen.id === "screen-payment" && typeof window.syncDisabilityPaymentEffectiveDate === "function") {
+          window.syncDisabilityPaymentEffectiveDate();
+        }
         resetViewToTop();
       }
 
@@ -6252,25 +6412,52 @@ Monday - Friday 8:00am – 8:00pm EST
         var enrLast = document.getElementById("enrLastName");
         var enrEmail = document.getElementById("enrEmail");
 
-        if (enrFirst) {
-          enrFirst.value = startFirst && startFirst.value ? startFirst.value.trim() : "";
+        var startFirstValue = startFirst && startFirst.value ? startFirst.value.trim() : "";
+        var startLastValue = startLast && startLast.value ? startLast.value.trim() : "";
+        var startEmailValue = startEmail && startEmail.value ? startEmail.value.trim() : "";
+
+        /* Prefill only when Enrollment fields are empty; never overwrite user edits. */
+        if (enrFirst && !enrFirst.value.trim() && startFirstValue) {
+          enrFirst.value = startFirstValue;
         }
-        if (enrLast) {
-          enrLast.value = startLast && startLast.value ? startLast.value.trim() : "";
+        if (enrLast && !enrLast.value.trim() && startLastValue) {
+          enrLast.value = startLastValue;
         }
-        if (enrEmail) {
-          enrEmail.value = startEmail && startEmail.value ? startEmail.value.trim() : "";
+        if (enrEmail && !enrEmail.value.trim() && startEmailValue) {
+          enrEmail.value = startEmailValue;
         }
+        syncAuthorizationSignatureFields();
       }
 
-      function getStartHereFullName() {
-        var startScreen = document.getElementById("screen-start-here");
-        var startFirst = startScreen ? startScreen.querySelector('input[name="firstName"]') : null;
-        var startLast = startScreen ? startScreen.querySelector('input[name="lastName"]') : null;
-        var first = startFirst && startFirst.value ? startFirst.value.trim() : "";
-        var last = startLast && startLast.value ? startLast.value.trim() : "";
+      function getEnrollmentFullName() {
+        var enrFirst = document.getElementById("enrFirstName");
+        var enrLast = document.getElementById("enrLastName");
+        var first = enrFirst && enrFirst.value ? enrFirst.value.trim() : "";
+        var last = enrLast && enrLast.value ? enrLast.value.trim() : "";
         var fullName = [first, last].filter(Boolean).join(" ");
         return fullName || "Name";
+      }
+
+      function getEnrollmentNameParts() {
+        var enrFirst = document.getElementById("enrFirstName");
+        var enrLast = document.getElementById("enrLastName");
+        return {
+          first: enrFirst && enrFirst.value ? enrFirst.value.trim() : "",
+          last: enrLast && enrLast.value ? enrLast.value.trim() : ""
+        };
+      }
+
+      function getDeclarationSignedDisplayName() {
+        var parts = getEnrollmentNameParts();
+        if (!parts.first || !parts.last) return "John Doe";
+        return parts.first + " " + parts.last;
+      }
+
+      function getAuthorizationDisplayName() {
+        if (declarationSignatureSigned) {
+          return getDeclarationSignedDisplayName();
+        }
+        return getEnrollmentFullName();
       }
 
       function getTodayDateText() {
@@ -6278,15 +6465,85 @@ Monday - Friday 8:00am – 8:00pm EST
         return (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
       }
 
+      var declarationSignatureSigned = false;
+      var declarationSignedNameSnapshot = "";
+
+      function setDeclarationSignedVisibility(isSigned) {
+        var signBtn = document.getElementById("declarationSignBtn");
+        var signedDisplay = document.getElementById("declarationSignedDisplay");
+        if (signBtn) {
+          signBtn.classList.toggle("hidden", Boolean(isSigned));
+          signBtn.hidden = Boolean(isSigned);
+        }
+        if (signedDisplay) {
+          signedDisplay.classList.toggle("hidden", !Boolean(isSigned));
+          signedDisplay.hidden = !Boolean(isSigned);
+        }
+      }
+
+      function resetDeclarationSignatureState() {
+        declarationSignatureSigned = false;
+        declarationSignedNameSnapshot = "";
+        setDeclarationSignedVisibility(false);
+      }
+
       function syncAuthorizationSignatureFields() {
-        var fullName = getStartHereFullName();
+        var fullName = getAuthorizationDisplayName();
         var dateText = getTodayDateText();
         var signatureName = document.getElementById("authSignatureName");
         var signatureDate = document.getElementById("authSignatureDate");
         var signatureFieldName = document.getElementById("authSignatureFieldName");
+        var declarationNameInput = document.getElementById("declarationNameInput");
+        var declarationDateInput = document.getElementById("declarationDateInput");
+        var declarationSignatureName = document.getElementById("declarationSignatureName");
+        var declarationSignatureDate = document.getElementById("declarationSignatureDate");
         if (signatureName) signatureName.textContent = fullName;
         if (signatureFieldName) signatureFieldName.textContent = fullName;
         if (signatureDate) signatureDate.textContent = dateText;
+        if (declarationNameInput) declarationNameInput.value = getEnrollmentFullName();
+        if (declarationDateInput) declarationDateInput.value = dateText;
+        if (declarationSignatureName) {
+          declarationSignatureName.textContent = declarationSignatureSigned ? getDeclarationSignedDisplayName() : fullName;
+        }
+        if (declarationSignatureDate) declarationSignatureDate.textContent = dateText;
+      }
+
+      function createScopedErrorBanner(id, message) {
+        var banner = document.createElement("div");
+        banner.className = "screen-warning-banner is-hidden";
+        banner.id = id;
+        banner.setAttribute("role", "alert");
+
+        var icon = document.createElement("img");
+        icon.className = "screen-warning-banner-icon";
+        icon.src = "https://www.figma.com/api/mcp/asset/49629d08-39d2-446a-a10f-4b144a43c721";
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+
+        var text = document.createElement("p");
+        text.className = "screen-warning-banner-text";
+        text.textContent = message;
+
+        banner.appendChild(icon);
+        banner.appendChild(text);
+        return banner;
+      }
+
+      function insertScopedErrorBanner(parentEl, id, message) {
+        if (!parentEl || document.getElementById(id)) return;
+        var banner = createScopedErrorBanner(id, message);
+        parentEl.insertBefore(banner, parentEl.firstChild);
+        return banner;
+      }
+
+      function showScopedErrorBanner(id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.remove("is-hidden");
+      }
+
+      function hideScopedErrorBanner(id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.add("is-hidden");
       }
 
       /* Allow clicking completed steps to go back */
@@ -6353,7 +6610,10 @@ Monday - Friday 8:00am – 8:00pm EST
         var prevBtn = document.getElementById("noticesPrevBtn");
         var nextBtn = document.getElementById("noticesNextBtn");
         var substeps = noticesScreen ? Array.from(noticesScreen.querySelectorAll("[data-notices-step]")) : [];
+        var declarationCopy = noticesScreen ? noticesScreen.querySelector('[data-notices-step="4"] .notices-copy') : null;
+        var declarationSignErrorBannerId = "declarationSignErrorBanner";
         if (!noticesScreen || !prevBtn || !nextBtn || !substeps.length) return;
+        insertScopedErrorBanner(declarationCopy, declarationSignErrorBannerId, "You must sign to continue");
 
         var currentSubstep = 1;
         var totalSubsteps = substeps.length;
@@ -6374,6 +6634,7 @@ Monday - Friday 8:00am – 8:00pm EST
             var isActive = Number(el.getAttribute("data-notices-step")) === n;
             el.classList.toggle("is-active", isActive);
           });
+          hideScopedErrorBanner(declarationSignErrorBannerId);
           if (n === 5) {
             syncAuthorizationSignatureFields();
           }
@@ -6388,6 +6649,10 @@ Monday - Friday 8:00am – 8:00pm EST
         });
 
         nextBtn.addEventListener("click", function () {
+          if (currentSubstep === 4 && !declarationSignatureSigned) {
+            showScopedErrorBanner(declarationSignErrorBannerId);
+            return;
+          }
           if (currentSubstep < totalSubsteps) {
             setNoticesSubStep(currentSubstep + 1);
           } else {
@@ -6432,17 +6697,37 @@ Monday - Friday 8:00am – 8:00pm EST
         }
       }());
 
-      /* Keep signature block synced with Start Here name */
+      /* Keep signature block synced with Enrollment name fields */
       (function () {
-        var startScreen = document.getElementById("screen-start-here");
-        var startFirst = startScreen ? startScreen.querySelector('input[name="firstName"]') : null;
-        var startLast = startScreen ? startScreen.querySelector('input[name="lastName"]') : null;
-        [startFirst, startLast].forEach(function (inputEl) {
+        var enrFirst = document.getElementById("enrFirstName");
+        var enrLast = document.getElementById("enrLastName");
+        [enrFirst, enrLast].forEach(function (inputEl) {
           if (!inputEl) return;
-          inputEl.addEventListener("input", syncAuthorizationSignatureFields);
-          inputEl.addEventListener("change", syncAuthorizationSignatureFields);
+          function handleEnrollmentNameUpdate() {
+            var currentFullName = getEnrollmentFullName();
+            if (declarationSignatureSigned && currentFullName !== declarationSignedNameSnapshot) {
+              resetDeclarationSignatureState();
+            }
+            syncAuthorizationSignatureFields();
+          }
+          inputEl.addEventListener("input", handleEnrollmentNameUpdate);
+          inputEl.addEventListener("change", handleEnrollmentNameUpdate);
         });
+        resetDeclarationSignatureState();
         syncAuthorizationSignatureFields();
+      }());
+
+      /* Declarations Sign button -> rendered signature */
+      (function () {
+        var signBtn = document.getElementById("declarationSignBtn");
+        if (!signBtn) return;
+        signBtn.addEventListener("click", function () {
+          declarationSignatureSigned = true;
+          declarationSignedNameSnapshot = getEnrollmentFullName();
+          syncAuthorizationSignatureFields();
+          setDeclarationSignedVisibility(true);
+          hideScopedErrorBanner("declarationSignErrorBanner");
+        });
       }());
 
       /* Reusable exclusive toggle component (ON/OFF states) */
@@ -6533,11 +6818,22 @@ Monday - Friday 8:00am – 8:00pm EST
         var cityInput = document.getElementById("disPreviewBillingCity");
         var stateInput = document.getElementById("disPreviewBillingState");
         var zipInput = document.getElementById("disPreviewBillingZipPostalCode");
+        var enrMailingStreetInput = document.querySelector('input[name="enrMailingStreet"]');
+        var enrMailingCityInput = document.querySelector('input[name="enrMailingCity"]');
+        var enrMailingStateInput = document.querySelector('input[name="enrMailingState"]');
+        var enrMailingZipInput = document.querySelector('input[name="enrMailingZip"]');
 
         if (!summaryRow || !editBtn || !editor) return;
 
         function trim(v) {
           return (v || "").toString().trim();
+        }
+
+        function setSummaryAddress(street, city, state, zip) {
+          if (streetText) streetText.textContent = street;
+          if (cityStateZipText) {
+            cityStateZipText.textContent = city + ", " + state + " " + zip;
+          }
         }
 
         function parseSummaryLine(line) {
@@ -6562,6 +6858,25 @@ Monday - Friday 8:00am – 8:00pm EST
           if (cityInput) cityInput.value = parsed.city;
           if (stateInput) stateInput.value = parsed.state;
           if (zipInput) zipInput.value = parsed.zip;
+        }
+
+        function syncSummaryFromEnrollmentAddress() {
+          var enrollmentStreet = enrMailingStreetInput ? trim(enrMailingStreetInput.value) : "";
+          var enrollmentCity = enrMailingCityInput ? trim(enrMailingCityInput.value) : "";
+          var enrollmentState = enrMailingStateInput ? trim(enrMailingStateInput.value) : "";
+          var enrollmentZip = enrMailingZipInput ? trim(enrMailingZipInput.value) : "";
+
+          var hasAnyEnrollmentAddress = Boolean(enrollmentStreet || enrollmentCity || enrollmentState || enrollmentZip);
+          if (hasAnyEnrollmentAddress) {
+            var displayStreet = enrollmentStreet || "Street";
+            var displayCity = enrollmentCity || "City";
+            var displayState = enrollmentState || "State";
+            var displayZip = enrollmentZip || "00000";
+            setSummaryAddress(displayStreet, displayCity, displayState, displayZip);
+            return;
+          }
+
+          setSummaryAddress("123 Street", "City", "State", "00000");
         }
 
         function openEditor() {
@@ -6593,6 +6908,30 @@ Monday - Friday 8:00am – 8:00pm EST
           event.stopPropagation();
           openEditor();
         });
+
+        window.syncDisabilityPaymentBillingAddressFromEnrollment = syncSummaryFromEnrollmentAddress;
+        syncSummaryFromEnrollmentAddress();
+      }());
+
+      /* Disability payment effective date (current date) */
+      (function () {
+        var payEffectiveDate = document.getElementById("payEffectiveDate");
+        if (!payEffectiveDate) return;
+
+        function getCurrentDateMMDDYYYY() {
+          var now = new Date();
+          var mm = String(now.getMonth() + 1).padStart(2, "0");
+          var dd = String(now.getDate()).padStart(2, "0");
+          var yyyy = now.getFullYear();
+          return mm + "/" + dd + "/" + yyyy;
+        }
+
+        function syncPaymentEffectiveDate() {
+          payEffectiveDate.textContent = getCurrentDateMMDDYYYY();
+        }
+
+        window.syncDisabilityPaymentEffectiveDate = syncPaymentEffectiveDate;
+        syncPaymentEffectiveDate();
       }());
 
       /* Reuse full 50-state list from existing Health state dropdown */
@@ -7295,6 +7634,7 @@ Monday - Friday 8:00am – 8:00pm EST
         }
 
         paymentSubmitBtn.addEventListener("click", function () {
+          freezeAftTimerForConfirmation();
           screens.forEach(function (screenEl) { screenEl.classList.remove("active"); });
           confirmationScreen.classList.add("active");
           if (payConfirmEffectiveDate) {

@@ -5843,7 +5843,7 @@
     }
 
     .preview-billing-address-row {
-      padding: 0 8px;
+      padding: 0;
       box-sizing: border-box;
       border-radius: 8px;
       display: flex;
@@ -8987,6 +8987,10 @@
         timerPaused = false;
         if (shellv2TimerDisplay) shellv2TimerDisplay.textContent = "00:00";
         if (shellv2Timer) shellv2Timer.classList.remove("is-paused");
+        if (shellv2TimerBtn) {
+          shellv2TimerBtn.hidden = false;
+          shellv2TimerBtn.setAttribute("aria-label", "Pause timer");
+        }
         timerInterval = setInterval(function () {
           if (!timerPaused) {
             timerSeconds++;
@@ -9010,7 +9014,21 @@
         timerSeconds = 0;
         if (shellv2TimerDisplay) shellv2TimerDisplay.textContent = "00:00";
         if (shellv2Timer) shellv2Timer.classList.remove("is-paused");
-        if (shellv2TimerBtn) shellv2TimerBtn.setAttribute("aria-label", "Pause timer");
+        if (shellv2TimerBtn) {
+          shellv2TimerBtn.hidden = false;
+          shellv2TimerBtn.setAttribute("aria-label", "Pause timer");
+        }
+      }
+
+      function freezeTimerForConfirmation() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerPaused = false;
+        if (shellv2Timer) shellv2Timer.classList.remove("is-paused");
+        if (shellv2TimerBtn) {
+          shellv2TimerBtn.hidden = true;
+          shellv2TimerBtn.setAttribute("aria-label", "Pause timer");
+        }
       }
 
       if (shellv2TimerBtn) {
@@ -11546,6 +11564,7 @@
       if (previewCheckoutSubmitBtn) {
         previewCheckoutSubmitBtn.addEventListener("click", function onPreviewCheckoutSubmit() {
           commitPreviewPaymentSubmission();
+          freezeTimerForConfirmation();
           goToOrderConfirmationScreen();
         });
       }
