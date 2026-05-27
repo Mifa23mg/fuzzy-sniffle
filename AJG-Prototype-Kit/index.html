@@ -6700,7 +6700,7 @@
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
               <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
@@ -6710,7 +6710,7 @@
                 <li>$5k, 12-Month Guaranteed Issue Term Life</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="guaranteedViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
@@ -11169,6 +11169,13 @@
       if (aftDisabilityViewFlowBtn) {
         aftDisabilityViewFlowBtn.addEventListener("click", function () {
           window.location.href = "aft-disability-enrollment-prototype.html";
+        });
+      }
+
+      var guaranteedViewFlowBtn = document.getElementById("guaranteedViewFlowBtn");
+      if (guaranteedViewFlowBtn) {
+        guaranteedViewFlowBtn.addEventListener("click", function () {
+          window.location.href = "aft-disability-enrollment-prototype.html?flow=guaranteed";
         });
       }
 
