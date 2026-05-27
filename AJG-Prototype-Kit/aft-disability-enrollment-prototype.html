@@ -5603,7 +5603,7 @@
                     </div>
                     <div>
                       <div class="cov-field-label"><span class="req">*</span><span class="lbl">Share Percentage (%)</span></div>
-                      <input class="cov-input" type="text" inputmode="numeric" placeholder="Enter percentage" />
+                      <input class="cov-input beneficiary-share-input" type="text" inputmode="numeric" placeholder="Enter percentage" />
                     </div>
                   </div>
 
@@ -5619,8 +5619,6 @@
                   <span>Add Additional Beneficiaries</span>
                 </button>
               </div>
-
-              <p class="cov-helper beneficiary-max-note hidden" id="guaranteedBeneficiaryMaxText">You&rsquo;ve reached the Max. number of beneficiaries allowed</p>
             </div>
 
             <div class="row-actions">
@@ -6049,7 +6047,7 @@
                   <label class="consent-agree-label" for="guaranteedMarketingCommsCheckbox">
                     <input class="consent-agree-checkbox" type="checkbox" id="guaranteedMarketingCommsCheckbox" />
                     <span class="confirmation-marketing-copy">
-                      <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
+                      <strong>I agree to receive automated marketing and transactional text messages from [insurer] at the phone number provided.</strong>
                       Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See
                       <a class="confirmation-marketing-link" href="#" aria-label="Terms of Service"> Terms of Service</a>
                       and
@@ -6352,7 +6350,7 @@ Monday - Friday 8:00am – 8:00pm EST
                   <label class="consent-agree-label" for="paymentMarketingCommsCheckbox">
                     <input class="consent-agree-checkbox" type="checkbox" id="paymentMarketingCommsCheckbox" />
                     <span class="confirmation-marketing-copy">
-                      <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
+                      <strong>I agree to receive automated marketing and transactional text messages from [insurer] at the phone number provided.</strong>
                       Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See
                       <a class="confirmation-marketing-link" href="#" aria-label="Terms of Service"> Terms of Service</a>
                       and
@@ -7138,7 +7136,6 @@ Monday - Friday 8:00am – 8:00pm EST
       bindNextBtn("coverageNextBtn");
       bindNextBtn("healthPage3NextBtn");
       bindNextBtn("enrollmentNextBtn");
-      bindNextBtn("beneficiariesNextBtn");
       bindNextBtn("physicianNextBtn");
       bindNextBtn("optInsNextBtn");
 
@@ -7206,7 +7203,7 @@ Monday - Friday 8:00am – 8:00pm EST
           if (currentSubstep > 1) {
             setNoticesSubStep(currentSubstep - 1);
           } else {
-            goToStep(stepIndexByScreenId("screen-enrollment"));
+            goToStep(currentIndex - 1);
           }
         });
 
@@ -7218,7 +7215,7 @@ Monday - Friday 8:00am – 8:00pm EST
           if (currentSubstep < totalSubsteps) {
             setNoticesSubStep(currentSubstep + 1);
           } else {
-            goToStep(stepIndexByScreenId("screen-opt-ins"));
+            goToStep(currentIndex + 1);
           }
         });
       }());
@@ -8099,14 +8096,12 @@ Monday - Friday 8:00am – 8:00pm EST
         });
       }());
 
-      /* Guaranteed Beneficiaries: dynamic cards with max 5 */
+      /* Guaranteed Beneficiaries: dynamic cards */
       (function () {
         var cardsContainer = document.getElementById("guaranteedBeneficiaryCardsContainer");
         var addBeneficiaryBtn = document.getElementById("guaranteedAddBeneficiaryBtn");
-        var maxText = document.getElementById("guaranteedBeneficiaryMaxText");
         if (!cardsContainer || !addBeneficiaryBtn) return;
 
-        var maxBeneficiaries = 5;
         var firstCard = cardsContainer.querySelector(".js-beneficiary-card");
         if (!firstCard) return;
         var cardTemplateHTML = firstCard.outerHTML;
@@ -8117,20 +8112,7 @@ Monday - Friday 8:00am – 8:00pm EST
           return wrapper.firstElementChild;
         }
 
-        function updateBeneficiaryLimitUI() {
-          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
-          var reachedMax = count >= maxBeneficiaries;
-          addBeneficiaryBtn.classList.toggle("hidden", reachedMax);
-          addBeneficiaryBtn.hidden = reachedMax;
-          if (maxText) maxText.classList.toggle("hidden", !reachedMax);
-        }
-
         function addBeneficiaryCard() {
-          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
-          if (count >= maxBeneficiaries) {
-            updateBeneficiaryLimitUI();
-            return;
-          }
           var newCard = createNodeFromHTML(cardTemplateHTML);
           if (!newCard) return;
 
@@ -8146,7 +8128,6 @@ Monday - Friday 8:00am – 8:00pm EST
           var removeBtn = newCard.querySelector(".js-remove-beneficiary");
           if (removeBtn) removeBtn.classList.remove("hidden");
           cardsContainer.appendChild(newCard);
-          updateBeneficiaryLimitUI();
         }
 
         cardsContainer.addEventListener("click", function (e) {
@@ -8154,14 +8135,10 @@ Monday - Friday 8:00am – 8:00pm EST
           if (!removeBtn) return;
           var card = removeBtn.closest(".js-beneficiary-card");
           if (!card) return;
-          var count = cardsContainer.querySelectorAll(".js-beneficiary-card").length;
-          if (count <= 1) return;
           card.remove();
-          updateBeneficiaryLimitUI();
         });
 
         addBeneficiaryBtn.addEventListener("click", addBeneficiaryCard);
-        updateBeneficiaryLimitUI();
       }());
 
       /* ── App-bar context indicators ──────────────────────────────── */
@@ -8240,6 +8217,64 @@ Monday - Friday 8:00am – 8:00pm EST
       bindPrevBtn("optInsPrevBtn");
       bindPrevBtn("guaranteedConfirmationPrevBtn");
       bindPrevBtn("paymentPrevBtn");
+
+      (function () {
+        var beneficiariesScreen = document.getElementById("screen-beneficiaries");
+        var cardsContainer = document.getElementById("guaranteedBeneficiaryCardsContainer");
+        var beneficiariesNextBtn = document.getElementById("beneficiariesNextBtn");
+        if (!beneficiariesScreen || !cardsContainer || !beneficiariesNextBtn) return;
+
+        var shareTotalErrorBannerId = "beneficiaryShareTotalErrorBanner";
+        var bannerHost = beneficiariesScreen.querySelector(".guaranteed-beneficiary-content");
+        insertScopedErrorBanner(
+          bannerHost,
+          shareTotalErrorBannerId,
+          "The sum of all Share Percentage should be 100, please correct"
+        );
+
+        function normalizeShareInputValue(inputEl) {
+          if (!inputEl) return;
+          var digitsOnly = (inputEl.value || "").replace(/[^\d]/g, "");
+          if (inputEl.value !== digitsOnly) inputEl.value = digitsOnly;
+        }
+
+        function getShareTotal() {
+          var shareInputs = cardsContainer.querySelectorAll(".beneficiary-share-input");
+          var total = 0;
+          shareInputs.forEach(function (inputEl) {
+            var numericValue = Number((inputEl.value || "").trim());
+            if (!isNaN(numericValue)) total += numericValue;
+          });
+          return total;
+        }
+
+        function getBeneficiaryCardCount() {
+          return cardsContainer.querySelectorAll(".js-beneficiary-card").length;
+        }
+
+        cardsContainer.addEventListener("input", function (event) {
+          var shareInput = event.target.closest(".beneficiary-share-input");
+          if (!shareInput) return;
+          normalizeShareInputValue(shareInput);
+          hideScopedErrorBanner(shareTotalErrorBannerId);
+        });
+
+        beneficiariesNextBtn.addEventListener("click", function () {
+          if (getBeneficiaryCardCount() === 0) {
+            hideScopedErrorBanner(shareTotalErrorBannerId);
+            goToStep(currentIndex + 1);
+            return;
+          }
+          var total = getShareTotal();
+          if (total !== 100) {
+            showScopedErrorBanner(shareTotalErrorBannerId);
+            resetViewToTop();
+            return;
+          }
+          hideScopedErrorBanner(shareTotalErrorBannerId);
+          goToStep(currentIndex + 1);
+        });
+      }());
 
       (function () {
         var guaranteedSubmitBtn = document.getElementById("guaranteedConfirmationSubmitBtn");
