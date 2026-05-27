@@ -7294,15 +7294,17 @@ Monday - Friday 8:00am – 8:00pm EST
         function getSelectedMonthlyBenefitLabel() {
           var fallback = "-";
           if (!covMonthlyBenefitInput) return fallback;
+          var rawValue = (covMonthlyBenefitInput.value || "").trim();
+          if (!rawValue) return fallback;
+
           var dropdown = covMonthlyBenefitInput.closest(".ajg-dropdown");
+          if (dropdown && !dropdown.classList.contains("has-value")) return fallback;
           if (dropdown) {
             var displayedValueEl = dropdown.querySelector("[data-dropdown-value]");
             var displayedLabel = displayedValueEl ? displayedValueEl.textContent.trim() : "";
-            if (displayedLabel) return displayedLabel;
+            var placeholder = (dropdown.getAttribute("data-dropdown-placeholder") || "").trim();
+            if (displayedLabel && displayedLabel !== placeholder) return displayedLabel;
           }
-
-          var rawValue = (covMonthlyBenefitInput.value || "").trim();
-          if (!rawValue) return fallback;
 
           var selectedOption = null;
           if (dropdown) {
@@ -7346,59 +7348,8 @@ Monday - Friday 8:00am – 8:00pm EST
       var disRestartBtn = document.getElementById("disRestartBtn");
       if (disRestartBtn) {
         disRestartBtn.addEventListener("click", function () {
-
-          /* Navigate to step 0 */
-          goToStep(0);
-
-          /* Reset health sub-pages */
-          var hp1      = document.getElementById("health-page-1");
-          var hp2      = document.getElementById("health-page-2");
-          var extended = document.getElementById("hi-q-extended");
-          var hospCard = document.getElementById("hospCard");
-          if (hp1)      hp1.classList.remove("hidden");
-          if (hp2)      hp2.classList.add("hidden");
-          if (extended) extended.classList.add("hidden");
-          if (hospCard) hospCard.classList.add("hidden");
-
-          /* Deselect Yes/No pill buttons */
-          document.querySelectorAll(".hi-yn-btn").forEach(function (b) {
-            b.classList.remove("active");
-          });
-
-          /* Uncheck hospitalization radios */
-          document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
-            r.checked = false;
-          });
-
-          /* Uncheck I Agree checkbox */
-          var agreeChk = document.getElementById("consentAgree");
-          if (agreeChk) agreeChk.checked = false;
-
-          /* Clear join-date picker */
-          var joinDateInput = document.getElementById("aftJoinDateInput");
-          if (joinDateInput) joinDateInput.value = "";
-
-          /* Clear all text inputs and selects in the flow */
-          document.querySelectorAll(".content input[type='text'], .content input[type='tel'], .content select, .content textarea").forEach(function (el) {
-            el.value = "";
-          });
-
-          /* Reset global data store */
-          window.aftEnrollmentData = { joinDate: null, joinDateFormatted: "" };
-
-          /* Reset app-bar context indicators */
-          ["aftCtxFirstYear", "aftCtxHospitalization", "aftCtxWeight"].forEach(function (id) {
-            var el = document.getElementById(id);
-            if (el) { el.textContent = "–"; el.className = "home-landing-context-valuev2"; }
-          });
-
-          /* Reset timer */
-          if (aftTimerInterval) { clearInterval(aftTimerInterval); aftTimerInterval = null; }
-          aftTimerSeconds = 0;
-          aftTimerPaused  = false;
-          if (aftTopbarTimerDisplay) aftTopbarTimerDisplay.textContent = "00:00";
-          if (aftTopbarTimer)        aftTopbarTimer.classList.remove("is-paused");
-          startAftTimer();
+          var cleanUrl = window.location.pathname;
+          window.location.href = cleanUrl;
         });
       }
 
