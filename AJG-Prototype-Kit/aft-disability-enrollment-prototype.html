@@ -3183,6 +3183,10 @@
     .hi-qrow.hi-indent-24 { padding-left: 24px; }
     .hi-qrow.hi-indent-16 { padding-left: 16px; }
 
+    #hi-q-extended .hi-qrow + .hi-qrow {
+      margin-top: 12px;
+    }
+
     .hi-q-detail-card {
       margin-top: 8px;
     }
@@ -3191,10 +3195,10 @@
     .hi-sub-header {
       font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 14px;
-      font-weight: 400;
+      font-weight: 590;
       line-height: 19px;
       color: #2e2e2e;
-      margin: 0;
+      margin: 12px 0;
       width: 100%;
     }
 
@@ -7288,12 +7292,18 @@ Monday - Friday 8:00am – 8:00pm EST
         }
 
         function getSelectedMonthlyBenefitLabel() {
-          var fallback = "$5,000.00";
+          var fallback = "-";
           if (!covMonthlyBenefitInput) return fallback;
+          var dropdown = covMonthlyBenefitInput.closest(".ajg-dropdown");
+          if (dropdown) {
+            var displayedValueEl = dropdown.querySelector("[data-dropdown-value]");
+            var displayedLabel = displayedValueEl ? displayedValueEl.textContent.trim() : "";
+            if (displayedLabel) return displayedLabel;
+          }
+
           var rawValue = (covMonthlyBenefitInput.value || "").trim();
           if (!rawValue) return fallback;
 
-          var dropdown = covMonthlyBenefitInput.closest(".ajg-dropdown");
           var selectedOption = null;
           if (dropdown) {
             selectedOption = dropdown.querySelector('.ajg-dropdown-option.selected[data-value="' + rawValue + '"]')
