@@ -2171,6 +2171,10 @@
       width: 100%;
     }
 
+    .preview-billing-address-row[hidden] {
+      display: none !important;
+    }
+
     .preview-billing-address-copy {
       margin: 0;
       color: #2e2e2e;
@@ -2234,35 +2238,6 @@
       min-width: 0;
     }
 
-    .preview-billing-editor-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .preview-billing-editor-btn {
-      height: 32px;
-      border-radius: 9999px;
-      padding: 1px 16px;
-      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
-      font-size: 14px;
-      line-height: 19px;
-      font-weight: 590;
-      cursor: pointer;
-    }
-
-    .preview-billing-editor-btn.cancel {
-      border: 1px solid #5c5c5c;
-      background: #ffffff;
-      color: #0250d9;
-    }
-
-    .preview-billing-editor-btn.save {
-      border: 0;
-      background: #0250d9;
-      color: #ffffff;
-    }
 
     .pay-method-shell {
       width: 100%;
@@ -5752,10 +5727,6 @@
                             <input class="preview-method-input" type="text" id="disPreviewBillingZipPostalCode" />
                           </div>
                         </div>
-                        <div class="preview-billing-editor-actions">
-                          <button class="preview-billing-editor-btn cancel" type="button" id="disPreviewBillingCancelBtn">Cancel</button>
-                          <button class="preview-billing-editor-btn save" type="button" id="disPreviewBillingSaveBtn">Save</button>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -6554,8 +6525,6 @@ Monday - Friday 8:00am – 8:00pm EST
         var summaryRow = document.getElementById("disPreviewBillingAddressSummaryRow");
         var editBtn = document.getElementById("disPreviewBillingAddressEditBtn");
         var editor = document.getElementById("disPreviewBillingAddressEditor");
-        var cancelBtn = document.getElementById("disPreviewBillingCancelBtn");
-        var saveBtn = document.getElementById("disPreviewBillingSaveBtn");
 
         var streetText = document.getElementById("disPreviewBillingAddressStreet");
         var cityStateZipText = document.getElementById("disPreviewBillingAddressCityStateZip");
@@ -6601,12 +6570,7 @@ Monday - Friday 8:00am – 8:00pm EST
           editor.hidden = false;
         }
 
-        function closeEditor() {
-          editor.hidden = true;
-          summaryRow.hidden = false;
-        }
-
-        function saveEditor() {
+        function syncSummaryFromEditorInputs() {
           var street = streetInput ? trim(streetInput.value) : "";
           var city = cityInput ? trim(cityInput.value) : "";
           var state = stateInput ? trim(stateInput.value) : "";
@@ -6617,12 +6581,18 @@ Monday - Friday 8:00am – 8:00pm EST
             var cityStateZip = city && stateZip ? (city + ", " + stateZip) : (city || stateZip || "City, ST ZIP");
             cityStateZipText.textContent = cityStateZip;
           }
-          closeEditor();
         }
 
-        editBtn.addEventListener("click", openEditor);
-        if (cancelBtn) cancelBtn.addEventListener("click", closeEditor);
-        if (saveBtn) saveBtn.addEventListener("click", saveEditor);
+        [streetInput, cityInput, stateInput, zipInput].forEach(function (inputEl) {
+          if (!inputEl) return;
+          inputEl.addEventListener("input", syncSummaryFromEditorInputs);
+          inputEl.addEventListener("change", syncSummaryFromEditorInputs);
+        });
+
+        editBtn.addEventListener("click", function (event) {
+          event.stopPropagation();
+          openEditor();
+        });
       }());
 
       /* Reuse full 50-state list from existing Health state dropdown */
