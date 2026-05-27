@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AFT+ Disability Enrollment</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Sansita+One&family=Short+Stack&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Rochester&family=Sansita+One&family=Short+Stack&display=swap");
 
     /* science-gothic-latin-wght-normal */
     @font-face {
@@ -466,7 +466,7 @@
     .steps {
       width: 200px;
       flex: 0 0 200px;
-      padding: 8px 8px 8px 16px;
+      padding: 8px;
       border-right: 1px solid #c9c9c9;
       background: #ffffff;
     }
@@ -601,7 +601,7 @@
 
     /* Top step state refinements from updated "First Step states" */
     .step-item[data-position="top"][data-state="active"] .rail-bottom {
-      margin-bottom: 4px;
+      margin-bottom: 0;
       background: #c9c9c9;
     }
 
@@ -684,12 +684,12 @@
     }
 
     .step-item[data-position="bottom"][data-state="active"] .rail-top {
-      margin-top: 4px;
+      margin-top: 0;
       background: #066afe;
     }
 
     .step-item[data-position="bottom"][data-state="complete"] .rail-top {
-      margin-top: 2px;
+      margin-top: 0;
       background: #066afe;
     }
 
@@ -747,9 +747,22 @@
       line-height: 21px;
       font-weight: 400;
       max-width: 100%;
+      margin: 0;
     }
 
-    .screen .title-wrap + .consent-tagline,
+    /* Keep title-wrap -> intro gap exactly 12px across all intro-based screens */
+    #screen-start-here .title-wrap + .intro,
+    #screen-physician .title-wrap + .intro,
+    #screen-opt-ins .title-wrap + .intro,
+    #screen-payment .title-wrap + .intro {
+      margin-top: -4px; /* 16px flex gap - 4px = 12px */
+    }
+
+    #screen-consent .title-wrap + .intro,
+    #screen-enrollment .title-wrap + .intro {
+      margin-top: 12px; /* these screens use gap: 0 */
+    }
+
     .screen .title-wrap + .cov-tagline,
     .health-page .title-wrap + .cov-tagline {
       margin-top: 12px;
@@ -1386,7 +1399,7 @@
     }
 
     /* Tagline sits flush at the left edge — same as the h1 */
-    .consent-tagline {
+    #screen-consent .intro {
       color: #181818;
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: 13px;
@@ -1552,6 +1565,1149 @@
       cursor: not-allowed;
     }
 
+    /* ─── Opt-Ins Screen ─────────────────────────────────────────── */
+    #screen-opt-ins {
+      gap: 12px;
+    }
+
+    #screen-opt-ins .title-wrap {
+      margin: 0;
+    }
+
+    .optins-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .optins-heading {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 590;
+    }
+
+    .optins-option {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .optins-toggle-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .optins-toggle-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2px;
+      flex: 0 0 auto;
+    }
+
+    .optins-toggle-btn {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      border: 1px solid #939393;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 2px 8px 2px 2px;
+      background: #939393;
+      box-sizing: border-box;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background-color 140ms ease, box-shadow 140ms ease;
+      box-shadow:
+        inset 0 1px 0 rgba(0, 0, 0, 0.25),
+        inset 0 0.5px 2px rgba(0, 0, 0, 0.5),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .optins-toggle-knob {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='10' cy='10' r='10' fill='white'/%3E%3C/svg%3E") center center / 20px 20px no-repeat;
+      box-shadow: none;
+      flex: 0 0 20px;
+      pointer-events: none;
+    }
+
+    .optins-toggle-btn.is-on {
+      justify-content: flex-end;
+      padding: 2px 2px 2px 8px;
+      background: #066afe;
+      border-color: #066afe;
+      box-shadow:
+        inset 0 1px 0 rgba(0, 0, 0, 0.25),
+        inset 0 0.5px 2px rgba(0, 0, 0, 0.5),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .optins-toggle-check {
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      aspect-ratio: 1 / 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 120ms ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .optins-toggle-check svg {
+      width: 12px;
+      height: 12px;
+      display: block;
+    }
+
+    .optins-toggle-btn.is-on .optins-toggle-check {
+      opacity: 1;
+    }
+
+    .optins-toggle-state {
+      margin: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .optins-toggle-label-wrap {
+      padding-top: 4px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .optins-toggle-label {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+    }
+
+    .optins-copy {
+      margin: 0;
+      padding-left: 20px;
+      list-style: disc;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .optins-copy li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .optins-link {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    /* ─── Payment Screen ──────────────────────────────────────────── */
+    #screen-payment {
+      gap: 16px;
+    }
+
+    #screen-payment .pay-body {
+      width: 100%;
+      padding: 8px 0;
+      box-sizing: border-box;
+    }
+
+    .pay-review-grid {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 16px;
+      border-radius: 8px;
+    }
+
+    .pay-card {
+      min-width: 280px;
+      box-sizing: border-box;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .pay-card-coverages {
+      flex: 1 1 280px;
+      max-width: 370px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-card-payment {
+      flex: 1 1 280px;
+      border: 2px solid #c9c9c9;
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-card-title {
+      margin: 0;
+      color: #181818;
+      font-size: 20px;
+      line-height: 28px;
+      font-weight: 400;
+      max-width: 338px;
+    }
+
+    .pay-kv-grid {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-kv-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8px;
+      min-height: 20px;
+    }
+
+    .pay-kv-label {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin: 0;
+      color: #181818;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pay-kv-value {
+      flex: 0 0 140px;
+      min-width: 140px;
+      margin: 0;
+      color: #2e2e2e;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      padding-top: 2px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .pay-effective-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pay-effective-note {
+      margin: 0;
+      color: #5c5c5c;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .pay-payment-title {
+      padding: 0 16px;
+    }
+
+    .pay-summary-wrap {
+      width: 100%;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+
+    .pay-summary-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(84px, 1fr) 100px 100px;
+      color: #181818;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .pay-summary-cell {
+      min-height: 30px;
+      box-sizing: border-box;
+      color: #181818;
+      line-height: 18px;
+    }
+
+    .pay-summary-head {
+      background: #f3f3f3;
+      font-weight: 700;
+      padding: 8px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    .pay-summary-head.pay-summary-col-item {
+      justify-content: flex-start;
+    }
+
+    .pay-summary-head.pay-summary-col-value {
+      justify-content: center;
+    }
+
+    .pay-summary-body-item {
+      display: flex;
+      align-items: center;
+      flex: 1 0 0;
+      min-width: 84px;
+      min-height: 30px;
+      padding: var(----slds-g-spacing-2, 8px) 0;
+      font-weight: 400;
+    }
+
+    .pay-summary-body-value {
+      display: flex;
+      min-width: 80px;
+      min-height: 30px;
+      padding: var(----slds-g-spacing-2, 8px) 0 var(----slds-g-spacing-2, 8px) var(----slds-g-spacing-2, 8px);
+      justify-content: center;
+      align-items: center;
+      font-weight: 400;
+    }
+
+    .pay-summary-total {
+      border-top: 1px solid #c9c9c9;
+      color: #003366;
+      font-weight: 700;
+    }
+
+    .pay-billing-sections {
+      width: 100%;
+      padding: 0 16px;
+      margin-top: 24px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-billing-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pay-billing-title {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .pay-billing-copy {
+      margin: 0;
+      padding-left: 20px;
+      list-style: disc;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .pay-billing-copy li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .pay-billing-link {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    .preview-payment-method-section {
+      display: flex;
+      flex: 1 1 0;
+      min-width: 0;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      background: #ebf7e6;
+      padding: 16px;
+      box-sizing: border-box;
+      min-height: 100%;
+    }
+
+    .preview-payment-method-title {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .preview-payment-method-type-label {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+    }
+
+    .preview-payment-method-toggle {
+      display: inline-flex;
+      border: 1px solid #5c5c5c;
+      border-radius: 999px;
+      overflow: hidden;
+      width: fit-content;
+      max-width: 100%;
+      max-width: 488px;
+    }
+
+    .preview-payment-method-btn {
+      border: 0;
+      border-right: 1px solid #5c5c5c;
+      background: #ffffff;
+      color: #0250d9;
+      height: 32px;
+      padding: 0 16px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      cursor: pointer;
+    }
+
+    .preview-payment-method-btn:last-child {
+      border-right: 0;
+    }
+
+    .preview-payment-method-btn.active {
+      background: #0250d9;
+      color: #ffffff;
+      box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.08), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .preview-payment-method-btn.active:first-child {
+      border-right-color: #f3f3f3;
+    }
+
+    .preview-method-form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 488px;
+    }
+
+    .preview-payment-method-form[hidden] {
+      display: none !important;
+    }
+
+    .preview-method-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .preview-method-field-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+
+    .preview-method-label {
+      margin: 0;
+      display: inline-flex;
+      align-items: flex-end;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+    }
+
+    .preview-method-label .required {
+      color: #b60554;
+      width: 10px;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 590;
+      flex: 0 0 10px;
+    }
+
+    .preview-method-label.is-compact {
+      color: #444444;
+      font-size: 12px;
+      line-height: 17px;
+    }
+
+    .preview-method-label.with-info .preview-method-info {
+      margin-left: 8px;
+      transform: none;
+    }
+
+    .preview-method-input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 2px 8px;
+      box-sizing: border-box;
+      color: #181818;
+      font-family: "Segoe UI", "SF Pro Text", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 20px;
+      font-weight: 400;
+      outline: none;
+    }
+
+    .preview-method-input::placeholder {
+      color: #747474;
+    }
+
+    .preview-method-default {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: fit-content;
+      max-width: 488px;
+    }
+
+    .preview-method-default-label {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .preview-method-default-check {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #757575;
+      border-radius: 4px;
+      background: #c9c9c9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.25), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.5), inset 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .preview-method-default-check::after {
+      content: "";
+      width: 8px;
+      height: 7px;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%208%207%27%3E%3Cpath%20d%3D%27M1%203.5%20L3%205.5%20L7%201%27%20stroke%3D%27%23757575%27%20stroke-width%3D%271.3%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
+    }
+
+    .preview-billing-address {
+      padding-top: 16px;
+      border-top: 1px solid #c9c9c9;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 488px;
+    }
+
+    .preview-billing-address-title {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .preview-billing-address-row {
+      padding: 0 8px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .preview-billing-address-copy {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      width: auto;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .preview-billing-address-default {
+      margin: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .preview-billing-address-edit {
+      margin-left: auto;
+      color: #0250d9;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      text-decoration: underline;
+      background: transparent;
+      border: 0;
+      padding: 6px 0 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .preview-billing-editor {
+      width: 100%;
+      max-width: 488px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .preview-billing-editor[hidden] {
+      display: none !important;
+    }
+
+    .preview-billing-editor-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+
+    .preview-billing-editor-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .preview-billing-editor-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .preview-billing-editor-btn {
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      cursor: pointer;
+    }
+
+    .preview-billing-editor-btn.cancel {
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      color: #0250d9;
+    }
+
+    .preview-billing-editor-btn.save {
+      border: 0;
+      background: #0250d9;
+      color: #ffffff;
+    }
+
+    .pay-method-shell {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .pay-method-heading {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 700;
+    }
+
+    .pay-method-card {
+      width: 100%;
+      border: 1px solid #c9c9c9;
+      border-radius: 12px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .pay-method-left,
+    .pay-method-right {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .pay-method-left {
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .pay-method-right {
+      background: #ebf7e6;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-method-title {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .pay-method-subtitle {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .pay-method-label {
+      display: inline-flex;
+      align-items: flex-end;
+      margin: 0;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .pay-method-label .req {
+      color: #b60554;
+      width: 10px;
+      font-size: 12px;
+      line-height: 17px;
+      flex: 0 0 10px;
+    }
+
+    .pay-method-label .txt {
+      color: #2e2e2e;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+      white-space: nowrap;
+    }
+
+    .pay-method-label-lg .txt {
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .pay-option-radios {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pay-option-radio {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .pay-option-radio .cov-radio-input {
+      margin-top: 1px;
+    }
+
+    .pay-option-radio .amt {
+      color: #003366;
+      font-weight: 700;
+    }
+
+    .pay-type-group {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      width: auto;
+      align-self: flex-start;
+    }
+
+    .pay-type-btn {
+      height: 32px;
+      border: 1px solid #5c5c5c;
+      background: #ffffff;
+      padding: 1px 16px;
+      margin: 0;
+      color: #0250d9;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      white-space: nowrap;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .pay-type-btn:first-child {
+      border-radius: 9999px 0 0 9999px;
+      margin-right: -1px;
+    }
+
+    .pay-type-btn:last-child {
+      border-radius: 0 9999px 9999px 0;
+    }
+
+    .pay-type-btn.is-active {
+      background: #066afe;
+      color: #ffffff;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.08), inset 0 0.5px 2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(0, 0, 0, 0.15);
+      z-index: 1;
+      position: relative;
+    }
+
+    .pay-method-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .pay-method-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .pay-method-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .pay-method-row .pay-method-field {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .pay-method-mini-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 590;
+      color: #444444;
+    }
+
+    .pay-method-mini-label .req {
+      color: #b60554;
+    }
+
+    .app-tooltip-anchor {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      cursor: help;
+      vertical-align: middle;
+      flex: 0 0 14px;
+      background: transparent url("assets/info-button-icon-hover.png") center center / 14px 14px no-repeat;
+    }
+
+    .pay-method-default {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pay-method-default p {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+    }
+
+    .pay-method-default .consent-agree-label {
+      cursor: default;
+    }
+
+    .pay-method-default .consent-agree-checkbox:disabled {
+      display: flex;
+      width: 16px;
+      height: 16px;
+      padding-top: 1px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      cursor: not-allowed;
+    }
+
+    .pay-method-default .consent-agree-checkbox:disabled:checked {
+      background: #c9c9c9;
+      border-color: #adadad;
+      box-shadow: none;
+    }
+
+    .pay-method-default .consent-agree-checkbox:disabled:checked::after {
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%208%27%3E%3Cpath%20d%3D%27M1%204%20L3.5%207%20L9%201%27%20stroke%3D%27%23757575%27%20stroke-width%3D%271.5%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E") center center / contain no-repeat;
+    }
+
+    .pay-method-divider {
+      width: 100%;
+      height: 1px;
+      background: #c9c9c9;
+    }
+
+    .pay-billing-address {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .pay-billing-address-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .pay-billing-address-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .pay-billing-address-lines {
+      width: 136px;
+      min-width: 80px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+    }
+
+    .pay-billing-address-lines p {
+      margin: 0;
+    }
+
+    .pay-billing-default {
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .pay-billing-address-actions {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
+    .pay-billing-edit {
+      color: #0250d9;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      text-decoration: underline;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    #screen-payment .row-actions {
+      padding: 8px 12px 8px 16px;
+      margin-top: 0;
+    }
+
+    #screen-payment-confirmation {
+      gap: 0;
+      padding: 0;
+      display: none;
+    }
+
+    #screen-payment-confirmation.active {
+      display: flex;
+    }
+
+    .pay-confirm-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 180px);
+    }
+
+    .pay-confirm-content {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    .pay-confirm-title {
+      margin: 0;
+      color: #001e5b;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+    }
+
+    .pay-confirm-copy {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .pay-confirm-subtitle {
+      margin: 0;
+      color: #001e5b;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 28px;
+      line-height: 35px;
+      font-weight: 400;
+      margin-top: 8px;
+    }
+
+    .pay-confirm-summary {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .pay-confirm-summary-key {
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 85px;
+    }
+
+    .pay-confirm-summary-val {
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 17px;
+    }
+
+    .pay-confirm-contact {
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      white-space: pre-line;
+      margin: 0;
+      margin-top: 8px;
+    }
+
+    .pay-confirm-contact a {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    .pay-confirm-actions {
+      margin-top: auto;
+      width: 100%;
+      min-height: 64px;
+      padding: 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+
     /* ─── Coverage Screen ──────────────────────────────────────────── */
 
     #screen-coverage {
@@ -1572,6 +2728,7 @@
     }
 
     .cov-tagline .req-star { color: #8e030f; }
+    .intro .req-star { color: #8e030f; }
 
     /* Fields section: 16px gap between fields, matches Figma gap-[16px] */
     .cov-fields {
@@ -2244,6 +3401,522 @@
       min-width: 0;
     }
 
+    /* ─── Enrollment Screen ─────────────────────────────────────── */
+    #screen-enrollment {
+      gap: 0;
+      align-items: stretch;
+    }
+
+    #screen-enrollment.active {
+      flex: 1 1 auto;
+      min-height: 100%;
+    }
+
+    .enr-card {
+      margin-top: 16px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1 1 auto;
+    }
+
+    .enr-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .enr-section-title {
+      font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      color: #181818;
+      margin: 0;
+    }
+
+    #screen-enrollment .row-actions {
+      margin-top: 12px;
+    }
+
+    /* ─── Notices Screen ────────────────────────────────────────── */
+    #screen-notices {
+      gap: 12px;
+    }
+
+    .notices-substep {
+      display: none;
+      width: 100%;
+    }
+
+    .notices-substep.is-active {
+      display: block;
+    }
+
+    .notices-copy {
+      width: 100%;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: normal;
+      box-sizing: border-box;
+    }
+
+    .notices-copy p {
+      margin: 0;
+    }
+
+    .notices-copy strong {
+      font-weight: 700;
+    }
+
+    .privacy-company-lists {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      margin: 0 0 16px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .privacy-company-lists ul {
+      flex: 1 1 0;
+      min-width: 0;
+      margin: 0;
+      padding-left: 20px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 590;
+      list-style: disc;
+    }
+
+    .privacy-section-title {
+      margin: 0;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 700;
+      color: #2e2e2e;
+    }
+
+    .notices-substep[data-notices-step="1"] .notices-copy {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .notices-substep[data-notices-step="2"] .notices-copy {
+      padding: 0;
+      display: block;
+    }
+
+    .notices-substep[data-notices-step="2"] .privacy-section-title:not(:first-child) {
+      margin-top: 16px; /* gap between notice blocks */
+    }
+
+    .notices-substep[data-notices-step="2"] .privacy-section-title + p,
+    .notices-substep[data-notices-step="2"] .privacy-section-title + .privacy-bullet-list,
+    .notices-substep[data-notices-step="2"] .privacy-section-title + div {
+      margin-top: 0;
+      padding-top: 12px; /* gap from title to content */
+    }
+
+    .notices-substep[data-notices-step="3"] .notices-copy {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #444444;
+    }
+
+    .notices-substep[data-notices-step="4"] .notices-copy {
+      padding: 8px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #2e2e2e;
+      box-sizing: border-box;
+    }
+
+    .notices-substep[data-notices-step="5"] {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .notices-substep[data-notices-step="5"].is-active {
+      display: flex;
+    }
+
+    .auth-required-note {
+      margin: 0;
+      color: #181818;
+      font-family: "Segoe UI", "SF Pro Text", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 400;
+    }
+
+    .auth-required-note .req-star {
+      color: #ba0517;
+      font-weight: 700;
+    }
+
+    .notices-substep[data-notices-step="5"] .notices-copy {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+      box-sizing: border-box;
+    }
+
+    .notices-substep[data-notices-step="5"] .notices-copy p {
+      margin: 0;
+    }
+
+    .authorizations-strong {
+      font-weight: 700;
+      color: #2e2e2e;
+    }
+
+    .authorizations-list {
+      margin: 0;
+      padding-left: 20px;
+      list-style: disc;
+    }
+
+    .authorizations-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .authorizations-list li + li {
+      margin-top: 4px;
+    }
+
+    .authorizations-list ul {
+      margin: 4px 0 0;
+      padding-left: 20px;
+      list-style: disc;
+    }
+
+    .auth-signature-card {
+      width: 100%;
+      min-height: 148px;
+      position: relative;
+      background: #e5e5e5;
+      border-left: 2px solid #066afe;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-signature-top {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      min-height: 56px;
+      padding: 10px 14px 8px;
+      box-sizing: border-box;
+    }
+
+    .auth-signature-name {
+      margin: 0;
+      color: #005daa;
+      font-family: "Rochester", "Brush Script MT", "Segoe Script", cursive;
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .auth-signature-date {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16pt;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .auth-signature-divider {
+      width: 100%;
+      height: 1px;
+      background: #d9d9d9;
+    }
+
+    .auth-signature-fields {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 22px 8px;
+      box-sizing: border-box;
+    }
+
+    .auth-field-static {
+      min-width: 0;
+      border-radius: 4px;
+      border: 1px solid #d9d9d9;
+      background: #ffffff;
+      padding: 8px 10px 7px;
+      box-sizing: border-box;
+    }
+
+    .auth-field-name {
+      width: 190px;
+    }
+
+    .auth-field-select {
+      width: 245px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .auth-field-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .auth-field-label {
+      margin: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 11px;
+      line-height: 14px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .auth-field-label .req-star {
+      color: #ba0517;
+      font-weight: 700;
+    }
+
+    .auth-field-value {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .auth-field-select .cov-chevron-icon {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      background-size: 16px 16px;
+      opacity: 0.9;
+    }
+
+    .auth-sign-checkbox-row {
+      padding: 0 22px 12px;
+      box-sizing: border-box;
+    }
+
+    .auth-sign-checkbox-row .consent-agree-label {
+      gap: 8px;
+      align-items: center;
+    }
+
+    .auth-sign-checkbox-row .consent-agree-checkbox {
+      border-color: #d9d9d9;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    .auth-sign-checkbox-row .auth-sign-check-text {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .auth-sign-checkbox-row .consent-agree-checkbox:checked {
+      background: #066afe;
+      border-color: #5c5c5c;
+    }
+
+    .declaration-section-title {
+      margin: 0;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 590;
+      color: #181818;
+    }
+
+    .declaration-list {
+      margin: 0;
+      padding-left: 20px;
+      list-style: decimal;
+      list-style-position: outside;
+    }
+
+    .declaration-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .declaration-list li + li {
+      margin-top: 12px;
+    }
+
+    .declaration-sign-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .btn-sign {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 32px;
+      border-radius: 9999px;
+      padding: 1px 16px;
+      border: 0;
+      background: #0b827c;
+      color: #ffffff;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 19px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+
+    .btn-sign .btn-icon-sign {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .declaration-sign-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .declaration-sign-row .declaration-disabled-field {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .declaration-sign-row .declaration-disabled-field .input-text {
+      padding: 2px 8px;
+      border: 1px solid #757575;
+      background: #e5e5e5;
+      color: #757575;
+      cursor: not-allowed;
+    }
+
+    .declaration-sign-row .declaration-disabled-field .input-text::placeholder {
+      color: #757575;
+    }
+
+    .declaration-date-wrap {
+      position: relative;
+    }
+
+    .declaration-date-wrap .input-text {
+      padding-right: 30px;
+    }
+
+    .declaration-date-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      background-color: #747474;
+      -webkit-mask-image: url("assets/calendar-icon.png");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: 14px 14px;
+      mask-image: url("assets/calendar-icon.png");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: 14px 14px;
+    }
+
+    #screen-notices .row-actions {
+      margin-top: 0;
+      padding: 8px 0;
+    }
+
+    .privacy-bullet-list {
+      margin: 0 0 12px;
+      padding-left: 20px;
+      list-style: disc;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
+    .privacy-bullet-list li {
+      margin-bottom: 4px;
+    }
+
+    .privacy-bullet-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .privacy-blue-link {
+      color: #0250d9;
+      text-decoration: underline;
+    }
+
+    .notices-placeholder {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+
     .hi-city-row {
       display: flex;
       gap: 16px;
@@ -2477,13 +4150,13 @@
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Health Information</span>
             </li>
-            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-enrollment">
-              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
-              <span class="step-text">Enrollment</span>
-            </li>
             <li class="step-item" data-position="middle" data-state="default" data-screen="screen-physician">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Physician &amp; Prescriptions</span>
+            </li>
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-enrollment">
+              <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
+              <span class="step-text">Enrollment</span>
             </li>
             <li class="step-item" data-position="middle" data-state="default" data-screen="screen-notices">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
@@ -2510,7 +4183,7 @@
               <div class="title-line"></div>
             </div>
             <p class="intro">
-              To match you with the best plan, we'll need a few details about you and your business.
+              To help you start this process, please share the following information.
             </p>
             <div class="form-grid">
               <div class="field">
@@ -2577,7 +4250,7 @@
               <h1>Consent Statement</h1>
               <div class="title-line"></div>
             </div>
-            <p class="consent-tagline">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
+            <p class="intro">STATEMENT ON CONSUMER CONSENT TO THE USE OF ELECTRONIC TRANSACTIONS, SIGNATURES AND RECORDS</p>
             <div class="consent-body">
               <p>Consent Statement</p>
               <p>In this Agreement, "we," "us," "our," and "the company" refer to Metropolitan Life Insurance Company and MetLife Investors USA Insurance Company. "You" and "yours" refer to the applicant for a policy offered by us.</p>
@@ -2722,17 +4395,17 @@
               <div class="hi-three-col">
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
-                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiHeightFeet" type="text" placeholder="Enter Number" inputmode="numeric" value="5" />
                   <p class="field-error-text" id="hiHeightFeetError" role="alert" aria-live="polite">Provide Height (Feet)</p>
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
-                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiHeightInches" type="text" placeholder="Enter Number" inputmode="numeric" value="10" />
                   <p class="field-error-text" id="hiHeightInchesError" role="alert" aria-live="polite">Provide Height (Inches)</p>
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
-                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
+                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" value="180" />
                   <p class="field-error-text" id="hiWeightError" role="alert" aria-live="polite">Provide Weight (Lbs)</p>
                 </div>
               </div>
@@ -3358,14 +5031,174 @@
 
           </div>
 
-          <!-- ── Enrollment (placeholder) ───────────────────────── -->
+          <!-- ── Enrollment ─────────────────────────────────────── -->
           <div class="screen" id="screen-enrollment">
             <div class="title-wrap">
               <h1>Enrollment</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Enrollment screen content coming soon.</p>
-            <div class="row-actions has-prev">
+            <p class="intro">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+            <div class="enr-card">
+              <div class="enr-section">
+                <p class="enr-section-title">Personal</p>
+                <div class="hi-three-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">First Name</span></p>
+                    <input class="cov-input" type="text" id="enrFirstName" name="enrFirstName" placeholder="Enter name" aria-label="First Name" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="lbl">Middle Name</span></p>
+                    <input class="cov-input" type="text" name="enrMiddleName" placeholder="Enter name" aria-label="Middle Name" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Last Name</span></p>
+                    <input class="cov-input" type="text" id="enrLastName" name="enrLastName" placeholder="Enter name" aria-label="Last Name" />
+                  </div>
+                </div>
+                <div class="hi-three-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Social Security</span></p>
+                    <input class="cov-input" type="text" name="enrSsn" placeholder="Enter social" aria-label="Social Security" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Date of Birth</span></p>
+                    <div class="datepicker" id="enrDobPicker">
+                      <div class="input-field datepicker-input">
+                        <input class="input-text" type="text" id="enrDobInput" name="enrDob" aria-label="Date of Birth" placeholder="Select a date..." readonly />
+                        <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
+                      </div>
+                      <div class="datepicker-popover">
+                        <div class="dp-header">
+                          <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                          <div class="dp-month-label">January</div>
+                          <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                          <div class="dp-year-select">
+                            <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                            <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                          </div>
+                        </div>
+                        <div class="dp-grid"><div class="dp-weekday">Sun</div><div class="dp-weekday">Mon</div><div class="dp-weekday">Tue</div><div class="dp-weekday">Wed</div><div class="dp-weekday">Thu</div><div class="dp-weekday">Fri</div><div class="dp-weekday">Sat</div></div>
+                        <div class="dp-grid dp-days-grid"></div>
+                        <button class="dp-today" type="button">Today</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="lbl">Gender</span></p>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select gender">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="enrGender" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Gender options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="female"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Female</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="male"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Male</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="enr-section">
+                <p class="enr-section-title">Contact</p>
+                <div class="hi-two-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Primary Phone</span></p>
+                    <input class="cov-input" type="tel" name="enrPrimaryPhone" placeholder="Enter phone" aria-label="Primary Phone" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Primary Phone Type</span></p>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select type">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="enrPrimaryPhoneType" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Primary phone type options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="mobile"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Mobile</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="home"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Home</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="work"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Work</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hi-two-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="lbl">Other Phone</span></p>
+                    <input class="cov-input" type="tel" name="enrOtherPhone" placeholder="Enter phone" aria-label="Other Phone" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="lbl">Other Phone Type</span></p>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select type">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="enrOtherPhoneType" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Other phone type options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="mobile"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Mobile</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="home"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Home</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="work"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Work</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cov-field">
+                  <p class="cov-field-label"><span class="req">*</span><span class="lbl">Email</span></p>
+                  <input class="cov-input" type="email" id="enrEmail" name="enrEmail" aria-label="Email" />
+                </div>
+
+                <div class="cov-field">
+                  <p class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Street</span></p>
+                  <input class="cov-input" type="text" name="enrMailingStreet" placeholder="Enter address" aria-label="Mailing Street" />
+                </div>
+
+                <div class="hi-two-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing City</span></p>
+                    <input class="cov-input" type="text" name="enrMailingCity" placeholder="Enter city" aria-label="Mailing City" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing State/Province</span></p>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select State">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="enrMailingState" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" id="enrMailingStateOptions" role="listbox" aria-label="Mailing state options">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hi-two-col">
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Zip/Postal Code</span></p>
+                    <input class="cov-input" type="text" name="enrMailingZip" placeholder="Enter zip" aria-label="Mailing Zip or Postal Code" />
+                  </div>
+                  <div class="cov-field">
+                    <p class="cov-field-label"><span class="req">*</span><span class="lbl">Mailing Country</span></p>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select country">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" name="enrMailingCountry" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Mailing country options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="US"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>United States</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="CA"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Canada</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="MX"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Mexico</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-actions">
               <button class="btn-secondary" id="enrollmentPrevBtn" type="button">Previous</button>
               <button class="btn-brand" id="enrollmentNextBtn" type="button">Next</button>
             </div>
@@ -3384,14 +5217,233 @@
             </div>
           </div>
 
-          <!-- ── Notices (placeholder) ──────────────────────────── -->
+          <!-- ── Notices ─────────────────────────────────────────── -->
           <div class="screen" id="screen-notices">
             <div class="title-wrap">
-              <h1>Notices</h1>
+              <h1 id="noticesTitle">Fraud Representations</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Notices screen content coming soon.</p>
-            <div class="row-actions has-prev">
+
+            <div class="notices-substep is-active" data-notices-step="1">
+              <div class="notices-copy">
+                <p>Before signing this enrollment form, please read the warning for the state where you reside and for the state where the contract under which you are applying for coverage was issued.</p>
+                <p><strong>Alabama, Arkansas, District of Columbia, Louisiana, Massachusetts, New Mexico, Ohio, Rhode Island and West Virginia</strong>: Any person who knowingly presents a false or fraudulent claim for payment of a loss or benefit or knowingly presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in prison.</p>
+                <p><strong>Colorado</strong>: It is unlawful to knowingly provide false, incomplete or misleading facts or information to an insurance company for the purpose of defrauding or attempting to defraud the company. Penalties may include imprisonment, fines, denial of insurance and civil damages. Any insurance company or agent of an insurance company who knowingly provides false, incomplete, or misleading facts or information to a policyholder or claimant for the purpose of defrauding or attempting to defraud the policyholder or claimant with regard to a settlement or award payable from insurance proceeds shall be reported to the Colorado Division of Insurance within the Department of Regulatory Agencies to the extent required by applicable law.</p>
+                <p><strong>Florida</strong>: Any person who knowingly and with intent to injure, defraud or deceive any insurance company files a statement of claim or an application containing any false, incomplete or misleading information is guilty of a felony of the third degree.</p>
+                <p><strong>Kansas and Oregon</strong>: Any person who knowingly presents a materially false statement in an application for insurance may be guilty of a criminal offense and may be subject to penalties under state law.</p>
+                <p><strong>Kentucky</strong>: Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance containing any materially false information or conceals, for the purpose of misleading, information concerning any fact material thereto commits a fraudulent insurance act, which is a crime.</p>
+                <p><strong>Maine, Tennessee and Washington</strong>: It is a crime to knowingly provide false, incomplete or misleading information to an insurance company for the purpose of defrauding the company. Penalties may include imprisonment, fines or a denial of insurance benefits.</p>
+                <p><strong>Maryland</strong>: Any person who knowingly or willfully presents a false or fraudulent claim for payment of a loss or benefit or who knowingly or willfully presents false information in an application for insurance is guilty of a crime and may be subject to fines and confinement in prison.</p>
+                <p><strong>New Jersey</strong>: Any person who files an application containing any false or misleading information is subject to criminal and civil penalties.</p>
+                <p><strong>New York (only applies to Accident and Health Insurance)</strong>: Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance or statement of claim containing any materially false information, or conceals for the purpose of misleading, information concerning any fact material thereto, commits a fraudulent insurance act, which is a crime, and shall also be subject to a civil penalty not to exceed five thousand dollars and the stated value of the claim for each such violation.</p>
+                <p><strong>Oklahoma</strong>: WARNING: Any person who knowingly, and with intent to injure, defraud or deceive any insurer, makes any claim for the proceeds of an insurance policy containing any false, incomplete or misleading information is guilty of a felony.</p>
+                <p><strong>Puerto Rico</strong>: Any person who knowingly and with the intention to defraud includes false information in an application for insurance or files, assists or abets in the filing of a fraudulent claim to obtain payment of a loss or other benefit, or files more than one claim for the same loss or damage, commits a felony and if found guilty shall be punished for each violation with a fine of no less than five thousand dollars ($5,000), not to exceed ten thousand dollars ($10,000); or imprisoned for a fixed term of three (3) years, or both. If aggravating circumstances exist, the fixed jail term may be increased to a maximum of five (5) years; and if mitigating circumstances are present, the jail term may be reduced to a minimum of two (2) years.</p>
+                <p><strong>Vermont</strong>: Any person who knowingly presents a false statement in an application for insurance may be guilty of a criminal offense and subject to penalties under state law.</p>
+                <p><strong>Virginia</strong>: Any person who, with the intent to defraud or knowing that he is facilitating a fraud against an insurer, submits an application or files a claim containing a false or deceptive statement may have violated the state law.</p>
+                <p><strong>Pennsylvania and all other states</strong>: Any person who knowingly and with intent to defraud any insurance company or other person files an application for insurance or statement of claim containing any materially false information, or conceals for the purpose of misleading, information concerning any fact material thereto commits a fraudulent insurance act, which is a crime and subjects such person to criminal and civil penalties.</p>
+              </div>
+            </div>
+
+            <div class="notices-substep" data-notices-step="2">
+              <div class="privacy-company-lists">
+                <ul>
+                  <li>Delaware Life Insurance Company</li>
+                  <li>MetLife Health Plans, Inc.</li>
+                  <li>MetLife Legal Plans, Inc.</li>
+                  <li>MetLife Legal Plan of Florida, Inc.</li>
+                  <li>Metropolitan General Insurance Company</li>
+                </ul>
+                <ul>
+                  <li>Metropolitan Life Insurance Company</li>
+                  <li>Metropolitan Tower Life Insurance Company</li>
+                  <li>SafeGuard Health Plans, Inc.</li>
+                  <li>SafeHealth Life Insurance Company</li>
+                </ul>
+              </div>
+              <div class="notices-copy">
+                <p class="privacy-section-title">Our Privacy Notice</p>
+                <p>We know that you buy our products and services because you trust us. This notice explains how we protect your privacy and treat your personal information. It applies to current and former customers. "Personal information" as used here means anything we know about you personally.</p>
+
+                <p class="privacy-section-title">SECTION 1: Plan Sponsors and Group Insurance Contract Holders</p>
+                <p>This privacy notice is for individuals who apply for or obtain our products and services under an employee benefit plan, group insurance or annuity contract, as an executive benefit, or as otherwise made available at your work or through an association to which you belong. In this notice, "you" refers to these individuals.</p>
+
+                <p class="privacy-section-title">SECTION 2: Protecting Your Information</p>
+                <p>We take important steps to protect your personal information. We treat it as confidential. We tell our employees to take care in handling it. We limit access to those who need it to perform their jobs. Our outside service providers must also protect it, and use it only to meet our business needs. We also take steps to protect our systems from unauthorized access. We comply with all laws that apply to us.</p>
+
+                <p class="privacy-section-title">SECTION 3: Collecting Your Information</p>
+                <p>We typically collect your name, address, age, and other relevant information. We may also collect information about any business you have with us, our affiliates, or other companies. Our affiliates include life insurers, a legal plans company and a securities broker-dealer. In the future, we may also have affiliates in other businesses.</p>
+
+                <p class="privacy-section-title">SECTION 4: How We Get Your Information</p>
+                <p>We get your personal information mostly from you. We may also use outside sources to help ensure our records are correct and complete. These sources may include consumer reporting agencies, employers, other financial institutions, adult relatives, and others. These sources may give us reports or share what they know with others. We do not control the accuracy of information outside sources give us. If you want to make any changes to information we receive from others about you, you must contact those sources.</p>
+                <p>We may ask for medical information. The Authorization that you sign when you request insurance permits these sources to tell us about you. We may also, at our expense:</p>
+                <ul class="privacy-bullet-list">
+                  <li>Ask for a medical exam</li>
+                  <li>Ask for blood and urine tests</li>
+                  <li>Ask health care providers to give us health data, including information about alcohol or drug abuse</li>
+                </ul>
+                <p>We may also ask a consumer reporting agency for a "consumer report" about you (or anyone else to be insured). Consumer reports may tell us about a lot of things, including information about:</p>
+                <ul class="privacy-bullet-list">
+                  <li>Reputation</li>
+                  <li>Driving record</li>
+                  <li>Finances</li>
+                  <li>Work and work history</li>
+                  <li>Hobbies and Dangerous Activities</li>
+                </ul>
+                <p>The information may be kept by the consumer reporting agency and later given to others as permitted by law. The agency will give you a copy of the report it provides to us, if you ask the agency and can provide adequate identification. If you write to us and we have asked for a consumer report about you, we will tell you so and give you the name, address and phone number of the consumer reporting agency.</p>
+                <p>Another source of information is MIB, LLC ("MIB"). It is a not-for-profit membership organization of insurance companies which operates an information exchange on behalf of its Members. We, or our reinsurers, may make a brief report to MIB. If you apply to another MIB Member company for life or health insurance coverage, or a claim for benefits is submitted, MIB, upon request, will supply such company with the information in its file. Upon receipt of a request from you MIB will arrange disclosure of any information it may have in your file. Please contact MIB at 866-692-6901. If you question the accuracy of information in MIB's file, you may contact MIB and seek a correction in accordance with the procedures set forth in the federal Fair Credit Reporting Act. You may do so by writing to MIB LLC, 50 Braintree Hill, Suite 400, Braintree, MA 02184-8734 or go to MIB website at <a class="privacy-blue-link" href="https://www.mib.com" target="_blank">https://www.mib.com</a>.</p>
+
+                <p class="privacy-section-title">SECTION 5: Using Your Information</p>
+                <p>We collect your personal information to help us decide if you're eligible for our products or services. We may also need it to verify identities to help deter fraud, money laundering, or other crimes. How we use this information depends on what products and services you have or want from us. It also depends on what laws apply to those products and services. For example, we may use your information to:</p>
+                <ul class="privacy-bullet-list">
+                  <li>administer your products and services</li>
+                  <li>process claims and other transactions</li>
+                  <li>perform business research</li>
+                  <li>confirm or correct your information</li>
+                  <li>market new products to you</li>
+                  <li>help us run our business</li>
+                  <li>comply with applicable laws</li>
+                </ul>
+
+                <p class="privacy-section-title">SECTION 6: Sharing Your Information With Others</p>
+                <p>We may share your personal information with others with your consent, by agreement, or as permitted or required by law. We may share your personal information without your consent if permitted or required by law. For example, we may share your information with businesses hired to carry out services for us. We may also share it with our affiliated or unaffiliated business partners through joint marketing agreements. In those situations, we share your information to jointly offer you products and services or have others offer you products and services we endorse or sponsor. Before sharing your information with any affiliate or joint marketing partner for their own marketing purposes, however, we will first notify you and give you an opportunity to opt out.</p>
+                <p>Other reasons we may share your information include:</p>
+                <ul class="privacy-bullet-list">
+                  <li>doing what a court, law enforcement, or government agency requires us to do</li>
+                  <li>telling another company what we know about you if we are selling or merging any part of our business</li>
+                  <li>giving information to a governmental agency so it can decide if you are eligible for public benefits</li>
+                  <li>giving your information to someone with a legal interest in your assets</li>
+                  <li>giving your information to your health care provider</li>
+                  <li>having a peer review organization evaluate your information, if you have health coverage with us</li>
+                  <li>those listed in our "Using Your Information" section above</li>
+                </ul>
+
+                <p class="privacy-section-title">SECTION 7: HIPAA</p>
+                <p>We will not share your health information with any other company - even one of our affiliates - for their own marketing purposes. The Health Insurance Portability and Accountability Act ("HIPAA") protects your information if you request or purchase dental, vision, long-term care and/or medical insurance from us. HIPAA limits our ability to use and disclose the information that we obtain as a result of your request or purchase of insurance. Information about your rights under HIPAA will be provided to you with any dental, vision, long-term care or medical coverage issued to you.</p>
+                <p>You may obtain a copy of our HIPAA Privacy Notice by visiting our website at <a class="privacy-blue-link" href="https://www.metlife.com/" target="_blank">www.MetLife.com</a>. For additional information about your rights under HIPAA; or to have a HIPAA Privacy Notice mailed to you, contact us at <a class="privacy-blue-link" href="mailto:HIPAAprivacyAmericasUS@metlife.com">HIPAAprivacyAmericasUS@metlife.com</a>, or call us at telephone number (212) 578-0299.</p>
+
+                <p class="privacy-section-title">SECTION 8: Accessing and Correcting Your Information</p>
+                <p>You may ask us for a copy of the personal information we have about you. We will provide it as long as it is reasonably locatable and retrievable. You must make your request in writing listing the account or policy numbers with the information you want to access. For legal reasons, we may not show you privileged information relating to a claim or lawsuit, unless required by law.</p>
+                <p>If you tell us that what we know about you is incorrect, we will review it. If we agree, we will update our records. Otherwise, you may dispute our findings in writing, and we will include your statement whenever we give your disputed information to anyone outside MetLife.</p>
+
+                <p class="privacy-section-title">SECTION 9: Questions</p>
+                <p>We want you to understand how we protect your privacy. If you have any questions or want more information about this notice, please contact us. A detailed notice shall be furnished to you upon request. When you write, include your name, address, and policy or account number.</p>
+
+                <p class="privacy-section-title">Send Privacy Questions To:</p>
+                <p>MetLife Privacy Office<br />P. O. Box 489<br />Warwick, RI 02887-9954<br /><a class="privacy-blue-link" href="mailto:privacy@metlife.com">privacy@metlife.com</a></p>
+                <p>We may revise this privacy notice. If we make any material changes, we will notify you as required by law. We provide this privacy notice to you on behalf of the MetLife companies listed at the top of the first page.</p>
+              </div>
+            </div>
+            <div class="notices-substep" data-notices-step="3">
+              <div class="notices-copy">
+                <p>Information regarding your insurability will be treated as confidential. Metropolitan Life Insurance Company ("MetLife") or its reinsurers may, however, make a brief report thereon to MIB, Inc., a not-for-profit membership organization of insurance companies, which operates an information exchange on behalf of its Members. If you apply to another MIB Member company for life or health insurance coverage, or a claim for benefits is submitted to such a company, MIB, upon request, will supply such company with the information in its file.</p>
+                <p>Upon receipt of the request from you MIB will arrange disclosure of any information it may have in your file. Please contact MIB at 866-692-6901. If you question the accuracy of information in MIB's file, you may contact MIB and seek a correction in accordance with the procedures set forth in the federal Fair Credit Reporting Act. The address of MIB's information office is 50 Braintree Hill Park, Suite 400 Braintree, MA 02184-8734.</p>
+                <p>MetLife, or its reinsurers, may also release information in its file to other insurance companies to whom you may apply for life or health insurance, or to whom a claim for benefits may be submitted. Information for consumers about MIB may be obtained on its website at <a class="privacy-blue-link" href="http://www.mib.com/" target="_blank">www.mib.com</a>.</p>
+              </div>
+            </div>
+            <div class="notices-substep" data-notices-step="4">
+              <div class="notices-copy">
+                <p class="declaration-section-title">Member Declaration &amp; Signatures</p>
+                <p>By signing below, I acknowledge:</p>
+                <ol class="declaration-list">
+                  <li>I have read this enrollment form and declare that all information I have given, including my health information, is true and complete to the best of my knowledge and belief. I understand that this information will be used by MetLife to determine insurability.</li>
+                  <li>I declare that I am actively at work on the date I am enrolling.</li>
+                  <li>I understand that if I do not enroll for disability coverage during the initial enrollment period, or if I do not enroll for the maximum amount of coverage for which I am eligible, evidence of insurability satisfactory to MetLife may be required to enroll for or increase such coverage after the initial enrollment period has expired. Coverage will not take effect, or it will be limited, until notice is received that MetLife has approved the coverage or increase.</li>
+                  <li>I have read the applicable Fraud Warning(s) provided in this enrollment form.</li>
+                </ol>
+                <div class="declaration-sign-block">
+                  <button class="btn-sign" type="button">
+                    <img class="btn-icon-sign" src="https://www.figma.com/api/mcp/asset/f665b4e0-2e93-47aa-9744-965f0bc5ddd5" alt="" aria-hidden="true" />
+                    Sign
+                  </button>
+                  <div class="declaration-sign-row">
+                    <div class="input-field declaration-disabled-field">
+                      <input class="input-text" type="text" aria-label="Name" placeholder="Name" disabled />
+                    </div>
+                    <div class="input-field declaration-disabled-field declaration-date-wrap">
+                      <input class="input-text" type="text" aria-label="Today's Date" placeholder="Today's Date" disabled />
+                      <span class="declaration-date-icon" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="notices-substep" data-notices-step="5">
+              <p class="auth-required-note">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
+
+              <div class="notices-copy">
+                <p class="authorizations-strong">This Authorization is in connection with an enrollment in group insurance and information required for underwriting and claim purposes for the proposed insured(s)("employee", spouse, and any other person(s) named below). Underwriting means classification of individuals for determination of insurability and / or rates, based upon physician health reports, prescription drug history, laboratory test results, and other factors. Notwithstanding any prior restriction placed on information, records or data by a proposed insured, each proposed insured hereby authorizes:</p>
+
+                <ul class="authorizations-list">
+                  <li>Any medical practitioner, facility or related entity; any insurer; MIB, Group Inc. ("MIB"); any employer; any group policyholder, contract holder or benefit plan administrator; any pharmacy or pharmacy related service organization; any consumer reporting agency; or any government agency to give Metropolitan Life Insurance Company ("MetLife") or any third party acting on MetLife's behalf in this regard:
+                    <ul>
+                      <li>personal information and data about the proposed insured including employment and occupational information; medical information, records and data about the proposed insured including information, records and data about drugs prescribed, medical test results and sexually transmitted diseases;</li>
+                      <li>information, records and data about the proposed insured related to alcohol and drug abuse and treatment;</li>
+                      <li>information, records and data about the proposed insured relating to Acquired Immunodeficiency Syndrome (AIDS) or AIDS related conditions including, where permitted by applicable law, Human Immunodeficiency Virus (HIV) test results;</li>
+                      <li>information, records and data about the proposed insured relating to mental illness, except psychotherapy notes; and</li>
+                      <li>motor vehicle reports.</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <p><span class="authorizations-strong">Note to All Health Care Providers: </span>The Genetic Information Nondiscrimination Act of 2008 (GINA) prohibits employers and other entities covered by GINA Title II from requesting or requiring genetic information of an individual or family member of the individual, except as specifically allowed by this law. To comply with this law, we are asking that you not provide any genetic information when responding to this request for medical information. "Genetic information" as defined by GINA, includes an individual's family medical history, the results of an individual's or family member's genetic tests, the fact that an individual or an individual's family member sought or received genetic services, and genetic information of a fetus carried by an individual or an individual's family member or an embryo lawfully held by an individual or family member receiving assistive reproductive services.</p>
+
+                <p><span class="authorizations-strong">Expiration, Revocation and Refusal to Sign: </span>This authorization will expire 24 months from the date on this form or sooner if prescribed by law. The proposed insured may revoke this authorization at any time. To revoke the authorization, the proposed insured must write to MetLife at P.O. Box 14069, Lexington, KY 40512-4069, and inform MetLife that this Authorization is revoked. Any action taken before MetLife receives the proposed insured's revocation will be valid. Revocation may be the basis for denying coverage or benefits. If the proposed insured does not sign this Authorization, that person's enrollment for group insurance cannot be processed.</p>
+
+                <p class="authorizations-strong">By signing below, each proposed insured acknowledges his or her understanding that:</p>
+
+                <ul class="authorizations-list">
+                  <li>All or part of the information, records and data that MetLife receives pursuant to this authorization may be disclosed to MIB. Such information may also be disclosed to and used by any reinsurer, employee, affiliate or independent contractor who performs a business service for MetLife on the insurance applied for or on existing insurance with MetLife, or disclosed as otherwise required or permitted by applicable laws.</li>
+                  <li>While this authorization is in force, we may use the information we receive under this authorization to improve our underwriting and claims processes generally.</li>
+                  <li>Medical information, records and data that may have been subject to federal and state laws or regulations, including federal rules issued by Health and Human Services, setting forth standards for the use, maintenance and disclosure of such information by health care providers and health plans and records and data related to alcohol and drug abuse, once disclosed to MetLife or upon redisclosure by MetLife, may no longer be covered by those laws or regulations.</li>
+                  <li>Information relating to HIV test results will only be disclosed as permitted by applicable law.</li>
+                  <li>Information obtained pursuant to this authorization about a proposed insured may be used, to the extent permitted by applicable law, to determine the insurability of other family members.</li>
+                  <li>A photocopy of this form is as valid as the original form. Each proposed insured (or his/her authorized representative) has a right to receive a copy of this form.</li>
+                </ul>
+
+                <p>I authorize MetLife, or its reinsurers, to make a brief report of my personal health information to MIB.</p>
+              </div>
+
+              <div class="auth-signature-card">
+                <div class="auth-signature-top">
+                  <p class="auth-signature-name" id="authSignatureName">Name</p>
+                  <p class="auth-signature-date" id="authSignatureDate"></p>
+                </div>
+                <div class="auth-signature-divider"></div>
+                <div class="auth-signature-fields">
+                  <div class="auth-field-static auth-field-name">
+                    <div class="auth-field-copy">
+                      <p class="auth-field-label">Name <span class="req-star">*</span></p>
+                      <p class="auth-field-value" id="authSignatureFieldName">Name</p>
+                    </div>
+                  </div>
+
+                  <div class="auth-field-static auth-field-select">
+                    <div class="auth-field-copy">
+                      <p class="auth-field-label">State of Birth <span class="req-star">*</span></p>
+                      <p class="auth-field-value">Select a State</p>
+                    </div>
+                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  </div>
+
+                  <div class="auth-field-static auth-field-select">
+                    <div class="auth-field-copy">
+                      <p class="auth-field-label">Birth Country <span class="req-star">*</span></p>
+                      <p class="auth-field-value">United States of America</p>
+                    </div>
+                    <span class="cov-chevron-icon" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="auth-sign-checkbox-row">
+                  <label class="consent-agree-label" for="authSignConfirm">
+                    <input class="consent-agree-checkbox" type="checkbox" id="authSignConfirm" />
+                    <span class="auth-sign-check-text">Check here to sign.</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-actions">
               <button class="btn-secondary" id="noticesPrevBtn" type="button">Previous</button>
               <button class="btn-brand" id="noticesNextBtn" type="button">Next</button>
             </div>
@@ -3400,11 +5452,64 @@
           <!-- ── Opt Ins (placeholder) ──────────────────────────── -->
           <div class="screen" id="screen-opt-ins">
             <div class="title-wrap">
-              <h1>Opt Ins</h1>
+              <h1>Opt-Ins</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Opt Ins screen content coming soon.</p>
-            <div class="row-actions has-prev">
+
+            <div class="optins-sections" data-exclusive-toggle-group data-toggle-input="#optinsDeliveryMode">
+              <p class="optins-heading">Electronic Delivery of Policy Documents</p>
+
+              <div class="optins-option" data-optins-option="electronic">
+                <div class="optins-toggle-row">
+                  <div class="optins-toggle-stack">
+                    <button class="optins-toggle-btn is-on" id="optinsElectronicToggle" type="button" role="switch" aria-checked="true" aria-label="Opt In for Electronic Delivery of Policy Documents" data-toggle-value="electronic">
+                      <span class="optins-toggle-check" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.40763 9.8081L0.59994 5.97733C0.461478 5.83887 0.461478 5.6081 0.59994 5.46964L1.10763 4.96194C1.24609 4.82348 1.47686 4.82348 1.61532 4.96194L4.47686 7.84656C4.56917 7.93887 4.73071 7.93887 4.82302 7.84656L10.4307 2.19271C10.5692 2.05425 10.7999 2.05425 10.9384 2.19271L11.4461 2.70041C11.5846 2.83887 11.5846 3.06964 11.4461 3.2081L4.91532 9.8081C4.77686 9.96964 4.54609 9.96964 4.40763 9.8081V9.8081Z" fill="white"></path>
+                        </svg>
+                      </span>
+                      <span class="optins-toggle-knob" aria-hidden="true"></span>
+                    </button>
+                    <p class="optins-toggle-state" id="optinsElectronicState" data-toggle-state-label data-state-on-label="Active" data-state-off-label="Inactive">Active</p>
+                  </div>
+                  <div class="optins-toggle-label-wrap">
+                    <p class="optins-toggle-label">Opt In for Electronic Delivery of Policy Documents</p>
+                  </div>
+                </div>
+                <ul class="optins-copy">
+                  <li>I wish to receive all policy documents, certificates and notices via email to the primary email address.</li>
+                  <li>I understand that I may opt-out of electronic delivery at any time and receive policy documents via USPS mail.</li>
+                  <li>Electronic copy of my policy package is available to download from the Member Service Portal and can be mailed upon request at no charge.</li>
+                  <li>By selecting this option I am agreeing to the details outlined in this <a class="optins-link" href="https://enroll.aftbenefits.org/agreement-to-do-business-with-gallagher" target="_blank">Agreement To Do Business With Gallagher Affinity Insurance Services,Inc.</a></li>
+                </ul>
+              </div>
+
+              <div class="optins-option" data-optins-option="mail">
+                <div class="optins-toggle-row">
+                  <div class="optins-toggle-stack">
+                    <button class="optins-toggle-btn" id="optinsMailToggle" type="button" role="switch" aria-checked="false" aria-label="Mail my Policy Documents" data-toggle-value="mail">
+                      <span class="optins-toggle-check" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.40763 9.8081L0.59994 5.97733C0.461478 5.83887 0.461478 5.6081 0.59994 5.46964L1.10763 4.96194C1.24609 4.82348 1.47686 4.82348 1.61532 4.96194L4.47686 7.84656C4.56917 7.93887 4.73071 7.93887 4.82302 7.84656L10.4307 2.19271C10.5692 2.05425 10.7999 2.05425 10.9384 2.19271L11.4461 2.70041C11.5846 2.83887 11.5846 3.06964 11.4461 3.2081L4.91532 9.8081C4.77686 9.96964 4.54609 9.96964 4.40763 9.8081V9.8081Z" fill="white"></path>
+                        </svg>
+                      </span>
+                      <span class="optins-toggle-knob" aria-hidden="true"></span>
+                    </button>
+                    <p class="optins-toggle-state" id="optinsMailState" data-toggle-state-label data-state-on-label="Active" data-state-off-label="Inactive">Inactive</p>
+                  </div>
+                  <div class="optins-toggle-label-wrap">
+                    <p class="optins-toggle-label">Mail my Policy Documents</p>
+                  </div>
+                </div>
+                <ul class="optins-copy">
+                  <li>I wish to receive all policy documents, certificates and notices via USPS to the primary mailing address on file.</li>
+                  <li>I understand that I may opt-in to electronic delivery at any time and receive policy documents via email.</li>
+                </ul>
+              </div>
+              <input type="hidden" id="optinsDeliveryMode" name="optinsDeliveryMode" value="electronic" />
+            </div>
+
+            <div class="row-actions">
               <button class="btn-secondary" id="optInsPrevBtn" type="button">Previous</button>
               <button class="btn-brand" id="optInsNextBtn" type="button">Next</button>
             </div>
@@ -3416,10 +5521,285 @@
               <h1>Payment</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Payment screen content coming soon.</p>
-            <div class="row-actions has-prev">
+
+            <div class="pay-body">
+              <div class="pay-review-grid">
+                <section class="pay-card pay-card-coverages" aria-label="Product and coverage information">
+                  <h2 class="pay-card-title">Product &amp; Coverage Information</h2>
+
+                  <div class="pay-kv-grid">
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Member Coverage</p>
+                      <p class="pay-kv-value">$25,000.00</p>
+                    </div>
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">AD&amp;D Coverage</p>
+                      <p class="pay-kv-value">$25,000.00</p>
+                    </div>
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Spouse Coverage</p>
+                      <p class="pay-kv-value">$13,000.00</p>
+                    </div>
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Dependent Coverage</p>
+                      <p class="pay-kv-value">$2,500.00</p>
+                    </div>
+                  </div>
+
+                  <div class="pay-effective-block">
+                    <div class="pay-kv-row">
+                      <p class="pay-kv-label">Effective Date</p>
+                      <p class="pay-kv-value">01/01/2026</p>
+                    </div>
+                    <p class="pay-effective-note">Coverage takes effect after payment is collected.</p>
+                  </div>
+                </section>
+
+                <section class="pay-card pay-card-payment" aria-label="Payment information">
+                  <h2 class="pay-card-title pay-payment-title">Payment Information</h2>
+                  <div class="pay-summary-wrap">
+                    <div class="pay-summary-grid" role="table" aria-label="Payment information table">
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-item" role="columnheader">Line Item</div>
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-value" role="columnheader">Monthly</div>
+                      <div class="pay-summary-cell pay-summary-head pay-summary-col-value" role="columnheader">Annual</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item" role="cell">Member Coverage</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$1.47</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$17.64</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item" role="cell">AD&amp;D Coverage</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$0.43</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$8.88</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item" role="cell">Spouse Coverage</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$0.74</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$5.16</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item" role="cell">Dependent Coverage</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$0.30</div>
+                      <div class="pay-summary-cell pay-summary-body-value" role="cell">$3.60</div>
+
+                      <div class="pay-summary-cell pay-summary-body-item pay-summary-total" role="cell">Total</div>
+                      <div class="pay-summary-cell pay-summary-body-value pay-summary-total" role="cell">$2.94</div>
+                      <div class="pay-summary-cell pay-summary-body-value pay-summary-total" role="cell">$35.28</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="pay-billing-sections" data-exclusive-toggle-group data-toggle-input="#paymentBillingMode">
+                <div class="pay-billing-block" data-payment-billing-option="automatic">
+                  <p class="pay-billing-title">Billing &amp; Notifications</p>
+                  <div class="optins-toggle-row">
+                    <div class="optins-toggle-stack">
+                      <button class="optins-toggle-btn is-on" id="paymentAutoBillingToggle" type="button" role="switch" aria-checked="true" aria-label="Automatic Recurring Billing" data-toggle-value="automatic">
+                        <span class="optins-toggle-check" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.40763 9.8081L0.59994 5.97733C0.461478 5.83887 0.461478 5.6081 0.59994 5.46964L1.10763 4.96194C1.24609 4.82348 1.47686 4.82348 1.61532 4.96194L4.47686 7.84656C4.56917 7.93887 4.73071 7.93887 4.82302 7.84656L10.4307 2.19271C10.5692 2.05425 10.7999 2.05425 10.9384 2.19271L11.4461 2.70041C11.5846 2.83887 11.5846 3.06964 11.4461 3.2081L4.91532 9.8081C4.77686 9.96964 4.54609 9.96964 4.40763 9.8081V9.8081Z" fill="white"></path>
+                          </svg>
+                        </span>
+                        <span class="optins-toggle-knob" aria-hidden="true"></span>
+                      </button>
+                      <p class="optins-toggle-state" id="paymentAutoBillingState" data-toggle-state-label data-state-on-label="Active" data-state-off-label="Inactive">Active</p>
+                    </div>
+                    <div class="optins-toggle-label-wrap">
+                      <p class="optins-toggle-label">Automatic Recurring Billing</p>
+                    </div>
+                  </div>
+                  <ul class="pay-billing-copy">
+                    <li>I understand by selecting this option my payment method on file will be charged the total amount due automatically on the payment due date.</li>
+                    <li>I understand that I may opt-out of automatic recurring billing at any time and receive premium invoices via USPS mail.</li>
+                    <li>By selecting this option I am agreeing to the details outlined in this <a class="pay-billing-link" href="https://enroll.aftbenefits.org/agreement-to-do-business-with-gallagher" target="_blank">Agreement To Do Business With Gallagher Affinity Insurance Services,Inc.</a></li>
+                  </ul>
+                </div>
+
+                <div class="pay-billing-block" data-payment-billing-option="paper">
+                  <p class="pay-billing-title">Paper Billing</p>
+                  <div class="optins-toggle-row">
+                    <div class="optins-toggle-stack">
+                      <button class="optins-toggle-btn" id="paymentPaperBillingToggle" type="button" role="switch" aria-checked="false" aria-label="I wish to receive paper bills at home" data-toggle-value="paper">
+                        <span class="optins-toggle-check" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.40763 9.8081L0.59994 5.97733C0.461478 5.83887 0.461478 5.6081 0.59994 5.46964L1.10763 4.96194C1.24609 4.82348 1.47686 4.82348 1.61532 4.96194L4.47686 7.84656C4.56917 7.93887 4.73071 7.93887 4.82302 7.84656L10.4307 2.19271C10.5692 2.05425 10.7999 2.05425 10.9384 2.19271L11.4461 2.70041C11.5846 2.83887 11.5846 3.06964 11.4461 3.2081L4.91532 9.8081C4.77686 9.96964 4.54609 9.96964 4.40763 9.8081V9.8081Z" fill="white"></path>
+                          </svg>
+                        </span>
+                        <span class="optins-toggle-knob" aria-hidden="true"></span>
+                      </button>
+                      <p class="optins-toggle-state" id="paymentPaperBillingState" data-toggle-state-label data-state-on-label="Active" data-state-off-label="Inactive">Inactive</p>
+                    </div>
+                    <div class="optins-toggle-label-wrap">
+                      <p class="optins-toggle-label">I wish to receive paper bills at home</p>
+                    </div>
+                  </div>
+                  <ul class="pay-billing-copy">
+                    <li>I wish to opt-out of Automatic Recurring Billing and Electronic Delivery of Premium Notifications.</li>
+                    <li>I wish to receive all Premium Notifications via USPS to my mailing address.</li>
+                    <li>I understand that I may opt-into electronic delivery at any time and receive everything via email.</li>
+                  </ul>
+                </div>
+                <input type="hidden" id="paymentBillingMode" name="paymentBillingMode" value="automatic" />
+              </div>
+
+              <div class="pay-method-shell">
+                <p class="pay-method-heading">Payment Information</p>
+                <div class="pay-method-card">
+                  <div class="pay-method-left">
+                    <p class="pay-method-label pay-method-label-lg"><span class="req">*</span><span class="txt">Choose Payment Option</span></p>
+                    <div class="pay-option-radios" role="radiogroup" aria-label="Choose payment option">
+                      <label class="pay-option-radio">
+                        <input class="cov-radio-input" type="radio" name="paymentPlanOption" value="monthly" />
+                        <span>Pay in Monthly Payments - <span class="amt">$2.94</span></span>
+                      </label>
+                      <label class="pay-option-radio">
+                        <input class="cov-radio-input" type="radio" name="paymentPlanOption" value="quarterly" />
+                        <span>Pay in Quarterly Payments - <span class="amt">$8.82</span></span>
+                      </label>
+                      <label class="pay-option-radio">
+                        <input class="cov-radio-input" type="radio" name="paymentPlanOption" value="semiannual" />
+                        <span>Pay in Semi-Annual Payments - <span class="amt">$17.64</span></span>
+                      </label>
+                      <label class="pay-option-radio">
+                        <input class="cov-radio-input" type="radio" name="paymentPlanOption" value="annual" />
+                        <span>Pay in Full Annual - <span class="amt">$35.28</span></span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="preview-payment-method-section">
+                    <p class="preview-payment-method-title">Payment Method</p>
+                    <p class="preview-payment-method-type-label">Select Payment Type</p>
+                    <div class="preview-payment-method-toggle" role="group" aria-label="Select Payment Type">
+                      <button class="preview-payment-method-btn active" type="button" data-preview-payment-method="card">Credit/Debit Card</button>
+                      <button class="preview-payment-method-btn" type="button" data-preview-payment-method="checking">Checking Account</button>
+                    </div>
+
+                    <div class="preview-method-form-grid preview-payment-method-form" id="disPaymentMethodCardForm">
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Card Holder</p>
+                        <input class="preview-method-input" type="text" aria-label="Card Holder" />
+                      </div>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Card Number</p>
+                        <input class="preview-method-input" type="text" aria-label="Card Number" />
+                      </div>
+                      <div class="preview-method-field-row">
+                        <div class="preview-method-field">
+                          <p class="preview-method-label with-info is-compact"><span class="required">*</span>Expiration<span class="preview-method-info app-tooltip-anchor" aria-hidden="true"></span></p>
+                          <input class="preview-method-input" type="text" placeholder="MM/YY" aria-label="Expiration" />
+                        </div>
+                        <div class="preview-method-field">
+                          <p class="preview-method-label with-info is-compact"><span class="required">*</span>CVV<span class="preview-method-info app-tooltip-anchor" aria-hidden="true"></span></p>
+                          <input class="preview-method-input" type="text" aria-label="CVV" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="preview-method-form-grid preview-payment-method-form" id="disPaymentMethodCheckingForm" hidden>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Name on Account</p>
+                        <input class="preview-method-input" type="text" aria-label="Name on Account" />
+                      </div>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Bank Routing Number</p>
+                        <input class="preview-method-input" type="text" placeholder="9 digits" aria-label="Bank Routing Number" />
+                      </div>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Re-enter Bank Routing Number</p>
+                        <input class="preview-method-input" type="text" placeholder="9 digits" aria-label="Re-enter Bank Routing Number" />
+                      </div>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Checking Account Number</p>
+                        <input class="preview-method-input" type="text" placeholder="Up to 17 digits" aria-label="Checking Account Number" />
+                      </div>
+                      <div class="preview-method-field">
+                        <p class="preview-method-label"><span class="required">*</span>Re-enter Checking Account Number</p>
+                        <input class="preview-method-input" type="text" placeholder="Up to 17 digits" aria-label="Re-enter Checking Account Number" />
+                      </div>
+                    </div>
+
+                    <div class="preview-method-default">
+                      <p class="preview-method-default-label">Set as default</p>
+                      <span class="preview-method-default-check" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="preview-billing-address">
+                      <p class="preview-billing-address-title">Billing Address</p>
+                      <div class="preview-billing-address-row" id="disPreviewBillingAddressSummaryRow">
+                        <p class="preview-billing-address-copy"><span id="disPreviewBillingAddressStreet">415 Mission Street</span><br /><span id="disPreviewBillingAddressCityStateZip">San Franciso, CA 94105</span></p>
+                        <p class="preview-billing-address-default">(Default)</p>
+                        <button class="preview-billing-address-edit" type="button" id="disPreviewBillingAddressEditBtn">Edit</button>
+                      </div>
+                      <div class="preview-billing-editor" id="disPreviewBillingAddressEditor" hidden>
+                        <div class="preview-billing-editor-grid">
+                          <div class="preview-billing-editor-field">
+                            <p class="preview-method-label"><span class="required">*</span>Street</p>
+                            <input class="preview-method-input" type="text" id="disPreviewBillingStreet" />
+                          </div>
+                          <div class="preview-billing-editor-field">
+                            <p class="preview-method-label"><span class="required">*</span>City</p>
+                            <input class="preview-method-input" type="text" id="disPreviewBillingCity" />
+                          </div>
+                          <div class="preview-billing-editor-field">
+                            <p class="preview-method-label"><span class="required">*</span>State</p>
+                            <input class="preview-method-input" type="text" id="disPreviewBillingState" />
+                          </div>
+                          <div class="preview-billing-editor-field">
+                            <p class="preview-method-label"><span class="required">*</span>Zip/Postal Code</p>
+                            <input class="preview-method-input" type="text" id="disPreviewBillingZipPostalCode" />
+                          </div>
+                        </div>
+                        <div class="preview-billing-editor-actions">
+                          <button class="preview-billing-editor-btn cancel" type="button" id="disPreviewBillingCancelBtn">Cancel</button>
+                          <button class="preview-billing-editor-btn save" type="button" id="disPreviewBillingSaveBtn">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-actions">
               <button class="btn-secondary" id="paymentPrevBtn" type="button">Previous</button>
-              <button class="btn-brand" type="button">Submit</button>
+              <button class="btn-brand" id="paymentSubmitBtn" type="button">Submit</button>
+            </div>
+          </div>
+
+          <div class="screen" id="screen-payment-confirmation">
+            <div class="pay-confirm-wrap">
+              <div class="pay-confirm-content">
+                <p class="pay-confirm-title">Thank you for choosing AFT + Member Benefits for your insurance needs.</p>
+                <p class="pay-confirm-copy">Your LTD Disability Income application has been approved.</p>
+                <p class="pay-confirm-subtitle">Summary of your coverage:</p>
+
+                <div class="pay-confirm-summary">
+                  <div class="pay-confirm-summary-key">
+                    <span>Product:</span>
+                    <span>Effective Date:</span>
+                    <span>Coverage Amount:</span>
+                  </div>
+                  <div class="pay-confirm-summary-val">
+                    <span>LTD Disability Income</span>
+                    <span id="payConfirmEffectiveDate">03/01/2026</span>
+                    <span id="payConfirmCoverageAmount">$5,000.00</span>
+                  </div>
+                </div>
+
+                <p class="pay-confirm-contact">If you have any questions, please feel free to contact us.
+
+We thank you for the opportunity to be of service. 
+
+Customer service: 888-423-8700
+
+Monday - Friday 8:00am – 8:00pm EST
+
+<a href="mailto:GSP.Sarasota.AFT@ajg.com">GSP.Sarasota.AFT@ajg.com</a></p>
+              </div>
+
+              <div class="pay-confirm-actions">
+                <button class="btn-secondary" type="button" id="paymentGoPortalBtn">Go to Customer Portal</button>
+                <button class="btn-brand" type="button" id="paymentDownloadCertificateBtn">Download Certificate of Insurance</button>
+              </div>
             </div>
           </div>
 
@@ -3746,6 +6126,8 @@
           setAftJoinDateError(false);
         }
       });
+      makeDatepicker("payEffectiveDatePicker");
+      makeDatepicker("enrDobPicker");
       makeDatepicker("hospTreatmentDatePicker");
       makeDatepicker("hospDiagnosisDatePicker");
       makeDatepicker("hospVisitDatePicker");
@@ -3831,13 +6213,19 @@
       const stepItems   = Array.from(document.querySelectorAll(".step-list .step-item"));
       const screens     = Array.from(document.querySelectorAll(".content .screen"));
       const mainScroll  = document.getElementById("mainScroll");
+      const stepsAside  = document.querySelector(".main-surface .steps");
       const header      = document.getElementById("aftHeader");
 
       let currentIndex = 0;
 
-      function goToStep(index) {
-        if (index < 0 || index >= stepItems.length) return;
+      function stepIndexByScreenId(screenId) {
+        return stepItems.findIndex(function (item) {
+          return item.dataset.screen === screenId;
+        });
+      }
 
+      function setStepStateOnly(index) {
+        if (index < 0 || index >= stepItems.length) return;
         stepItems.forEach(function (item, i) {
           if (i < index) {
             item.dataset.state = "complete";
@@ -3847,12 +6235,83 @@
             item.dataset.state = "default";
           }
         });
-
-        screens.forEach(function (s) { s.classList.remove("active"); });
-        if (screens[index]) { screens[index].classList.add("active"); }
-
         currentIndex = index;
-        mainScroll.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function resetViewToTop() {
+        if (!mainScroll) return;
+        mainScroll.scrollTop = 0;
+        mainScroll.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      function setStepsVisible(visible) {
+        if (!stepsAside) return;
+        stepsAside.style.display = visible ? "" : "none";
+      }
+
+      function goToStep(index) {
+        if (index < 0 || index >= stepItems.length) return;
+
+        setStepStateOnly(index);
+
+        var targetScreenId = stepItems[index] ? stepItems[index].dataset.screen : null;
+        var targetScreen = targetScreenId ? document.getElementById(targetScreenId) : null;
+        screens.forEach(function (s) { s.classList.remove("active"); });
+        if (targetScreen) { targetScreen.classList.add("active"); }
+        setStepsVisible(true);
+        if (targetScreen && targetScreen.id === "screen-enrollment") {
+          syncEnrollmentNameFields();
+        }
+        if (targetScreen && targetScreen.id === "screen-notices" && typeof setNoticesSubStep === "function") {
+          setNoticesSubStep(1);
+        }
+        resetViewToTop();
+      }
+
+      function syncEnrollmentNameFields() {
+        var startScreen = document.getElementById("screen-start-here");
+        var startFirst = startScreen ? startScreen.querySelector('input[name="firstName"]') : null;
+        var startLast = startScreen ? startScreen.querySelector('input[name="lastName"]') : null;
+        var startEmail = startScreen ? startScreen.querySelector('input[name="emailAddress"]') : null;
+        var enrFirst = document.getElementById("enrFirstName");
+        var enrLast = document.getElementById("enrLastName");
+        var enrEmail = document.getElementById("enrEmail");
+
+        if (enrFirst) {
+          enrFirst.value = startFirst && startFirst.value ? startFirst.value.trim() : "";
+        }
+        if (enrLast) {
+          enrLast.value = startLast && startLast.value ? startLast.value.trim() : "";
+        }
+        if (enrEmail) {
+          enrEmail.value = startEmail && startEmail.value ? startEmail.value.trim() : "";
+        }
+      }
+
+      function getStartHereFullName() {
+        var startScreen = document.getElementById("screen-start-here");
+        var startFirst = startScreen ? startScreen.querySelector('input[name="firstName"]') : null;
+        var startLast = startScreen ? startScreen.querySelector('input[name="lastName"]') : null;
+        var first = startFirst && startFirst.value ? startFirst.value.trim() : "";
+        var last = startLast && startLast.value ? startLast.value.trim() : "";
+        var fullName = [first, last].filter(Boolean).join(" ");
+        return fullName || "Name";
+      }
+
+      function getTodayDateText() {
+        var d = new Date();
+        return (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+      }
+
+      function syncAuthorizationSignatureFields() {
+        var fullName = getStartHereFullName();
+        var dateText = getTodayDateText();
+        var signatureName = document.getElementById("authSignatureName");
+        var signatureDate = document.getElementById("authSignatureDate");
+        var signatureFieldName = document.getElementById("authSignatureFieldName");
+        if (signatureName) signatureName.textContent = fullName;
+        if (signatureFieldName) signatureFieldName.textContent = fullName;
+        if (signatureDate) signatureDate.textContent = dateText;
       }
 
       /* Allow clicking completed steps to go back */
@@ -3896,13 +6355,279 @@
       bindNextBtn("healthPage3NextBtn");
       bindNextBtn("enrollmentNextBtn");
       bindNextBtn("physicianNextBtn");
-      bindNextBtn("noticesNextBtn");
       bindNextBtn("optInsNextBtn");
+
+      /* Any click on a Next button always snaps view to top */
+      Array.from(document.querySelectorAll('button[id$="NextBtn"]')).forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          requestAnimationFrame(resetViewToTop);
+        });
+      });
 
       bindPrevBtn("consentPrevBtn");
 
       /* Coverage: color select text dark once a value is chosen */
       (function () {
+      }());
+
+      /* Notices sub-steps (1..5) */
+      var setNoticesSubStep = null;
+      (function () {
+        var noticesScreen = document.getElementById("screen-notices");
+        var noticesTitle = document.getElementById("noticesTitle");
+        var prevBtn = document.getElementById("noticesPrevBtn");
+        var nextBtn = document.getElementById("noticesNextBtn");
+        var substeps = noticesScreen ? Array.from(noticesScreen.querySelectorAll("[data-notices-step]")) : [];
+        if (!noticesScreen || !prevBtn || !nextBtn || !substeps.length) return;
+
+        var currentSubstep = 1;
+        var totalSubsteps = substeps.length;
+
+        setNoticesSubStep = function (stepNum) {
+          var n = Math.max(1, Math.min(totalSubsteps, Number(stepNum) || 1));
+          currentSubstep = n;
+          if (noticesTitle) {
+            noticesTitle.textContent =
+              n === 1 ? "Fraud Representations" :
+              n === 2 ? "Privacy Notice" :
+              n === 3 ? "MIB Pre Notice" :
+              n === 4 ? "Declarations & Signatures" :
+              n === 5 ? "Authorizations" :
+              "Notices";
+          }
+          substeps.forEach(function (el) {
+            var isActive = Number(el.getAttribute("data-notices-step")) === n;
+            el.classList.toggle("is-active", isActive);
+          });
+          if (n === 5) {
+            syncAuthorizationSignatureFields();
+          }
+        };
+
+        prevBtn.addEventListener("click", function () {
+          if (currentSubstep > 1) {
+            setNoticesSubStep(currentSubstep - 1);
+          } else {
+            goToStep(stepIndexByScreenId("screen-enrollment"));
+          }
+        });
+
+        nextBtn.addEventListener("click", function () {
+          if (currentSubstep < totalSubsteps) {
+            setNoticesSubStep(currentSubstep + 1);
+          } else {
+            goToStep(stepIndexByScreenId("screen-opt-ins"));
+          }
+        });
+      }());
+
+      /* Deep-link support: open directly on a specific step */
+      (function () {
+        function resolveStepIndexFromUrl() {
+          var params = new URLSearchParams(window.location.search);
+          var raw = (params.get("step") || params.get("screen") || window.location.hash.replace(/^#/, "") || "").trim().toLowerCase();
+          if (!raw) return -1;
+
+          var aliasToScreenId = {
+            "start": "screen-start-here",
+            "start-here": "screen-start-here",
+            "consent": "screen-consent",
+            "coverage": "screen-coverage",
+            "health": "screen-health",
+            "health-information": "screen-health",
+            "physician": "screen-physician",
+            "physician-prescriptions": "screen-physician",
+            "enrollment": "screen-enrollment",
+            "notices": "screen-notices",
+            "optins": "screen-opt-ins",
+            "opt-ins": "screen-opt-ins",
+            "payment": "screen-payment",
+            "last": "screen-payment",
+            "final": "screen-payment"
+          };
+
+          var screenId = raw.indexOf("screen-") === 0 ? raw : aliasToScreenId[raw];
+          if (!screenId) return -1;
+          return stepIndexByScreenId(screenId);
+        }
+
+        var initialIndex = resolveStepIndexFromUrl();
+        if (initialIndex >= 0) {
+          goToStep(initialIndex);
+        }
+      }());
+
+      /* Keep signature block synced with Start Here name */
+      (function () {
+        var startScreen = document.getElementById("screen-start-here");
+        var startFirst = startScreen ? startScreen.querySelector('input[name="firstName"]') : null;
+        var startLast = startScreen ? startScreen.querySelector('input[name="lastName"]') : null;
+        [startFirst, startLast].forEach(function (inputEl) {
+          if (!inputEl) return;
+          inputEl.addEventListener("input", syncAuthorizationSignatureFields);
+          inputEl.addEventListener("change", syncAuthorizationSignatureFields);
+        });
+        syncAuthorizationSignatureFields();
+      }());
+
+      /* Reusable exclusive toggle component (ON/OFF states) */
+      (function () {
+        function setToggleVisual(toggleBtn, isOn) {
+          toggleBtn.classList.toggle("is-on", isOn);
+          toggleBtn.setAttribute("aria-checked", isOn ? "true" : "false");
+          var stateLabel = toggleBtn.parentElement
+            ? toggleBtn.parentElement.querySelector("[data-toggle-state-label]")
+            : null;
+          if (stateLabel) {
+            var onLabel = stateLabel.getAttribute("data-state-on-label") || "Active";
+            var offLabel = stateLabel.getAttribute("data-state-off-label") || "Inactive";
+            stateLabel.textContent = isOn ? onLabel : offLabel;
+          }
+        }
+
+        function initExclusiveToggleGroup(groupEl) {
+          var toggles = Array.from(groupEl.querySelectorAll('button[data-toggle-value]'));
+          if (!toggles.length) return;
+
+          var inputSelector = groupEl.getAttribute("data-toggle-input");
+          var outputInput = inputSelector ? document.querySelector(inputSelector) : null;
+
+          function activate(toggleToActivate) {
+            toggles.forEach(function (btn) {
+              setToggleVisual(btn, btn === toggleToActivate);
+            });
+            if (outputInput) {
+              outputInput.value = toggleToActivate.getAttribute("data-toggle-value") || "";
+            }
+          }
+
+          toggles.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              activate(btn);
+            });
+          });
+
+          var initiallyOn = toggles.find(function (btn) { return btn.classList.contains("is-on"); }) || toggles[0];
+          activate(initiallyOn);
+        }
+
+        Array.from(document.querySelectorAll("[data-exclusive-toggle-group]")).forEach(initExclusiveToggleGroup);
+      }());
+
+      /* Reuse Agent payment-method toggle behavior */
+      (function () {
+        var methodButtons = Array.from(document.querySelectorAll(".preview-payment-method-btn"));
+        var cardForm = document.getElementById("disPaymentMethodCardForm");
+        var checkingForm = document.getElementById("disPaymentMethodCheckingForm");
+        if (!methodButtons.length) return;
+
+        function setMethod(method) {
+          var resolved = method === "checking" ? "checking" : "card";
+          methodButtons.forEach(function (btn) {
+            var btnMethod = btn.getAttribute("data-preview-payment-method") || "card";
+            var isActive = btnMethod === resolved;
+            btn.classList.toggle("active", isActive);
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+          if (cardForm) cardForm.hidden = resolved !== "card";
+          if (checkingForm) checkingForm.hidden = resolved !== "checking";
+        }
+
+        methodButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            setMethod(btn.getAttribute("data-preview-payment-method"));
+          });
+        });
+
+        var defaultBtn = methodButtons.find(function (btn) {
+          return btn.classList.contains("active");
+        }) || methodButtons[0];
+        setMethod(defaultBtn.getAttribute("data-preview-payment-method"));
+      }());
+
+      /* Disability payment billing address editor (same behavior as Agent flow) */
+      (function () {
+        var summaryRow = document.getElementById("disPreviewBillingAddressSummaryRow");
+        var editBtn = document.getElementById("disPreviewBillingAddressEditBtn");
+        var editor = document.getElementById("disPreviewBillingAddressEditor");
+        var cancelBtn = document.getElementById("disPreviewBillingCancelBtn");
+        var saveBtn = document.getElementById("disPreviewBillingSaveBtn");
+
+        var streetText = document.getElementById("disPreviewBillingAddressStreet");
+        var cityStateZipText = document.getElementById("disPreviewBillingAddressCityStateZip");
+
+        var streetInput = document.getElementById("disPreviewBillingStreet");
+        var cityInput = document.getElementById("disPreviewBillingCity");
+        var stateInput = document.getElementById("disPreviewBillingState");
+        var zipInput = document.getElementById("disPreviewBillingZipPostalCode");
+
+        if (!summaryRow || !editBtn || !editor) return;
+
+        function trim(v) {
+          return (v || "").toString().trim();
+        }
+
+        function parseSummaryLine(line) {
+          var safe = trim(line);
+          if (!safe) return { city: "", state: "", zip: "" };
+          var commaParts = safe.split(",");
+          var city = trim(commaParts[0] || "");
+          var stateZip = trim(commaParts.slice(1).join(","));
+          var stateZipParts = stateZip.split(/\s+/);
+          return {
+            city: city,
+            state: trim(stateZipParts[0] || ""),
+            zip: trim(stateZipParts.slice(1).join(" "))
+          };
+        }
+
+        function fillEditorFromSummary() {
+          var street = streetText ? trim(streetText.textContent) : "";
+          var cityStateZip = cityStateZipText ? trim(cityStateZipText.textContent) : "";
+          var parsed = parseSummaryLine(cityStateZip);
+          if (streetInput) streetInput.value = street;
+          if (cityInput) cityInput.value = parsed.city;
+          if (stateInput) stateInput.value = parsed.state;
+          if (zipInput) zipInput.value = parsed.zip;
+        }
+
+        function openEditor() {
+          fillEditorFromSummary();
+          summaryRow.hidden = true;
+          editor.hidden = false;
+        }
+
+        function closeEditor() {
+          editor.hidden = true;
+          summaryRow.hidden = false;
+        }
+
+        function saveEditor() {
+          var street = streetInput ? trim(streetInput.value) : "";
+          var city = cityInput ? trim(cityInput.value) : "";
+          var state = stateInput ? trim(stateInput.value) : "";
+          var zip = zipInput ? trim(zipInput.value) : "";
+          if (streetText) streetText.textContent = street || "Street";
+          if (cityStateZipText) {
+            var stateZip = [state, zip].filter(Boolean).join(" ");
+            var cityStateZip = city && stateZip ? (city + ", " + stateZip) : (city || stateZip || "City, ST ZIP");
+            cityStateZipText.textContent = cityStateZip;
+          }
+          closeEditor();
+        }
+
+        editBtn.addEventListener("click", openEditor);
+        if (cancelBtn) cancelBtn.addEventListener("click", closeEditor);
+        if (saveBtn) saveBtn.addEventListener("click", saveEditor);
+      }());
+
+      /* Reuse full 50-state list from existing Health state dropdown */
+      (function () {
+        var enrStateList = document.getElementById("enrMailingStateOptions");
+        var sourceStateList = document.querySelector('.ajg-dropdown-listbox[aria-label="State options"]');
+        if (enrStateList && sourceStateList) {
+          enrStateList.innerHTML = sourceStateList.innerHTML;
+        }
       }());
 
       /* ── Custom dropdown init ─────────────────────────────────── */
@@ -4110,6 +6835,7 @@
           if (extended) {
             extended.classList.toggle("hidden", !showFull);
           }
+          setStepStateOnly(stepIndexByScreenId("screen-health"));
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
 
@@ -4117,6 +6843,7 @@
           page2.classList.add("hidden");
           page3.classList.add("hidden");
           page1.classList.remove("hidden");
+          setStepStateOnly(stepIndexByScreenId("screen-health"));
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
 
@@ -4124,6 +6851,7 @@
           page1.classList.add("hidden");
           page2.classList.add("hidden");
           page3.classList.remove("hidden");
+          setStepStateOnly(stepIndexByScreenId("screen-physician"));
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
 
@@ -4149,7 +6877,7 @@
             var underOneYear = joinDate > oneYearAgo;
 
             if (underOneYear && notHosp) {
-              goToStep(currentIndex + 1);   /* skip questionnaire entirely */
+              goToStep(stepIndexByScreenId("screen-enrollment"));   /* skip questionnaire entirely */
               return;
             }
           }
@@ -4540,9 +7268,64 @@
       bindPrevBtn("healthPrevBtn");
       bindPrevBtn("enrollmentPrevBtn");
       bindPrevBtn("physicianPrevBtn");
-      bindPrevBtn("noticesPrevBtn");
       bindPrevBtn("optInsPrevBtn");
       bindPrevBtn("paymentPrevBtn");
+
+      (function () {
+        var paymentSubmitBtn = document.getElementById("paymentSubmitBtn");
+        var confirmationScreen = document.getElementById("screen-payment-confirmation");
+        var payConfirmEffectiveDate = document.getElementById("payConfirmEffectiveDate");
+        var payConfirmCoverageAmount = document.getElementById("payConfirmCoverageAmount");
+        var covMonthlyBenefitInput = document.getElementById("covMonthlyBenefit");
+        if (!paymentSubmitBtn || !confirmationScreen) return;
+
+        function getCurrentDateMMDDYYYY() {
+          var now = new Date();
+          var mm = String(now.getMonth() + 1).padStart(2, "0");
+          var dd = String(now.getDate()).padStart(2, "0");
+          var yyyy = now.getFullYear();
+          return mm + "/" + dd + "/" + yyyy;
+        }
+
+        function getSelectedMonthlyBenefitLabel() {
+          var fallback = "$5,000.00";
+          if (!covMonthlyBenefitInput) return fallback;
+          var rawValue = (covMonthlyBenefitInput.value || "").trim();
+          if (!rawValue) return fallback;
+
+          var dropdown = covMonthlyBenefitInput.closest(".ajg-dropdown");
+          var selectedOption = null;
+          if (dropdown) {
+            selectedOption = dropdown.querySelector('.ajg-dropdown-option.selected[data-value="' + rawValue + '"]')
+              || dropdown.querySelector('.ajg-dropdown-option[data-selected="true"][data-value="' + rawValue + '"]')
+              || dropdown.querySelector('.ajg-dropdown-option[data-value="' + rawValue + '"]');
+          }
+
+          if (selectedOption) {
+            var labelNode = selectedOption.querySelector("span:last-child");
+            var optionLabel = labelNode ? labelNode.textContent.trim() : selectedOption.textContent.trim();
+            if (optionLabel) return optionLabel;
+          }
+
+          var numeric = Number(rawValue);
+          if (!isNaN(numeric)) return "$" + numeric.toLocaleString("en-US");
+          return fallback;
+        }
+
+        paymentSubmitBtn.addEventListener("click", function () {
+          screens.forEach(function (screenEl) { screenEl.classList.remove("active"); });
+          confirmationScreen.classList.add("active");
+          if (payConfirmEffectiveDate) {
+            payConfirmEffectiveDate.textContent = getCurrentDateMMDDYYYY();
+          }
+          if (payConfirmCoverageAmount) {
+            payConfirmCoverageAmount.textContent = getSelectedMonthlyBenefitLabel();
+          }
+          setStepsVisible(false);
+          setStepStateOnly(stepItems.length - 1);
+          resetViewToTop();
+        });
+      }());
 
       /* ── Header scroll shadow ─────────────────────────────────── */
       mainScroll.addEventListener("scroll", function () {
