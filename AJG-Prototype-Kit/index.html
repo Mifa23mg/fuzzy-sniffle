@@ -934,6 +934,22 @@
       text-align: center;
     }
 
+    .home-landing-update-meta-v2 {
+      position: fixed;
+      left: 50%;
+      top: 16px;
+      transform: translateX(-50%);
+      margin: 0;
+      font-family: "Salesforce Sans", "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 10px;
+      line-height: 16px;
+      font-weight: 700;
+      color: #04e1cb;
+      white-space: nowrap;
+      text-align: center;
+      z-index: 2;
+    }
+
     .home-landing-context-colv2 {
       flex: 1 0 0;
       min-width: 80px;
@@ -6635,6 +6651,7 @@
       </div>
       <div class="home-landing-topbar-shellv2">
         <div class="home-landing-topbarv2">
+          <p class="home-landing-update-meta-v2">Last update: 5/28/26 - v1.04</p>
           <svg class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
             <!-- Light highlight: -45°, 80% — 1px white stroke, 1px above main line, corners rounded r=15 -->
             <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
@@ -6685,17 +6702,17 @@
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
               <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
             <div class="home-flow-card-body">
               <h3>Test Scenarios:</h3>
               <ul class="home-flow-list one-item">
-                <li>Term Life</li>
+                <li>Term Life AD&amp;D</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="termLifeViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
@@ -11176,6 +11193,13 @@
       if (guaranteedViewFlowBtn) {
         guaranteedViewFlowBtn.addEventListener("click", function () {
           window.location.href = "aft-disability-enrollment-prototype.html?flow=guaranteed";
+        });
+      }
+
+      var termLifeViewFlowBtn = document.getElementById("termLifeViewFlowBtn");
+      if (termLifeViewFlowBtn) {
+        termLifeViewFlowBtn.addEventListener("click", function () {
+          window.location.href = "aft-disability-enrollment-prototype.html?flow=term-life";
         });
       }
 
