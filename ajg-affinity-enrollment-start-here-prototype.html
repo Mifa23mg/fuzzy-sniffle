@@ -1429,12 +1429,11 @@
       font-weight: 400;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #04e1cb;
+      color: #ffffff;
       padding: 3px 10px;
       border-radius: 999px;
-      /* Glass — same specs as chevron container */
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #056764;
+      border: 1px solid #056764;
       backdrop-filter: blur(0.5px) saturate(180%);
       -webkit-backdrop-filter: blur(0.5px) saturate(180%);
       box-shadow:
@@ -2656,7 +2655,7 @@
 
     .datepicker-popover {
       position: absolute;
-      top: calc(100% + 4px);
+      top: 100%;
       right: 0;
       left: auto;
       width: 308px;
@@ -2671,6 +2670,24 @@
     }
 
     .datepicker.open .datepicker-popover {
+      display: block;
+    }
+
+    .datepicker-format-hint {
+      display: none;
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      margin: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      z-index: 26;
+    }
+
+    .datepicker.open .datepicker-format-hint {
       display: block;
     }
 
@@ -9085,6 +9102,45 @@
         var yearList = wrap.querySelector(".dp-year-list");
         var daysGrid = wrap.querySelector(".dp-days-grid");
         var todayBtn = wrap.querySelector(".dp-today");
+        var popover = wrap.querySelector(".datepicker-popover");
+
+        function applyDateInputMask(rawValue) {
+          var digits = String(rawValue || "").replace(/[^\d]/g, "").slice(0, 8);
+          var parts = [];
+          if (digits.length > 0) parts.push(digits.slice(0, 2));
+          if (digits.length > 2) parts.push(digits.slice(2, 4));
+          if (digits.length > 4) parts.push(digits.slice(4, 8));
+          return parts.join("/");
+        }
+
+        function parseTypedDate(value) {
+          var match = String(value || "").trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+          if (!match) return null;
+          var month = Number(match[1]);
+          var day = Number(match[2]);
+          var year = Number(match[3]);
+          if (month < 1 || month > 12 || day < 1 || year < 1900) return null;
+          var parsed = new Date(year, month - 1, day);
+          if (
+            parsed.getFullYear() !== year
+            || parsed.getMonth() !== (month - 1)
+            || parsed.getDate() !== day
+            || parsed > normalizedToday
+          ) return null;
+          return parsed;
+        }
+
+        function commitTypedDate() {
+          if (!input || input.disabled) return;
+          var parsed = parseTypedDate(input.value);
+          if (!parsed) return;
+          sel = parsed;
+          vm = sel.getMonth();
+          vy = sel.getFullYear();
+          input.value = formatDateMMDDYYYY(parsed);
+          if (onSelectCb) onSelectCb(parsed);
+          render();
+        }
 
         if (yearList) {
           yearList.addEventListener("wheel", function(e) {
@@ -9099,13 +9155,26 @@
         var vm  = normalizedToday.getMonth();
         var vy  = normalizedToday.getFullYear();
 
+        if (input) {
+          input.removeAttribute("readonly");
+          input.setAttribute("placeholder", "mm/dd/yyyy");
+          input.setAttribute("inputmode", "numeric");
+          input.setAttribute("maxlength", "10");
+        }
+        var defaultPlaceholder = "mm/dd/yyyy";
+        if (input && !wrap.querySelector(".datepicker-format-hint")) {
+          var hintEl = document.createElement("p");
+          hintEl.className = "datepicker-format-hint";
+          hintEl.textContent = "Format: mm/dd/yyyy";
+          wrap.insertBefore(hintEl, popover || null);
+        }
+
         function open() {
-          if (!sel) {
-            sel = new Date(normalizedToday);
-            if (input) input.value = formatDateMMDDYYYY(sel);
-          }
-          vm = sel.getMonth();
-          vy = sel.getFullYear();
+          if (input) input.setAttribute("placeholder", "");
+          var parsedFromInput = input ? parseTypedDate(input.value) : null;
+          if (parsedFromInput) sel = parsedFromInput;
+          vm = sel ? sel.getMonth() : normalizedToday.getMonth();
+          vy = sel ? sel.getFullYear() : normalizedToday.getFullYear();
           document.querySelectorAll(".datepicker.open").forEach(function(dp) {
             if (dp !== wrap) { dp.classList.remove("open"); dp.classList.remove("year-open"); }
           });
@@ -9117,6 +9186,7 @@
         function close() {
           wrap.classList.remove("open");
           wrap.classList.remove("year-open");
+          if (input) input.setAttribute("placeholder", defaultPlaceholder);
           if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
           if (onCloseCb) onCloseCb();
         }
@@ -9192,7 +9262,23 @@
           if (input && input.disabled) return;
           wrap.classList.contains("open") ? close() : open();
         });
-        if (input) input.addEventListener("click", function() { if (!input.disabled) open(); });
+        if (input) {
+          input.addEventListener("click", function() { if (!input.disabled) open(); });
+          input.addEventListener("input", function() {
+            if (input.disabled) return;
+            var maskedValue = applyDateInputMask(input.value);
+            if (input.value !== maskedValue) input.value = maskedValue;
+          });
+          input.addEventListener("blur", function() {
+            commitTypedDate();
+          });
+          input.addEventListener("keydown", function(e) {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            commitTypedDate();
+            close();
+          });
+        }
         if (prevBtn) prevBtn.addEventListener("click", function() {
           if (vm === 0) { vm = 11; vy--; } else { vm--; }
           render();
@@ -9363,7 +9449,7 @@
       const coverageAcknowledgementExcludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2710%27%20r%3D%279%27%20fill%3D%27%23c0392b%27%2F%3E%3Cpath%20d%3D%27M7%207%20L13%2013%20M13%207%20L7%2013%27%20stroke%3D%27white%27%20stroke-width%3D%271.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
       const todayDefault = new Date();
       const normalizedToday = new Date(todayDefault.getFullYear(), todayDefault.getMonth(), todayDefault.getDate());
-      let selectedLicensureDate = new Date(normalizedToday);
+      let selectedLicensureDate = null;
       let selectedCoverageLimit = null; // "$100K / $100K Limits" | "$100K / $250K Limits" | "Decline"
       let selectedPlan = null;          // e.g. "$1 million per claim / $1 million annual aggregate"
       let selectedProductKey = null;    // "lh-only" | "lh-mostly-25" | "lh-mostly-49" | "pc-only" | "pc-some-lh" | "medicare-only"
@@ -10563,7 +10649,7 @@
 
       function syncEnrollmentSecondReadOnlyValues() {
         const selectedCoverageStart = getSelectedCoverageStartLabel();
-        const selectedLicensure = (licensureDateInput ? licensureDateInput.value.trim() : "") || formatDateMMDDYYYY(selectedLicensureDate);
+        const selectedLicensure = (licensureDateInput ? licensureDateInput.value.trim() : "");
         if (enrollCoverageStartReadonlyInput) enrollCoverageStartReadonlyInput.value = selectedCoverageStart;
 
         // Disable Original Licensure Date only when user said "Yes" to licensed within last 2 years
@@ -10731,7 +10817,7 @@
         const page = document.getElementById("homeLandingPage");
         if (!page) return;
         const remainingBelow = page.scrollHeight - (page.scrollTop + page.clientHeight);
-        homeScrollIndicator.classList.toggle("is-visible", remainingBelow >= 80);
+        homeScrollIndicator.classList.toggle("is-visible", remainingBelow >= 120);
       }
 
       function checkHomeCardCompact() {
@@ -11004,9 +11090,9 @@
           field.classList.remove("is-floating");
           field.classList.toggle("is-disabled", Boolean(field.querySelector(".ajg-input-control") && field.querySelector(".ajg-input-control").disabled));
         });
-        selectedLicensureDate = new Date(normalizedToday);
+        selectedLicensureDate = null;
         if (proInfoDP) proInfoDP.setDate(null);
-        if (enrollDP)  enrollDP.setDate(selectedLicensureDate);
+        if (enrollDP)  enrollDP.setDate(null);
         if (enrollDP)  enrollDP.close();
         clearRadioSelection();
         updateProductSelection(null, false);
@@ -11764,7 +11850,7 @@
         }
       });
 
-      enrollDP.setDate(selectedLicensureDate);
+      enrollDP.setDate(null);
 
       /* Enroll wrapper click (opens picker when clicking the label area) */
       if (enrollLicensureDateInputWrap) {

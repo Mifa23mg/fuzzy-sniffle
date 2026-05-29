@@ -789,7 +789,7 @@
 
     .datepicker-popover {
       position: absolute;
-      top: calc(100% + 4px);
+      top: 100%;
       right: 0;
       left: auto;
       width: 308px;
@@ -804,6 +804,24 @@
     }
 
     .datepicker.open .datepicker-popover {
+      display: block;
+    }
+
+    .datepicker-format-hint {
+      display: none;
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      margin: 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+      z-index: 26;
+    }
+
+    .datepicker.open .datepicker-format-hint {
       display: block;
     }
 
@@ -3006,6 +3024,45 @@
         var yearList = wrap.querySelector(".dp-year-list");
         var daysGrid = wrap.querySelector(".dp-days-grid");
         var todayBtn = wrap.querySelector(".dp-today");
+        var popover = wrap.querySelector(".datepicker-popover");
+
+        function applyDateInputMask(rawValue) {
+          var digits = String(rawValue || "").replace(/[^\d]/g, "").slice(0, 8);
+          var parts = [];
+          if (digits.length > 0) parts.push(digits.slice(0, 2));
+          if (digits.length > 2) parts.push(digits.slice(2, 4));
+          if (digits.length > 4) parts.push(digits.slice(4, 8));
+          return parts.join("/");
+        }
+
+        function parseTypedDate(value) {
+          var match = String(value || "").trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+          if (!match) return null;
+          var month = Number(match[1]);
+          var day = Number(match[2]);
+          var year = Number(match[3]);
+          if (month < 1 || month > 12 || day < 1 || year < 1900) return null;
+          var parsed = new Date(year, month - 1, day);
+          if (
+            parsed.getFullYear() !== year
+            || parsed.getMonth() !== (month - 1)
+            || parsed.getDate() !== day
+            || parsed > normalizedToday
+          ) return null;
+          return parsed;
+        }
+
+        function commitTypedDate() {
+          if (!input || input.disabled) return;
+          var parsed = parseTypedDate(input.value);
+          if (!parsed) return;
+          sel = parsed;
+          vm = sel.getMonth();
+          vy = sel.getFullYear();
+          input.value = formatDateMMDDYYYY(parsed);
+          if (onSelectCb) onSelectCb(parsed);
+          render();
+        }
 
         if (yearList) {
           yearList.addEventListener("wheel", function(e) {
@@ -3020,13 +3077,26 @@
         var vm  = normalizedToday.getMonth();
         var vy  = normalizedToday.getFullYear();
 
+        if (input) {
+          input.removeAttribute("readonly");
+          input.setAttribute("placeholder", "mm/dd/yyyy");
+          input.setAttribute("inputmode", "numeric");
+          input.setAttribute("maxlength", "10");
+        }
+        var defaultPlaceholder = "mm/dd/yyyy";
+        if (input && !wrap.querySelector(".datepicker-format-hint")) {
+          var hintEl = document.createElement("p");
+          hintEl.className = "datepicker-format-hint";
+          hintEl.textContent = "Format: mm/dd/yyyy";
+          wrap.insertBefore(hintEl, popover || null);
+        }
+
         function open() {
-          if (!sel) {
-            sel = new Date(normalizedToday);
-            if (input) input.value = formatDateMMDDYYYY(sel);
-          }
-          vm = sel.getMonth();
-          vy = sel.getFullYear();
+          if (input) input.setAttribute("placeholder", "");
+          var parsedFromInput = input ? parseTypedDate(input.value) : null;
+          if (parsedFromInput) sel = parsedFromInput;
+          vm = sel ? sel.getMonth() : normalizedToday.getMonth();
+          vy = sel ? sel.getFullYear() : normalizedToday.getFullYear();
           document.querySelectorAll(".datepicker.open").forEach(function(dp) {
             if (dp !== wrap) { dp.classList.remove("open"); dp.classList.remove("year-open"); }
           });
@@ -3037,6 +3107,7 @@
         function close() {
           wrap.classList.remove("open");
           wrap.classList.remove("year-open");
+          if (input) input.setAttribute("placeholder", defaultPlaceholder);
           if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
         }
 
@@ -3110,7 +3181,23 @@
           e.stopPropagation();
           wrap.classList.contains("open") ? close() : open();
         });
-        if (input) input.addEventListener("click", open);
+        if (input) {
+          input.addEventListener("click", open);
+          input.addEventListener("input", function() {
+            if (input.disabled) return;
+            var maskedValue = applyDateInputMask(input.value);
+            if (input.value !== maskedValue) input.value = maskedValue;
+          });
+          input.addEventListener("blur", function() {
+            commitTypedDate();
+          });
+          input.addEventListener("keydown", function(e) {
+            if (e.key !== "Enter") return;
+            e.preventDefault();
+            commitTypedDate();
+            close();
+          });
+        }
         if (prevBtn) prevBtn.addEventListener("click", function() {
           if (vm === 0) { vm = 11; vy--; } else { vm--; }
           render();
