@@ -1,0 +1,13 @@
+---
+description: Enforce screen spacing between title, intro, and first component
+alwaysApply: true
+---
+
+# Screen Spacing Rhythm Rule
+
+For every screen layout in this prototype:
+
+- The gap between `title-wrap` and `intro` must always be `12px`.
+- The gap between `intro` and the immediate component directly below it must always be `16px`.
+
+Apply this spacing consistently across all screens and mirrored files.

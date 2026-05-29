@@ -372,8 +372,25 @@
       white-space: nowrap;
     }
 
+    .appbar-status-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
     .global-pair-value.pending {
       color: #ffffff;
+    }
+
+    .global-pair-value.ctx-ok,
+    .home-landing-context-valuev2.ctx-ok {
+      color: #4cff91;
+    }
+
+    .global-pair-value.ctx-fail,
+    .home-landing-context-valuev2.ctx-fail {
+      color: #ff6b6b;
     }
 
     .global-slash {
@@ -944,6 +961,43 @@
       gap: 5px;
       padding: 10px;
       box-sizing: border-box;
+    }
+
+    .global-meta .global-pair.agency-only-context,
+    .global-meta .global-slash.agency-only-context,
+    .home-landing-contextv2 .home-landing-context-colv2.agency-only-context,
+    .home-landing-contextv2 .home-landing-context-slashv2.agency-only-context {
+      display: none;
+    }
+
+    .app-shell.agency-context-active .global-meta .global-pair.agency-only-context {
+      display: flex;
+    }
+
+    .app-shell.agency-context-active .global-meta .global-slash.agency-only-context,
+    .app-shell.agency-context-active .home-landing-contextv2 .home-landing-context-slashv2.agency-only-context {
+      display: block;
+    }
+
+    .app-shell.agency-context-active .home-landing-contextv2 .home-landing-context-colv2.agency-only-context {
+      display: flex;
+    }
+
+    .app-shell.agency-context-active .global-meta .global-pair {
+      min-width: 0;
+      width: max-content;
+    }
+
+    .app-shell.agency-context-active .home-landing-contextv2 {
+      width: auto;
+      max-width: calc(100% - 260px);
+    }
+
+    .app-shell.agency-context-active .home-landing-contextv2 .home-landing-context-colv2 {
+      flex: 0 0 auto;
+      min-width: 0;
+      width: max-content;
+      padding: 10px 4px;
     }
 
     .home-landing-context-labelv2 {
@@ -2001,7 +2055,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
       align-items: flex-start;
       background: transparent;
     }
@@ -2031,8 +2085,46 @@
       max-width: 100%;
     }
 
-    .screen .title-wrap + .intro {
+    .screen.active > .title-wrap ~ .intro {
       margin-top: 12px;
+    }
+
+    .screen.active > * + * {
+      margin-top: 16px;
+    }
+
+    .screen.active > .intro + * {
+      margin-top: 16px;
+    }
+
+    .agency-screen-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .agency-screen-section-title {
+      margin: 0;
+      color: #181818;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 590;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .agency-screen-form-grid {
+      gap: 16px 16px;
+    }
+
+    .agency-screen-question {
+      gap: 8px;
+    }
+
+    #agencyRelationshipGrid,
+    #agencyProductsGrid {
+      gap: 16px 16px;
+      margin-top: 0;
     }
 
     .screen-warning-banner {
@@ -2074,7 +2166,7 @@
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px 24px;
+      gap: 16px;
     }
 
     .field {
@@ -2247,7 +2339,7 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 20px;
-      padding: 8px 12px 8px 16px;
+      padding: 8px 0;
     }
 
     .text-link {
@@ -2664,7 +2756,7 @@
       border-radius: 8px;
       border: 1px solid #d8dde6;
       box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16), 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.2);
-      z-index: 25;
+      z-index: 40;
       display: none;
       padding: 8px 8px 6px;
       box-sizing: border-box;
@@ -2685,7 +2777,7 @@
       font-size: 12px;
       line-height: 17px;
       font-weight: 400;
-      z-index: 26;
+      z-index: 20;
     }
 
     .datepicker.open .datepicker-format-hint {
@@ -3184,18 +3276,19 @@
     }
 
     .coverage-list li::before {
-      font-size: 18px;
-      line-height: 18px;
+      content: "";
       display: inline-block;
-      width: 18px;
-      margin-top: 0;
+      width: 14px;
+      height: 14px;
+      margin-top: 2px;
       flex: 0 0 auto;
-      font-weight: 400;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 14px 14px;
     }
 
     .coverage-list li.included::before {
-      content: "✓";
-      color: #047a6b;
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M2.5%208.5%206.2%2012.2%2013.5%204.9%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272.1%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
     }
 
     .coverage-list li.excluded {
@@ -3203,8 +3296,7 @@
     }
 
     .coverage-list li.excluded::before {
-      content: "✕";
-      color: #c01958;
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M4%204%20L12%2012%20M12%204%20L4%2012%27%20stroke%3D%27%23c01958%27%20stroke-width%3D%271.9%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E");
     }
 
     .coverage-link {
@@ -3263,8 +3355,9 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, minmax(240px, 1fr));
-      gap: 24px;
-      padding-bottom: 24px;
+      column-gap: 24px;
+      row-gap: 8px;
+      padding-bottom: 0;
       margin-top: 0;
     }
 
@@ -3661,10 +3754,17 @@
     }
 
     #screen-basic.active,
-    #screen-basic-followup.active {
+    #screen-basic-followup.active,
+    #screen-basic-followup-agency.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+    }
+
+    #screen-basic.active > .intro ~ *,
+    #screen-basic-followup.active > .intro ~ *,
+    #screen-basic-followup-agency.active > .intro ~ *,
+    #screen-basic-agency.active > .intro ~ * {
+      margin-top: 16px;
     }
 
     #screen-start.active,
@@ -3675,7 +3775,6 @@
     #screen-select-plan.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
     .api-spinner-overlay {
@@ -3710,7 +3809,6 @@
     #screen-enrollment.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
     #screen-enrollment .intro {
@@ -4044,14 +4142,13 @@
     #screen-enrollment .actions.split {
       margin-top: 0;
       height: 48px;
-      padding: 8px 12px 8px 16px;
+      padding: 8px 0;
       box-sizing: border-box;
     }
 
     #screen-enrollment-second.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
     .enrollment-second-section {
@@ -4458,7 +4555,6 @@
     #screen-enrollment-third.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
     #screen-enrollment-third .intro {
@@ -4550,7 +4646,6 @@
     #screen-enrollment-fourth.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
     #screen-enrollment-fourth .intro {
@@ -4735,7 +4830,6 @@
     #screen-program-eligibilities.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
 
@@ -4870,7 +4964,6 @@
     #screen-coverage-acknowledgements-medicare.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
 
@@ -5006,7 +5099,6 @@
     #screen-underwriting-questions.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
 
@@ -5073,7 +5165,6 @@
     #screen-representation-agreements.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
 
@@ -5143,12 +5234,12 @@
     .representation-legal-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 0;
       width: 100%;
     }
 
     .representation-scroll-hint {
-      margin: 0;
+      margin: 8px 0 0;
       color: #000000;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 12px;
@@ -5202,7 +5293,6 @@
     #screen-preview-checkout.active {
       display: flex;
       flex-direction: column;
-      gap: 16px;
     }
 
 
@@ -6564,6 +6654,11 @@
             <p class="global-pair-title">Product</p>
             <p class="global-pair-value pending" id="globalProductValue">–</p>
           </div>
+          <p class="global-slash agency-only-context">/</p>
+          <div class="global-pair agency-only-context">
+            <p class="global-pair-title">IMO, FMO, NMO?</p>
+            <p class="global-pair-value pending" id="globalAgencyImoValue">–</p>
+          </div>
         </div>
         <button class="app-home-btn nav-home-btn" type="button" id="topNavHomeBtn" aria-label="Home">
           <span class="app-home-btn-icon nav-home-icon" aria-hidden="true"></span>
@@ -6591,6 +6686,11 @@
           <div class="home-landing-context-colv2">
             <p class="home-landing-context-labelv2">Product</p>
             <p class="home-landing-context-valuev2 pending" id="shellv2ProductValue">–</p>
+          </div>
+          <p class="home-landing-context-slashv2 agency-only-context">/</p>
+          <div class="home-landing-context-colv2 agency-only-context">
+            <p class="home-landing-context-labelv2">IMO, FMO, NMO?</p>
+            <p class="home-landing-context-valuev2 pending" id="shellv2AgencyImoValue">–</p>
           </div>
         </div>
         <button class="app-home-btn home-landing-home-btn home-btn-alt" type="button" id="shellv2HomeBtn" aria-label="Home">
@@ -6883,7 +6983,7 @@
               </div>
             </div>
 
-            <div class="field full is-hidden" id="originalLicensureDateField" style="margin-top: 10px;">
+            <div class="field full is-hidden" id="originalLicensureDateField">
               <p class="label"><span class="required">*</span>Original Licensure Date <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The original date that you were licensed to transact business in the insurance industry. If this was more than 3 years ago, you can enter an approximate date." data-tooltip-position="bottom-left"></span></p>
               <div class="datepicker" id="licensureDatePicker">
                 <div class="input-field datepicker-input" id="licensureDateInputWrap">
@@ -6917,7 +7017,7 @@
               </div>
             </div>
 
-            <div class="field full" style="margin-top: 10px;">
+            <div class="field full">
               <p class="label"><span class="required">*</span>What insurance products do you sell and service? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best describes your book of business.&#10;If you are not yet dual licensed, other lines of business can be added and coverages updated after your policy is in effect." data-tooltip-position="bottom-left"></span></p>
               <div class="option-grid" id="productsGrid" role="radiogroup" aria-label="What insurance products do you sell and service?">
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="lh-only"><span class="dot"></span><span class="option-label">Life &amp; Health (L&amp;H) Only</span></button>
@@ -6963,7 +7063,7 @@
               </div>
             </div>
 
-            <div class="choice-group field full" style="margin-top: 8px;">
+            <div class="choice-group field full">
               <p class="label"><span class="required">*</span>When do you need coverage to start? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If your most recent coverage has an expiration date other than the 1st of the month, please review the Certificate Period Endorsement information listed below to avoid any lapse in coverage." data-tooltip-position="bottom-left"></span></p>
               <div class="choice-grid" id="coverageStartGrid" role="radiogroup" aria-label="When do you need coverage to start?">
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-coverage-start-option="01-01-2026"><span class="choice-dot"></span><span class="choice-label">01/01/2026</span></button>
@@ -6985,6 +7085,152 @@
               <div class="button-row">
                 <button class="secondary-btn" type="button" id="basicFollowupPreviousBtn">Previous</button>
                 <button class="next-btn" type="button" id="basicFollowupNextBtn">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen" id="screen-basic-agency">
+            <div class="title-wrap">
+              <h1>Professional Information</h1>
+              <div class="title-line"></div>
+            </div>
+            <div class="screen-warning-banner is-hidden" id="proInfoAgencyWarningBanner" role="alert">
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
+            </div>
+            <p class="intro">
+              To ensure we provide you with the most appropriate coverage options, now tell us a little about you and your business
+            </p>
+            <div class="agency-screen-section">
+              <p class="agency-screen-section-title">Agency Information</p>
+
+              <div class="form-grid agency-screen-form-grid">
+              <div class="enrollment-field">
+                <div class="input-field ajg-input-field">
+                  <label class="ajg-input-label" for="agencyFlowNameInput">
+                    <span class="ajg-input-label-text">Name of the Agency you would like to add</span>
+                    <span class="field-required" aria-hidden="true">*</span>
+                  </label>
+                  <input class="input-text ajg-input-control" type="text" id="agencyFlowNameInput" placeholder="Name of the Agency you would like to add" />
+                </div>
+              </div>
+              <div class="enrollment-field">
+                <div class="input-field ajg-input-field">
+                  <label class="ajg-input-label" for="agencyFlowTaxIdInput">
+                    <span class="ajg-input-label-text">Agency tax ID</span>
+                    <span class="field-required" aria-hidden="true">*</span>
+                  </label>
+                  <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" />
+                </div>
+              </div>
+            </div>
+
+            <div class="field full agency-screen-question">
+              <p class="label"><span class="required">*</span>What's your relationship within the Agency? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best matches your role in the agency." data-tooltip-position="bottom-left"></span></p>
+              <div class="option-grid" id="agencyRelationshipGrid" role="radiogroup" aria-label="What's your relationship within the Agency?">
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="owner"><span class="dot"></span><span class="option-label">I'm an Agency Owner</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="authorized-contact"><span class="dot"></span><span class="option-label">I'm an Authorized Contact</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="producer"><span class="dot"></span><span class="option-label">I'm a Producer</span></button>
+              </div>
+            </div>
+
+            <div class="field full agency-screen-question">
+              <p class="label"><span class="required">*</span>What insurance products does your agency sell and service? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best describes your agency's current book of business." data-tooltip-position="bottom-left"></span></p>
+              <div class="option-grid" id="agencyProductsGrid" role="radiogroup" aria-label="What insurance products does your agency sell and service?">
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="lh-only"><span class="dot"></span><span class="option-label">Life &amp; Health (L&amp;H) Only</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="lh-mostly-49"><span class="dot"></span><span class="option-label">Mostly L&amp;H with P&amp;C</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="pc-only"><span class="dot"></span><span class="option-label">Property &amp; Casualty (P&amp;C) Only</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="pc-some-lh"><span class="dot"></span><span class="option-label">Mostly P&amp;C with some L&amp;H</span></button>
+              </div>
+              <div class="note-box hidden" id="agencyProductSelectionNote">
+                <span id="agencyProductSelectionNoteBody"></span>
+              </div>
+            </div>
+          </div>
+
+            <div class="actions split">
+              <button class="base-btn" type="button">Save for later</button>
+              <div class="button-row">
+                <button class="secondary-btn" type="button" id="agencyBasicPreviousBtn">Previous</button>
+                <button class="next-btn" type="button" id="agencyBasicNextBtn">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen" id="screen-basic-followup-agency">
+            <div class="title-wrap">
+              <h1>Professional Information</h1>
+              <div class="title-line"></div>
+            </div>
+            <div class="screen-warning-banner is-hidden" id="proInfoAgencyFollowupWarningBanner" role="alert">
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <p class="screen-warning-banner-text">You must select whether your agency is an IMO, FMO or NMO to continue</p>
+            </div>
+            <p class="intro">
+              To ensure we provide you with the most appropriate coverage options, now tell us a little about you and your business
+            </p>
+
+            <div class="field full">
+              <p class="label"><span class="required">*</span>Is your agency an IMO, FMO or NMO?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Independent Marketing Organizations (IMOs), Field Marketing Organizations (FMOs), and National Marketing Organizations (NMOs) support independent insurance agents with carrier access, training, and admin services.&#10;&#10;Often used interchangeably, FMOs typically focus on health/Medicare, IMOs on life/annuities, and NMOs operate at a broader national level.&#10;&#10;Agents in these models are usually independent, paid directly by carriers, and often retain ownership of their book, unlike traditional retail agencies." data-tooltip-position="bottom-left"></span></p>
+              <div class="mini-radio" role="radiogroup" aria-label="Is your agency an IMO, FMO or NMO?">
+                <button type="button" role="radio" aria-checked="false" data-agency-imo-option="yes">Yes</button>
+                <button type="button" role="radio" aria-checked="false" data-agency-imo-option="no">No</button>
+              </div>
+            </div>
+
+            <div class="field full">
+              <p class="label"><span class="required">*</span>Are all of your agents, whether W2 or 1099 exclusive to you?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="W-2 agents (employees) and 1099 agents (independent contractors) can both be covered when acting on behalf of your agency (including IMOs/FMOs/NMOs).&#10;&#10;This policy extends to your contractors, but for non-exclusive agents, coverage only applies if they maintain their own E&amp;O insurance (minimum $1M/$1M, AM Best B+ or better).&#10;&#10;Coverage for non-exclusive agents is excess over their own policy, and if they fail to maintain it, no coverage applies for their acts or for the agency related to those acts." data-tooltip-position="bottom-left"></span></p>
+              <div class="mini-radio" role="radiogroup" aria-label="Are all of your agents, whether W2 or 1099 exclusive to you?">
+                <button type="button" role="radio" aria-checked="false" data-agency-exclusive-option="yes">Yes</button>
+                <button type="button" role="radio" aria-checked="false" data-agency-exclusive-option="no">No</button>
+              </div>
+            </div>
+
+            <div class="field full">
+              <div class="coverage-warning-note is-hidden" id="agencyExclusiveImportantNote" style="margin-top: 0;">
+                <strong>IMPORTANT:</strong> Coverage does not extend to business sold or serviced outside of the Named Insured Agency. Non-Exclusive agents need to maintain their own E&amp;O Policies.
+              </div>
+            </div>
+
+            <div class="field full">
+              <p class="label"><span class="required">*</span>Select your agency's current gross annual income range</p>
+              <div class="select-display ajg-dropdown" id="agencyGrossIncomeRangeDropdown" data-dropdown data-dropdown-placeholder="Select a range">
+                <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="ajg-dropdown-value" data-dropdown-value></span>
+                  <span class="chevron" aria-hidden="true"></span>
+                </button>
+                <input type="hidden" id="agencyGrossIncomeRangeInput" name="agencyGrossIncomeRange" data-dropdown-input />
+                <div class="ajg-dropdown-listbox" role="listbox" aria-label="Select your agency's current gross annual income range options">
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value=""><span class="ajg-dropdown-check" aria-hidden="true"></span><span>Select a range</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="lt-100k"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>&lt;$100K</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="100k-250k"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$100K-$250K</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="250k-500k"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$250K-$500K</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="500k-750k"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$500K-$750K</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="750k-1m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$750K-$1M</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="1m-1_5m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1M-$1.5M</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="1_5m-2m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$1.5M-$2M</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="2m-2_5m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2M-$2.5M</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="2_5m-3m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>$2.5M-$3M</span></button>
+                  <button class="ajg-dropdown-option" type="button" role="option" data-value="gt-3m"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>&gt;$3M</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="choice-group field full">
+              <p class="label"><span class="required">*</span>When do you need coverage to start?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If your most recent coverage has an expiration date other than the 1st of the month, please review the Certificate Period Endorsement information listed below to avoid any lapse in coverage." data-tooltip-position="bottom-left"></span></p>
+              <div class="choice-grid" id="agencyCoverageStartGrid" role="radiogroup" aria-label="When do you need coverage to start?">
+                <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="01-01-2026"><span class="choice-dot"></span><span class="choice-label">01/01/2026</span></button>
+                <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="02-01-2026"><span class="choice-dot"></span><span class="choice-label">02/01/2026</span></button>
+                <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="03-01-2026"><span class="choice-dot"></span><span class="choice-label">03/01/2026</span></button>
+                <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="04-01-2026"><span class="choice-dot"></span><span class="choice-label">04/01/2026</span></button>
+              </div>
+            </div>
+
+            <div class="actions split">
+              <button class="base-btn" type="button">Save for later</button>
+              <div class="button-row">
+                <button class="secondary-btn" type="button" id="agencyFollowupPreviousBtn">Previous</button>
+                <button class="next-btn" type="button" id="agencyFollowupNextBtn">Next</button>
               </div>
             </div>
           </div>
@@ -7044,7 +7290,7 @@
               Just a few more questions and we'll be able to show you available rates. Please answer them below.
             </p>
 
-            <div class="field full" style="margin-top: 4px;">
+            <div class="field full">
               <p class="coverage-subtitle">Life &amp; Health Products</p>
             </div>
 
@@ -7181,7 +7427,7 @@
               Just a few more questions and we'll be able to show you available rates. Please answer them below.
             </p>
 
-            <div class="field full" style="margin-top: 4px;">
+            <div class="field full">
               <p class="coverage-subtitle">Property &amp; Casualty Products</p>
             </div>
 
@@ -7312,13 +7558,13 @@
             <div class="field full" style="display:flex;flex-direction:column;gap:16px;margin-top:0;">
               <p class="coverage-subtitle">Cyber Liability Coverage</p>
               <div class="cyber-coverage-list" aria-label="Cyber Liability Coverage Included Features">
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Hacking</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Data Breaches &amp; Lost Information</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Disclosure of Confidential Information</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Defense &amp; Legal Costs</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Regulatory Fines &amp; Penalties</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Multimedia Liability</div>
-                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%2304e1cb%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Crime &amp; Extortion</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Hacking</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Data Breaches &amp; Lost Information</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Disclosure of Confidential Information</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Defense &amp; Legal Costs</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Regulatory Fines &amp; Penalties</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Multimedia Liability</div>
+                <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Crime &amp; Extortion</div>
               </div>
             </div>
 
@@ -8809,8 +9055,12 @@
       const nextBtn = document.getElementById("nextBtn");
       const basicNextBtn = document.getElementById("basicNextBtn");
       const previousBtn = document.getElementById("previousBtn");
+      const agencyBasicPreviousBtn = document.getElementById("agencyBasicPreviousBtn");
+      const agencyBasicNextBtn = document.getElementById("agencyBasicNextBtn");
       const basicFollowupPreviousBtn = document.getElementById("basicFollowupPreviousBtn");
       const basicFollowupNextBtn = document.getElementById("basicFollowupNextBtn");
+      const agencyFollowupPreviousBtn = document.getElementById("agencyFollowupPreviousBtn");
+      const agencyFollowupNextBtn = document.getElementById("agencyFollowupNextBtn");
       const coverageOptionsPreviousBtn = document.getElementById("coverageOptionsPreviousBtn");
       const coverageOptionsNextBtn = document.getElementById("coverageOptionsNextBtn");
       const coverageOptionsMedicarePreviousBtn = document.getElementById("coverageOptionsMedicarePreviousBtn");
@@ -8881,6 +9131,8 @@
       const selectPlanCards = Array.from(document.querySelectorAll("#selectPlanGrid .plan-card"));
       const screenBasic = document.getElementById("screen-basic");
       const screenBasicFollowup = document.getElementById("screen-basic-followup");
+      const screenBasicAgency = document.getElementById("screen-basic-agency");
+      const screenBasicFollowupAgency = document.getElementById("screen-basic-followup-agency");
       const screenCoverageOptions = document.getElementById("screen-coverage-options");
       const screenCoverageOptionsMedicare = document.getElementById("screen-coverage-options-medicare");
       const screenCoverageOptionsPc = document.getElementById("screen-coverage-options-pc");
@@ -8913,12 +9165,25 @@
       const ajgDropdowns = Array.from(document.querySelectorAll(".ajg-dropdown[data-dropdown]"));
       const flowValueEl = document.getElementById("globalFlowValue");
       const productValueEl = document.getElementById("globalProductValue");
+      const agencyImoValueEl = document.getElementById("globalAgencyImoValue");
       const productOptions = Array.from(document.querySelectorAll("#productsGrid .option-card"));
+      const agencyRelationshipOptions = Array.from(document.querySelectorAll("#agencyRelationshipGrid .option-card"));
+      const agencyProductOptions = Array.from(document.querySelectorAll("#agencyProductsGrid .option-card"));
+      const agencyFlowNameInput = document.getElementById("agencyFlowNameInput");
+      const agencyFlowTaxIdInput = document.getElementById("agencyFlowTaxIdInput");
+      const agencyProductSelectionNote = document.getElementById("agencyProductSelectionNote");
+      const agencyProductSelectionNoteBody = document.getElementById("agencyProductSelectionNoteBody");
       const coverageAcknowledgementsIncludedList = document.getElementById("coverageAcknowledgementsIncludedList");
       const coverageAcknowledgementsExcludedList = document.getElementById("coverageAcknowledgementsExcludedList");
       const underwritingQuestionRadios = Array.from(document.querySelectorAll('[data-underwriting-radio]'));
       const grossIncomeOptions = Array.from(document.querySelectorAll("#grossIncomeGrid .choice-option"));
       const coverageStartOptions = Array.from(document.querySelectorAll("#coverageStartGrid .choice-option"));
+      const agencyImoOptions = Array.from(document.querySelectorAll('[data-agency-imo-option]'));
+      const agencyExclusiveOptions = Array.from(document.querySelectorAll('[data-agency-exclusive-option]'));
+      const agencyCoverageStartOptions = Array.from(document.querySelectorAll("#agencyCoverageStartGrid .choice-option"));
+      const agencyGrossIncomeRangeInput = document.getElementById("agencyGrossIncomeRangeInput");
+      const agencyGrossIncomeRangeDropdown = document.getElementById("agencyGrossIncomeRangeDropdown");
+      const agencyExclusiveImportantNote = document.getElementById("agencyExclusiveImportantNote");
       const coveragePackageOptions = Array.from(document.querySelectorAll("#coverageOptionsGrid .coverage-card"));
       const coveragePackageMedicareOptions = Array.from(document.querySelectorAll("#coverageOptionsMedicareGrid .coverage-card"));
       const coveragePackagePcOptions = Array.from(document.querySelectorAll("#coverageOptionsPcGrid .coverage-card"));
@@ -8950,7 +9215,14 @@
         banner.setAttribute("role", "alert");
         const icon = document.createElement("img");
         icon.className = "screen-warning-banner-icon";
-        icon.src = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E";
+        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
+        const fallbackBannerIcon = document.querySelector(".screen-warning-banner-icon");
+        const iconSrc = sharedBannerIcon?.getAttribute("src") || fallbackBannerIcon?.getAttribute("src") || "";
+        if (iconSrc) {
+          icon.src = iconSrc;
+        } else {
+          icon.style.display = "none";
+        }
         icon.alt = "";
         icon.setAttribute("aria-hidden", "true");
         const text = document.createElement("p");
@@ -8974,12 +9246,21 @@
         const el = document.getElementById(id);
         if (el) el.classList.add("is-hidden");
       }
+      (function syncAgencyWarningBannerIcon() {
+        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
+        const agencyBannerIcon = document.querySelector("#proInfoAgencyWarningBanner .screen-warning-banner-icon");
+        const agencyFollowupBannerIcon = document.querySelector("#proInfoAgencyFollowupWarningBanner .screen-warning-banner-icon");
+        if (!sharedBannerIcon) return;
+        if (agencyBannerIcon) agencyBannerIcon.src = sharedBannerIcon.src;
+        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.src = sharedBannerIcon.src;
+      })();
       const homeLandingPage = document.getElementById("homeLandingPage");
       const homeLandingHomeBtn = document.getElementById("homeLandingHomeBtn");
       const homeLandingHomeBtnV2 = document.getElementById("homeLandingHomeBtnV2");
       const shellv2HomeBtn = document.getElementById("shellv2HomeBtn");
       const shellv2FlowValue = document.getElementById("shellv2FlowValue");
       const shellv2ProductValue = document.getElementById("shellv2ProductValue");
+      const shellv2AgencyImoValue = document.getElementById("shellv2AgencyImoValue");
       const shellv2Timer = document.getElementById("shellv2Timer");
       const shellv2TimerDisplay = document.getElementById("shellv2TimerDisplay");
       const appBarDividerSvg = document.getElementById("appBarDividerSvg");
@@ -9454,6 +9735,13 @@
       let selectedCoverageLimit = null; // "$100K / $100K Limits" | "$100K / $250K Limits" | "Decline"
       let selectedPlan = null;          // e.g. "$1 million per claim / $1 million annual aggregate"
       let selectedProductKey = null;    // "lh-only" | "lh-mostly-25" | "lh-mostly-49" | "pc-only" | "pc-some-lh" | "medicare-only"
+      let selectedAgencyProductKey = null;
+      const agencyProductMessageByOption = {
+        "lh-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing P&C products. If a single agent sells or services any P&C products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both L&H and P&C before you proceed.",
+        "pc-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing L&H products. If a single agent sells or services any L&H products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both P&C and L&H before you proceed.",
+        "lh-mostly-49": "<strong>IMPORTANT:</strong> The option you have selected indicates your Agency is generating at least 51% of revenue from the sale and servicing of L&H products. If this is correct, click <strong>Next</strong>.<br /><br />&nbsp;If this is incorrect, please select the appropriate option for the products you sell and service before you proceed.",
+        "pc-some-lh": "<strong>IMPORTANT:</strong> The option you have selected indicates your Agency is generating at least 51% of revenue from the sale and servicing of P&C products. If this is correct, click <strong>Next</strong>.<br /><br />&nbsp;If this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
+      };
       let selectedGrossIncome = null;   // e.g. "<$100K", "$100K-$250K", ... ">$1M"
       let isHighIncomeFlag = false;     // true when selectedGrossIncome is ">$1M"
       let customBillingAddress = null;
@@ -9489,27 +9777,72 @@
       }
 
       function populateCoverageStartOptions() {
-        if (!coverageStartOptions.length) return;
+        if (!coverageStartOptions.length && !agencyCoverageStartOptions.length) return;
         // Order requested by product rules:
         // 1 month prior, current month, 1 month ahead, 2 months ahead.
         const monthOffsets = [-1, 0, 1, 2];
-        coverageStartOptions.forEach(function setCoverageStartOption(option, index) {
-          const monthOffset = monthOffsets[index];
-          if (typeof monthOffset !== "number") return;
-          const monthStart = new Date(normalizedToday.getFullYear(), normalizedToday.getMonth() + monthOffset, 1);
-          const formatted = formatDateMMDDYYYY(monthStart);
-          const labelEl = option.querySelector(".choice-label");
-          if (labelEl) labelEl.textContent = formatted;
-          option.setAttribute("data-coverage-start-option", formatted);
-          option.setAttribute("aria-label", formatted);
-        });
+        function applyCoverageStartValues(options, dataAttr) {
+          options.forEach(function setCoverageStartOption(option, index) {
+            const monthOffset = monthOffsets[index];
+            if (typeof monthOffset !== "number") return;
+            const monthStart = new Date(normalizedToday.getFullYear(), normalizedToday.getMonth() + monthOffset, 1);
+            const formatted = formatDateMMDDYYYY(monthStart);
+            const labelEl = option.querySelector(".choice-label");
+            if (labelEl) labelEl.textContent = formatted;
+            option.setAttribute(dataAttr, formatted);
+            option.setAttribute("aria-label", formatted);
+          });
+        }
+        applyCoverageStartValues(coverageStartOptions, "data-coverage-start-option");
+        applyCoverageStartValues(agencyCoverageStartOptions, "data-agency-coverage-start-option");
       }
 
-      function setGlobalContext(flowLabel, productLabel) {
+      function renderAgencyImoIndicator(targetEl, indicatorValue) {
+        if (!targetEl) return;
+        const baseClass = targetEl.className
+          .split(/\s+/)
+          .filter(function(token) {
+            return token && token !== "ctx-ok" && token !== "ctx-fail";
+          })
+          .join(" ");
+        if (indicatorValue === "yes") {
+          targetEl.textContent = "✓";
+          targetEl.className = baseClass + " ctx-ok";
+          return;
+        }
+        if (indicatorValue === "no") {
+          targetEl.textContent = "✕";
+          targetEl.className = baseClass + " ctx-fail";
+          return;
+        }
+        targetEl.textContent = "–";
+        targetEl.className = baseClass;
+      }
+
+      function setGlobalContext(flowLabel, productLabel, agencyImoIndicator) {
+        const safeAgencyImoIndicator = agencyImoIndicator === "yes" || agencyImoIndicator === "no"
+          ? agencyImoIndicator
+          : null;
+        const isAgencyFlow = String(flowLabel || "").trim().toLowerCase() === "agency";
+        if (appShellEl) appShellEl.classList.toggle("agency-context-active", isAgencyFlow);
         if (flowValueEl) flowValueEl.textContent = flowLabel;
         if (productValueEl) productValueEl.textContent = productLabel;
+        renderAgencyImoIndicator(agencyImoValueEl, safeAgencyImoIndicator);
         if (shellv2FlowValue) shellv2FlowValue.textContent = flowLabel;
         if (shellv2ProductValue) shellv2ProductValue.textContent = productLabel;
+        renderAgencyImoIndicator(shellv2AgencyImoValue, safeAgencyImoIndicator);
+      }
+
+      function syncAgencyImoContextIndicator() {
+        const selectedAgencyImoOption = agencyImoOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const optionValue = selectedAgencyImoOption
+          ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
+          : null;
+        const currentFlowValue = flowValueEl ? flowValueEl.textContent : "–";
+        const currentProductValue = productValueEl ? productValueEl.textContent : "–";
+        setGlobalContext(currentFlowValue || "–", currentProductValue || "–", optionValue);
       }
 
       function syncStartHereApplicant() {
@@ -10149,6 +10482,8 @@
         if (screenStart) screenStart.classList.toggle("active", screenId === "start");
         if (screenBasic) screenBasic.classList.toggle("active", screenId === "basic");
         if (screenBasicFollowup) screenBasicFollowup.classList.toggle("active", screenId === "basic-followup");
+        if (screenBasicAgency) screenBasicAgency.classList.toggle("active", screenId === "basic-agency");
+        if (screenBasicFollowupAgency) screenBasicFollowupAgency.classList.toggle("active", screenId === "basic-followup-agency");
         if (screenCustomPolicyRequest) screenCustomPolicyRequest.classList.toggle("active", screenId === "custom-policy-request");
         if (screenCoverageOptions) screenCoverageOptions.classList.toggle("active", screenId === "coverage-options");
         if (screenCoverageOptionsMedicare) screenCoverageOptionsMedicare.classList.toggle("active", screenId === "coverage-options-medicare");
@@ -10200,9 +10535,23 @@
         startTimer();
       }
 
+      function goToBasicAgencyScreen() {
+        setHomeLandingActive(false);
+        showScreen("basic-agency");
+        setEnrollmentActiveStep(1);
+        setGlobalContext("Agency", "–");
+        startTimer();
+      }
+
       function goToBasicFollowupScreen() {
         setHomeLandingActive(false);
         showScreen("basic-followup");
+        setEnrollmentActiveStep(1);
+      }
+
+      function goToBasicFollowupAgencyScreen() {
+        setHomeLandingActive(false);
+        showScreen("basic-followup-agency");
         setEnrollmentActiveStep(1);
       }
 
@@ -10264,6 +10613,8 @@
 
       function getSelectedCoverageStartLabel() {
         const selectedCoverageStart = coverageStartOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        }) || agencyCoverageStartOptions.find(function(option) {
           return option.getAttribute("aria-checked") === "true";
         });
         if (!selectedCoverageStart) return "";
@@ -10764,6 +11115,11 @@
         return null;
       }
 
+      function isAgencyContextFlow() {
+        const flowLabel = flowValueEl ? flowValueEl.textContent : "";
+        return String(flowLabel || "").trim().toLowerCase() === "agency";
+      }
+
       function goToCoverageScreenById(screenId) {
         if (screenId === "coverage-options-medicare") {
           goToCoverageOptionsMedicareScreen();
@@ -10781,7 +11137,11 @@
         if (activeIndex > 0) {
           goToCoverageScreenById(sequence[activeIndex - 1]);
         } else {
-          goToBasicFollowupScreen();
+          if (isAgencyContextFlow()) {
+            goToBasicFollowupAgencyScreen();
+          } else {
+            goToBasicFollowupScreen();
+          }
         }
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -11044,6 +11404,47 @@
         if (shouldFocus && selectedOption) selectedOption.focus();
       }
 
+      function updateAgencyOptionSelection(options, selectedOption, shouldFocus) {
+        options.forEach(function(option) {
+          const isSelected = option === selectedOption;
+          option.classList.toggle("selected", isSelected);
+          option.setAttribute("aria-checked", isSelected ? "true" : "false");
+          option.tabIndex = isSelected ? 0 : -1;
+        });
+        if (shouldFocus && selectedOption) selectedOption.focus();
+      }
+
+      function updateAgencyProductSelection(selectedOption, shouldFocus) {
+        updateAgencyOptionSelection(agencyProductOptions, selectedOption, shouldFocus);
+        selectedAgencyProductKey = selectedOption ? (selectedOption.getAttribute("data-agency-product-option") || null) : null;
+        if (selectedOption) hideScopedErrorBanner("proInfoAgencyWarningBanner");
+        if (selectedOption) hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+        if (agencyProductSelectionNote && agencyProductSelectionNoteBody) {
+          if (!selectedAgencyProductKey) {
+            agencyProductSelectionNote.classList.add("hidden");
+            agencyProductSelectionNoteBody.innerHTML = "";
+          } else {
+            agencyProductSelectionNote.classList.remove("hidden");
+            agencyProductSelectionNoteBody.innerHTML = agencyProductMessageByOption[selectedAgencyProductKey] || "";
+          }
+        }
+      }
+
+      function getSelectedAgencyProductLabel() {
+        const selectedOption = agencyProductOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        if (!selectedOption) return null;
+        const labelEl = selectedOption.querySelector(".option-label");
+        return labelEl ? labelEl.textContent.trim() : null;
+      }
+
+      function hasSelectedAgencyRelationship() {
+        return agencyRelationshipOptions.some(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+      }
+
       function getSelectedProductLabel() {
         const selectedOption = productOptions.find(function findSelected(option) {
           return option.getAttribute("aria-checked") === "true";
@@ -11069,6 +11470,23 @@
           option.tabIndex = isSelected ? 0 : -1;
         });
         if (shouldFocus && selectedOption) selectedOption.focus();
+      }
+
+      function updateMiniRadioSelection(options, selectedOption, shouldFocus) {
+        options.forEach(function updateOption(option) {
+          const isSelected = option === selectedOption;
+          option.setAttribute("aria-checked", isSelected ? "true" : "false");
+          option.tabIndex = isSelected ? 0 : -1;
+        });
+        if (shouldFocus && selectedOption) selectedOption.focus();
+      }
+
+      function syncAgencyExclusiveImportantNote() {
+        if (!agencyExclusiveImportantNote) return;
+        const showImportantNote = agencyExclusiveOptions.some(function(option) {
+          return option.getAttribute("data-agency-exclusive-option") === "no" && option.getAttribute("aria-checked") === "true";
+        });
+        agencyExclusiveImportantNote.classList.toggle("is-hidden", !showImportantNote);
       }
 
       function syncOriginalLicensureDateVisibility() {
@@ -11097,9 +11515,21 @@
         if (enrollDP)  enrollDP.close();
         clearRadioSelection();
         updateProductSelection(null, false);
+        updateAgencyOptionSelection(agencyRelationshipOptions, null, false);
+        updateAgencyProductSelection(null, false);
+        if (agencyFlowNameInput) agencyFlowNameInput.value = "";
+        if (agencyFlowTaxIdInput) agencyFlowTaxIdInput.value = "";
         if (productOptions.length) productOptions[0].tabIndex = 0;
+        if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
+        if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
         updateChoiceSelection(grossIncomeOptions, null, false);
         updateChoiceSelection(coverageStartOptions, null, false);
+        updateChoiceSelection(agencyCoverageStartOptions, null, false);
+        updateMiniRadioSelection(agencyImoOptions, null, false);
+        updateMiniRadioSelection(agencyExclusiveOptions, null, false);
+        syncAgencyImoContextIndicator();
+        syncAgencyExclusiveImportantNote();
+        setAjgDropdownValue(agencyGrossIncomeRangeDropdown, "");
         updateChoiceSelection(coveragePackageOptions, null, false);
         updateChoiceSelection(coveragePackageMedicareOptions, null, false);
         updateChoiceSelection(coveragePackagePcOptions, null, false);
@@ -11118,6 +11548,9 @@
         populateCoverageStartOptions();
         if (grossIncomeOptions.length) grossIncomeOptions[0].tabIndex = 0;
         if (coverageStartOptions.length) coverageStartOptions[0].tabIndex = 0;
+        if (agencyCoverageStartOptions.length) agencyCoverageStartOptions[0].tabIndex = 0;
+        if (agencyImoOptions.length) agencyImoOptions[0].tabIndex = 0;
+        if (agencyExclusiveOptions.length) agencyExclusiveOptions[0].tabIndex = 0;
         if (coveragePackageOptions.length) coveragePackageOptions[0].tabIndex = 0;
         if (coveragePackageMedicareOptions.length) coveragePackageMedicareOptions[0].tabIndex = 0;
         if (coveragePackagePcOptions.length) coveragePackagePcOptions[0].tabIndex = 0;
@@ -11265,7 +11698,7 @@
         });
         if (agencyFlowNote) {
           const option = targetButton.getAttribute("data-radio-option");
-          agencyFlowNote.classList.toggle("visible", option === "agency");
+          agencyFlowNote.classList.remove("visible");
           if (nextBtn) {
             nextBtn.disabled = option !== "agent" && option !== "agency";
           }
@@ -11304,6 +11737,11 @@
             if (mainScrollEl) {
               mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
             }
+          } else if (option === "agency") {
+            goToBasicAgencyScreen();
+            if (mainScrollEl) {
+              mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }
         });
       }
@@ -11334,6 +11772,35 @@
         });
       }
 
+      if (agencyBasicPreviousBtn) {
+        agencyBasicPreviousBtn.addEventListener("click", function onAgencyBasicPrevious() {
+          goToStartScreen();
+          if (mainScrollEl) {
+            mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      }
+
+      if (agencyBasicNextBtn) {
+        agencyBasicNextBtn.addEventListener("click", function onAgencyBasicNext() {
+          const selectedProductLabel = getSelectedAgencyProductLabel();
+          if (!selectedProductLabel || !selectedAgencyProductKey) {
+            showScopedErrorBanner("proInfoAgencyWarningBanner");
+            if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          hideScopedErrorBanner("proInfoAgencyWarningBanner");
+          hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+          selectedProductKey = selectedAgencyProductKey;
+          window.prototypeSelections.selectedProductKey = selectedProductKey;
+          setGlobalContext("Agency", selectedProductLabel);
+          goToBasicFollowupAgencyScreen();
+          if (mainScrollEl) {
+            mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      }
+
       if (basicFollowupPreviousBtn) {
         basicFollowupPreviousBtn.addEventListener("click", function onBasicFollowupPrevious() {
           showScreen("basic");
@@ -11356,6 +11823,40 @@
           const selectedProductKey = getSelectedProductKey();
           const sequence = getCoverageFlowSequence(selectedProductKey);
           goToCoverageScreenById(sequence[0]);
+          if (mainScrollEl) {
+            mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      }
+
+      if (agencyFollowupPreviousBtn) {
+        agencyFollowupPreviousBtn.addEventListener("click", function onAgencyFollowupPrevious() {
+          showScreen("basic-agency");
+          setEnrollmentActiveStep(1);
+          if (mainScrollEl) {
+            mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      }
+
+      if (agencyFollowupNextBtn) {
+        agencyFollowupNextBtn.addEventListener("click", function onAgencyFollowupNext() {
+          const hasImoSelection = agencyImoOptions.some(function(option) {
+            return option.getAttribute("aria-checked") === "true";
+          });
+          if (!hasImoSelection) {
+            showScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+            if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+          hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+          const selectedRangeOption = agencyGrossIncomeRangeDropdown
+            ? agencyGrossIncomeRangeDropdown.querySelector(".ajg-dropdown-option.selected")
+            : null;
+          const selectedRangeLabel = selectedRangeOption ? selectedRangeOption.textContent.trim() : "";
+          selectedGrossIncome = selectedRangeLabel || selectedGrossIncome;
+          isHighIncomeFlag = false;
+          goToCoverageScreenById(getCoverageFlowSequence(getSelectedProductKey())[0]);
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
           }
@@ -11707,8 +12208,39 @@
         });
       });
 
+      function bindOptionCardGroup(options, onSelect) {
+        options.forEach(function(option) {
+          option.addEventListener("click", function() {
+            onSelect(option, false);
+          });
+          option.addEventListener("keydown", function(event) {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              option.click();
+              return;
+            }
+            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+              event.preventDefault();
+              const currentIndex = options.indexOf(option);
+              const delta = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+              const nextIndex = (currentIndex + delta + options.length) % options.length;
+              onSelect(options[nextIndex], true);
+            }
+          });
+        });
+      }
+
+      bindOptionCardGroup(agencyRelationshipOptions, function(selectedOption, shouldFocus) {
+        hideScopedErrorBanner("proInfoAgencyWarningBanner");
+        hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+        updateAgencyOptionSelection(agencyRelationshipOptions, selectedOption, shouldFocus);
+      });
+      bindOptionCardGroup(agencyProductOptions, updateAgencyProductSelection);
+
       updateProductSelection(null, false);
       if (productOptions.length) productOptions[0].tabIndex = 0;
+      if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
+      if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
       updateChoiceSelection(grossIncomeOptions, null, false);
       updateChoiceSelection(coverageStartOptions, null, false);
       updateChoiceSelection(coveragePackageOptions, null, false);
@@ -11756,10 +12288,59 @@
       });
 
       bindChoiceGroup(coverageStartOptions);
+      bindChoiceGroup(agencyCoverageStartOptions);
       bindChoiceGroup(coveragePackageOptions);
       bindChoiceGroup(coveragePackageMedicareOptions);
       bindChoiceGroup(coveragePackagePcOptions);
       bindChoiceGroup(coverageLimitsAddonOptions);
+
+      function bindMiniRadioGroup(options) {
+        options.forEach(function(option) {
+          option.addEventListener("click", function() {
+            hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+            updateMiniRadioSelection(options, option, false);
+            if (options === agencyImoOptions) syncAgencyImoContextIndicator();
+            if (options === agencyExclusiveOptions) syncAgencyExclusiveImportantNote();
+          });
+          option.addEventListener("keydown", function(event) {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              option.click();
+              return;
+            }
+            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+              event.preventDefault();
+              const currentIndex = options.indexOf(option);
+              const delta = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+              const nextIndex = (currentIndex + delta + options.length) % options.length;
+              hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+              updateMiniRadioSelection(options, options[nextIndex], true);
+              if (options === agencyImoOptions) syncAgencyImoContextIndicator();
+              if (options === agencyExclusiveOptions) syncAgencyExclusiveImportantNote();
+            }
+          });
+        });
+      }
+
+      bindMiniRadioGroup(agencyImoOptions);
+      bindMiniRadioGroup(agencyExclusiveOptions);
+      syncAgencyImoContextIndicator();
+      syncAgencyExclusiveImportantNote();
+
+      agencyCoverageStartOptions.forEach(function(option) {
+        option.addEventListener("click", function() {
+          hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+        });
+      });
+
+      if (agencyGrossIncomeRangeDropdown) {
+        const rangeOptions = Array.from(agencyGrossIncomeRangeDropdown.querySelectorAll(".ajg-dropdown-option"));
+        rangeOptions.forEach(function(option) {
+          option.addEventListener("click", function() {
+            hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+          });
+        });
+      }
 
       coverageLimitsAddonOptions.forEach(function(card) {
         card.addEventListener("click", function() {

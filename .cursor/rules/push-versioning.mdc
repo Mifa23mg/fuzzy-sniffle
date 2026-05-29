@@ -1,0 +1,18 @@
+---
+description: Update homepage version metadata before every git push request
+alwaysApply: true
+---
+
+# Push Versioning Rule
+
+Whenever the user asks to push code to the git instance:
+
+- Update the homepage prototype version label before creating the commit and pushing.
+- Apply the same update to both mirrored home files:
+  - `index.html`
+  - `AJG-Prototype-Kit/index.html`
+- Update `Last update` to today's date.
+- Increment the version number by `0.01` from the current displayed value unless the user explicitly provides a different target version.
+- Keep the existing label format: `Last update: M/D/YY - vX.XX`.
+
+Do not skip this step when handling push requests.

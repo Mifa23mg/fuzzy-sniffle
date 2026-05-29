@@ -28,6 +28,9 @@ export default defineConfig({
       enableDynamicComponents: true,
       exclude: [
         path.resolve('./index.html'),
+        // Standalone prototype HTML pages (and their ?html-proxy CSS virtual URLs)
+        // must be served as plain HTML, not compiled as LWC templates.
+        /(\/|^)(AJG-Prototype-Kit\/)?(index|ajg-affinity-enrollment-start-here-prototype|aft-disability-enrollment-prototype)\.html(\?.*)?$/,
         path.resolve('./src/build/generated'),
         // Global SLDS from node_modules (new URL in slds-loader.js) must not pass through LWC:
         // LWC rejects :root in this pipeline when synthetic shadow is enabled.

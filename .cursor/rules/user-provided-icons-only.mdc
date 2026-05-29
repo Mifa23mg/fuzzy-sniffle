@@ -1,0 +1,12 @@
+---
+description: Use only user-provided icons in UI changes.
+alwaysApply: true
+---
+
+# User-Provided Icons Only
+
+- "I should not create random icons, I should only use icons provided by the user."
+- Do not create new/random icons (no custom inline SVG icons, no ad-hoc icon drawings).
+- Reuse existing icons already present in the project, or icons explicitly provided by the user.
+- When updating banners, cards, or status UI, copy the existing icon pattern/component instead of inventing a new variant.
+- If no suitable approved icon exists, stop and ask the user which icon to use.
