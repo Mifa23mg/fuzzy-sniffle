@@ -2359,14 +2359,12 @@
 
     .base-btn:hover:not(:disabled):not([aria-disabled="true"]) {
       color: #014486;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      text-decoration: none;
     }
 
     .base-btn:active:not(:disabled):not([aria-disabled="true"]) {
       color: #03234d;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      text-decoration: none;
     }
 
     .base-btn:disabled,
@@ -2667,7 +2665,8 @@
     .datepicker-popover {
       position: absolute;
       top: calc(100% + 4px);
-      left: 0;
+      right: 0;
+      left: auto;
       width: 308px;
       background: #fff;
       border-radius: 8px;
