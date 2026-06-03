@@ -2189,34 +2189,81 @@
     }
 
     .screen-warning-banner {
+      --scoped-notification-bg: #fddde3;
+      --scoped-notification-fg: #b60554;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: flex-start;
       gap: 12px;
       padding: 12px;
       min-height: 42px;
       border-radius: 8px;
-      background: #fddde3;
+      background: var(--scoped-notification-bg);
       border: none;
       width: 100%;
       box-sizing: border-box;
       text-align: left;
     }
 
+    .screen-warning-banner.is-error {
+      --scoped-notification-bg: #fddde3;
+      --scoped-notification-fg: #b60554;
+    }
+
+    .screen-warning-banner.is-warning {
+      --scoped-notification-bg: #fef1ee;
+      --scoped-notification-fg: #8c4b02;
+    }
+
+    .screen-warning-banner.is-success {
+      --scoped-notification-bg: #ebf7e6;
+      --scoped-notification-fg: #056764;
+    }
+
+    .screen-warning-banner.is-info {
+      --scoped-notification-bg: #eaf5fe;
+      --scoped-notification-fg: #014486;
+    }
+
     .screen-warning-banner-icon {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 14px;
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
       display: block;
     }
 
+    .screen-warning-banner-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 2px 4px;
+      min-width: 0;
+    }
+
+    .screen-warning-banner-title {
+      color: var(--scoped-notification-fg);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px;
+      margin: 0;
+    }
+
     .screen-warning-banner-text {
-      color: #b60554;
+      color: var(--scoped-notification-fg);
       font-size: 13px;
       font-weight: 600;
       line-height: 18px;
       margin: 0;
       white-space: normal;
+    }
+
+    .screen-warning-banner-link {
+      color: var(--scoped-notification-fg);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 18px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .screen-warning-banner.is-hidden {
@@ -9389,51 +9436,122 @@
            2. Show:             showScopedErrorBanner("myBannerId")
            3. Hide:             hideScopedErrorBanner("myBannerId")
       ──────────────────────────────────────────────────────────────────────── */
-      function createScopedErrorBanner(id, message) {
+      const scopedNotificationIcons = {
+        error: "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20fill%3D%27none%27%3E%3Cpath%20fill-rule%3D%27evenodd%27%20clip-rule%3D%27evenodd%27%20d%3D%27M8%20.615385C3.93846%20.615385%20.615385%203.93846%20.615385%208C.615385%2012.0615%203.93846%2015.3846%208%2015.3846C12.0615%2015.3846%2015.3846%2012.0615%2015.3846%208C15.3846%203.93846%2012.0615%20.615385%208%20.615385ZM2.46156%207.99997C2.46156%204.95382%204.95387%202.46151%208.00002%202.46151C9.20002%202.46151%2010.3077%202.83074%2011.2%203.4769L3.47695%2011.2C2.83079%2010.3077%202.46156%209.19997%202.46156%207.99997ZM7.99988%2013.5385C6.79988%2013.5385%205.69219%2013.1693%204.79988%2012.5231L12.523%204.80003C13.1691%205.69234%2013.5383%206.80003%2013.5383%208.00003C13.5383%2011.0462%2011.046%2013.5385%207.99988%2013.5385Z%27%20fill%3D%27%23B60554%27%2F%3E%3C%2Fsvg%3E",
+        warning: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M8 1.4L14.7 13.2H1.3L8 1.4Z' fill='%23FE9339'/%3E%3Crect x='7.25' y='5.15' width='1.5' height='4.6' rx='0.75' fill='%23181418'/%3E%3Ccircle cx='8' cy='11.35' r='0.92' fill='%23181418'/%3E%3C/svg%3E",
+        success: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23056764'/%3E%3Cpath d='M4.3 8.15l2.1 2.1 5.3-5.3' stroke='white' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E",
+        info: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23066AFE'/%3E%3Crect x='7.25' y='6.3' width='1.5' height='5' rx='0.75' fill='white'/%3E%3Ccircle cx='8' cy='4.55' r='0.95' fill='white'/%3E%3C/svg%3E"
+      };
+
+      const scopedNotificationRegistry = {
+        proInfoWarningBanner: { variant: "error", message: "You must select what insurance products you sell and service to continue" },
+        proInfoAgencyWarningBanner: { variant: "error", message: "You must select what insurance products you sell and service to continue" },
+        proInfoAgencyFollowupWarningBanner: { variant: "error", message: "You must select whether your agency is an IMO, FMO or NMO to continue" }
+      };
+
+      function buildScopedNotificationContent(config) {
+        const variant = config.variant || "info";
+        const icon = document.createElement("img");
+        icon.className = "screen-warning-banner-icon";
+        icon.src = scopedNotificationIcons[variant] || scopedNotificationIcons.info;
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        const body = document.createElement("div");
+        body.className = "screen-warning-banner-content";
+        if (config.title) {
+          const title = document.createElement("p");
+          title.className = "screen-warning-banner-title";
+          title.textContent = config.title;
+          body.appendChild(title);
+        }
+        const text = document.createElement("p");
+        text.className = "screen-warning-banner-text";
+        text.textContent = config.message || "";
+        body.appendChild(text);
+        if (config.linkText && config.linkHref) {
+          const link = document.createElement("a");
+          link.className = "screen-warning-banner-link";
+          link.textContent = config.linkText;
+          link.href = config.linkHref;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          body.appendChild(link);
+        }
+        return { icon, body };
+      }
+
+      function setScopedNotificationVariant(el, variant) {
+        el.classList.remove("is-error", "is-warning", "is-success", "is-info");
+        el.classList.add(
+          variant === "error" || variant === "warning" || variant === "success" || variant === "info" ? "is-" + variant : "is-info"
+        );
+      }
+
+      function createScopedNotification(id, config) {
         const banner = document.createElement("div");
         banner.className = "screen-warning-banner is-hidden";
         banner.id = id;
         banner.setAttribute("role", "alert");
-        const icon = document.createElement("img");
-        icon.className = "screen-warning-banner-icon";
-        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
-        const fallbackBannerIcon = document.querySelector(".screen-warning-banner-icon");
-        const iconSrc = sharedBannerIcon?.getAttribute("src") || fallbackBannerIcon?.getAttribute("src") || "";
-        if (iconSrc) {
-          icon.src = iconSrc;
-        } else {
-          icon.style.display = "none";
-        }
-        icon.alt = "";
-        icon.setAttribute("aria-hidden", "true");
-        const text = document.createElement("p");
-        text.className = "screen-warning-banner-text";
-        text.textContent = message;
-        banner.appendChild(icon);
-        banner.appendChild(text);
+        setScopedNotificationVariant(banner, config.variant || "info");
+        const content = buildScopedNotificationContent(config);
+        banner.appendChild(content.icon);
+        banner.appendChild(content.body);
         return banner;
       }
-      function insertScopedErrorBanner(parentEl, id, message) {
+
+      function hydrateScopedNotification(id, config) {
+        const banner = document.getElementById(id);
+        if (!banner) return;
+        banner.classList.add("screen-warning-banner", "is-hidden");
+        banner.id = id;
+        banner.setAttribute("role", "alert");
+        setScopedNotificationVariant(banner, config.variant || "info");
+        banner.innerHTML = "";
+        const content = buildScopedNotificationContent(config);
+        banner.appendChild(content.icon);
+        banner.appendChild(content.body);
+      }
+
+      function insertScopedNotification(parentEl, id, config) {
         if (!parentEl || document.getElementById(id)) return;
-        const banner = createScopedErrorBanner(id, message);
+        const banner = createScopedNotification(id, config);
         parentEl.insertBefore(banner, parentEl.firstChild);
         return banner;
       }
-      function showScopedErrorBanner(id) {
+
+      function updateScopedNotification(id, config) {
+        scopedNotificationRegistry[id] = Object.assign({}, scopedNotificationRegistry[id] || {}, config);
+        hydrateScopedNotification(id, scopedNotificationRegistry[id]);
+      }
+
+      function showScopedNotification(id) {
         const el = document.getElementById(id);
         if (el) el.classList.remove("is-hidden");
       }
-      function hideScopedErrorBanner(id) {
+
+      function hideScopedNotification(id) {
         const el = document.getElementById(id);
         if (el) el.classList.add("is-hidden");
       }
-      (function syncAgencyWarningBannerIcon() {
-        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
-        const agencyBannerIcon = document.querySelector("#proInfoAgencyWarningBanner .screen-warning-banner-icon");
-        const agencyFollowupBannerIcon = document.querySelector("#proInfoAgencyFollowupWarningBanner .screen-warning-banner-icon");
-        if (!sharedBannerIcon) return;
-        if (agencyBannerIcon) agencyBannerIcon.src = sharedBannerIcon.src;
-        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.src = sharedBannerIcon.src;
+
+      // Backward-compatible wrappers while we migrate existing calls.
+      function createScopedErrorBanner(id, message) {
+        return createScopedNotification(id, { variant: "error", message: message });
+      }
+      function insertScopedErrorBanner(parentEl, id, message) {
+        return insertScopedNotification(parentEl, id, { variant: "error", message: message });
+      }
+      function showScopedErrorBanner(id) {
+        showScopedNotification(id);
+      }
+      function hideScopedErrorBanner(id) {
+        hideScopedNotification(id);
+      }
+
+      (function initializeScopedNotifications() {
+        Object.keys(scopedNotificationRegistry).forEach(function(id) {
+          hydrateScopedNotification(id, scopedNotificationRegistry[id]);
+        });
       })();
       const homeLandingPage = document.getElementById("homeLandingPage");
       const homeLandingHomeBtn = document.getElementById("homeLandingHomeBtn");
