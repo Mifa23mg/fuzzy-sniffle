@@ -7620,7 +7620,7 @@
               Living in a digital age, cyber risks are becoming increasingly present. Coverage is available at the sub-limits below.
             </p>
 
-            <div class="field full" style="display:flex;flex-direction:column;gap:16px;margin-top:0;">
+            <div class="field full" style="display:flex;flex-direction:column;gap:16px;margin-top:16px;">
               <p class="coverage-subtitle">Cyber Liability Coverage</p>
               <div class="cyber-coverage-list" aria-label="Cyber Liability Coverage Included Features">
                 <div class="cyber-coverage-item"><span class="cyber-check-icon-wrap"><img class="cyber-check-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M3%2010%20L8%2015%20L17%205%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E" alt="" /></span>Cyber Hacking</div>
@@ -9806,6 +9806,10 @@
       let selectedProductKey = null;    // "lh-only" | "lh-mostly-25" | "lh-mostly-49" | "pc-only" | "pc-some-lh" | "medicare-only"
       let selectedAgencyProductKey = null;
       const newLicenseLhProductKeys = new Set(["lh-only", "lh-mostly-25", "lh-mostly-49"]);
+      const highIncomeNewLicenseKeys = new Set(["100k-250k", "250k-500k", "500k-750k", "750k-1m", "gt-1m"]);
+      const medicareOnlyProductKey = "medicare-only";
+      const medicareSpecialtyIncomeKeys = new Set(["lt-100k", "100k-250k"]);
+      const medicareOnlyDisqualifyingIncomeKeys = new Set(["250k-500k", "500k-750k", "750k-1m", "gt-1m"]);
       const agencyProductMessageByOption = {
         "lh-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing P&C products. If a single agent sells or services any P&C products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both L&H and P&C before you proceed.",
         "pc-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing L&H products. If a single agent sells or services any L&H products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both P&C and L&H before you proceed.",
@@ -11608,6 +11612,27 @@
         return selectedProductKey || null;
       }
 
+      function getCoverageRoutingProductKey() {
+        const activeProductKey = getSelectedProductKey();
+        if (activeProductKey !== medicareOnlyProductKey) return activeProductKey;
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const isNewlyLicensed = Boolean(
+          selectedLicenseOption && selectedLicenseOption.getAttribute("data-license-recent") === "yes"
+        );
+        const selectedGrossIncomeOption = grossIncomeOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const grossIncomeKey = selectedGrossIncomeOption
+          ? selectedGrossIncomeOption.getAttribute("data-income-option")
+          : null;
+        if (isNewlyLicensed && medicareSpecialtyIncomeKeys.has(grossIncomeKey || "")) {
+          return "lh-only";
+        }
+        return activeProductKey;
+      }
+
       function syncGrossIncomeSelectionNote() {
         if (!grossIncomeSelectionNote || !grossIncomeSelectionNoteTitle || !grossIncomeSelectionNoteBody) return;
         const selectedLicenseOption = licenseRadios.find(function(option) {
@@ -11623,19 +11648,56 @@
         const grossIncomeKey = selectedGrossIncomeOption
           ? selectedGrossIncomeOption.getAttribute("data-income-option")
           : null;
-        const showScenarioNote = isNewlyLicensed
+        const showLowIncomeScenarioNote = isNewlyLicensed
           && newLicenseLhProductKeys.has(activeProductKey)
           && grossIncomeKey === "lt-100k";
+        const showHighIncomeScenarioNote = isNewlyLicensed
+          && newLicenseLhProductKeys.has(activeProductKey)
+          && highIncomeNewLicenseKeys.has(grossIncomeKey || "");
+        const showMedicareHighIncomeScenarioNote = isNewlyLicensed
+          && activeProductKey === medicareOnlyProductKey
+          && medicareSpecialtyIncomeKeys.has(grossIncomeKey || "");
+        const showMedicareOnlyDisqualifyingScenarioNote = isNewlyLicensed
+          && activeProductKey === medicareOnlyProductKey
+          && medicareOnlyDisqualifyingIncomeKeys.has(grossIncomeKey || "");
+        const showScenarioNote = showLowIncomeScenarioNote || showHighIncomeScenarioNote || showMedicareHighIncomeScenarioNote || showMedicareOnlyDisqualifyingScenarioNote;
         grossIncomeSelectionNote.classList.toggle("is-hidden", !showScenarioNote);
         if (!showScenarioNote) {
           grossIncomeSelectionNoteTitle.textContent = "";
           grossIncomeSelectionNoteBody.textContent = "";
+          grossIncomeSelectionNote.style.background = "";
           return;
         }
-        grossIncomeSelectionNoteTitle.textContent = "Congratulations!";
+        if (showLowIncomeScenarioNote) {
+          grossIncomeSelectionNote.style.background = "#EBF7E6";
+          grossIncomeSelectionNoteTitle.textContent = "Congratulations!";
+          grossIncomeSelectionNoteBody.innerHTML =
+            "Based on your license date and gross annual income, you qualify for our E&amp;O insurance program designed exclusively for newly licensed Life &amp; Health Agents. This specialty program is available with lower limits.<br><br>"
+            + "If you need higher limits than what is presented, please go back and select \"No\" where asked if you've been licensed in the last two years.";
+          return;
+        }
+        if (showMedicareHighIncomeScenarioNote) {
+          grossIncomeSelectionNote.style.background = "#EBF7E6";
+          grossIncomeSelectionNoteTitle.textContent = "Congratulations!";
+          grossIncomeSelectionNoteBody.innerHTML =
+            "Based on your license date and gross annual income, you qualify for our E&amp;O insurance program designed exclusively for newly licensed Life &amp; Health Agents. Since you are qualified for this specialty Program, the options presented on the next screen will include more than just Medicare ONLY coverage.<br><br>"
+            + "This specialty program is available with lower limits than experienced agent options, but higher limits than Medicare ONLY coverage.<br><br>"
+            + "For eligible new agents like yourself, Option A includes Medicare along with a Life, Health and Disability products at a lower rate than Medicare ONLY coverage.";
+          return;
+        }
+        if (showMedicareOnlyDisqualifyingScenarioNote) {
+          grossIncomeSelectionNote.style.background = "#FBF3E0";
+          grossIncomeSelectionNoteTitle.textContent = "IMPORTANT:";
+          grossIncomeSelectionNoteBody.innerHTML =
+            "To qualify for Medicare ONLY coverage, applicants must have a gross annual income of less than $250,000.<br><br>"
+            + "While your gross annual income does not qualify you for Medicare ONLY coverage, you are eligible for E&amp;O insurance options that include coverage for the sale and servicing of Medicare products, better match your level of production and include the same great member benefits.";
+          return;
+        }
+        grossIncomeSelectionNote.style.background = "#FBF3E0";
+        grossIncomeSelectionNoteTitle.textContent = "IMPORTANT:";
         grossIncomeSelectionNoteBody.innerHTML =
-          "Based on your license date and gross annual income, you qualify for our E&amp;O insurance program designed exclusively for newly licensed Life &amp; Health Agents. This specialty program is available with lower limits.<br><br>"
-          + "If you need higher limits than what is presented, please go back and select \"No\" where asked if you've been licensed in the last two years.";
+          "To qualify for specialzed rating as a newly licensed agent, applicants must have orginally obtained their insurance license within the last 2 year and have a gross annual income of less than $100,000.<br><br>"
+          + "While your gross annual income places you outside the criteria for this specialty program, you remain eligible for E&amp;O insurance for the products you've selected, with coverage options designed to better match your level of production and include the same great member benefits.";
       }
 
       function updateChoiceSelection(options, selectedOption, shouldFocus) {
@@ -11998,8 +12060,8 @@
             }
             return;
           }
-          const selectedProductKey = getSelectedProductKey();
-          const sequence = getCoverageFlowSequence(selectedProductKey);
+          const routingProductKey = getCoverageRoutingProductKey();
+          const sequence = getCoverageFlowSequence(routingProductKey);
           goToCoverageScreenById(sequence[0]);
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -12034,7 +12096,7 @@
           const selectedRangeLabel = selectedRangeOption ? selectedRangeOption.textContent.trim() : "";
           selectedGrossIncome = selectedRangeLabel || selectedGrossIncome;
           isHighIncomeFlag = false;
-          goToCoverageScreenById(getCoverageFlowSequence(getSelectedProductKey())[0]);
+          goToCoverageScreenById(getCoverageFlowSequence(getCoverageRoutingProductKey())[0]);
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
           }
@@ -12043,43 +12105,43 @@
 
       if (coverageOptionsPreviousBtn) {
         coverageOptionsPreviousBtn.addEventListener("click", function onCoverageOptionsPrevious() {
-          goToPreviousCoverageStep(getSelectedProductKey());
+          goToPreviousCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageOptionsNextBtn) {
         coverageOptionsNextBtn.addEventListener("click", function onCoverageOptionsNext() {
-          goToNextCoverageStep(getSelectedProductKey());
+          goToNextCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageOptionsMedicarePreviousBtn) {
         coverageOptionsMedicarePreviousBtn.addEventListener("click", function onCoverageOptionsMedicarePrevious() {
-          goToPreviousCoverageStep(getSelectedProductKey());
+          goToPreviousCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageOptionsMedicareNextBtn) {
         coverageOptionsMedicareNextBtn.addEventListener("click", function onCoverageOptionsMedicareNext() {
-          goToNextCoverageStep(getSelectedProductKey());
+          goToNextCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageOptionsPcPreviousBtn) {
         coverageOptionsPcPreviousBtn.addEventListener("click", function onCoverageOptionsPcPrevious() {
-          goToPreviousCoverageStep(getSelectedProductKey());
+          goToPreviousCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageOptionsPcNextBtn) {
         coverageOptionsPcNextBtn.addEventListener("click", function onCoverageOptionsPcNext() {
-          goToNextCoverageStep(getSelectedProductKey());
+          goToNextCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
       if (coverageLimitsPreviousBtn) {
         coverageLimitsPreviousBtn.addEventListener("click", function onCoverageLimitsPrevious() {
-          goToLastCoverageStep(getSelectedProductKey());
+          goToLastCoverageStep(getCoverageRoutingProductKey());
         });
       }
 
@@ -12190,7 +12252,7 @@
 
       if (programEligibilitiesNextBtn) {
         programEligibilitiesNextBtn.addEventListener("click", function onProgramEligibilitiesNext() {
-          if (getSelectedProductKey() === "medicare-only") {
+          if (getCoverageRoutingProductKey() === "medicare-only") {
             goToCoverageAcknowledgementsMedicareScreen();
             if (mainScrollEl) {
               mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -12242,7 +12304,7 @@
 
       if (underwritingQuestionsPreviousBtn) {
         underwritingQuestionsPreviousBtn.addEventListener("click", function onUnderwritingQuestionsPrevious() {
-          if (getSelectedProductKey() === "medicare-only") {
+          if (getCoverageRoutingProductKey() === "medicare-only") {
             goToCoverageAcknowledgementsMedicareScreen();
           } else {
             goToCoverageAcknowledgementsScreen();
