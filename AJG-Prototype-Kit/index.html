@@ -6912,7 +6912,7 @@
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
               <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
@@ -6922,7 +6922,7 @@
                 <li>Disability</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="aftDisabilityViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
@@ -7074,11 +7074,7 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoWarningBanner" role="alert">
-              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
-                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
-                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
-              </svg>
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
               <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
             </div>
             <p class="intro">
@@ -7212,11 +7208,7 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoAgencyWarningBanner" role="alert">
-              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
-                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
-                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
-              </svg>
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
               <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
             </div>
             <p class="intro">
@@ -7284,11 +7276,7 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoAgencyFollowupWarningBanner" role="alert">
-              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
-                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
-                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
-              </svg>
+              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
               <p class="screen-warning-banner-text">You must select whether your agency is an IMO, FMO or NMO to continue</p>
             </div>
             <p class="intro">
@@ -9356,12 +9344,18 @@
         banner.className = "screen-warning-banner is-hidden";
         banner.id = id;
         banner.setAttribute("role", "alert");
-        const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const icon = document.createElement("img");
         icon.className = "screen-warning-banner-icon";
-        icon.setAttribute("viewBox", "0 0 24 24");
-        icon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
+        const fallbackBannerIcon = document.querySelector(".screen-warning-banner-icon");
+        const iconSrc = sharedBannerIcon?.getAttribute("src") || fallbackBannerIcon?.getAttribute("src") || "";
+        if (iconSrc) {
+          icon.src = iconSrc;
+        } else {
+          icon.style.display = "none";
+        }
+        icon.alt = "";
         icon.setAttribute("aria-hidden", "true");
-        icon.innerHTML = "<path d='M12 2.5 L22 20.5 H2 Z' fill='#c23934'></path><rect x='11' y='8' width='2' height='7' rx='1' fill='white'></rect><circle cx='12' cy='17.5' r='1.2' fill='white'></circle>";
         const text = document.createElement("p");
         text.className = "screen-warning-banner-text";
         text.textContent = message;
@@ -9387,10 +9381,9 @@
         const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
         const agencyBannerIcon = document.querySelector("#proInfoAgencyWarningBanner .screen-warning-banner-icon");
         const agencyFollowupBannerIcon = document.querySelector("#proInfoAgencyFollowupWarningBanner .screen-warning-banner-icon");
-        const iconSrc = sharedBannerIcon ? sharedBannerIcon.getAttribute("src") : "";
-        if (!iconSrc) return;
-        if (agencyBannerIcon) agencyBannerIcon.setAttribute("src", iconSrc);
-        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.setAttribute("src", iconSrc);
+        if (!sharedBannerIcon) return;
+        if (agencyBannerIcon) agencyBannerIcon.src = sharedBannerIcon.src;
+        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.src = sharedBannerIcon.src;
       })();
       const homeLandingPage = document.getElementById("homeLandingPage");
       const homeLandingHomeBtn = document.getElementById("homeLandingHomeBtn");
@@ -11456,7 +11449,20 @@
         if (emailEl) emailEl.textContent = email || "your email address";
         showScreen("order-confirmation");
         setEnrollmentActiveStep(9);
-        setGlobalContext("–", "–");
+        const selectedAgencyImoOption = agencyImoOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const currentFlowValue = flowValueEl ? (flowValueEl.textContent || "").trim() : "";
+        const currentProductValue = productValueEl ? (productValueEl.textContent || "").trim() : "";
+        setGlobalContext(
+          currentFlowValue || "–",
+          currentProductValue || "–",
+          selectedAgencyImoOption ? selectedAgencyImoOption.getAttribute("data-agency-imo-option") : null,
+          selectedLicenseOption ? selectedLicenseOption.getAttribute("data-license-recent") : null
+        );
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
         }
