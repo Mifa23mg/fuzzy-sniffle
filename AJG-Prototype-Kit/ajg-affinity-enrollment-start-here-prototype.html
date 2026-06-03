@@ -12006,6 +12006,9 @@
         licenseRadios.forEach(function resetLicense(button) {
           button.setAttribute("aria-checked", "false");
         });
+        Object.keys(scopedNotificationRegistry).forEach(function(id) {
+          hideScopedNotification(id);
+        });
         syncOriginalLicensureDateVisibility();
         clearOriginalLicensureDateValidation();
         const url = new URL(window.location.href);
