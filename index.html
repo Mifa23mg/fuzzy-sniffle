@@ -979,10 +979,55 @@
       box-sizing: border-box;
     }
 
+    .global-meta .global-pair.agent-only-context,
+    .global-meta .global-slash.agent-only-context,
     .global-meta .global-pair.agency-only-context,
     .global-meta .global-slash.agency-only-context,
+    .home-landing-contextv2 .home-landing-context-colv2.agent-only-context,
+    .home-landing-contextv2 .home-landing-context-slashv2.agent-only-context,
     .home-landing-contextv2 .home-landing-context-colv2.agency-only-context,
     .home-landing-contextv2 .home-landing-context-slashv2.agency-only-context {
+      display: none;
+    }
+
+    .app-shell.agent-context-active .global-meta .global-pair.agent-only-context {
+      display: flex;
+    }
+
+    .app-shell.agent-context-active .global-meta .global-slash.agent-only-context,
+    .app-shell.agent-context-active .home-landing-contextv2 .home-landing-context-slashv2.agent-only-context {
+      display: block;
+    }
+
+    .app-shell.agent-context-active .home-landing-contextv2 .home-landing-context-colv2.agent-only-context {
+      display: flex;
+    }
+
+    .app-shell.agent-context-active .global-meta .global-pair {
+      min-width: 0;
+      width: max-content;
+    }
+
+    .app-shell.agent-context-active .home-landing-contextv2 {
+      width: auto;
+      max-width: calc(100% - 260px);
+    }
+
+    .app-shell.agent-context-active .home-landing-contextv2 .home-landing-context-colv2 {
+      flex: 0 0 auto;
+      min-width: 0;
+      width: max-content;
+      padding: 10px 4px;
+    }
+
+    .app-shell.start-context-active .global-meta .global-slash,
+    .app-shell.start-context-active .global-meta .global-pair.product-context,
+    .app-shell.start-context-active .global-meta .global-pair.agent-only-context,
+    .app-shell.start-context-active .global-meta .global-pair.agency-only-context,
+    .app-shell.start-context-active .home-landing-contextv2 .home-landing-context-slashv2,
+    .app-shell.start-context-active .home-landing-contextv2 .home-landing-context-colv2.product-context,
+    .app-shell.start-context-active .home-landing-contextv2 .home-landing-context-colv2.agent-only-context,
+    .app-shell.start-context-active .home-landing-contextv2 .home-landing-context-colv2.agency-only-context {
       display: none;
     }
 
@@ -4189,7 +4234,7 @@
     }
 
     #screen-enrollment .actions.split {
-      margin-top: 0;
+      margin-top: 20px;
       height: 48px;
       padding: 8px 0;
       box-sizing: border-box;
@@ -6579,6 +6624,10 @@
       font-weight: 700;
     }
 
+    .coverage-warning-note.selection-followup-note {
+      background: #EBF7E6;
+    }
+
     .coverage-cards-grid.medicare-single {
       grid-template-columns: minmax(280px, 340px);
       justify-content: flex-start;
@@ -6699,9 +6748,14 @@
             <p class="global-pair-value pending" id="globalFlowValue">–</p>
           </div>
           <p class="global-slash">/</p>
-          <div class="global-pair">
+          <div class="global-pair product-context">
             <p class="global-pair-title">Product</p>
             <p class="global-pair-value pending" id="globalProductValue">–</p>
+          </div>
+          <p class="global-slash agent-only-context">/</p>
+          <div class="global-pair agent-only-context">
+            <p class="global-pair-title">&lt;2y license?</p>
+            <p class="global-pair-value pending" id="globalAgentLicenseValue">–</p>
           </div>
           <p class="global-slash agency-only-context">/</p>
           <div class="global-pair agency-only-context">
@@ -6732,9 +6786,14 @@
             <p class="home-landing-context-valuev2 pending" id="shellv2FlowValue">–</p>
           </div>
           <p class="home-landing-context-slashv2">/</p>
-          <div class="home-landing-context-colv2">
+          <div class="home-landing-context-colv2 product-context">
             <p class="home-landing-context-labelv2">Product</p>
             <p class="home-landing-context-valuev2 pending" id="shellv2ProductValue">–</p>
+          </div>
+          <p class="home-landing-context-slashv2 agent-only-context">/</p>
+          <div class="home-landing-context-colv2 agent-only-context">
+            <p class="home-landing-context-labelv2">&lt;2y license?</p>
+            <p class="home-landing-context-valuev2 pending" id="shellv2AgentLicenseValue">–</p>
           </div>
           <p class="home-landing-context-slashv2 agency-only-context">/</p>
           <div class="home-landing-context-colv2 agency-only-context">
@@ -7018,7 +7077,11 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoWarningBanner" role="alert">
-              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
+                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
+                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
+              </svg>
               <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
             </div>
             <p class="intro">
@@ -7101,6 +7164,13 @@
               To ensure we provide you with the most appropriate coverage options, now tell us a little about you and your business
             </p>
 
+            <div class="field full">
+              <div class="coverage-warning-note selection-followup-note is-hidden" id="grossIncomeSelectionNote" style="margin-top: 0;">
+                <strong id="grossIncomeSelectionNoteTitle">IMPORTANT:</strong>
+                <span id="grossIncomeSelectionNoteBody"></span>
+              </div>
+            </div>
+
             <div class="choice-group field full">
               <p class="label"><span class="required">*</span>What is your gross annual income? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="This information to important to properly rate your policy.&#10;&#10;Gross Revenue vs Net Revenue&#10;Net Revenue is the total taxable revenues generated by the insured less any deductions for expenses, salaries and/or commission payments." data-tooltip-position="bottom-left"></span></p>
               <div class="choice-grid" id="grossIncomeGrid" role="radiogroup" aria-label="What is your gross annual income?">
@@ -7145,7 +7215,11 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoAgencyWarningBanner" role="alert">
-              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
+                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
+                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
+              </svg>
               <p class="screen-warning-banner-text">You must select what insurance products you sell and service to continue</p>
             </div>
             <p class="intro">
@@ -7213,7 +7287,11 @@
               <div class="title-line"></div>
             </div>
             <div class="screen-warning-banner is-hidden" id="proInfoAgencyFollowupWarningBanner" role="alert">
-              <img class="screen-warning-banner-icon" src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%3E%3Cpath%20d%3D%27M12%202.5%20L22%2020.5%20H2%20Z%27%20fill%3D%27%23c23934%27%2F%3E%3Crect%20x%3D%2711%27%20y%3D%278%27%20width%3D%272%27%20height%3D%277%27%20rx%3D%271%27%20fill%3D%27white%27%2F%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%2717.5%27%20r%3D%271.2%27%20fill%3D%27white%27%2F%3E%3C%2Fsvg%3E" alt="" aria-hidden="true" />
+              <svg class="screen-warning-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.5 L22 20.5 H2 Z" fill="#c23934"></path>
+                <rect x="11" y="8" width="2" height="7" rx="1" fill="white"></rect>
+                <circle cx="12" cy="17.5" r="1.2" fill="white"></circle>
+              </svg>
               <p class="screen-warning-banner-text">You must select whether your agency is an IMO, FMO or NMO to continue</p>
             </div>
             <p class="intro">
@@ -9022,7 +9100,6 @@
       function goToFirstScreenForStep(stepIndex) {
         if (stepIndex === 0) {
           goToStartScreen();
-          setGlobalContext("–", "–");
         } else if (stepIndex === 1) {
           goToBasicScreen();
           setGlobalContext("Agent", "–");
@@ -9214,6 +9291,7 @@
       const ajgInputFields = Array.from(document.querySelectorAll(".ajg-input-field"));
       const ajgDropdowns = Array.from(document.querySelectorAll(".ajg-dropdown[data-dropdown]"));
       const flowValueEl = document.getElementById("globalFlowValue");
+      const agentLicenseValueEl = document.getElementById("globalAgentLicenseValue");
       const productValueEl = document.getElementById("globalProductValue");
       const agencyImoValueEl = document.getElementById("globalAgencyImoValue");
       const productOptions = Array.from(document.querySelectorAll("#productsGrid .option-card"));
@@ -9241,6 +9319,9 @@
       const productSelectionNote = document.getElementById("productSelectionNote");
       const productSelectionNoteTitle = document.getElementById("productSelectionNoteTitle");
       const productSelectionNoteBody = document.getElementById("productSelectionNoteBody");
+      const grossIncomeSelectionNote = document.getElementById("grossIncomeSelectionNote");
+      const grossIncomeSelectionNoteTitle = document.getElementById("grossIncomeSelectionNoteTitle");
+      const grossIncomeSelectionNoteBody = document.getElementById("grossIncomeSelectionNoteBody");
       const licenseRadios = Array.from(document.querySelectorAll('.mini-radio [role="radio"][data-license-recent]'));
       const originalLicensureDateField = document.getElementById("originalLicensureDateField");
       const licensureDatePicker = document.getElementById("licensureDatePicker");
@@ -9278,18 +9359,12 @@
         banner.className = "screen-warning-banner is-hidden";
         banner.id = id;
         banner.setAttribute("role", "alert");
-        const icon = document.createElement("img");
+        const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         icon.className = "screen-warning-banner-icon";
-        const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
-        const fallbackBannerIcon = document.querySelector(".screen-warning-banner-icon");
-        const iconSrc = sharedBannerIcon?.getAttribute("src") || fallbackBannerIcon?.getAttribute("src") || "";
-        if (iconSrc) {
-          icon.src = iconSrc;
-        } else {
-          icon.style.display = "none";
-        }
-        icon.alt = "";
+        icon.setAttribute("viewBox", "0 0 24 24");
+        icon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         icon.setAttribute("aria-hidden", "true");
+        icon.innerHTML = "<path d='M12 2.5 L22 20.5 H2 Z' fill='#c23934'></path><rect x='11' y='8' width='2' height='7' rx='1' fill='white'></rect><circle cx='12' cy='17.5' r='1.2' fill='white'></circle>";
         const text = document.createElement("p");
         text.className = "screen-warning-banner-text";
         text.textContent = message;
@@ -9315,15 +9390,17 @@
         const sharedBannerIcon = document.querySelector("#proInfoWarningBanner .screen-warning-banner-icon");
         const agencyBannerIcon = document.querySelector("#proInfoAgencyWarningBanner .screen-warning-banner-icon");
         const agencyFollowupBannerIcon = document.querySelector("#proInfoAgencyFollowupWarningBanner .screen-warning-banner-icon");
-        if (!sharedBannerIcon) return;
-        if (agencyBannerIcon) agencyBannerIcon.src = sharedBannerIcon.src;
-        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.src = sharedBannerIcon.src;
+        const iconSrc = sharedBannerIcon ? sharedBannerIcon.getAttribute("src") : "";
+        if (!iconSrc) return;
+        if (agencyBannerIcon) agencyBannerIcon.setAttribute("src", iconSrc);
+        if (agencyFollowupBannerIcon) agencyFollowupBannerIcon.setAttribute("src", iconSrc);
       })();
       const homeLandingPage = document.getElementById("homeLandingPage");
       const homeLandingHomeBtn = document.getElementById("homeLandingHomeBtn");
       const homeLandingHomeBtnV2 = document.getElementById("homeLandingHomeBtnV2");
       const shellv2HomeBtn = document.getElementById("shellv2HomeBtn");
       const shellv2FlowValue = document.getElementById("shellv2FlowValue");
+      const shellv2AgentLicenseValue = document.getElementById("shellv2AgentLicenseValue");
       const shellv2ProductValue = document.getElementById("shellv2ProductValue");
       const shellv2AgencyImoValue = document.getElementById("shellv2AgencyImoValue");
       const shellv2Timer = document.getElementById("shellv2Timer");
@@ -9532,8 +9609,8 @@
         "Any policies placed in captives, risk retention groups or purchasing groups",
         "Surety Boiler & Machinery"
       ];
-      const coverageAcknowledgementIncludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2710%27%20r%3D%279%27%20fill%3D%27%2327ae60%27%2F%3E%3Cpath%20d%3D%27M5%2010%20L8.5%2013.5%20L15%207%27%20stroke%3D%27white%27%20stroke-width%3D%271.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
-      const coverageAcknowledgementExcludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Ccircle%20cx%3D%2710%27%20cy%3D%2710%27%20r%3D%279%27%20fill%3D%27%23c0392b%27%2F%3E%3Cpath%20d%3D%27M7%207%20L13%2013%20M13%207%20L7%2013%27%20stroke%3D%27white%27%20stroke-width%3D%271.8%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
+      const coverageAcknowledgementIncludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M2.5%208.5%206.2%2012.2%2013.5%204.9%27%20stroke%3D%27%23056764%27%20stroke-width%3D%272.1%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E";
+      const coverageAcknowledgementExcludedIconUrl = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M4%204%20L12%2012%20M12%204%20L4%2012%27%20stroke%3D%27%23c01958%27%20stroke-width%3D%271.9%27%20fill%3D%27none%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E";
       const todayDefault = new Date();
       const normalizedToday = new Date(todayDefault.getFullYear(), todayDefault.getMonth(), todayDefault.getDate());
       let selectedLicensureDate = null;
@@ -9543,6 +9620,7 @@
       let selectedPlan = null;          // e.g. "$1 million per claim / $1 million annual aggregate"
       let selectedProductKey = null;    // "lh-only" | "lh-mostly-25" | "lh-mostly-49" | "pc-only" | "pc-some-lh" | "medicare-only"
       let selectedAgencyProductKey = null;
+      const newLicenseLhProductKeys = new Set(["lh-only", "lh-mostly-25", "lh-mostly-49"]);
       const agencyProductMessageByOption = {
         "lh-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing P&C products. If a single agent sells or services any P&C products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both L&H and P&C before you proceed.",
         "pc-only": "<strong>IMPORTANT:</strong> The option you have selected indicates that none of the Agency's owners or producers are selling or servicing L&H products. If a single agent sells or services any L&H products under the agency, it can put the whole Agency at risk. By clicking <strong>Next</strong>, you agree and accept that risk.<br /><br />&nbsp;If you would like to further protect your Agency, select the appropriate option including both P&C and L&H before you proceed.",
@@ -9863,7 +9941,7 @@
       function renderDatepicker() {}
       function renderEnrollDatepicker() {}
 
-      function renderAgencyImoIndicator(targetEl, indicatorValue) {
+      function renderBinaryContextIndicator(targetEl, indicatorValue) {
         if (!targetEl) return;
         const baseClass = targetEl.className
           .split(/\s+/)
@@ -9885,18 +9963,51 @@
         targetEl.className = baseClass;
       }
 
-      function setGlobalContext(flowLabel, productLabel, agencyImoIndicator) {
+      function setGlobalContext(flowLabel, productLabel, agencyImoIndicator, agentLicenseIndicator) {
         const safeAgencyImoIndicator = agencyImoIndicator === "yes" || agencyImoIndicator === "no"
           ? agencyImoIndicator
           : null;
-        const isAgencyFlow = String(flowLabel || "").trim().toLowerCase() === "agency";
-        if (appShellEl) appShellEl.classList.toggle("agency-context-active", isAgencyFlow);
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const selectedLicenseValue = selectedLicenseOption
+          ? selectedLicenseOption.getAttribute("data-license-recent")
+          : null;
+        const safeAgentLicenseIndicator = agentLicenseIndicator === "yes" || agentLicenseIndicator === "no"
+          ? agentLicenseIndicator
+          : selectedLicenseValue;
+        const normalizedFlowLabel = String(flowLabel || "").trim().toLowerCase();
+        const isAgentFlow = normalizedFlowLabel === "agent";
+        const isAgencyFlow = normalizedFlowLabel === "agency";
+        const isStartScreenContext = Boolean(appShellEl && appShellEl.classList.contains("start-context-active"));
+        if (appShellEl) appShellEl.classList.toggle("agent-context-active", !isStartScreenContext && isAgentFlow);
+        if (appShellEl) appShellEl.classList.toggle("agency-context-active", !isStartScreenContext && isAgencyFlow);
         if (flowValueEl) flowValueEl.textContent = flowLabel;
+        renderBinaryContextIndicator(agentLicenseValueEl, safeAgentLicenseIndicator);
         if (productValueEl) productValueEl.textContent = productLabel;
-        renderAgencyImoIndicator(agencyImoValueEl, safeAgencyImoIndicator);
+        renderBinaryContextIndicator(agencyImoValueEl, safeAgencyImoIndicator);
         if (shellv2FlowValue) shellv2FlowValue.textContent = flowLabel;
+        renderBinaryContextIndicator(shellv2AgentLicenseValue, safeAgentLicenseIndicator);
         if (shellv2ProductValue) shellv2ProductValue.textContent = productLabel;
-        renderAgencyImoIndicator(shellv2AgencyImoValue, safeAgencyImoIndicator);
+        renderBinaryContextIndicator(shellv2AgencyImoValue, safeAgencyImoIndicator);
+      }
+
+      function syncAgentLicenseContextIndicator() {
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const optionValue = selectedLicenseOption
+          ? selectedLicenseOption.getAttribute("data-license-recent")
+          : null;
+        const currentFlowValue = flowValueEl ? flowValueEl.textContent : "–";
+        const currentProductValue = productValueEl ? productValueEl.textContent : "–";
+        const selectedAgencyImoOption = agencyImoOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const agencyImoValue = selectedAgencyImoOption
+          ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
+          : null;
+        setGlobalContext(currentFlowValue || "–", currentProductValue || "–", agencyImoValue, optionValue);
       }
 
       function syncAgencyImoContextIndicator() {
@@ -9906,9 +10017,15 @@
         const optionValue = selectedAgencyImoOption
           ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
           : null;
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const licenseValue = selectedLicenseOption
+          ? selectedLicenseOption.getAttribute("data-license-recent")
+          : null;
         const currentFlowValue = flowValueEl ? flowValueEl.textContent : "–";
         const currentProductValue = productValueEl ? productValueEl.textContent : "–";
-        setGlobalContext(currentFlowValue || "–", currentProductValue || "–", optionValue);
+        setGlobalContext(currentFlowValue || "–", currentProductValue || "–", optionValue, licenseValue);
       }
 
       function syncStartHereApplicant() {
@@ -10545,6 +10662,7 @@
       }
 
       function showScreen(screenId) {
+        if (appShellEl) appShellEl.classList.toggle("start-context-active", screenId === "start");
         if (screenStart) screenStart.classList.toggle("active", screenId === "start");
         if (screenBasic) screenBasic.classList.toggle("active", screenId === "basic");
         if (screenBasicFollowup) screenBasicFollowup.classList.toggle("active", screenId === "basic-followup");
@@ -10583,13 +10701,25 @@
         if (nextBtn) {
           nextBtn.disabled = true;
         }
+        setGlobalContext("–", "–");
       }
 
       function goToStartScreen() {
         setHomeLandingActive(false);
         showScreen("start");
         setEnrollmentActiveStep(0);
-        setGlobalContext("–", "–");
+        const selectedStartOption = radioButtons.find(function(button) {
+          return button.getAttribute("aria-checked") === "true";
+        });
+        const selectedStartFlow = selectedStartOption
+          ? selectedStartOption.getAttribute("data-radio-option")
+          : null;
+        const startFlowLabel = selectedStartFlow === "agent"
+          ? "Agent"
+          : selectedStartFlow === "agency"
+            ? "Agency"
+            : "–";
+        setGlobalContext(startFlowLabel, "–");
         startTimer();
       }
 
@@ -11447,12 +11577,19 @@
         });
         selectedProductKey = selectedOption ? (selectedOption.getAttribute("data-product-option") || null) : null;
         window.prototypeSelections.selectedProductKey = selectedProductKey;
+        const selectedProductLabel = selectedOption
+          ? ((selectedOption.querySelector(".option-label") || {}).textContent || "").trim()
+          : "–";
+        setGlobalContext("Agent", selectedProductLabel || "–");
         if (selectedOption) hideScopedErrorBanner("proInfoWarningBanner");
         if (productSelectionNote) {
           if (!selectedOption) {
             productSelectionNote.classList.add("hidden");
             if (productSelectionNoteTitle) productSelectionNoteTitle.textContent = "";
             if (productSelectionNoteBody) productSelectionNoteBody.textContent = "";
+            if (grossIncomeSelectionNote) grossIncomeSelectionNote.classList.add("is-hidden");
+            if (grossIncomeSelectionNoteTitle) grossIncomeSelectionNoteTitle.textContent = "";
+            if (grossIncomeSelectionNoteBody) grossIncomeSelectionNoteBody.textContent = "";
             return;
           }
           const selectedKey = selectedOption.getAttribute("data-product-option");
@@ -11465,6 +11602,9 @@
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
               .replace(/\n\n/g, "<br><br>");
+          }
+          if (grossIncomeSelectionNote) {
+            syncGrossIncomeSelectionNote();
           }
         }
         if (shouldFocus && selectedOption) selectedOption.focus();
@@ -11526,6 +11666,36 @@
         });
         if (selectedOption) return selectedOption.getAttribute("data-product-option");
         return selectedProductKey || null;
+      }
+
+      function syncGrossIncomeSelectionNote() {
+        if (!grossIncomeSelectionNote || !grossIncomeSelectionNoteTitle || !grossIncomeSelectionNoteBody) return;
+        const selectedLicenseOption = licenseRadios.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const isNewlyLicensed = Boolean(
+          selectedLicenseOption && selectedLicenseOption.getAttribute("data-license-recent") === "yes"
+        );
+        const activeProductKey = getSelectedProductKey();
+        const selectedGrossIncomeOption = grossIncomeOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const grossIncomeKey = selectedGrossIncomeOption
+          ? selectedGrossIncomeOption.getAttribute("data-income-option")
+          : null;
+        const showScenarioNote = isNewlyLicensed
+          && newLicenseLhProductKeys.has(activeProductKey)
+          && grossIncomeKey === "lt-100k";
+        grossIncomeSelectionNote.classList.toggle("is-hidden", !showScenarioNote);
+        if (!showScenarioNote) {
+          grossIncomeSelectionNoteTitle.textContent = "";
+          grossIncomeSelectionNoteBody.textContent = "";
+          return;
+        }
+        grossIncomeSelectionNoteTitle.textContent = "Congratulations!";
+        grossIncomeSelectionNoteBody.innerHTML =
+          "Based on your license date and gross annual income, you qualify for our E&amp;O insurance program designed exclusively for newly licensed Life &amp; Health Agents. This specialty program is available with lower limits.<br><br>"
+          + "If you need higher limits than what is presented, please go back and select \"No\" where asked if you've been licensed in the last two years.";
       }
 
       function updateChoiceSelection(options, selectedOption, shouldFocus) {
@@ -11785,6 +11955,8 @@
           const option = targetButton.getAttribute("data-radio-option");
           monthlyFeeEl.textContent = option === "agency" ? "$15.00" : "$5.00";
         }
+        const selectedFlowLabel = targetButton.getAttribute("data-radio-option") === "agency" ? "Agency" : "Agent";
+        setGlobalContext(selectedFlowLabel, "–");
       }
 
       radioButtons.forEach(function bindRadio(button) {
@@ -12259,6 +12431,8 @@
             other.setAttribute("aria-checked", other === button ? "true" : "false");
           });
           syncOriginalLicensureDateVisibility();
+          syncGrossIncomeSelectionNote();
+          syncAgentLicenseContextIndicator();
         });
       });
 
@@ -12366,6 +12540,7 @@
           const labelEl = btn.querySelector(".choice-label");
           selectedGrossIncome = labelEl ? labelEl.textContent.trim() : option;
           isHighIncomeFlag = option === "gt-1m";
+          syncGrossIncomeSelectionNote();
           console.log("Gross Income selected:", selectedGrossIncome, "| >$1M flag:", isHighIncomeFlag);
         });
       });
