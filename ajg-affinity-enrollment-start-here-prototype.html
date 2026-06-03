@@ -2175,22 +2175,22 @@
     .screen-warning-banner {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 12px;
       padding: 12px;
-      height: 42px;
+      min-height: 42px;
       border-radius: 8px;
       background: #fddde3;
       border: none;
       width: 100%;
       box-sizing: border-box;
-      overflow: hidden;
+      text-align: left;
     }
 
     .screen-warning-banner-icon {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
       display: block;
     }
 
@@ -2200,7 +2200,7 @@
       font-weight: 600;
       line-height: 18px;
       margin: 0;
-      white-space: nowrap;
+      white-space: normal;
     }
 
     .screen-warning-banner.is-hidden {
@@ -2759,6 +2759,14 @@
       padding: 5px 5px;
     }
 
+    .datepicker-input.has-error,
+    .datepicker.open .datepicker-input.has-error {
+      border: 2px solid #ba0517;
+      padding: 5px 5px;
+      box-shadow: 0 0 0 1px #ba0517 inset;
+      background: #ffffff;
+    }
+
     .datepicker-input .input-text[readonly] {
       cursor: pointer;
     }
@@ -2812,20 +2820,21 @@
 
     .datepicker-format-hint {
       display: none;
-      position: absolute;
-      top: calc(100% + 2px);
-      left: 0;
-      margin: 0;
+      position: static;
+      margin: 4px 0 0;
       color: #5c5c5c;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 12px;
       line-height: 17px;
       font-weight: 400;
-      z-index: 20;
     }
 
     .datepicker.open .datepicker-format-hint {
       display: block;
+    }
+
+    .datepicker.has-error .datepicker-format-hint {
+      display: none !important;
     }
 
     .dp-header {
@@ -3771,6 +3780,7 @@
     .plan-card-pricing-amount .plan-suffix {
       font-size: 20px;
       line-height: 28px;
+      transform: translateY(-0.38em);
     }
 
     .plan-card-pricing-amount .plan-major {
@@ -4525,6 +4535,11 @@
       display: block;
     }
 
+    .ajg-dropdown-listbox[aria-label="How did you hear about us options"] {
+      max-height: 224px; /* 6 visible options */
+      overflow-y: auto;
+    }
+
     .ajg-dropdown-option {
       width: 100%;
       min-height: 36px;
@@ -4869,6 +4884,23 @@
 
     .field-supporting-text.is-hidden {
       display: none;
+    }
+
+    .field-supporting-text.is-error {
+      color: #ba0517;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .field-supporting-text.is-error::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+      margin-top: 1px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='%23ba0517'/%3E%3Crect x='9' y='4.5' width='2' height='8.5' rx='1' fill='white'/%3E%3Ccircle cx='10' cy='15.5' r='1.2' fill='white'/%3E%3C/svg%3E") center / contain no-repeat;
     }
 
     #screen-program-eligibilities.active {
@@ -6994,21 +7026,33 @@
                       <span class="ajg-dropdown-check" aria-hidden="true"></span>
                       <span>Select an option…</span>
                     </button>
-                    <button class="ajg-dropdown-option" type="button" role="option" data-value="word-of-mouth">
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="event-or-tradeshow">
                       <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                      <span>Word of Mouth</span>
+                      <span>Event or Tradeshow</span>
                     </button>
-                    <button class="ajg-dropdown-option" type="button" role="option" data-value="google-search">
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="friend-coworker-or-company-custodian">
                       <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                      <span>Google Search</span>
+                      <span>Friend, Coworker or Company/Custodian</span>
+                    </button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="solicitation">
+                      <span class="ajg-dropdown-check" aria-hidden="true"></span>
+                      <span>Solicitation (e.g., Email, flyer, print ad)</span>
+                    </button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="ai-chatbot">
+                      <span class="ajg-dropdown-check" aria-hidden="true"></span>
+                      <span>AI Chatbot (e.g., Gemini, ChatGPT, Grok)</span>
+                    </button>
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="search">
+                      <span class="ajg-dropdown-check" aria-hidden="true"></span>
+                      <span>Search (e.g., Google, Bing, DuckDuckGo)</span>
                     </button>
                     <button class="ajg-dropdown-option" type="button" role="option" data-value="social-media">
                       <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                      <span>Social Media</span>
+                      <span>Social Media (e.g., Facebook, LinkedIn, Reddit)</span>
                     </button>
-                    <button class="ajg-dropdown-option" type="button" role="option" data-value="referral">
+                    <button class="ajg-dropdown-option" type="button" role="option" data-value="returning-customer">
                       <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                      <span>Referral</span>
+                      <span>Returning Customer</span>
                     </button>
                   </div>
                 </div>
@@ -7073,6 +7117,7 @@
                   <button class="dp-today" type="button">Today</button>
                 </div>
               </div>
+              <p class="field-supporting-text is-hidden" id="licensureDateValidationMessage" data-supporting-text></p>
             </div>
 
             <div class="field full">
@@ -9263,6 +9308,8 @@
       const originalLicensureDateField = document.getElementById("originalLicensureDateField");
       const licensureDatePicker = document.getElementById("licensureDatePicker");
       const licensureDateInput = document.getElementById("licensureDateInput");
+      const licensureDateInputWrap = document.getElementById("licensureDateInputWrap");
+      const licensureDateValidationMessage = document.getElementById("licensureDateValidationMessage");
       const enrollLicensureDatePicker = document.getElementById("enrollLicensureDatePicker");
       const enrollLicensureDateInputWrap = document.getElementById("enrollLicensureDateInputWrap");
       const enrollLicensureDateInput = document.getElementById("enrollLicensureDateInput");
@@ -11734,6 +11781,52 @@
         });
         const showDateField = selectedLicenseOption && selectedLicenseOption.getAttribute("data-license-recent") === "yes";
         originalLicensureDateField.classList.toggle("is-hidden", !showDateField);
+        if (!showDateField) {
+          clearOriginalLicensureDateValidation();
+        }
+      }
+
+      function clearOriginalLicensureDateValidation() {
+        if (!licensureDateValidationMessage) return;
+        licensureDateValidationMessage.textContent = "";
+        licensureDateValidationMessage.classList.add("is-hidden");
+        licensureDateValidationMessage.classList.remove("is-error");
+        if (licensureDateInputWrap) {
+          licensureDateInputWrap.classList.remove("has-error");
+        }
+        if (licensureDatePicker) {
+          licensureDatePicker.classList.remove("has-error");
+        }
+      }
+
+      function isOriginalLicensureDateOlderThanTwoYears(date) {
+        if (!(date instanceof Date) || Number.isNaN(date.getTime())) return false;
+        const selected = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const today = new Date();
+        const cutoff = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
+        return selected < cutoff;
+      }
+
+      function syncOriginalLicensureDateValidation() {
+        if (!licensureDateValidationMessage) return;
+        if (!selectedLicensureDate || !isOriginalLicensureDateOlderThanTwoYears(selectedLicensureDate)) {
+          clearOriginalLicensureDateValidation();
+          return;
+        }
+        licensureDateValidationMessage.textContent = "Date can't be older than 2 year's";
+        licensureDateValidationMessage.classList.remove("is-hidden");
+        licensureDateValidationMessage.classList.add("is-error");
+        if (licensureDateInputWrap) {
+          licensureDateInputWrap.classList.add("has-error");
+        }
+        if (licensureDatePicker) {
+          licensureDatePicker.classList.add("has-error");
+        }
+      }
+
+      function hasOriginalLicensureDateRangeError() {
+        if (!originalLicensureDateField || originalLicensureDateField.classList.contains("is-hidden")) return false;
+        return Boolean(selectedLicensureDate) && isOriginalLicensureDateOlderThanTwoYears(selectedLicensureDate);
       }
 
       function resetFlowStateValues() {
@@ -11797,6 +11890,7 @@
           button.setAttribute("aria-checked", "false");
         });
         syncOriginalLicensureDateVisibility();
+        clearOriginalLicensureDateValidation();
         const url = new URL(window.location.href);
         url.searchParams.set("step", "0");
         window.history.replaceState({}, "", url.toString());
@@ -11997,6 +12091,11 @@
 
       if (basicNextBtn) {
         basicNextBtn.addEventListener("click", function onBasicNext() {
+          syncOriginalLicensureDateValidation();
+          if (hasOriginalLicensureDateRangeError()) {
+            if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
           const selectedProductLabel = getSelectedProductLabel();
           if (!selectedProductLabel) {
             showScopedErrorBanner("proInfoWarningBanner");
@@ -12659,6 +12758,7 @@
         onSelect: function(date) {
           selectedLicensureDate = new Date(date);
           if (enrollDP) enrollDP.setDate(date);
+          syncOriginalLicensureDateValidation();
         }
       });
 
@@ -12672,6 +12772,7 @@
         onSelect: function(date) {
           selectedLicensureDate = new Date(date);
           if (proInfoDP) proInfoDP.setDate(date);
+          syncOriginalLicensureDateValidation();
         }
       });
 
