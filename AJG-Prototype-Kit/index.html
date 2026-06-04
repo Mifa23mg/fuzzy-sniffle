@@ -5854,7 +5854,7 @@
     }
 
     .preview-payment-breakdown-row.is-due {
-      box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.25);
+      box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.25);
     }
 
     .preview-payment-breakdown-label {
@@ -5868,7 +5868,7 @@
     }
 
     .preview-payment-breakdown-leader {
-      border-bottom: 1px dotted #5c5c5c;
+      border-bottom: 2px dotted #5c5c5c;
       min-width: 16px;
       transform: translateY(2px);
     }
@@ -5889,10 +5889,12 @@
     .preview-payment-breakdown-row.is-due .preview-payment-breakdown-value {
       color: #003366;
       font-weight: 700;
+      transform: translateY(4px);
     }
 
     .preview-payment-breakdown-row.is-due .preview-payment-breakdown-leader {
-      border-bottom-color: #0250d9;
+      border-bottom-color: #003366;
+      transform: translateY(8px);
     }
 
     .preview-payment-note {
@@ -6063,7 +6065,7 @@
     }
 
     .preview-method-default {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 4px;
       width: fit-content;
@@ -8741,13 +8743,13 @@
                 </div>
               </div>
 
-              <div class="preview-expandable-section" data-preview-collapsible>
+              <div class="preview-expandable-section is-collapsed" data-preview-collapsible>
                 <div class="preview-expandable-header">
                   <button
                     class="preview-expandable-trigger"
                     type="button"
                     data-preview-toggle
-                    aria-expanded="true"
+                    aria-expanded="false"
                     aria-controls="previewPlanInformationContent"
                   >
                     <span class="preview-expandable-chevron" aria-hidden="true">
@@ -8759,7 +8761,7 @@
                   </button>
                 </div>
                 <div class="preview-expandable-content">
-                  <div class="preview-plan-content" id="previewPlanInformationContent" data-preview-content>
+                  <div class="preview-plan-content" id="previewPlanInformationContent" data-preview-content hidden>
                   <div class="preview-plan-group" id="previewPlanGroupMedicare">
                     <p class="preview-plan-group-title">Medicare ONLY</p>
                     <div class="app-data-table preview-plan-table" aria-label="Medicare ONLY">
@@ -9180,12 +9182,14 @@
           goToBasicScreen();
           setGlobalContext("Agent", "–");
         } else if (stepIndex === 2) {
-          const selectedProductKeyForStep = getSelectedProductKey();
+          const selectedProductKeyForStep = getCoverageRoutingProductKey();
           const sequence = getCoverageFlowSequence(selectedProductKeyForStep);
           goToCoverageScreenById(sequence[0] || "coverage-options");
           setGlobalContext("Agent", "–");
         } else if (stepIndex === 3) {
-          goToCoverageLimitsScreen();
+          const selectedProductKeyForStep = getCoverageRoutingProductKey();
+          const sequence = getCoverageFlowSequence(selectedProductKeyForStep);
+          goToCoverageScreenById(sequence[0] || "coverage-options");
           setGlobalContext("Agent", "–");
         } else if (stepIndex === 4) {
           goToEnrollmentScreen();
@@ -11100,7 +11104,7 @@
         const showMedicarePlan = isMedicareOnly;
         const showLhPlan = !isMedicareOnly && activeProductKey !== "pc-only";
         const showPcPlan = hasPc;
-        const showAdditionalProtection = !isMedicareOnly && selectedCoverageLimit !== "Decline";
+        const showAdditionalProtection = Boolean(selectedCoverageLimit) && selectedCoverageLimit !== "Decline";
 
         console.log("[Preview Plan Visibility] product key:", activeProductKey);
 
@@ -11156,7 +11160,7 @@
           previewPaymentMonthlyDownPaymentEl.textContent = formatCurrencyValue(monthlyDownPayment);
         }
         if (previewPaymentMonthlyInstallmentsEl) {
-          previewPaymentMonthlyInstallmentsEl.textContent = formatCurrencyValue(elevenMonthlyPayments);
+          previewPaymentMonthlyInstallmentsEl.textContent = formatCurrencyValue(selectedAmount);
         }
         if (previewPaymentMonthlyTotalEl) {
           previewPaymentMonthlyTotalEl.textContent = formatCurrencyValue(totalPaymentAmount);
@@ -12475,7 +12479,8 @@
 
       if (enrollmentPreviousBtn) {
         enrollmentPreviousBtn.addEventListener("click", function onEnrollmentPrevious() {
-          goToSelectPlanScreen();
+          const sequence = getCoverageFlowSequence(getCoverageRoutingProductKey());
+          goToCoverageScreenById(sequence[0] || "coverage-options");
         });
       }
 
