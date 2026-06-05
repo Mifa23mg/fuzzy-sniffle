@@ -1809,7 +1809,7 @@
       margin: 0;
       border-radius: 0;
       padding: 56px 220px 0;
-      background: #f7f7f7;
+      background: #ffffff;
     }
 
     .main-surface.custom-policy-active .steps {
@@ -8039,7 +8039,7 @@
 
             <!-- Contact Information -->
             <div class="enrollment-section">
-              <p class="enrollment-section-title">Contact Information</p>
+              <p class="enrollment-section-title">Contact Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The email address provided will be used as the Username to login to the Member Portal.&#10;&#10;Phone numbers and emails will can be added or changed through the Member Portal once your application is submitted." data-tooltip-position="bottom-left"></span></p>
               <div class="enrollment-fields-grid">
                 <div class="enrollment-field">
                   <div class="input-field ajg-input-field">
@@ -8115,7 +8115,7 @@
                   <div class="enrollment-readonly-field enrollment-field">
                     <div class="input-field ajg-input-field is-floating is-disabled">
                       <label class="ajg-input-label" for="enrollCoverageStartReadonly">
-                        <span class="ajg-input-label-text">Select your coverage start date</span>
+                        <span class="ajg-input-label-text">When do you need coverage to start?</span>
                         <span class="field-required" aria-hidden="true">*</span>
                       </label>
                       <input class="input-text ajg-input-control" type="text" id="enrollCoverageStartReadonly" name="enrollCoverageStartReadonly" readonly disabled />
@@ -9436,11 +9436,15 @@
            2. Show:             showScopedErrorBanner("myBannerId")
            3. Hide:             hideScopedErrorBanner("myBannerId")
       ──────────────────────────────────────────────────────────────────────── */
+      function svgToDataUri(svgMarkup) {
+        return "data:image/svg+xml," + encodeURIComponent(svgMarkup);
+      }
+
       const scopedNotificationIcons = {
-        error: "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20fill%3D%27none%27%3E%3Cpath%20fill-rule%3D%27evenodd%27%20clip-rule%3D%27evenodd%27%20d%3D%27M8%20.615385C3.93846%20.615385%20.615385%203.93846%20.615385%208C.615385%2012.0615%203.93846%2015.3846%208%2015.3846C12.0615%2015.3846%2015.3846%2012.0615%2015.3846%208C15.3846%203.93846%2012.0615%20.615385%208%20.615385ZM2.46156%207.99997C2.46156%204.95382%204.95387%202.46151%208.00002%202.46151C9.20002%202.46151%2010.3077%202.83074%2011.2%203.4769L3.47695%2011.2C2.83079%2010.3077%202.46156%209.19997%202.46156%207.99997ZM7.99988%2013.5385C6.79988%2013.5385%205.69219%2013.1693%204.79988%2012.5231L12.523%204.80003C13.1691%205.69234%2013.5383%206.80003%2013.5383%208.00003C13.5383%2011.0462%2011.046%2013.5385%207.99988%2013.5385Z%27%20fill%3D%27%23B60554%27%2F%3E%3C%2Fsvg%3E",
-        warning: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M8 1.4L14.7 13.2H1.3L8 1.4Z' fill='%23FE9339'/%3E%3Crect x='7.25' y='5.15' width='1.5' height='4.6' rx='0.75' fill='%23181418'/%3E%3Ccircle cx='8' cy='11.35' r='0.92' fill='%23181418'/%3E%3C/svg%3E",
-        success: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23056764'/%3E%3Cpath d='M4.3 8.15l2.1 2.1 5.3-5.3' stroke='white' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E",
-        info: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.2' fill='%23066AFE'/%3E%3Crect x='7.25' y='6.3' width='1.5' height='5' rx='0.75' fill='white'/%3E%3Ccircle cx='8' cy='4.55' r='0.95' fill='white'/%3E%3C/svg%3E"
+        error: svgToDataUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path fill-rule='evenodd' clip-rule='evenodd' d='M8 .615385C3.93846 .615385.615385 3.93846.615385 8C.615385 12.0615 3.93846 15.3846 8 15.3846C12.0615 15.3846 15.3846 12.0615 15.3846 8C15.3846 3.93846 12.0615 .615385 8 .615385ZM2.46156 7.99997C2.46156 4.95382 4.95387 2.46151 8.00002 2.46151C9.20002 2.46151 10.3077 2.83074 11.2 3.4769L3.47695 11.2C2.83079 10.3077 2.46156 9.19997 2.46156 7.99997ZM7.99988 13.5385C6.79988 13.5385 5.69219 13.1693 4.79988 12.5231L12.523 4.80003C13.1691 5.69234 13.5383 6.80003 13.5383 8.00003C13.5383 11.0462 11.046 13.5385 7.99988 13.5385Z' fill='#B60554'/></svg>"),
+        warning: svgToDataUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M8 1.4L14.7 13.2H1.3L8 1.4Z' fill='#FE9339'/><rect x='7.25' y='5.15' width='1.5' height='4.6' rx='0.75' fill='#181418'/><circle cx='8' cy='11.35' r='0.92' fill='#181418'/></svg>"),
+        success: svgToDataUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><circle cx='8' cy='8' r='7.2' fill='#056764'/><path d='M4.3 8.15l2.1 2.1 5.3-5.3' stroke='white' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"),
+        info: svgToDataUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><circle cx='8' cy='8' r='7.2' fill='#066AFE'/><rect x='7.25' y='6.3' width='1.5' height='5' rx='0.75' fill='white'/><circle cx='8' cy='4.55' r='0.95' fill='white'/></svg>")
       };
 
       const scopedNotificationRegistry = {
@@ -12059,6 +12063,8 @@
         if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
         if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
         updateChoiceSelection(grossIncomeOptions, null, false);
+        selectedGrossIncome = null;
+        isHighIncomeFlag = false;
         updateChoiceSelection(coverageStartOptions, null, false);
         updateChoiceSelection(agencyCoverageStartOptions, null, false);
         updateMiniRadioSelection(agencyImoOptions, null, false);
@@ -12367,7 +12373,13 @@
 
       if (basicFollowupNextBtn) {
         basicFollowupNextBtn.addEventListener("click", function onBasicFollowupNext() {
-          if (isHighIncomeFlag) {
+          const selectedIncomeOption = grossIncomeOptions.find(function(option) {
+            return option.getAttribute("aria-checked") === "true";
+          });
+          const hasHighIncomeSelected = Boolean(
+            selectedIncomeOption && selectedIncomeOption.getAttribute("data-income-option") === "gt-1m"
+          );
+          if (hasHighIncomeSelected) {
             goToCustomPolicyRequestScreen();
             if (mainScrollEl) {
               mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
