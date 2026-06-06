@@ -9464,36 +9464,41 @@
       }
 
       function goToFirstScreenForStep(stepIndex) {
+        const activeFlowLabel = isAgencyContextFlow() ? "Agency" : "Agent";
         if (stepIndex === 0) {
           goToStartScreen();
         } else if (stepIndex === 1) {
-          goToBasicScreen();
-          setGlobalContext("Agent", "–");
+          if (isAgencyContextFlow()) {
+            goToBasicAgencyScreen();
+          } else {
+            goToBasicScreen();
+          }
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 2) {
           const selectedProductKeyForStep = getCoverageRoutingProductKey();
           const sequence = getCoverageFlowSequence(selectedProductKeyForStep);
           goToCoverageScreenById(sequence[0] || "coverage-options");
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 3) {
           const selectedProductKeyForStep = getCoverageRoutingProductKey();
           const sequence = getCoverageFlowSequence(selectedProductKeyForStep);
           goToCoverageScreenById(sequence[0] || "coverage-options");
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 4) {
           goToEnrollmentScreen();
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 5) {
           goToProgramEligibilitiesScreen();
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 6) {
           goToUnderwritingQuestionsScreen();
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 7) {
           goToRepresentationAgreementsScreen();
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         } else if (stepIndex === 8) {
           goToPreviewCheckoutScreen();
-          setGlobalContext("Agent", "–");
+          setGlobalContext(activeFlowLabel, "–");
         }
       }
 
@@ -9692,6 +9697,7 @@
       const coverageAcknowledgementsIncludedList = document.getElementById("coverageAcknowledgementsIncludedList");
       const coverageAcknowledgementsExcludedList = document.getElementById("coverageAcknowledgementsExcludedList");
       let underwritingQuestionRadios = [];
+      let activeFlowMode = null; // "agent" | "agency" — set on flow entry, read by restartFlow
       let renderedUnderwritingFlowMode = null;
       const grossIncomeOptions = Array.from(document.querySelectorAll("#grossIncomeGrid .choice-option"));
       const coverageStartOptions = Array.from(document.querySelectorAll("#coverageStartGrid .choice-option"));
@@ -11355,6 +11361,7 @@
       }
 
       function goToBasicScreen() {
+        activeFlowMode = "agent";
         setHomeLandingActive(false);
         showScreen("basic");
         setEnrollmentActiveStep(1);
@@ -11363,6 +11370,7 @@
       }
 
       function goToBasicAgencyScreen() {
+        activeFlowMode = "agency";
         setHomeLandingActive(false);
         showScreen("basic-agency");
         setEnrollmentActiveStep(1);
@@ -12721,6 +12729,7 @@
           representationLegalScroll.innerHTML = representationAgentLegalTemplate;
         }
         renderedUnderwritingFlowMode = null;
+        activeFlowMode = null;
         Object.keys(scopedNotificationRegistry).forEach(function(id) {
           hideScopedNotification(id);
         });
@@ -12732,16 +12741,9 @@
       }
 
       function restartFlow() {
-        const activeFlowLabel = flowValueEl ? String(flowValueEl.textContent || "").trim().toLowerCase() : "";
         resetTimer();
         resetFlowStateValues();
-        if (activeFlowLabel === "agency") {
-          goToBasicAgencyScreen();
-        } else if (activeFlowLabel === "agent") {
-          goToBasicScreen();
-        } else {
-          goToStartScreen();
-        }
+        goToStartScreen();
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
         }
