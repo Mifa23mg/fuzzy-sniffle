@@ -3321,6 +3321,20 @@
       box-shadow: 0 4px 4px rgba(6, 106, 254, 0.25);
     }
 
+    .coverage-card.is-disabled,
+    .coverage-card[aria-disabled="true"] {
+      background: #f3f3f3;
+      border-color: #d8dde6;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .coverage-card.is-disabled .coverage-card-radio,
+    .coverage-card[aria-disabled="true"] .coverage-card-radio {
+      border: 1px solid #757575;
+      background: #c9c9c9;
+    }
+
     .coverage-card:focus-visible {
       outline: 2px solid #03234d;
       outline-offset: 1px;
@@ -3959,7 +3973,7 @@
     }
 
     #screen-enrollment .intro {
-      margin: 0;
+      margin: 12px 0 0;
       font-family: "Segoe UI", "SF Pro Text", Arial, sans-serif;
       font-size: 14px;
       line-height: 21px;
@@ -3990,6 +4004,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .enrollment-additional-section-title {
+      margin: 0;
+      color: var(--Text-Default, #181818);
+      font-feature-settings: "liga" off, "clig" off;
+      font-family: "SF Pro";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 590;
+      line-height: 22px;
     }
     /* Inline checkbox cell (This is a Mobile Number) */
     .enrollment-field--checkbox-inline {
@@ -4461,6 +4486,10 @@
       width: 100%;
     }
 
+    .enrollment-license-row.is-single {
+      grid-template-columns: 1fr;
+    }
+
     .enrollment-license-field {
       display: flex;
       flex-direction: column;
@@ -4795,6 +4824,167 @@
       font-weight: 700;
     }
 
+    .enrollment-owner-shell {
+      width: 100%;
+      border: 1px solid #c9c9c9;
+      border-radius: 12px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .enrollment-owner-banner-mount:empty {
+      display: none;
+    }
+
+    .enrollment-owner-note {
+      margin: 0;
+      color: #181818;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 21px;
+      font-weight: 400;
+    }
+
+    .enrollment-owner-note strong {
+      font-weight: 700;
+    }
+
+    .enrollment-owner-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .enrollment-owner-card-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .enrollment-owner-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .enrollment-owner-toggle-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .enrollment-owner-toggle-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      border: 1px solid #939393;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 2px 8px 2px 2px;
+      background: #939393;
+      box-sizing: border-box;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background-color 140ms ease, box-shadow 140ms ease;
+      box-shadow:
+        inset 0 1px 0 rgba(0, 0, 0, 0.25),
+        inset 0 0.5px 2px rgba(0, 0, 0, 0.5),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle .optins-toggle-knob {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      flex: 0 0 20px;
+      pointer-events: none;
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle.is-on {
+      justify-content: flex-end;
+      padding: 2px 2px 2px 8px;
+      background: #066afe;
+      border-color: #066afe;
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle .optins-toggle-check {
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle .optins-toggle-check svg {
+      width: 12px;
+      height: 12px;
+      display: block;
+    }
+
+    .optins-toggle-btn.enrollment-owner-primary-toggle.is-on .optins-toggle-check {
+      opacity: 1;
+    }
+
+    .enrollment-owner-toggle-label {
+      margin: 0;
+      color: #2e2e2e;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 590;
+    }
+
+    .brand-btn.enrollment-remove-btn {
+      background: #e3066a;
+      border-color: #e3066a;
+      color: #ffffff;
+    }
+
+    .brand-btn.enrollment-remove-btn:hover:not(:disabled):not([aria-disabled="true"]) {
+      background: #b60554;
+      border-color: #b60554;
+      color: #ffffff;
+    }
+
+    .secondary-btn.enrollment-add-owner-btn {
+      width: fit-content;
+      color: #0250d9;
+      border-color: #5c5c5c;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 0 16px;
+    }
+
+    #enrollmentThirdAgencyOwnerSection {
+      gap: 16px;
+    }
+
     #screen-enrollment-fourth.active {
       display: flex;
       flex-direction: column;
@@ -4869,6 +5059,10 @@
     .enrollment-question-label .required {
       margin-right: 2px;
       line-height: 17px;
+    }
+
+    .enrollment-question-label .required.required-red {
+      color: #b60554;
     }
 
     .enrollment-question-options {
@@ -5051,6 +5245,15 @@
       font-size: 13px;
       line-height: 18px;
       text-align: center;
+    }
+
+    .acknowledgement-item .required.bullet-marker,
+    .program-eligibility-item .required.bullet-marker {
+      color: #181818;
+      margin-right: 6px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
     }
 
     .acknowledgement-copy,
@@ -6952,9 +7155,11 @@
                 <li>Agent - Custom Policy (&gt;$1M)</li>
               </ul>
               <div class="home-flow-divider" aria-hidden="true"></div>
-              <ul class="home-flow-list is-disabled-items">
+              <ul class="home-flow-list">
                 <li>Agency - IMO, FMO, NMO</li>
                 <li>Agency - Not IMO, FMO, NMO</li>
+                <li>Agency - Custom Policy (&gt;$3M)</li>
+                <li>Agency - P&amp;C Only / Mostly</li>
               </ul>
               <div class="home-flow-cta-wrap">
                 <button class="home-flow-cta" type="button" id="homeViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
@@ -6962,7 +7167,7 @@
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
               <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
@@ -6972,12 +7177,12 @@
                 <li>Term Life AD&amp;D</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="termLifeViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
 
-          <article class="home-flow-card is-disabled">
+          <article class="home-flow-card">
             <div class="home-flow-card-logo">
               <img class="home-flow-logo-aft" src="assets/aft-logo.png" alt="AFT+" />
             </div>
@@ -6987,7 +7192,7 @@
                 <li>$5k, 12-Month Guaranteed Issue Term Life</li>
               </ul>
               <div class="home-flow-cta-wrap">
-                <button class="home-flow-cta soon" type="button" aria-disabled="true">Coming Soon</button>
+                <button class="home-flow-cta" type="button" id="guaranteedViewFlowBtn"><span class="home-flow-cta-label">View Flow</span></button>
               </div>
             </div>
           </article>
@@ -7022,10 +7227,8 @@
       <div class="divider-tall" aria-hidden="true"></div>
       <div class="brand-title">Errors &amp; Omissions (E&amp;O)<br />Insurance Application</div>
       <div class="header-right">
-        <span class="help-label">Need Help:</span>
+        <span class="help-label">Need Help?</span>
         <a class="help-phone" href="#">Call 800-593-7657</a>
-        <div class="divider-short" aria-hidden="true"></div>
-        <span class="login-label">Login</span>
       </div>
     </header>
 
@@ -7056,7 +7259,7 @@
             </li>
             <li class="step-item" data-position="middle" data-state="default">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
-              <span class="step-text">Eligibilities &amp; Acknowledgments</span>
+              <span class="step-text">Eligibility &amp; Acknowledgments</span>
             </li>
             <li class="step-item" data-position="middle" data-state="default">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
@@ -7376,7 +7579,7 @@
               To ensure we provide you with the most appropriate coverage options, now tell us a little about you and your business
             </p>
 
-            <div class="field full">
+            <div class="field full" id="agencyImoQuestionField">
               <p class="label"><span class="required">*</span>Is your agency an IMO, FMO or NMO?<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Independent Marketing Organizations (IMOs), Field Marketing Organizations (FMOs), and National Marketing Organizations (NMOs) support independent insurance agents with carrier access, training, and admin services.&#10;&#10;Often used interchangeably, FMOs typically focus on health/Medicare, IMOs on life/annuities, and NMOs operate at a broader national level.&#10;&#10;Agents in these models are usually independent, paid directly by carriers, and often retain ownership of their book, unlike traditional retail agencies." data-tooltip-position="bottom-left"></span></p>
               <div class="mini-radio" role="radiogroup" aria-label="Is your agency an IMO, FMO or NMO?">
                 <button type="button" role="radio" aria-checked="false" data-agency-imo-option="yes">Yes</button>
@@ -7519,6 +7722,7 @@
                     <li class="included">Employee Benefit Administration</li>
                     <li class="excluded">Fixed &amp; Indexed Annuities</li>
                     <li class="excluded">Mutual Funds &amp; Variable Products</li>
+                    <li class="excluded is-hidden" id="coverageOptionAImoEntityCoverage">IMO Entity Coverage</li>
                   </ul>
                 </button>
 
@@ -7538,6 +7742,7 @@
                     <li class="included">Employee Benefit Administration</li>
                     <li class="included">Fixed &amp; Indexed Annuities</li>
                     <li class="excluded">Mutual Funds &amp; Variable Products</li>
+                    <li class="excluded is-hidden" id="coverageOptionBImoEntityCoverage">IMO Entity Coverage</li>
                   </ul>
                 </button>
 
@@ -7557,6 +7762,7 @@
                     <li class="included">Employee Benefit Administration</li>
                     <li class="included">Fixed &amp; Indexed Annuities</li>
                     <li class="included">Mutual Funds &amp; Variable Products</li>
+                    <li class="included is-hidden" id="coverageOptionCImoEntityCoverage">IMO Entity Coverage</li>
                   </ul>
                 </button>
               </div>
@@ -8002,7 +8208,9 @@
               <h1>Customer Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">If you need to add the name of an Agency or a Doing Business As (DBA) name to your E&amp;O policy, you may provide the necessary information here. These entities, as well as Certificate Holders, can also be added to your policy after this application has been submitted by contacting our Customer Service Team.<br><br>Please allow up to 2 business days after your application has been approved for entities listed here to be included on a Certificate of Insurance.</p>
+            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application.</p>
+
+            <p class="enrollment-additional-section-title">Agent &amp; Agency Additional Information</p>
 
             <!-- Agent Information -->
             <div class="enrollment-section">
@@ -8106,7 +8314,7 @@
               <h1>Customer Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application</p>
+            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application.</p>
 
             <div class="enrollment-second-section">
               <div class="enrollment-second-block">
@@ -8138,7 +8346,7 @@
                       <input class="input-text ajg-input-control" type="text" id="enrollLicenseNumberStep2" name="enrollLicenseNumberStep2" placeholder="License Number" />
                     </div>
                   </div>
-                  <div class="enrollment-license-field enrollment-field enroll-datepicker-field">
+                  <div class="enrollment-license-field enrollment-field enroll-datepicker-field" id="enrollOriginalLicensureField">
                     <div class="enrollment-readonly-field-wrap">
                       <div class="datepicker enroll-datepicker-wrap" id="enrollLicensureDatePicker">
                         <div class="input-field ajg-input-field is-disabled is-disabled-inline" id="enrollLicensureDateInputWrap">
@@ -8197,9 +8405,174 @@
               <h1>Customer Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application</p>
+            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application.</p>
 
-            <div class="enrollment-third-section">
+            <div class="enrollment-fourth-body is-hidden" id="enrollmentThirdAgencyOwnerSection">
+              <p class="enrollment-question-title">Owner(s) Information</p>
+              <div class="enrollment-owner-shell">
+                <div class="enrollment-owner-banner-mount" id="enrollmentThirdOwnerWarningBannerMount"></div>
+                <p class="enrollment-owner-note">Primary owner is defaulted to the applicant of this policy. Please add a different agency owner if the applicant is not the primary owner of the agency. Prior acts coverage is afforded to the owners of the Agency. <strong>Only one primary owner can be checked among the owners added</strong></p>
+                <div class="enrollment-owner-cards">
+                  <div class="enrollment-detail-card" id="agencyOwnerCardPrimary">
+                    <div class="enrollment-owner-card-fields">
+                      <div class="enrollment-owner-card-grid">
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerOneFirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerOneFirstName" name="agencyOwnerOneFirstName" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerOneMiddleInitial"><span class="ajg-input-label-text">Middle Initial</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerOneMiddleInitial" name="agencyOwnerOneMiddleInitial" placeholder="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="enrollment-owner-card-grid">
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerOneLastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerOneLastName" name="agencyOwnerOneLastName" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerOneEmail"><span class="ajg-input-label-text">Email</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="email" id="agencyOwnerOneEmail" name="agencyOwnerOneEmail" placeholder="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyOwnerOnePhone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label>
+                          <input class="input-text ajg-input-control" type="text" id="agencyOwnerOnePhone" name="agencyOwnerOnePhone" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="enrollment-owner-toggle-row">
+                      <div class="enrollment-owner-toggle-left">
+                        <button class="optins-toggle-btn enrollment-owner-primary-toggle is-on" type="button" id="ownerCardPrimaryToggle" role="switch" aria-checked="true" aria-label="Mark Agency Owner 1 as Primary Owner">
+                          <span class="optins-toggle-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M3 6.2L5.2 8.4L9 4.6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                          </span>
+                          <span class="optins-toggle-knob" aria-hidden="true"></span>
+                        </button>
+                        <p class="enrollment-owner-toggle-label">Mark as Primary Owner</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="enrollment-detail-card is-hidden" id="agencyOwnerCardSecondary">
+                    <div class="enrollment-owner-card-fields">
+                      <div class="enrollment-owner-card-grid">
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerTwoFirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoFirstName" name="agencyOwnerTwoFirstName" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerTwoMiddleInitial"><span class="ajg-input-label-text">Middle Initial</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoMiddleInitial" name="agencyOwnerTwoMiddleInitial" placeholder="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="enrollment-owner-card-grid">
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerTwoLastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoLastName" name="agencyOwnerTwoLastName" placeholder="" />
+                          </div>
+                        </div>
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerTwoEmail"><span class="ajg-input-label-text">Email</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="email" id="agencyOwnerTwoEmail" name="agencyOwnerTwoEmail" placeholder="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyOwnerTwoPhone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label>
+                          <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoPhone" name="agencyOwnerTwoPhone" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="enrollment-owner-toggle-row">
+                      <div class="enrollment-owner-toggle-left">
+                        <button class="optins-toggle-btn enrollment-owner-primary-toggle" type="button" id="ownerCardSecondaryToggle" role="switch" aria-checked="false" aria-label="Mark Agency Owner 2 as Primary Owner">
+                          <span class="optins-toggle-check" aria-hidden="true">
+                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M3 6.2L5.2 8.4L9 4.6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                          </span>
+                          <span class="optins-toggle-knob" aria-hidden="true"></span>
+                        </button>
+                        <p class="enrollment-owner-toggle-label">Mark as Primary Owner</p>
+                      </div>
+                      <button class="brand-btn enrollment-remove-btn" type="button" id="removeAgencyOwnerBtn">Remove</button>
+                    </div>
+                  </div>
+
+                  <button class="secondary-btn enrollment-add-owner-btn" type="button" id="addAgencyOwnerBtn">
+                    <span aria-hidden="true">+</span>
+                    <span>Add Agency Owner</span>
+                  </button>
+                </div>
+              </div>
+
+              <p class="enrollment-question-title">Agency Producers Information</p>
+              <p class="enrollment-owner-note">Producers that have previously written any business outside of Agency named above, they will need to maintain prior acts coverage for business written before joining the agency.</p>
+              <div class="enrollment-owner-shell">
+                <p class="enrollment-detail-card-title">Agency Producers</p>
+                <div class="enrollment-detail-card is-hidden" id="agencyProducerCardPrimary">
+                  <div class="enrollment-owner-card-fields">
+                    <div class="enrollment-owner-card-grid">
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyProducerOneFirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOneFirstName" name="agencyProducerOneFirstName" placeholder="" />
+                        </div>
+                      </div>
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyProducerOneLastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label>
+                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOneLastName" name="agencyProducerOneLastName" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="enrollment-owner-card-grid">
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyProducerOneEmail"><span class="ajg-input-label-text">Email</span></label>
+                          <input class="input-text ajg-input-control" type="email" id="agencyProducerOneEmail" name="agencyProducerOneEmail" placeholder="" />
+                        </div>
+                      </div>
+                      <div class="enrollment-input-shell enrollment-field">
+                        <div class="input-field ajg-input-field">
+                          <label class="ajg-input-label" for="agencyProducerOnePhone"><span class="ajg-input-label-text">Phone Number</span></label>
+                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOnePhone" name="agencyProducerOnePhone" placeholder="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="enrollment-owner-toggle-row">
+                    <span></span>
+                    <button class="brand-btn enrollment-remove-btn" type="button" id="removeAgencyProducerBtn">Remove</button>
+                  </div>
+                </div>
+                <button class="secondary-btn enrollment-add-owner-btn" type="button" id="addAgencyProducerBtn">
+                  <span aria-hidden="true">+</span>
+                  <span>Add Agency Producer</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="enrollment-third-section" id="enrollmentThirdAddressSection">
               <div class="enrollment-third-block">
                 <div class="enrollment-third-title-row">
                   <p class="enrollment-section-title">Address <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The address included here will be listed under the insured on the Certificate of Insurance (COI). If you would like to include a different address, or ever need to update the address on the COI, our customer service team is here to help." data-tooltip-position="bottom-left"></span></p>
@@ -8333,12 +8706,12 @@
             </div>
             <p class="intro">If you need to add the name of an Agency or a Doing Business As (DBA) name to your E&amp;O policy, you may provide the necessary information here. These entities, as well as Certificate Holders, can also be added to your policy after this application has been submitted by contacting our Customer Service Team.<br><br>Please allow up to 2 business days after your application has been approved for entities listed here to be included on a Certificate of Insurance.</p>
 
-            <div class="enrollment-fourth-section">
+            <div class="enrollment-fourth-section is-hidden" id="enrollmentFourthAgentImportantNote">
               <div class="enrollment-important-note"><strong>IMPORTANT:</strong> Adding an Agency name or DBA does NOT extend coverage for any other agents or sub-agents. If coverage is needed for other agents, an Agency policy is recommended.</div>
             </div>
 
             <div class="enrollment-fourth-body">
-              <div class="enrollment-question-group">
+              <div class="enrollment-question-group is-hidden" id="enrollmentFourthAgentAgencyGroup">
                 <p class="enrollment-question-title">Agency Information</p>
                 <p class="enrollment-question-label"><span class="required">*</span>Would you like to add an agency/corporation/LLC?</p>
                 <div class="enrollment-question-options">
@@ -8399,9 +8772,9 @@
                 </div>
               </div>
 
-              <div class="enrollment-question-group">
+              <div class="enrollment-question-group" id="enrollmentFourthAgencyDbaGroup">
                 <p class="enrollment-question-title">DBA Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="A DBA (&quot;Doing Business As&quot;) is an additional name your agency uses in business other than its legal name." data-tooltip-position="bottom-left"></span></p>
-                <p class="enrollment-question-label"><span class="required">*</span>Would you like to add a DBA?</p>
+                <p class="enrollment-question-label"><span class="required" id="dbaAddRequiredAsterisk">*</span>Would you like to add a DBA?</p>
                 <div class="enrollment-question-options">
                   <div class="mini-radio" role="radiogroup" aria-label="Would you like to add a DBA?">
                     <button type="button" role="radio" aria-checked="false" data-enrollment-radio="add-dba" data-value="yes">Yes</button>
@@ -8411,7 +8784,7 @@
                 <div class="enrollment-detail-card is-hidden" id="dbaInfoCard">
                   <p class="enrollment-detail-card-title">DBA Details</p>
                   <div class="enrollment-detail-block enrollment-detail-block-input">
-                    <p class="enrollment-detail-label"><span class="required">*</span>What is the DBA name you would like to add</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span><span id="dbaTopInputLabel">What is the name of the agency you would like to add</span></p>
                     <div class="enrollment-detail-input">
                       <input class="input-text" type="text" id="dbaNameInput" name="dbaNameInput" />
                     </div>
@@ -8419,21 +8792,21 @@
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Is the Named Insured the sole owner and producer of the DBA?</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span><span id="dbaQuestionOneLabel">Is the DBA owned or controlled by the Named Insured?</span></p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Is the Named Insured the sole owner and producer of the DBA?">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-owner" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-sole-owner" data-value="no">No</button>
+                      <div class="mini-radio" role="radiogroup" aria-label="Is the DBA owned or controlled by the Named Insured?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Is the DBA owned or controlled by the Named Insured?</p>
+                    <p class="enrollment-detail-label"><span class="required">*</span><span id="dbaQuestionTwoLabel">Does the DBA have the same Tax ID as the Named Insured?</span></p>
                     <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Is the DBA owned or controlled by the Named Insured?">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="no">No</button>
+                      <div class="mini-radio" role="radiogroup" aria-label="Does the DBA have the same Tax ID as the Named Insured?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-tax-id-same" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-tax-id-same" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
@@ -8454,6 +8827,16 @@
                       <div class="mini-radio" role="radiogroup" aria-label="When asked for gross annual income earlier in this application, was DBA revenue included in your selection?">
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="yes">Yes</button>
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="no">No</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="enrollment-detail-block" id="dbaAllLicensedBlock">
+                    <p class="enrollment-detail-label"><span class="required">*</span>Are all individuals properly licensed, and either currently insured or intended to be covered under this policy if approved?</p>
+                    <div class="enrollment-question-options">
+                      <div class="mini-radio" role="radiogroup" aria-label="Are all individuals properly licensed, and either currently insured or intended to be covered under this policy if approved?">
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-all-licensed" data-value="yes">Yes</button>
+                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-all-licensed" data-value="no">No</button>
                       </div>
                     </div>
                   </div>
@@ -8484,13 +8867,13 @@
           <!-- SCREEN: Program Eligibilities & Coverage Acknowledgments -->
           <div class="screen" id="screen-program-eligibilities">
             <div class="title-wrap">
-              <h1>Eligibilities</h1>
+              <h1>Eligibility</h1>
               <div class="title-line"></div>
             </div>
             <p class="intro">Please acknowledge the items below to confirm you are eligible for the coverages you've chosen.</p>
 
             <div class="program-eligibilities-body">
-              <p class="program-eligibilities-title">Eligibilities</p>
+              <p class="program-eligibilities-title">Eligibility</p>
               <div class="acknowledgements-list" data-acknowledgements="program-eligibilities"></div>
             </div>
 
@@ -8578,55 +8961,7 @@
             <div class="underwriting-body">
               <p class="underwriting-section-title">Claims,Lawsuits, Complaints &amp; Disciplinary Actions</p>
 
-              <div class="underwriting-question-list">
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>In the last 7 years has any claim, suit, arbitration or other legal proceeding been commenced against Applicant's professional activities that resulted in total payments (including defense costs, damages, judgments and settlements or any combination thereof) of $100,000 or more, or has Applicant had more than two claims in the last seven years?</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 1">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q1" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q1" data-value="no">No</button>
-                  </div>
-                </div>
-
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>Does Applicant have any knowledge or information of any fact, situation, allegation or incident which may reasonably be expected to result in a, dispute, complaint, claim, suit or arbitration against Applicant?</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 2">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q2" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q2" data-value="no">No</button>
-                  </div>
-                </div>
-
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>Is Applicant currently under investigation by a consumer agency, any broker/dealer with whom the Applicant has at any time been affiliated, or any regulatory body, including but not limited to the SEC, FINRA, or any state securities, corporation, or insurance department?</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 3">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q3" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q3" data-value="no">No</button>
-                  </div>
-                </div>
-
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>Has Applicant ever been restricted or suspended for more than 30 days or has their license been revoked by any regulatory body or agency (regardless of amount of time), including but not limited to the SEC, FINRA, or any state securities, corporation or insurance department? This does not apply to restrictions or suspensions based upon a failure to satisfy continuing education requirements.</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 4">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q4" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q4" data-value="no">No</button>
-                  </div>
-                </div>
-
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>Has Applicant been fined by any regulatory body or agency, including but not limited to the Securities and Exchange Commission, FINRA, or any state securities, corporation or insurance department for more than $5,000 or within the last 5 years?</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 5">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q5" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q5" data-value="no">No</button>
-                  </div>
-                </div>
-
-                <div class="underwriting-question-row">
-                  <p class="underwriting-question-label"><span class="required">*</span>Has Applicant ever been convicted of a Felony criminal offense? (Other than DUI)</p>
-                  <div class="mini-radio" role="radiogroup" aria-label="Underwriting Question 6">
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q6" data-value="yes">Yes</button>
-                    <button type="button" role="radio" aria-checked="false" data-underwriting-radio="uw-q6" data-value="no">No</button>
-                  </div>
-                </div>
-              </div>
+              <div class="underwriting-question-list" id="underwritingQuestionList"></div>
             </div>
 
             <div class="enrollment-second-actions">
@@ -9286,6 +9621,14 @@
       const enrollmentThirdNextBtn = document.getElementById("enrollmentThirdNextBtn");
       const enrollmentFourthPreviousBtn = document.getElementById("enrollmentFourthPreviousBtn");
       const enrollmentFourthNextBtn = document.getElementById("enrollmentFourthNextBtn");
+      const enrollmentFourthAgentImportantNote = document.getElementById("enrollmentFourthAgentImportantNote");
+      const enrollmentFourthAgentAgencyGroup = document.getElementById("enrollmentFourthAgentAgencyGroup");
+      const enrollmentFourthAgencyDbaGroup = document.getElementById("enrollmentFourthAgencyDbaGroup");
+      const dbaAddRequiredAsterisk = document.getElementById("dbaAddRequiredAsterisk");
+      const dbaTopInputLabel = document.getElementById("dbaTopInputLabel");
+      const dbaQuestionOneLabel = document.getElementById("dbaQuestionOneLabel");
+      const dbaQuestionTwoLabel = document.getElementById("dbaQuestionTwoLabel");
+      const dbaAllLicensedBlock = document.getElementById("dbaAllLicensedBlock");
       const programEligibilitiesPreviousBtn = document.getElementById("programEligibilitiesPreviousBtn");
       const programEligibilitiesNextBtn = document.getElementById("programEligibilitiesNextBtn");
       const coverageAcknowledgementsPreviousBtn = document.getElementById("coverageAcknowledgementsPreviousBtn");
@@ -9312,6 +9655,18 @@
       const screenUnderwritingQuestions = document.getElementById("screen-underwriting-questions");
       const screenRepresentationAgreements = document.getElementById("screen-representation-agreements");
       const screenPreviewCheckout = document.getElementById("screen-preview-checkout");
+      const enrollmentThirdAddressSection = document.getElementById("enrollmentThirdAddressSection");
+      const enrollmentThirdAgencyOwnerSection = document.getElementById("enrollmentThirdAgencyOwnerSection");
+      const enrollmentThirdOwnerWarningBannerMount = document.getElementById("enrollmentThirdOwnerWarningBannerMount");
+      const addAgencyOwnerBtn = document.getElementById("addAgencyOwnerBtn");
+      const removeAgencyOwnerBtn = document.getElementById("removeAgencyOwnerBtn");
+      const agencyOwnerCardSecondary = document.getElementById("agencyOwnerCardSecondary");
+      const ownerCardPrimaryToggle = document.getElementById("ownerCardPrimaryToggle");
+      const ownerCardSecondaryToggle = document.getElementById("ownerCardSecondaryToggle");
+      const agencyProducerCardPrimary = document.getElementById("agencyProducerCardPrimary");
+      const addAgencyProducerBtn = document.getElementById("addAgencyProducerBtn");
+      const removeAgencyProducerBtn = document.getElementById("removeAgencyProducerBtn");
+      const enrollmentThirdOwnerWarningBannerId = "enrollmentThirdOwnerWarningBanner";
       const screenSaveLaterConfirmation = document.getElementById("screen-save-later-confirmation");
       const screenOrderConfirmation = document.getElementById("screen-order-confirmation");
       const previewCoverageEffectiveStartEl = document.getElementById("previewCoverageEffectiveStart");
@@ -9383,7 +9738,8 @@
       const agencyProductSelectionNoteBody = document.getElementById("agencyProductSelectionNoteBody");
       const coverageAcknowledgementsIncludedList = document.getElementById("coverageAcknowledgementsIncludedList");
       const coverageAcknowledgementsExcludedList = document.getElementById("coverageAcknowledgementsExcludedList");
-      const underwritingQuestionRadios = Array.from(document.querySelectorAll('[data-underwriting-radio]'));
+      let underwritingQuestionRadios = [];
+      let renderedUnderwritingFlowMode = null;
       const grossIncomeOptions = Array.from(document.querySelectorAll("#grossIncomeGrid .choice-option"));
       const coverageStartOptions = Array.from(document.querySelectorAll("#coverageStartGrid .choice-option"));
       const agencyImoOptions = Array.from(document.querySelectorAll('[data-agency-imo-option]'));
@@ -9392,9 +9748,13 @@
       const agencyGrossIncomeRangeInput = document.getElementById("agencyGrossIncomeRangeInput");
       const agencyGrossIncomeRangeDropdown = document.getElementById("agencyGrossIncomeRangeDropdown");
       const agencyExclusiveImportantNote = document.getElementById("agencyExclusiveImportantNote");
+      const agencyImoQuestionField = document.getElementById("agencyImoQuestionField");
       const coveragePackageOptions = Array.from(document.querySelectorAll("#coverageOptionsGrid .coverage-card"));
       const coveragePackageMedicareOptions = Array.from(document.querySelectorAll("#coverageOptionsMedicareGrid .coverage-card"));
       const coveragePackagePcOptions = Array.from(document.querySelectorAll("#coverageOptionsPcGrid .coverage-card"));
+      const coverageOptionAImoEntityCoverage = document.getElementById("coverageOptionAImoEntityCoverage");
+      const coverageOptionBImoEntityCoverage = document.getElementById("coverageOptionBImoEntityCoverage");
+      const coverageOptionCImoEntityCoverage = document.getElementById("coverageOptionCImoEntityCoverage");
       const coverageLimitsAddonOptions = Array.from(document.querySelectorAll("#coverageLimitsGrid .cyber-addon-card"));
       const productSelectionNote = document.getElementById("productSelectionNote");
       const productSelectionNoteTitle = document.getElementById("productSelectionNoteTitle");
@@ -9420,6 +9780,8 @@
       const enrollLicensureDateInputWrap = document.getElementById("enrollLicensureDateInputWrap");
       const enrollLicensureDateInput = document.getElementById("enrollLicensureDateInput");
       const enrollLicensureDateToggle = document.getElementById("enrollLicensureDateToggle");
+      const enrollOriginalLicensureField = document.getElementById("enrollOriginalLicensureField");
+      const enrollmentLicenseRow = document.querySelector("#screen-enrollment-second .enrollment-license-row");
       const enrollDpPrevMonth = document.getElementById("enrollDpPrevMonth");
       const enrollDpNextMonth = document.getElementById("enrollDpNextMonth");
       const enrollDpMonthLabel = document.getElementById("enrollDpMonthLabel");
@@ -9429,6 +9791,17 @@
       const enrollDpTodayBtn = document.getElementById("enrollDpTodayBtn");
       const topNavHomeBtn = document.getElementById("topNavHomeBtn");
       const appShellEl = document.querySelector(".app-shell");
+      const representationLegalScroll = document.getElementById("representationLegalScroll");
+      const representationAgentLegalTemplate = representationLegalScroll ? representationLegalScroll.innerHTML : "";
+      const representationAgentBulletItems = (function() {
+        if (!representationAgentLegalTemplate) return [];
+        const tempContainer = document.createElement("div");
+        tempContainer.innerHTML = representationAgentLegalTemplate;
+        return Array.from(tempContainer.querySelectorAll("p"))
+          .map(function(paragraphEl) { return String(paragraphEl.textContent || "").trim(); })
+          .filter(Boolean);
+      })();
+      let renderedRepresentationFlowMode = null;
 
       /* ── Scoped Error Banner — reusable component ─────────────────────────
          Usage:
@@ -9753,6 +10126,77 @@
       };
       const programEligibilityFirstCopyDefault = "I understand and agree that an active Life and/or Health insurance license is necessary to be eligible for Life & Health coverage under this E&O Policy.";
       const programEligibilityFirstCopyMedicare = "Includes Medicare Advantage, Medicare Supplemental, and Medicare Part D Products Only. Sale and Servicing of any other products will not be covered including prior acts coverage, even if you had coverage for other products on a previous E&O policy.";
+      const underwritingQuestionTextAgent = [
+        "In the last 7 years has any claim, suit, arbitration or other legal proceeding been commenced against Applicant's professional activities that resulted in total payments (including defense costs, damages, judgments and settlements or any combination thereof) of $100,000 or more, or has Applicant had more than two claims in the last seven years?",
+        "Does Applicant have any knowledge or information of any fact, situation, allegation or incident which may reasonably be expected to result in a, dispute, complaint, claim, suit or arbitration against Applicant?",
+        "Is Applicant currently under investigation by a consumer agency, any broker/dealer with whom the Applicant has at any time been affiliated, or any regulatory body, including but not limited to the SEC, FINRA, or any state securities, corporation, or insurance department?",
+        "Has Applicant ever been restricted or suspended for more than 30 days or has their license been revoked by any regulatory body or agency (regardless of amount of time), including but not limited to the SEC, FINRA, or any state securities, corporation or insurance department? This does not apply to restrictions or suspensions based upon a failure to satisfy continuing education requirements.",
+        "Has Applicant been fined by any regulatory body or agency, including but not limited to the Securities and Exchange Commission, FINRA, or any state securities, corporation or insurance department for more than $5,000 or within the last 5 years?",
+        "Has Applicant ever been convicted of a Felony criminal offense? (Other than DUI)"
+      ];
+      const underwritingQuestionTextAgency = [
+        "Applicant means: The Agent or Agency applying for coverage, its directors, officers, partners, members, employees, independent contractors and any other person for whom coverage is requested.",
+        "Does the Agency applying for coverage generate at least 51% of its revenues from the sale and service of Life and Health products?",
+        "Is the applicant licensed or registered in all the jurisdictions in which the applicant will act as an insurance producer or registered representative (if the applicant is a business entity and applying for agency coverage, the business entity must be licensed or registered as required by the jurisdictions in which the agency will act as an insurance producer)?",
+        "After a review of applicant's records, Does the Applicant, any director, officer, partner, employee, independent contractor, or any other person for whom coverage is requested, have any knowledge or information of any fact, situation, allegation or incident which may reasonably be expected to result in a, dispute, complaint, claim, suit or arbitration against Applicant?",
+        "Has Applicant ever been convicted of any felony, or misdemeanor, or is Applicant currently under investigation or indictment, or otherwise named as a defendant, respondent, or party to any criminal proceeding other than minor traffic violations or DUI?",
+        "Has any complaint, claim, suit or arbitration for alleged malpractice, error, omission, mistake or other wrongful acts ever been made against Applicant in the last 10 years?",
+        "If Applicant is or was a \"registered representative\", are there or were there any \"yes\" answers on Applicant's U-4, or have any complaints been expunged in the past? (if the applicant was never a \"registered representative\" answer no)",
+        "Has any professional license or registration of Applicant ever been denied, suspended, revoked, non-renewed or restricted in any way?",
+        "Has Applicant ever been the subject of any investigation, inquiry or complaint by any state or federal regulatory agency, or any other agency (including, but not limited to, the SEC, NASD, FINRA, and state securities, corporation or insurance department) that resulted in a regulatory enforcement or consent order, cease and desist order or other enforcement order, disciplinary action, sanction, censure, reprimand, fine, or suspension or in a formal reprimand by any court, or is Applicant currently under investigation by any of these authorities?",
+        "Has any complaint ever been filed against Applicant with a consumer agency, Applicant's broker/dealer or an appointing insurance carrier, or is Applicant currently under investigation by any of these authorities?",
+        "Has Applicant ever been accused by a professional association of violating that association's code of ethics?",
+        "Has any contract between Applicant and his/her insurance company, broker/dealer or others ever been suspended, restricted, terminated or non-renewed for cause?",
+        "Has applicant ever had a professional liability policy or fidelity bond cancelled (other than for non-payment of premium in which the policy was subsequently reinstated), declined, issued on special terms, renewal refused or had a request that an application for insurance or bond be withdrawn?"
+      ];
+      const representationAgencyBulletItems = [
+        `I understand that payment authorization for subsequent renewals of this policy shall be automatic and shall remain in force until revoked by written notification to NAPA from me or my payment institution.`,
+        `I understand this Policy is subject to minimum earned premium, which is equal to one month of premium. Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable.`,
+        `I understand and agree that the person completing this application, the applicant, must be the person applying for coverage. I also understand that this E&O insurance policy is underwritten by CNA - Continental Casualty Company, aka the "Company".`,
+        `I understand and agree that this is a claims-made and reported policy and is subject to all terms, conditions, and exclusions of the policy. Coverage only applies to the sale of products designated by coverage option. Prior acts coverage only applies to products and services within the selected coverage option.`,
+        `I understand and agree that the completion of this Application does not constitute acceptance of this Application or obligate the Company to complete the insurance applied for. I also understand and agree that the language of the policy, and not any summary language or marketing material, will determine insurance coverage.`,
+        `I understand and agree to the following: (a) that this Application, including, without limitation, all information submitted verbally or in writing in connection herewith and not contained herein, will be relied upon by the Company in making a decision whether to issue coverage; (b) that this Application will be made a part of the policy; and (c) that any such coverage will be issued in reliance upon the representations made in connection with this Application.`,
+        `I, the Applicant, understand and agree that failure to provide a true and complete response to any of the questions, statements or requests for information in this Application or to provide any other information material to this Application may, at the sole option of the Company, result in the voiding of the insurance coverage issued in reliance on this Application and/or denial of coverage for specific claims asserted against Applicant. The undersigned, Applicant, hereby waives any defense to an action by the Company for rescission of such coverage based upon misrepresentation of fact or failure to disclose material information in connection with this Application. I, the applicant, also agrees to hold the Company harmless from all loss as a result of any such misrepresentation or failure to disclose, including, without limitation, all costs and attorney fees incurred by the Company in connection with said action for rescission.`,
+        `I, the Applicant, authorize and consent to investigation of information bearing upon Applicant's moral character, professional reputation, and qualifications to engage in the activities to be insured, including, without limitation, authorization to every person or entity, public or private, to release to the Company, its agents and authorized representatives, any documents, records or other information bearing upon the foregoing. It is understood and agreed that these investigations may not be confined to information submitted in this Application, but may include any other information deemed relevant by the Company. It is understood and agreed that organizations releasing such information, their agents, servants and employees shall not incur any liability as a result of any information released or furnished pursuant to this authorization, including any errors, omissions or mistakes contained in such released information.`,
+        `I understand and agree that I must notify the Company within 10 days of any material change in the nature of my business (including, without limitation, any changes in license or registration status, or any changes with respect to fines, complaints or claims represented in questions posed in this Application; any changes in location; income earnings; or the kind of products sold or services provided) while this Application is pending and throughout the term of any coverage issued by the Company. Failure to notify the Company will result in a denial of coverage under the policy terms and conditions.`,
+        `I understand and agree that any person who knowingly and with intent to defraud an insurance company or its representatives files an application for insurance containing false information, or conceals information on any fact material thereto, commits a fraudulent insurance act which is a crime.`,
+        `I understand and agree that coverage applies only for the products listed in the coverage option I have selected and that Prior Acts coverage available under the policy applies only for products listed in the coverage option I have selected.`,
+        `I understand that I must comply with and am subject to state specific statutes regarding fraud. Click on the following link for more information. Rep & Warranties regarding Fraud`,
+        `I understand and agree that Gallagher Affinity is the program administrator on behalf for the E&O coverage that I am purchasing and that Gallagher Affinity charges fees for program administrative services including policy review and issuance, premium billing and invoicing, mid-term policy changes, coordination and issuance of certificates of insurance, online enrollment and account management, and a dedicated customer support team with phone, chat, and online contact features. The applicable fee for these services are posted on the program's enrollment website. This fee can be updated from time to time.`,
+        `One or more of the CNA companies provide the products and/or services described. The information is intended to present a general overview for illustrative purposes only. It is not intended to constitute a binding contract. Please remember that only the relevant insurance policy can provide the actual terms, coverages, amounts, conditions and exclusions for an insured. All products and services may not be available in all states and may be subject to change without notice. "CNA" is a registered trademark of CNA Financial Corporation. Certain CNA Financial Corporation subsidiaries use the "CNA" trademark in connection with insurance underwriting and claims activities. Copyright © 2025 CNA. All rights reserved.`,
+        `I understand and agree that if I choose the monthly payment option, my monthly credit card or EFT payment will be processed during the first week of each month and monthly charges will continue until the full amount due is paid.`,
+        `By enrolling in this insurance policy, the applicant agrees to become a non-voting member of non-voting member of Professional Agents Risk Purchasing Group, Inc. This RPG is a DE non-profit corporation that provides liability insurance for its members as a "Purchasing Group" in accordance with the Federal Liability Risk Retention Act (15 U.S.C. Â§3901 et seq.). Each member of this RPG is covered for separate limits of liability and is required to pay all premiums when due.`,
+        `Risk Purchasing Groups differ from traditional insurance companies in several ways, for example:`,
+        `Permitted by Federal Law – "Liability Risk Retention Act of 1986"`,
+        `A group of insureds engaged in similar businesses or activities to purchase insurance coverage from a commercial insurer`,
+        `May be exempt from some state insurance regulations`,
+        `May not be covered by various state guarantee funds`,
+        `Arthur J. Gallagher & Co, and any of its subsidiaries do not guarantee the financial viability of any insurance company, carrier, pool, risk retention group, or other means of risk transfer or risk sharing.`,
+        `I understand by enrolling in this insurance policy, the applicant agrees to become a non-voting member of Professional Agents Risk Purchasing Group, Inc. (PARPG). PARPG is a Delaware non-profit corporation that provides liability insurance for its members as a "Purchasing Group" in accordance with the Federal Liability Risk Retention Act (15 U.S.C. Â§3901 et seq.). Each member of PARPG is covered for separate limits of liability and is required to pay all premiums when due.`,
+        `I agree that Gallagher's liability to the applicant arising from any acts or omissions of Gallagher shall not exceed $5 million in the aggregate. Gallagher shall only be liable for actual damages incurred by the applicant and shall not be liable for any indirect, consequential or punitive damages or attorneys' fees. No claim or cause of action, regardless of form (tort, contract, statutory or otherwise) arising out of, relating to or in any way connected with this Agreement or any Services provided hereunder may be brought by either party any later than two (2) years after the accrual of such claim or cause of action.`,
+        `I understand and agree that any type of exposure/coverage, other than what I am applying for, is either self-insured or placed by another brokerage firm other than Gallagher Affinity. If you need help in placing other lines of coverage or covering other types of exposures, please contact your Gallagher Affinity representative.`,
+        `I understand that the policy provides coverage for the individual acts of the named insured. This coverage is not intended to cover claims against the agency for the acts of employed or independent contractor agents.`,
+        `By agreeing to this consent, the applicant chooses to receive all documents electronically instead of in paper form, to the fullest extent allowed by law. This includes, but is not limited to, renewal notices, cancellation notices, policy documents, agreements, forms, and other communications related to this or any past or future insurance, service, or product provided by the Company or its affiliates, predecessors, or successors. Documents may be delivered via email or by providing access to a secure website after enrollment.`
+      ];
+      const programEligibilityAgencyItems = [
+        {
+          type: "copy",
+          text: "I understand and agree that an active life and/or health insurance license is necessary to be eligible for coverage under this E&O Policy."
+        },
+        {
+          type: "copy",
+          text: "I understand and acknowledge that this is a claims made and reported policy and that under a claims made and reported policy, coverage must be in-force at the time the product is sold and at the time the claim is filed, with no lapses or \"gaps\" in coverage. If coverage is no longer in-force (canceled or non-renewed), then claims against an Insured for products sold prior to the cancellation effective date will not be covered. An Extended Reporting Period may apply but agents should secure continuous E&O coverage to ensure that prior acts are covered."
+        },
+        {
+          type: "copy",
+          text: "I understand that the person completing this application must be an officer of the agency and authorized to purchase this coverage."
+        },
+        {
+          type: "accept",
+          text: "I Accept All",
+          checkboxId: "programEligibilityAcceptAll"
+        }
+      ];
       const coverageAcknowledgementsIncludedProducts = [
         "Homeowners",
         "General Liability",
@@ -10200,7 +10644,7 @@
         });
         const optionValue = selectedAgencyImoOption
           ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
-          : null;
+          : (typeof shouldHideAgencyImoQuestion === "function" && shouldHideAgencyImoQuestion() ? "no" : null);
         const selectedLicenseOption = licenseRadios.find(function(option) {
           return option.getAttribute("aria-checked") === "true";
         });
@@ -10210,6 +10654,8 @@
         const currentFlowValue = flowValueEl ? flowValueEl.textContent : "–";
         const currentProductValue = productValueEl ? productValueEl.textContent : "–";
         setGlobalContext(currentFlowValue || "–", currentProductValue || "–", optionValue, licenseValue);
+        syncCoverageOptionRestrictions();
+        syncAgencyImoCoverageVariant();
       }
 
       function syncStartHereApplicant() {
@@ -10536,7 +10982,9 @@
 
           const required = document.createElement("span");
           required.className = "required";
-          required.textContent = "*";
+          const useBulletMarker = groupKey === "program-eligibilities" && !isAcceptRow;
+          if (useBulletMarker) required.classList.add("bullet-marker");
+          required.textContent = useBulletMarker ? "•" : "*";
           row.appendChild(required);
 
           if (isAcceptRow) {
@@ -10575,6 +11023,11 @@
       }
 
       function getAcknowledgementTemplateForKey(key) {
+        if (key === "program-eligibilities" && isAgencyContextFlow()) {
+          return programEligibilityAgencyItems.map(function(item) {
+            return Object.assign({}, item);
+          });
+        }
         const baseTemplate = acknowledgementTemplates[key] || [];
         const preparedTemplate = baseTemplate.map(function(item) {
           return Object.assign({}, item);
@@ -10794,7 +11247,82 @@
         }
       }
 
+      function syncEnrollmentFourthFlowSections() {
+        const isAgencyFlow = isAgencyContextFlow();
+        if (enrollmentFourthAgentImportantNote) {
+          enrollmentFourthAgentImportantNote.classList.toggle("is-hidden", isAgencyFlow);
+        }
+        if (enrollmentFourthAgentAgencyGroup) {
+          enrollmentFourthAgentAgencyGroup.classList.toggle("is-hidden", isAgencyFlow);
+        }
+        if (enrollmentFourthAgencyDbaGroup) {
+          enrollmentFourthAgencyDbaGroup.classList.remove("is-hidden");
+        }
+        if (dbaAddRequiredAsterisk) {
+          dbaAddRequiredAsterisk.classList.toggle("required-red", isAgencyFlow);
+        }
+        if (dbaTopInputLabel) {
+          dbaTopInputLabel.textContent = isAgencyFlow
+            ? "What is the name of the agency you would like to add"
+            : "What is the DBA name you would like to add";
+        }
+        if (dbaQuestionOneLabel) {
+          dbaQuestionOneLabel.textContent = isAgencyFlow
+            ? "Is the DBA owned or controlled by the Named Insured?"
+            : "Is the Named Insured the sole owner and producer of the DBA?";
+        }
+        if (dbaQuestionTwoLabel) {
+          dbaQuestionTwoLabel.textContent = isAgencyFlow
+            ? "Does the DBA have the same Tax ID as the Named Insured?"
+            : "Is the DBA owned or controlled by the Named Insured?";
+        }
+        if (dbaAllLicensedBlock) {
+          dbaAllLicensedBlock.classList.toggle("is-hidden", !isAgencyFlow);
+        }
+        syncEnrollmentConditionalCards();
+      }
+
+      function renderUnderwritingQuestions() {
+        const flowMode = isAgencyContextFlow() ? "agency" : "agent";
+        if (renderedUnderwritingFlowMode === flowMode) return;
+        const listEl = document.getElementById("underwritingQuestionList");
+        if (!listEl) return;
+        const questions = flowMode === "agency" ? underwritingQuestionTextAgency : underwritingQuestionTextAgent;
+        listEl.innerHTML = "";
+        questions.forEach(function(questionText, index) {
+          const groupId = "uw-q" + String(index + 1);
+          const row = document.createElement("div");
+          row.className = "underwriting-question-row";
+
+          const label = document.createElement("p");
+          label.className = "underwriting-question-label";
+          label.innerHTML = '<span class="required">*</span>' + questionText;
+          row.appendChild(label);
+
+          const radioGroup = document.createElement("div");
+          radioGroup.className = "mini-radio";
+          radioGroup.setAttribute("role", "radiogroup");
+          radioGroup.setAttribute("aria-label", "Underwriting Question " + String(index + 1));
+
+          ["yes", "no"].forEach(function(optionValue) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.setAttribute("role", "radio");
+            button.setAttribute("aria-checked", "false");
+            button.setAttribute("data-underwriting-radio", groupId);
+            button.setAttribute("data-value", optionValue);
+            button.textContent = optionValue === "yes" ? "Yes" : "No";
+            radioGroup.appendChild(button);
+          });
+
+          row.appendChild(radioGroup);
+          listEl.appendChild(row);
+        });
+        renderedUnderwritingFlowMode = flowMode;
+      }
+
       function initUnderwritingQuestionRadios() {
+        underwritingQuestionRadios = Array.from(document.querySelectorAll('#underwritingQuestionList [data-underwriting-radio]'));
         if (!underwritingQuestionRadios.length) return;
         const radiosByGroup = {};
         underwritingQuestionRadios.forEach(function(btn) {
@@ -10931,6 +11459,7 @@
 
       function goToBasicFollowupAgencyScreen() {
         setHomeLandingActive(false);
+        syncAgencyImoQuestionVisibility();
         showScreen("basic-followup-agency");
         setEnrollmentActiveStep(1);
       }
@@ -11380,6 +11909,13 @@
       }
 
       function syncEnrollmentSecondReadOnlyValues() {
+        const shouldHideOriginalLicensureDate = isAgencyContextFlow();
+        if (enrollOriginalLicensureField) {
+          enrollOriginalLicensureField.classList.toggle("is-hidden", shouldHideOriginalLicensureDate);
+        }
+        if (enrollmentLicenseRow) {
+          enrollmentLicenseRow.classList.toggle("is-single", shouldHideOriginalLicensureDate);
+        }
         const selectedCoverageStart = getSelectedCoverageStartLabel();
         const selectedLicensure = (licensureDateInput ? licensureDateInput.value.trim() : "");
         if (enrollCoverageStartReadonlyInput) enrollCoverageStartReadonlyInput.value = selectedCoverageStart;
@@ -11411,6 +11947,46 @@
         }
       }
 
+      function hideEnrollmentThirdOwnerWarningBanner() {
+        hideScopedErrorBanner(enrollmentThirdOwnerWarningBannerId);
+      }
+
+      function setOwnerCardDefaultStates() {
+        if (ownerCardPrimaryToggle) {
+          ownerCardPrimaryToggle.setAttribute("aria-checked", "true");
+          ownerCardPrimaryToggle.classList.add("is-on");
+        }
+        if (ownerCardSecondaryToggle) {
+          ownerCardSecondaryToggle.setAttribute("aria-checked", "false");
+          ownerCardSecondaryToggle.classList.remove("is-on");
+        }
+      }
+
+      function getActiveOwnerToggleCount() {
+        let activeCount = 0;
+        if (ownerCardPrimaryToggle && ownerCardPrimaryToggle.getAttribute("aria-checked") === "true") {
+          activeCount += 1;
+        }
+        const secondaryVisible = agencyOwnerCardSecondary && !agencyOwnerCardSecondary.classList.contains("is-hidden");
+        if (secondaryVisible && ownerCardSecondaryToggle && ownerCardSecondaryToggle.getAttribute("aria-checked") === "true") {
+          activeCount += 1;
+        }
+        return activeCount;
+      }
+
+      function syncEnrollmentThirdAgencyOwnerSection() {
+        const isAgencyFlow = isAgencyContextFlow();
+        if (enrollmentThirdAgencyOwnerSection) {
+          enrollmentThirdAgencyOwnerSection.classList.toggle("is-hidden", !isAgencyFlow);
+        }
+        if (enrollmentThirdAddressSection) {
+          enrollmentThirdAddressSection.classList.toggle("is-hidden", isAgencyFlow);
+        }
+        if (!isAgencyFlow) {
+          hideEnrollmentThirdOwnerWarningBanner();
+        }
+      }
+
       function goToEnrollmentSecondScreen() {
         setHomeLandingActive(false);
         syncEnrollmentSecondReadOnlyValues();
@@ -11420,12 +11996,15 @@
 
       function goToEnrollmentThirdScreen() {
         setHomeLandingActive(false);
+        syncEnrollmentThirdAgencyOwnerSection();
+        hideEnrollmentThirdOwnerWarningBanner();
         showScreen("enrollment-third");
         setEnrollmentActiveStep(4);
       }
 
       function goToEnrollmentFourthScreen() {
         setHomeLandingActive(false);
+        syncEnrollmentFourthFlowSections();
         showScreen("enrollment-fourth");
         setEnrollmentActiveStep(4);
       }
@@ -11453,14 +12032,47 @@
 
       function goToUnderwritingQuestionsScreen() {
         setHomeLandingActive(false);
+        renderUnderwritingQuestions();
+        initUnderwritingQuestionRadios();
         showScreen("underwriting-questions");
         setEnrollmentActiveStep(6);
       }
 
       function goToRepresentationAgreementsScreen() {
         setHomeLandingActive(false);
+        renderRepresentationLegalContent();
         showScreen("representation-agreements");
         setEnrollmentActiveStep(7);
+        if (typeof window.__lockRepresentationConsentGate === "function") {
+          window.__lockRepresentationConsentGate();
+        }
+      }
+
+      function renderRepresentationLegalContent() {
+        if (!representationLegalScroll) return;
+        const flowMode = isAgencyContextFlow() ? "agency" : "agent";
+        if (renderedRepresentationFlowMode === flowMode) return;
+        const itemsToRender = flowMode === "agency" ? representationAgencyBulletItems : representationAgentBulletItems;
+        const listEl = document.createElement("ul");
+        listEl.style.margin = "0";
+        listEl.style.padding = "0 0 0 18px";
+        listEl.style.display = "flex";
+        listEl.style.flexDirection = "column";
+        listEl.style.gap = "10px";
+        listEl.style.listStyle = "disc";
+        itemsToRender.forEach(function(textValue, index) {
+          const item = document.createElement("li");
+          item.textContent = textValue;
+          item.style.color = index === 0 ? "#B60554" : "#181818";
+          item.style.fontFamily = '"Segoe UI", Arial, sans-serif';
+          item.style.fontSize = "13px";
+          item.style.lineHeight = "20px";
+          item.style.fontWeight = "400";
+          listEl.appendChild(item);
+        });
+        representationLegalScroll.innerHTML = "";
+        representationLegalScroll.appendChild(listEl);
+        renderedRepresentationFlowMode = flowMode;
       }
 
       function goToPreviewCheckoutScreen() {
@@ -11500,6 +12112,64 @@
         return String(flowLabel || "").trim().toLowerCase() === "agency";
       }
 
+      function shouldLockAgencyLhCoverageOptions() {
+        const selectedAgencyImoOption = agencyImoOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const selectedAgencyImoValue = selectedAgencyImoOption
+          ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
+          : null;
+        const isLhAgencyProduct = selectedAgencyProductKey === "lh-only" || selectedAgencyProductKey === "lh-mostly-49";
+        return isAgencyContextFlow() && isLhAgencyProduct && (selectedAgencyImoValue === "no" || selectedAgencyImoValue === "yes");
+      }
+
+      function shouldShowAgencyImoCoverageVariant() {
+        if (!isAgencyContextFlow()) return false;
+        const selectedAgencyImoOption = agencyImoOptions.find(function(option) {
+          return option.getAttribute("aria-checked") === "true";
+        });
+        const selectedAgencyImoValue = selectedAgencyImoOption
+          ? selectedAgencyImoOption.getAttribute("data-agency-imo-option")
+          : null;
+        return selectedAgencyImoValue === "yes";
+      }
+
+      function syncAgencyImoCoverageVariant() {
+        const showVariant = shouldShowAgencyImoCoverageVariant();
+        [coverageOptionAImoEntityCoverage, coverageOptionBImoEntityCoverage, coverageOptionCImoEntityCoverage].forEach(function(lineItem) {
+          if (!lineItem) return;
+          lineItem.classList.toggle("is-hidden", !showVariant);
+        });
+      }
+
+      function syncCoverageOptionRestrictions() {
+        if (!coveragePackageOptions.length) return;
+        const shouldLockOptions = shouldLockAgencyLhCoverageOptions();
+        let hasClearedLockedSelection = false;
+        coveragePackageOptions.forEach(function(card) {
+          const optionKey = String(card.getAttribute("data-coverage-option") || "").trim().toLowerCase();
+          const isLockedCard = shouldLockOptions && (optionKey === "option-a" || optionKey === "option-b");
+          const isSelected = card.getAttribute("aria-checked") === "true";
+          card.classList.toggle("is-disabled", isLockedCard);
+          card.setAttribute("aria-disabled", isLockedCard ? "true" : "false");
+          if (isLockedCard && isSelected) {
+            hasClearedLockedSelection = true;
+          }
+        });
+        if (hasClearedLockedSelection) {
+          updateChoiceSelection(coveragePackageOptions, null, false);
+        }
+        const selectedCard = coveragePackageOptions.find(function(card) {
+          return card.getAttribute("aria-checked") === "true";
+        });
+        if (!selectedCard) {
+          const firstEnabledCard = coveragePackageOptions.find(function(card) {
+            return card.getAttribute("aria-disabled") !== "true";
+          });
+          if (firstEnabledCard) firstEnabledCard.tabIndex = 0;
+        }
+      }
+
       function goToCoverageScreenById(screenId) {
         if (screenId === "coverage-options-medicare") {
           goToCoverageOptionsMedicareScreen();
@@ -11535,7 +12205,11 @@
         if (activeIndex !== -1 && activeIndex < sequence.length - 1) {
           goToCoverageScreenById(sequence[activeIndex + 1]);
         } else if (activeIndex !== -1) {
-          goToCoverageLimitsScreen();
+          if (isAgencyContextFlow()) {
+            goToSelectPlanScreen();
+          } else {
+            goToCoverageLimitsScreen();
+          }
         }
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -11822,6 +12496,8 @@
         selectedAgencyProductKey = selectedOption ? (selectedOption.getAttribute("data-agency-product-option") || null) : null;
         if (selectedOption) hideScopedErrorBanner("proInfoAgencyWarningBanner");
         if (selectedOption) hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+        syncAgencyImoQuestionVisibility();
+        syncCoverageOptionRestrictions();
         if (agencyProductSelectionNote && agencyProductSelectionNoteBody) {
           if (!selectedAgencyProductKey) {
             agencyProductSelectionNote.classList.add("hidden");
@@ -11846,6 +12522,21 @@
         return agencyRelationshipOptions.some(function(option) {
           return option.getAttribute("aria-checked") === "true";
         });
+      }
+
+      function shouldHideAgencyImoQuestion() {
+        return selectedAgencyProductKey === "pc-only" || selectedAgencyProductKey === "pc-some-lh";
+      }
+
+      function syncAgencyImoQuestionVisibility() {
+        const shouldHide = shouldHideAgencyImoQuestion();
+        if (agencyImoQuestionField) {
+          agencyImoQuestionField.classList.toggle("is-hidden", shouldHide);
+        }
+        if (!shouldHide) return;
+        updateMiniRadioSelection(agencyImoOptions, null, false);
+        hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
+        syncAgencyImoContextIndicator();
       }
 
       function getSelectedProductLabel() {
@@ -12069,6 +12760,13 @@
         updateChoiceSelection(agencyCoverageStartOptions, null, false);
         updateMiniRadioSelection(agencyImoOptions, null, false);
         updateMiniRadioSelection(agencyExclusiveOptions, null, false);
+        setOwnerCardDefaultStates();
+        if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.add("is-hidden");
+        if (addAgencyOwnerBtn) addAgencyOwnerBtn.classList.remove("is-hidden");
+        if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.add("is-hidden");
+        if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
+        hideEnrollmentThirdOwnerWarningBanner();
+        syncEnrollmentThirdAgencyOwnerSection();
         syncAgencyImoContextIndicator();
         syncAgencyExclusiveImportantNote();
         setAjgDropdownValue(agencyGrossIncomeRangeDropdown, "");
@@ -12076,6 +12774,8 @@
         updateChoiceSelection(coveragePackageMedicareOptions, null, false);
         updateChoiceSelection(coveragePackagePcOptions, null, false);
         updateChoiceSelection(coverageLimitsAddonOptions, null, false);
+        syncCoverageOptionRestrictions();
+        syncAgencyImoCoverageVariant();
         selectPlanCards.forEach(function(c) { c.setAttribute("aria-checked", "false"); c.classList.remove("selected"); c.classList.remove("is-loading"); });
         if (planLoadingTimer) {
           window.clearTimeout(planLoadingTimer);
@@ -12100,6 +12800,11 @@
         licenseRadios.forEach(function resetLicense(button) {
           button.setAttribute("aria-checked", "false");
         });
+        renderedRepresentationFlowMode = null;
+        if (representationLegalScroll) {
+          representationLegalScroll.innerHTML = representationAgentLegalTemplate;
+        }
+        renderedUnderwritingFlowMode = null;
         Object.keys(scopedNotificationRegistry).forEach(function(id) {
           hideScopedNotification(id);
         });
@@ -12111,9 +12816,16 @@
       }
 
       function restartFlow() {
+        const activeFlowLabel = flowValueEl ? String(flowValueEl.textContent || "").trim().toLowerCase() : "";
         resetTimer();
         resetFlowStateValues();
-        goToStartScreen();
+        if (activeFlowLabel === "agency") {
+          goToBasicAgencyScreen();
+        } else if (activeFlowLabel === "agent") {
+          goToBasicScreen();
+        } else {
+          goToStartScreen();
+        }
         if (mainScrollEl) {
           mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -12407,10 +13119,11 @@
 
       if (agencyFollowupNextBtn) {
         agencyFollowupNextBtn.addEventListener("click", function onAgencyFollowupNext() {
+          const shouldRequireImoSelection = !shouldHideAgencyImoQuestion();
           const hasImoSelection = agencyImoOptions.some(function(option) {
             return option.getAttribute("aria-checked") === "true";
           });
-          if (!hasImoSelection) {
+          if (shouldRequireImoSelection && !hasImoSelection) {
             showScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
             if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
             return;
@@ -12419,9 +13132,19 @@
           const selectedRangeOption = agencyGrossIncomeRangeDropdown
             ? agencyGrossIncomeRangeDropdown.querySelector(".ajg-dropdown-option.selected")
             : null;
+          const selectedRangeValue = selectedRangeOption
+            ? String(selectedRangeOption.getAttribute("data-value") || "").trim().toLowerCase()
+            : "";
           const selectedRangeLabel = selectedRangeOption ? selectedRangeOption.textContent.trim() : "";
           selectedGrossIncome = selectedRangeLabel || selectedGrossIncome;
-          isHighIncomeFlag = false;
+          isHighIncomeFlag = selectedRangeValue === "gt-3m";
+          if (selectedRangeValue === "gt-3m") {
+            goToCustomPolicyRequestScreen();
+            if (mainScrollEl) {
+              mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            }
+            return;
+          }
           goToCoverageScreenById(getCoverageFlowSequence(getCoverageRoutingProductKey())[0]);
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -12479,7 +13202,11 @@
 
       if (selectPlanPreviousBtn) {
         selectPlanPreviousBtn.addEventListener("click", function onSelectPlanPrevious() {
-          goToCoverageLimitsScreen();
+          if (isAgencyContextFlow()) {
+            goToLastCoverageStep(getCoverageRoutingProductKey());
+          } else {
+            goToCoverageLimitsScreen();
+          }
         });
       }
 
@@ -12543,6 +13270,13 @@
 
       if (enrollmentThirdNextBtn) {
         enrollmentThirdNextBtn.addEventListener("click", function onEnrollmentThirdNext() {
+          if (isAgencyContextFlow() && getActiveOwnerToggleCount() > 1) {
+            showScopedErrorBanner(enrollmentThirdOwnerWarningBannerId);
+            if (mainScrollEl) {
+              mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            }
+            return;
+          }
           goToEnrollmentFourthScreen();
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -12697,17 +13431,23 @@
         }
         scrollEl.addEventListener("scroll", checkScrolledToBottom, { passive: true });
 
+        function lockRepresentationConsentGate() {
+          checkEl.checked = false;
+          checkEl.disabled = true;
+          if (fadeEl) fadeEl.classList.remove("is-hidden");
+          if (nextBtnEl) nextBtnEl.disabled = true;
+          scrollEl.scrollTop = 0;
+          scrollEl.removeEventListener("scroll", checkScrolledToBottom);
+          scrollEl.addEventListener("scroll", checkScrolledToBottom, { passive: true });
+        }
+        window.__lockRepresentationConsentGate = lockRepresentationConsentGate;
+
         // Re-lock when navigating back to this screen
         const origGoTo = window.goToRepresentationAgreementsScreen;
         if (typeof origGoTo === "function") {
           window.goToRepresentationAgreementsScreen = function() {
             origGoTo.apply(this, arguments);
-            checkEl.checked  = false;
-            checkEl.disabled = true;
-            if (fadeEl) fadeEl.classList.remove("is-hidden");
-            if (nextBtnEl) nextBtnEl.disabled = true;
-            scrollEl.scrollTop = 0;
-            scrollEl.addEventListener("scroll", checkScrolledToBottom, { passive: true });
+            lockRepresentationConsentGate();
           };
         }
       })();
@@ -12834,11 +13574,13 @@
       function bindChoiceGroup(options) {
         options.forEach(function bindChoiceOption(option) {
           option.addEventListener("click", function onChoiceClick() {
+            if (option.getAttribute("aria-disabled") === "true") return;
             updateChoiceSelection(options, option, false);
           });
           option.addEventListener("keydown", function onChoiceKeydown(event) {
             if (event.key === " " || event.key === "Enter") {
               event.preventDefault();
+              if (option.getAttribute("aria-disabled") === "true") return;
               option.click();
               return;
             }
@@ -12846,7 +13588,13 @@
               event.preventDefault();
               const currentIndex = options.indexOf(option);
               const delta = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
-              const nextIndex = (currentIndex + delta + options.length) % options.length;
+              let nextIndex = (currentIndex + delta + options.length) % options.length;
+              let safety = 0;
+              while (options[nextIndex].getAttribute("aria-disabled") === "true" && safety < options.length) {
+                nextIndex = (nextIndex + delta + options.length) % options.length;
+                safety += 1;
+              }
+              if (options[nextIndex].getAttribute("aria-disabled") === "true") return;
               updateChoiceSelection(options, options[nextIndex], true);
             }
           });
@@ -12871,6 +13619,8 @@
       bindChoiceGroup(coveragePackageMedicareOptions);
       bindChoiceGroup(coveragePackagePcOptions);
       bindChoiceGroup(coverageLimitsAddonOptions);
+      syncCoverageOptionRestrictions();
+      syncAgencyImoCoverageVariant();
 
       function bindMiniRadioGroup(options) {
         options.forEach(function(option) {
@@ -12902,6 +13652,70 @@
 
       bindMiniRadioGroup(agencyImoOptions);
       bindMiniRadioGroup(agencyExclusiveOptions);
+
+      if (enrollmentThirdOwnerWarningBannerMount) {
+        insertScopedErrorBanner(
+          enrollmentThirdOwnerWarningBannerMount,
+          enrollmentThirdOwnerWarningBannerId,
+          "Only one owner can be selected as primary. De-select any owner that is not the primary."
+        );
+        hideEnrollmentThirdOwnerWarningBanner();
+      }
+
+      function bindOwnerPrimaryToggle(toggleButton) {
+        if (!toggleButton) return;
+        toggleButton.addEventListener("click", function() {
+          const isChecked = toggleButton.getAttribute("aria-checked") === "true";
+          toggleButton.setAttribute("aria-checked", isChecked ? "false" : "true");
+          toggleButton.classList.toggle("is-on", !isChecked);
+          hideEnrollmentThirdOwnerWarningBanner();
+        });
+        toggleButton.addEventListener("keydown", function(event) {
+          if (event.key === " " || event.key === "Enter") {
+            event.preventDefault();
+            toggleButton.click();
+          }
+        });
+      }
+
+      bindOwnerPrimaryToggle(ownerCardPrimaryToggle);
+      bindOwnerPrimaryToggle(ownerCardSecondaryToggle);
+
+      if (addAgencyOwnerBtn) {
+        addAgencyOwnerBtn.addEventListener("click", function() {
+          if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.remove("is-hidden");
+          addAgencyOwnerBtn.classList.add("is-hidden");
+          hideEnrollmentThirdOwnerWarningBanner();
+        });
+      }
+
+      if (removeAgencyOwnerBtn) {
+        removeAgencyOwnerBtn.addEventListener("click", function() {
+          if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.add("is-hidden");
+          if (addAgencyOwnerBtn) addAgencyOwnerBtn.classList.remove("is-hidden");
+          if (ownerCardSecondaryToggle) {
+            ownerCardSecondaryToggle.setAttribute("aria-checked", "false");
+            ownerCardSecondaryToggle.classList.remove("is-on");
+          }
+          hideEnrollmentThirdOwnerWarningBanner();
+        });
+      }
+
+      if (addAgencyProducerBtn) {
+        addAgencyProducerBtn.addEventListener("click", function() {
+          if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.remove("is-hidden");
+          addAgencyProducerBtn.classList.add("is-hidden");
+        });
+      }
+
+      if (removeAgencyProducerBtn) {
+        removeAgencyProducerBtn.addEventListener("click", function() {
+          if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.add("is-hidden");
+          if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
+        });
+      }
+      setOwnerCardDefaultStates();
+      syncEnrollmentThirdAgencyOwnerSection();
       syncAgencyImoContextIndicator();
       syncAgencyExclusiveImportantNote();
 
