@@ -2182,6 +2182,11 @@
       gap: 8px;
     }
 
+    .agency-tax-id-error-row {
+      padding-left: calc(50% + 8px);
+      margin-top: -8px;
+    }
+
     #agencyRelationshipGrid,
     #agencyProductsGrid {
       gap: 16px 16px;
@@ -4178,6 +4183,15 @@
       color: #2e2e2e;
     }
 
+    .enrollment-field .input-field.ajg-input-field.has-error {
+      border-color: #ba0517;
+      box-shadow: 0 0 0 1px #ba0517 inset;
+    }
+
+    .enrollment-field .input-field.ajg-input-field.has-error .ajg-input-label-text {
+      color: #ba0517;
+    }
+
     .enrollment-field .input-field.ajg-input-field.is-disabled {
       background: #e5e5e5;
       border-color: #c9c9c9;
@@ -4247,7 +4261,7 @@
       flex: 0 0 16px;
       width: 16px;
       height: 16px;
-      margin-top: 1px;
+      margin: 0;
       border: 1px solid #5c5c5c;
       border-radius: 4px;
       cursor: pointer;
@@ -5134,6 +5148,74 @@
       font-weight: 590;
     }
 
+    .enrollment-longtext-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .enrollment-longtext-label {
+      margin: 0;
+      display: flex;
+      align-items: flex-start;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 590;
+      line-height: 17px;
+      color: #2e2e2e;
+    }
+    .enrollment-longtext-label .required {
+      color: #b60554;
+      font-weight: 590;
+      font-size: 12px;
+      margin-right: 2px;
+      flex: 0 0 auto;
+    }
+    .enrollment-longtext-textarea {
+      width: 100%;
+      min-height: 72px;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      resize: vertical;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .enrollment-longtext-textarea:focus {
+      border-color: #066afe;
+      box-shadow: 0 0 0 1px #066afe inset;
+    }
+    .enrollment-longtext-textarea::placeholder {
+      color: #5c5c5c;
+    }
+    .enrollment-longtext-textarea:focus::placeholder {
+      color: transparent;
+    }
+    .enrollment-detail-check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
+      font-weight: 590;
+    }
+    .enrollment-detail-check-label .enrollment-consent-checkbox {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .enrollment-detail-check-label .required {
+      color: #b60554;
+      margin-right: 2px;
+    }
+
     .enrollment-detail-input {
       height: 32px;
       border: 1px solid #5c5c5c;
@@ -5243,7 +5325,7 @@
     .program-eligibility-accept .required {
       flex: 0 0 10px;
       width: 10px;
-      margin-right: 2px;
+      margin-right: 0;
       color: #b60554;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 13px;
@@ -7528,15 +7610,16 @@
                 </div>
               </div>
               <div class="enrollment-field">
-                <div class="input-field ajg-input-field">
+                <div class="input-field ajg-input-field" id="agencyFlowTaxIdFieldWrap">
                   <label class="ajg-input-label" for="agencyFlowTaxIdInput">
                     <span class="ajg-input-label-text">Agency tax ID</span>
                     <span class="field-required" aria-hidden="true">*</span>
                   </label>
-                  <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" />
+                  <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" maxlength="9" />
                 </div>
               </div>
             </div>
+            <p class="field-supporting-text is-hidden agency-tax-id-error-row" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
 
             <div class="field full agency-screen-question">
               <p class="label"><span class="required">*</span>What's your relationship within the Agency? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best matches your role in the agency." data-tooltip-position="bottom-left"></span></p>
@@ -7705,6 +7788,7 @@
 
             <div class="field full">
               <p class="coverage-subtitle">Life &amp; Health Products</p>
+              <div class="enrollment-important-note is-hidden" id="coverageAgencyLhNote"><p style="margin:0;"><strong>Important:</strong> Based on the structure of our program, agencies primarily writing life and health business are placed within a coverage group that includes protection for more complex products such as annuities and variable products.</p><p style="margin:10px 0 0;">To ensure appropriate and consistent coverage across this group, the highest coverage option is pre-selected and required.</p></div>
             </div>
 
             <div class="field full">
@@ -8742,6 +8826,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-sole-owner" data-value="no">No</button>
                       </div>
                     </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="agencySoleOwnerLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="agencySoleOwnerLongtext" placeholder="Additional details"></textarea>
+                    </div>
                   </div>
 
                   <div class="enrollment-detail-block">
@@ -8752,25 +8840,29 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-sole-producer" data-value="no">No</button>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>Do you understand that if you hire any producing agents, W-2 or independent contractors, this policy does not cover the agency, or you, for E&amp;O of any other agents at the agency? This includes receiving overrides for production by other agents. If you plan to hire agents or sub-agents, we recommend an agency policy.</p>
-                    <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="Do you understand limits on hired producing agents under this policy?">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-hiring-disclosure" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-hiring-disclosure" data-value="no">No</button>
-                      </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="agencySoleProducerLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="agencySoleProducerLongtext" placeholder="Additional details"></textarea>
                     </div>
                   </div>
 
                   <div class="enrollment-detail-block">
-                    <p class="enrollment-detail-label"><span class="required">*</span>I understand the policy terms in regards to the definition of an "insured."</p>
-                    <div class="enrollment-question-options">
-                      <div class="mini-radio" role="radiogroup" aria-label="I understand the policy terms for insured definition.">
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-insured-definition" data-value="yes">Yes</button>
-                        <button type="button" role="radio" aria-checked="false" data-enrollment-radio="agency-insured-definition" data-value="no">No</button>
-                      </div>
+                    <div class="acknowledgement-accept">
+                      <span class="required">*</span>
+                      <label class="acknowledgement-accept-control" for="agencyHiringDisclosureCheck">
+                        <input class="enrollment-consent-checkbox" type="checkbox" id="agencyHiringDisclosureCheck" />
+                        <span class="acknowledgement-accept-text">Do you understand that if you hire any producing agents, W-2 or independent contractors, this policy does not cover the agency, or you, for E&amp;O of any other agents at the agency? This includes receiving overrides for production by other agents. If you plan to hire agents or sub-agents, we recommend an agency policy.</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="enrollment-detail-block">
+                    <div class="acknowledgement-accept">
+                      <span class="required">*</span>
+                      <label class="acknowledgement-accept-control" for="agencyInsuredDefinitionCheck">
+                        <input class="enrollment-consent-checkbox" type="checkbox" id="agencyInsuredDefinitionCheck" />
+                        <span class="acknowledgement-accept-text">I understand the policy terms in regards to the definition of an &quot;insured.&quot;</span>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -8803,6 +8895,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-owned-controlled" data-value="no">No</button>
                       </div>
                     </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaOwnedControlledLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaOwnedControlledLongtext" placeholder="Additional details"></textarea>
+                    </div>
                   </div>
 
                   <div class="enrollment-detail-block">
@@ -8812,6 +8908,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-tax-id-same" data-value="yes">Yes</button>
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-tax-id-same" data-value="no">No</button>
                       </div>
+                    </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaTaxIdSameLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaTaxIdSameLongtext" placeholder="Additional details"></textarea>
                     </div>
                   </div>
 
@@ -8823,6 +8923,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-same-industry" data-value="no">No</button>
                       </div>
                     </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaSameIndustryLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaSameIndustryLongtext" placeholder="Additional details"></textarea>
+                    </div>
                   </div>
 
                   <div class="enrollment-detail-block">
@@ -8832,6 +8936,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="yes">Yes</button>
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-income-included" data-value="no">No</button>
                       </div>
+                    </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaIncomeIncludedLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaIncomeIncludedLongtext" placeholder="Additional details"></textarea>
                     </div>
                   </div>
 
@@ -8843,6 +8951,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-all-licensed" data-value="no">No</button>
                       </div>
                     </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaAllLicensedLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaAllLicensedLongtext" placeholder="Additional details"></textarea>
+                    </div>
                   </div>
 
                   <div class="enrollment-detail-block">
@@ -8852,6 +8964,10 @@
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-known-claims" data-value="yes">Yes</button>
                         <button type="button" role="radio" aria-checked="false" data-enrollment-radio="dba-known-claims" data-value="no">No</button>
                       </div>
+                    </div>
+                    <div class="enrollment-longtext-wrap is-hidden" id="dbaKnownClaimsLongtextWrap">
+                      <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
+                      <textarea class="enrollment-longtext-textarea" id="dbaKnownClaimsLongtext" placeholder="Additional details"></textarea>
                     </div>
                   </div>
                 </div>
@@ -9222,14 +9338,21 @@
                           </button>
                           <input type="hidden" id="previewBillingDate" name="previewBillingDate" data-dropdown-input />
                           <div class="ajg-dropdown-listbox" role="listbox" aria-label="Billing Date options">
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="1st">
-                              <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                              <span>1st of every month</span>
-                            </button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="15th">
-                              <span class="ajg-dropdown-check" aria-hidden="true"></span>
-                              <span>15th of every month</span>
-                            </button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="1st"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1st of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="2nd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>2nd of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="3rd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3rd of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="4th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="5th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="6th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="7th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="8th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="9th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="10th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="11th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="12th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>12th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="13th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>13th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="14th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>14th of every month</span></button>
+                            <button class="ajg-dropdown-option" type="button" role="option" data-value="15th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>15th of every month</span></button>
                           </div>
                         </div>
                         <p class="preview-payment-breakdown-copy">Once your order has been completed a confirmation will be sent to the email address you've provided, and give instant access to your certificate of insurance and member benefits!</p>
@@ -9743,6 +9866,32 @@
       const agencyProductOptions = Array.from(document.querySelectorAll("#agencyProductsGrid .option-card"));
       const agencyFlowNameInput = document.getElementById("agencyFlowNameInput");
       const agencyFlowTaxIdInput = document.getElementById("agencyFlowTaxIdInput");
+      const agencyFlowTaxIdFieldWrap = document.getElementById("agencyFlowTaxIdFieldWrap");
+      const agencyFlowTaxIdError = document.getElementById("agencyFlowTaxIdError");
+
+      function validateAgencyTaxId() {
+        if (!agencyFlowTaxIdInput || !agencyFlowTaxIdFieldWrap || !agencyFlowTaxIdError) return;
+        const digits = agencyFlowTaxIdInput.value.replace(/\D/g, "");
+        const isValid = digits.length === 9;
+        agencyFlowTaxIdFieldWrap.classList.toggle("has-error", !isValid && agencyFlowTaxIdInput.value.length > 0);
+        agencyFlowTaxIdError.classList.toggle("is-hidden", isValid || agencyFlowTaxIdInput.value.length === 0);
+        if (!isValid && agencyFlowTaxIdInput.value.length > 0) {
+          agencyFlowTaxIdError.classList.add("is-error");
+        } else {
+          agencyFlowTaxIdError.classList.remove("is-error");
+        }
+      }
+
+      if (agencyFlowTaxIdInput) {
+        agencyFlowTaxIdInput.addEventListener("input", function() {
+          if (agencyFlowTaxIdFieldWrap) agencyFlowTaxIdFieldWrap.classList.remove("has-error");
+          if (agencyFlowTaxIdError) {
+            agencyFlowTaxIdError.classList.add("is-hidden");
+            agencyFlowTaxIdError.classList.remove("is-error");
+          }
+        });
+        agencyFlowTaxIdInput.addEventListener("blur", validateAgencyTaxId);
+      }
       const agencyProductSelectionNote = document.getElementById("agencyProductSelectionNote");
       const agencyProductSelectionNoteBody = document.getElementById("agencyProductSelectionNoteBody");
       const coverageAcknowledgementsIncludedList = document.getElementById("coverageAcknowledgementsIncludedList");
@@ -11228,6 +11377,23 @@
         return selected.getAttribute("data-value") || "";
       }
 
+      function syncEnrollmentLongtextVisibility() {
+        function syncWrap(wrapId, groupName, triggerValue) {
+          const wrap = document.getElementById(wrapId);
+          if (!wrap) return;
+          const val = getEnrollmentRadioValue(groupName);
+          wrap.classList.toggle("is-hidden", val !== triggerValue);
+        }
+        syncWrap("agencySoleOwnerLongtextWrap", "agency-sole-owner", "no");
+        syncWrap("agencySoleProducerLongtextWrap", "agency-sole-producer", "no");
+        syncWrap("dbaOwnedControlledLongtextWrap", "dba-owned-controlled", "no");
+        syncWrap("dbaTaxIdSameLongtextWrap", "dba-tax-id-same", "no");
+        syncWrap("dbaSameIndustryLongtextWrap", "dba-same-industry", "no");
+        syncWrap("dbaIncomeIncludedLongtextWrap", "dba-income-included", "no");
+        syncWrap("dbaAllLicensedLongtextWrap", "dba-all-licensed", "no");
+        syncWrap("dbaKnownClaimsLongtextWrap", "dba-known-claims", "yes");
+      }
+
       function syncEnrollmentConditionalCards() {
         if (agencyInfoCard) {
           const showAgencyCard = getEnrollmentRadioValue("add-agency") === "yes";
@@ -11237,6 +11403,7 @@
           const showDbaCard = getEnrollmentRadioValue("add-dba") === "yes";
           dbaInfoCard.classList.toggle("is-hidden", !showDbaCard);
         }
+        syncEnrollmentLongtextVisibility();
       }
 
       function syncEnrollmentFourthFlowSections() {
@@ -11476,6 +11643,16 @@
         setHomeLandingActive(false);
         showScreen("coverage-options");
         setEnrollmentActiveStep(2);
+        const coverageAgencyLhNote = document.getElementById("coverageAgencyLhNote");
+        if (isAgencyContextFlow()) {
+          if (coverageAgencyLhNote) coverageAgencyLhNote.classList.remove("is-hidden");
+          const optionCCard = coveragePackageOptions.find(function(card) {
+            return card.getAttribute("data-coverage-option") === "option-c";
+          });
+          if (optionCCard) updateChoiceSelection(coveragePackageOptions, optionCCard, false);
+        } else {
+          if (coverageAgencyLhNote) coverageAgencyLhNote.classList.add("is-hidden");
+        }
       }
 
       function goToCoverageOptionsMedicareScreen() {
@@ -12744,6 +12921,20 @@
         updateAgencyProductSelection(null, false);
         if (agencyFlowNameInput) agencyFlowNameInput.value = "";
         if (agencyFlowTaxIdInput) agencyFlowTaxIdInput.value = "";
+        ["agencySoleOwnerLongtext","agencySoleProducerLongtext","dbaOwnedControlledLongtext","dbaTaxIdSameLongtext","dbaSameIndustryLongtext","dbaIncomeIncludedLongtext","dbaAllLicensedLongtext","dbaKnownClaimsLongtext"].forEach(function(id) {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+        ["agencySoleOwnerLongtextWrap","agencySoleProducerLongtextWrap","dbaOwnedControlledLongtextWrap","dbaTaxIdSameLongtextWrap","dbaSameIndustryLongtextWrap","dbaIncomeIncludedLongtextWrap","dbaAllLicensedLongtextWrap","dbaKnownClaimsLongtextWrap"].forEach(function(id) {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("is-hidden");
+        });
+        const agencyHiringCheck = document.getElementById("agencyHiringDisclosureCheck");
+        const agencyInsuredCheck = document.getElementById("agencyInsuredDefinitionCheck");
+        if (agencyHiringCheck) agencyHiringCheck.checked = false;
+        if (agencyInsuredCheck) agencyInsuredCheck.checked = false;
+        if (agencyFlowTaxIdFieldWrap) agencyFlowTaxIdFieldWrap.classList.remove("has-error");
+        if (agencyFlowTaxIdError) { agencyFlowTaxIdError.classList.add("is-hidden"); agencyFlowTaxIdError.classList.remove("is-error"); }
         if (productOptions.length) productOptions[0].tabIndex = 0;
         if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
         if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
