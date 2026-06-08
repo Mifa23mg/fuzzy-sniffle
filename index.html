@@ -2652,39 +2652,71 @@
 
     .mini-radio {
       display: inline-flex;
-      border-radius: 9999px;
+      border-radius: 999px;
       overflow: hidden;
+      width: fit-content;
     }
 
     .mini-radio button {
-      border: 1px solid #5c5c5c;
-      border-right: 0;
-      background: #fff;
-      color: #0250d9;
       height: 32px;
-      padding: 0 12px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      background: #ffffff;
+      color: #0250d9;
       font-size: 14px;
       font-weight: 590;
       line-height: 19px;
       cursor: pointer;
+      outline: none;
+      position: relative;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
     }
 
-    .mini-radio button:last-child {
-      border-right: 1px solid #5c5c5c;
-      border-top-right-radius: 9999px;
-      border-bottom-right-radius: 9999px;
+    .mini-radio button + button {
+      border-left: 0;
     }
 
     .mini-radio button:first-child {
       border-top-left-radius: 9999px;
       border-bottom-left-radius: 9999px;
-      margin-right: -1px;
+    }
+
+    .mini-radio button:last-child {
+      border-top-right-radius: 9999px;
+      border-bottom-right-radius: 9999px;
+    }
+
+    .mini-radio button:hover:not([aria-disabled="true"]):not([aria-checked="true"]) {
+      background: #f3f3f3;
+      color: #03234d;
+      box-shadow: 0 1.5px 0 0 #2e2e2e;
     }
 
     .mini-radio button[aria-checked="true"] {
       background: #066afe;
-      color: #fff;
+      color: #ffffff;
+      box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.08), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .mini-radio button[aria-checked="true"]:hover:not([aria-disabled="true"]) {
+      background: #0250d9;
+      box-shadow: 0 2px 0 0 #002775;
+    }
+
+    .mini-radio button:focus-visible {
+      box-shadow: inset 0 0 0 4px #ffffff, inset 0 0 0 2px #03234d;
+      z-index: 1;
+    }
+
+    .mini-radio button[aria-checked="true"]:focus-visible {
+      box-shadow: inset 2px 2px 5px 0 rgba(0, 0, 0, 0.08), inset 0 0.5px 2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 0 0 4px #ffffff, inset 0 0 0 2px #03234d;
+    }
+
+    .mini-radio button[aria-disabled="true"] {
+      background: #e5e5e5;
+      color: #757575;
+      cursor: not-allowed;
     }
 
     /* Reusable info icon component */
@@ -5085,12 +5117,6 @@
       align-items: center;
     }
 
-    .enrollment-question-options .mini-radio button[aria-checked="true"] {
-      box-shadow:
-        inset 2px 2px 5px rgba(0, 0, 0, 0.08),
-        inset 0 0.5px 2px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(0, 0, 0, 0.15);
-    }
 
     .enrollment-detail-card {
       width: 100%;
@@ -8798,8 +8824,8 @@
             <div class="enrollment-fourth-body">
               <div class="enrollment-question-group is-hidden" id="enrollmentFourthAgentAgencyGroup">
                 <p class="enrollment-question-title">Agency Information</p>
-                <p class="enrollment-question-label"><span class="required">*</span>Would you like to add an agency/corporation/LLC?</p>
-                <div class="enrollment-question-options">
+                <div class="field full">
+                  <p class="label"><span class="required">*</span>Would you like to add an agency/corporation/LLC?</p>
                   <div class="mini-radio" role="radiogroup" aria-label="Would you like to add an agency/corporation/LLC?">
                     <button type="button" role="radio" aria-checked="false" data-enrollment-radio="add-agency" data-value="yes">Yes</button>
                     <button type="button" role="radio" aria-checked="true" data-enrollment-radio="add-agency" data-value="no">No</button>
@@ -8867,8 +8893,8 @@
 
               <div class="enrollment-question-group" id="enrollmentFourthAgencyDbaGroup">
                 <p class="enrollment-question-title">DBA Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="A DBA (&quot;Doing Business As&quot;) is an additional name your agency uses in business other than its legal name." data-tooltip-position="bottom-left"></span></p>
-                <p class="enrollment-question-label"><span class="required" id="dbaAddRequiredAsterisk">*</span>Would you like to add a DBA?</p>
-                <div class="enrollment-question-options">
+                <div class="field full">
+                  <p class="label"><span class="required" id="dbaAddRequiredAsterisk">*</span>Would you like to add a DBA?</p>
                   <div class="mini-radio" role="radiogroup" aria-label="Would you like to add a DBA?">
                     <button type="button" role="radio" aria-checked="false" data-enrollment-radio="add-dba" data-value="yes">Yes</button>
                     <button type="button" role="radio" aria-checked="true" data-enrollment-radio="add-dba" data-value="no">No</button>
