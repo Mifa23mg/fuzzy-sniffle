@@ -2172,16 +2172,13 @@
 
     .agency-screen-form-grid {
       gap: 16px 16px;
+      align-items: start;
     }
 
     .agency-screen-question {
       gap: 8px;
     }
 
-    .agency-tax-id-error-row {
-      padding-left: calc(50% + 8px);
-      margin-top: -8px;
-    }
 
     #agencyRelationshipGrid,
     #agencyProductsGrid {
@@ -7196,7 +7193,7 @@
       </div>
       <div class="home-landing-topbar-shellv2">
         <div class="home-landing-topbarv2">
-          <p class="home-landing-update-meta-v2">Last update: 6/4/26 - v1.07</p>
+          <p class="home-landing-update-meta-v2">Last update: 6/8/26 - v1.08</p>
           <svg class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
             <!-- Light highlight: -45°, 80% — 1px white stroke, 1px above main line, corners rounded r=15 -->
             <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
@@ -7613,9 +7610,9 @@
                   </label>
                   <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" maxlength="9" />
                 </div>
+                <p class="field-supporting-text is-hidden" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
               </div>
             </div>
-            <p class="field-supporting-text is-hidden agency-tax-id-error-row" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
 
             <div class="field full agency-screen-question">
               <p class="label"><span class="required">*</span>What's your relationship within the Agency? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best matches your role in the agency." data-tooltip-position="bottom-left"></span></p>
@@ -12949,6 +12946,32 @@
         const agencyInsuredCheck = document.getElementById("agencyInsuredDefinitionCheck");
         if (agencyHiringCheck) agencyHiringCheck.checked = false;
         if (agencyInsuredCheck) agencyInsuredCheck.checked = false;
+        // Reset all enrollment step radios (4th Customer Info screen Yes/No buttons)
+        enrollmentStepRadios.forEach(function(btn) {
+          btn.setAttribute("aria-checked", "false");
+        });
+        // Restore default "No" selection for add-agency and add-dba
+        const addAgencyNoBtn = document.querySelector('[data-enrollment-radio="add-agency"][data-value="no"]');
+        const addDbaNoBtn = document.querySelector('[data-enrollment-radio="add-dba"][data-value="no"]');
+        if (addAgencyNoBtn) addAgencyNoBtn.setAttribute("aria-checked", "true");
+        if (addDbaNoBtn) addDbaNoBtn.setAttribute("aria-checked", "true");
+        // Hide detail cards that open on "Yes"
+        if (agencyInfoCard) agencyInfoCard.classList.add("is-hidden");
+        if (dbaInfoCard) dbaInfoCard.classList.add("is-hidden");
+        // Reset dynamically generated underwriting question radios
+        document.querySelectorAll('[data-underwriting-radio]').forEach(function(btn) {
+          btn.setAttribute("aria-checked", "false");
+        });
+        // Reset acknowledgement / accept checkboxes
+        const ackAcceptAll = document.getElementById("coverageAcknowledgementsAcceptAll");
+        if (ackAcceptAll) ackAcceptAll.checked = false;
+        const repAcceptAll = document.getElementById("representationAcceptAll");
+        if (repAcceptAll) { repAcceptAll.checked = false; repAcceptAll.disabled = true; }
+        // Reset enrollment consent checkboxes (screen 1)
+        const enrollIsMobileCheck = document.getElementById("enrollIsMobile");
+        if (enrollIsMobileCheck) enrollIsMobileCheck.checked = false;
+        const enrollSmsConsentCheck = document.getElementById("enrollSmsConsent");
+        if (enrollSmsConsentCheck) enrollSmsConsentCheck.checked = false;
         if (productOptions.length) productOptions[0].tabIndex = 0;
         if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
         if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;

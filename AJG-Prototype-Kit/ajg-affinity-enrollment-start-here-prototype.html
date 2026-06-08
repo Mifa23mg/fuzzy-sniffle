@@ -2160,16 +2160,13 @@
 
     .agency-screen-form-grid {
       gap: 16px 16px;
+      align-items: start;
     }
 
     .agency-screen-question {
       gap: 8px;
     }
 
-    .agency-tax-id-error-row {
-      padding-left: calc(50% + 8px);
-      margin-top: -8px;
-    }
 
     #agencyRelationshipGrid,
     #agencyProductsGrid {
@@ -7566,9 +7563,9 @@
                   </label>
                   <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" maxlength="9" />
                 </div>
+                <p class="field-supporting-text is-hidden" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
               </div>
             </div>
-            <p class="field-supporting-text is-hidden agency-tax-id-error-row" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
 
             <div class="field full agency-screen-question">
               <p class="label"><span class="required">*</span>What's your relationship within the Agency? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best matches your role in the agency." data-tooltip-position="bottom-left"></span></p>
@@ -12865,6 +12862,32 @@
         const agencyInsuredCheck = document.getElementById("agencyInsuredDefinitionCheck");
         if (agencyHiringCheck) agencyHiringCheck.checked = false;
         if (agencyInsuredCheck) agencyInsuredCheck.checked = false;
+        // Reset all enrollment step radios (4th Customer Info screen Yes/No buttons)
+        enrollmentStepRadios.forEach(function(btn) {
+          btn.setAttribute("aria-checked", "false");
+        });
+        // Restore default "No" selection for add-agency and add-dba
+        const addAgencyNoBtn = document.querySelector('[data-enrollment-radio="add-agency"][data-value="no"]');
+        const addDbaNoBtn = document.querySelector('[data-enrollment-radio="add-dba"][data-value="no"]');
+        if (addAgencyNoBtn) addAgencyNoBtn.setAttribute("aria-checked", "true");
+        if (addDbaNoBtn) addDbaNoBtn.setAttribute("aria-checked", "true");
+        // Hide detail cards that open on "Yes"
+        if (agencyInfoCard) agencyInfoCard.classList.add("is-hidden");
+        if (dbaInfoCard) dbaInfoCard.classList.add("is-hidden");
+        // Reset dynamically generated underwriting question radios
+        document.querySelectorAll('[data-underwriting-radio]').forEach(function(btn) {
+          btn.setAttribute("aria-checked", "false");
+        });
+        // Reset acknowledgement / accept checkboxes
+        const ackAcceptAll = document.getElementById("coverageAcknowledgementsAcceptAll");
+        if (ackAcceptAll) ackAcceptAll.checked = false;
+        const repAcceptAll = document.getElementById("representationAcceptAll");
+        if (repAcceptAll) { repAcceptAll.checked = false; repAcceptAll.disabled = true; }
+        // Reset enrollment consent checkboxes (screen 1)
+        const enrollIsMobileCheck = document.getElementById("enrollIsMobile");
+        if (enrollIsMobileCheck) enrollIsMobileCheck.checked = false;
+        const enrollSmsConsentCheck = document.getElementById("enrollSmsConsent");
+        if (enrollSmsConsentCheck) enrollSmsConsentCheck.checked = false;
         if (productOptions.length) productOptions[0].tabIndex = 0;
         if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
         if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
