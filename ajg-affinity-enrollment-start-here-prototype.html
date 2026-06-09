@@ -2260,6 +2260,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
+      align-items: start;
     }
 
     .field {
@@ -2889,7 +2890,7 @@
       border-radius: 8px;
       border: 1px solid #d8dde6;
       box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.16), 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.2);
-      z-index: 40;
+      z-index: 1000;
       display: none;
       padding: 8px 8px 6px;
       box-sizing: border-box;
@@ -2899,9 +2900,16 @@
       display: block;
     }
 
+    .datepicker.opens-up .datepicker-popover {
+      top: auto;
+      bottom: 100%;
+    }
+
     .datepicker-format-hint {
       display: none;
-      position: static;
+      position: absolute;
+      top: 100%;
+      left: 0;
       margin: 4px 0 0;
       color: #5c5c5c;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
@@ -4030,6 +4038,7 @@
       column-gap: 16px;
       row-gap: 16px;
       width: 100%;
+      align-items: start;
     }
 
     .enrollment-field {
@@ -4481,6 +4490,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       width: 100%;
+      align-items: start;
     }
 
     .enrollment-license-row.is-single {
@@ -4490,7 +4500,7 @@
     .enrollment-license-field {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: flex-start;
       min-height: 40px;
       padding-top: 8px;
     }
@@ -4646,12 +4656,17 @@
       max-height: 260px; /* 7 rows (36px) + top/bottom padding */
       overflow-y: auto;
       overflow-x: hidden;
-      z-index: 80;
+      z-index: 1000;
       display: none;
     }
 
     .ajg-dropdown.open .ajg-dropdown-listbox {
       display: block;
+    }
+
+    .ajg-dropdown.opens-up .ajg-dropdown-listbox {
+      top: auto;
+      bottom: calc(100% + 4px);
     }
 
     .ajg-dropdown-listbox[aria-label="How did you hear about us options"] {
@@ -4773,6 +4788,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       width: 100%;
+      align-items: start;
     }
 
     .enrollment-input-shell {
@@ -4868,6 +4884,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       width: 100%;
+      align-items: start;
     }
 
     .enrollment-owner-toggle-row {
@@ -5290,6 +5307,10 @@
       width: 100%;
       padding-top: 0;
       box-sizing: border-box;
+    }
+
+    .acknowledgement-accept {
+      margin-top: 8px;
     }
 
     .acknowledgement-item .required,
@@ -8965,7 +8986,6 @@
             <p class="intro">Please acknowledge the items below to confirm you are eligible for the coverages you've chosen.</p>
 
             <div class="program-eligibilities-body">
-              <p class="program-eligibilities-title">Eligibility</p>
               <div class="acknowledgements-list" data-acknowledgements="program-eligibilities"></div>
             </div>
 
@@ -9242,7 +9262,7 @@
                         <div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">Deductible</div></div>
                         <div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">Sublimits</div></div>
                       </div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Network Risk and Privacy</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$2,500</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$25K/$25KM</div></div></div>
+                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Network Risk and Privacy</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$2,500</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$25K/$25K</div></div></div>
                     </div>
                   </div>
                   </div>
@@ -10254,6 +10274,30 @@
             if (dp !== wrap) { dp.classList.remove("open"); dp.classList.remove("year-open"); }
           });
           wrap.classList.add("open");
+          // Use fixed positioning so the calendar escapes scroll/overflow containers
+          var inputEl = wrap.querySelector(".datepicker-input, .input-field");
+          var refEl = inputEl || wrap;
+          var rect = refEl.getBoundingClientRect();
+          var calendarHeight = 330;
+          var calendarWidth = 308;
+          var spaceBelow = window.innerHeight - rect.bottom;
+          if (popover) {
+            popover.style.position = "fixed";
+            popover.style.width = calendarWidth + "px";
+            popover.style.left = "auto";
+            popover.style.maxHeight = "";
+            popover.style.overflowY = "";
+            if (spaceBelow < calendarHeight) {
+              wrap.classList.add("opens-up");
+              popover.style.top = "auto";
+              popover.style.bottom = (window.innerHeight - rect.top) + "px";
+            } else {
+              wrap.classList.remove("opens-up");
+              popover.style.top = (rect.bottom + 2) + "px";
+              popover.style.bottom = "auto";
+            }
+            popover.style.right = Math.max(0, window.innerWidth - rect.right) + "px";
+          }
           render();
           if (onOpenCb) onOpenCb();
         }
@@ -10261,6 +10305,17 @@
         function close() {
           wrap.classList.remove("open");
           wrap.classList.remove("year-open");
+          wrap.classList.remove("opens-up");
+          if (popover) {
+            popover.style.position = "";
+            popover.style.top = "";
+            popover.style.bottom = "";
+            popover.style.right = "";
+            popover.style.left = "";
+            popover.style.width = "";
+            popover.style.maxHeight = "";
+            popover.style.overflowY = "";
+          }
           if (input) input.setAttribute("placeholder", defaultPlaceholder);
           if (yearTrig) yearTrig.setAttribute("aria-expanded", "false");
           if (onCloseCb) onCloseCb();
@@ -10861,6 +10916,7 @@
       function closeAjgDropdown(dropdown) {
         const trigger = dropdown.querySelector(".ajg-dropdown-trigger");
         dropdown.classList.remove("open");
+        dropdown.classList.remove("opens-up");
         if (trigger) trigger.setAttribute("aria-expanded", "false");
       }
 
@@ -10908,6 +10964,17 @@
             closeAllAjgDropdowns(dropdown);
             dropdown.classList.toggle("open", willOpen);
             trigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+            if (willOpen) {
+              const listbox = dropdown.querySelector(".ajg-dropdown-listbox");
+              const triggerRect = trigger.getBoundingClientRect();
+              const listboxHeight = listbox ? Math.min(listbox.scrollHeight, 260) : 200;
+              const spaceBelow = window.innerHeight - triggerRect.bottom;
+              if (spaceBelow < listboxHeight + 8) {
+                dropdown.classList.add("opens-up");
+              } else {
+                dropdown.classList.remove("opens-up");
+              }
+            }
           });
 
           options.forEach(function(option) {
@@ -11080,7 +11147,7 @@
 
           const required = document.createElement("span");
           required.className = "required";
-          const useBulletMarker = groupKey === "program-eligibilities" && !isAcceptRow;
+          const useBulletMarker = !isAcceptRow;
           if (useBulletMarker) required.classList.add("bullet-marker");
           required.textContent = useBulletMarker ? "•" : "*";
           row.appendChild(required);
@@ -12868,6 +12935,7 @@
         selectedLicensureDate = null;
         if (proInfoDP) proInfoDP.setDate(null);
         if (enrollDP)  enrollDP.setDate(null);
+        if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.remove("is-floating");
         if (enrollDP)  enrollDP.close();
         clearRadioSelection();
         updateProductSelection(null, false);
@@ -13966,6 +14034,7 @@
         onSelect: function(date) {
           selectedLicensureDate = new Date(date);
           if (proInfoDP) proInfoDP.setDate(date);
+          if (enrollLicensureDateInputWrap) enrollLicensureDateInputWrap.classList.add("is-floating");
           syncOriginalLicensureDateValidation();
         }
       });
