@@ -5827,7 +5827,7 @@
       padding: 0;
       margin: 0;
       border: 1px solid transparent;
-      border-radius: 4px;
+      border-radius: 8px;
       background-color: #f3f2f2;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 16px;
@@ -5844,7 +5844,7 @@
       padding: 0 8px;
       border: 0;
       background: transparent;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
       box-sizing: border-box;
       text-align: left;
@@ -6040,6 +6040,165 @@
       min-width: 160px;
       max-width: 160px;
       flex: 0 0 160px;
+    }
+
+    /* Coverage Plan Cards */
+    .preview-plan-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .preview-plan-card {
+      border: 1px solid #c9c9c9;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .preview-plan-card[hidden],
+    .preview-plan-card.is-hidden {
+      display: none !important;
+    }
+
+    .preview-plan-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    .preview-plan-card-title {
+      flex: 1;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 590;
+      color: #2e2e2e;
+      line-height: 22px;
+      margin: 0;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-plan-card-toggle {
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 590;
+      color: #0250d9;
+      line-height: 19px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .preview-plan-card-toggle:hover {
+      text-decoration: underline;
+    }
+
+    .preview-plan-card-body {
+      padding: 0 16px 16px;
+      background: #fff;
+    }
+
+    .preview-plan-card-body[hidden] {
+      display: none !important;
+    }
+
+    /* New Plan Table */
+    .preview-plan-table-new {
+      border: 1px solid #c9c9c9;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .preview-plan-table-new-header-row {
+      display: flex;
+    }
+
+    .preview-plan-table-new-header-cell {
+      background: #f3f3f3;
+      padding: 8px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #181818;
+      line-height: 18px;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-plan-table-new-header-cell--coverage {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .preview-plan-table-new-header-cell--deductible,
+    .preview-plan-table-new-header-cell--sublimits {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .preview-plan-table-new-header-cell--deductible {
+      width: 100px;
+    }
+
+    .preview-plan-table-new-header-cell--sublimits {
+      width: 140px;
+    }
+
+    .preview-plan-table-new-row {
+      display: flex;
+      border-bottom: 1px solid #c9c9c9;
+    }
+
+    .preview-plan-table-new-row:last-child {
+      border-bottom: 0;
+    }
+
+    .preview-plan-table-new-cell {
+      padding: 8px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #181818;
+      line-height: 18px;
+      box-sizing: border-box;
+      min-height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .preview-plan-table-new-cell--coverage {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .preview-plan-table-new-cell--deductible,
+    .preview-plan-table-new-cell--sublimits {
+      flex-shrink: 0;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .preview-plan-table-new-cell--deductible {
+      width: 100px;
+    }
+
+    .preview-plan-table-new-cell--sublimits {
+      width: 140px;
     }
 
     .preview-payment-layout {
@@ -9235,27 +9394,12 @@
             </div>
 
             <div class="preview-checkout-body">
-              <div class="preview-expandable-section" data-preview-collapsible>
+              <div class="preview-expandable-section">
                 <h3 class="preview-expandable-header">
-                  <button
-                    class="preview-expandable-trigger"
-                    type="button"
-                    data-preview-toggle
-                    aria-expanded="true"
-                    aria-controls="previewCoverageInformationContent"
-                  >
-                    <span class="preview-expandable-chevron" aria-hidden="true">
-                      <span class="preview-expandable-chevron-icon" aria-hidden="true">
-                        <svg class="preview-expandable-chevron-icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 520 520">
-                          <path d="M476 178L271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z"/>
-                        </svg>
-                      </span>
-                    </span>
-                    <span class="preview-expandable-title">Coverage Information</span>
-                  </button>
+                  <span class="preview-expandable-title preview-expandable-header-padding">Coverage Information</span>
                 </h3>
                 <div class="preview-expandable-content">
-                  <div class="preview-coverage-content" id="previewCoverageInformationContent" data-preview-content>
+                  <div class="preview-coverage-content" id="previewCoverageInformationContent">
                     <div class="preview-coverage-group">
                       <p class="preview-coverage-label">Coverage Effective Dates</p>
                     <p class="preview-coverage-value"><span id="previewCoverageEffectiveStart">03/01/2025</span> - <span id="previewCoverageEffectiveEnd">03/01/2026</span></p>
@@ -9270,89 +9414,148 @@
                 </div>
               </div>
 
-              <div class="preview-expandable-section is-collapsed" data-preview-collapsible>
+              <div class="preview-expandable-section">
                 <h3 class="preview-expandable-header">
-                  <button
-                    class="preview-expandable-trigger"
-                    type="button"
-                    data-preview-toggle
-                    aria-expanded="false"
-                    aria-controls="previewPlanInformationContent"
-                  >
-                    <span class="preview-expandable-chevron" aria-hidden="true">
-                      <span class="preview-expandable-chevron-icon" aria-hidden="true">
-                        <svg class="preview-expandable-chevron-icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 520 520">
-                          <path d="M476 178L271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z"/>
-                        </svg>
-                      </span>
-                    </span>
-                    <span class="preview-expandable-title">Plan Information</span>
-                  </button>
+                  <span class="preview-expandable-title preview-expandable-header-padding">Plan Information</span>
                 </h3>
                 <div class="preview-expandable-content">
-                  <div class="preview-plan-content" id="previewPlanInformationContent" data-preview-content hidden>
-                  <div class="preview-plan-group" id="previewPlanGroupMedicare">
-                    <p class="preview-plan-group-title">Medicare ONLY</p>
-                    <div class="app-data-table preview-plan-table" aria-label="Medicare ONLY">
-                      <div class="app-data-table-row app-data-table-row--header">
-                        <div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Coverage</div></div>
-                        <div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">Deductible</div></div>
-                        <div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">Sublimits</div></div>
-                      </div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Medicare Advantage and Medicare Supplemental</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">NA</div></div></div>
-                    </div>
-                  </div>
+                  <div class="preview-plan-overview" id="previewPlanInformationContent">
 
-                  <div class="preview-plan-group" id="previewPlanGroupLh">
-                    <p class="preview-plan-group-title">L&amp;H Agent Plan</p>
-                    <div class="app-data-table preview-plan-table" aria-label="L&H Agent Plan">
-                      <div class="app-data-table-row app-data-table-row--header">
-                        <div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Coverage</div></div>
-                        <div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">Deductible</div></div>
-                        <div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">Sublimits</div></div>
+                    <div class="preview-plan-card" id="previewPlanGroupMedicare">
+                      <div class="preview-plan-card-header">
+                        <p class="preview-plan-card-title">Medicare ONLY</p>
+                        <button class="preview-plan-card-toggle" type="button" aria-expanded="false" aria-controls="previewPlanCardBodyMedicare">View Details</button>
                       </div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Life, Accident and Health</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Medicare Advantage and Medicare Supplemental</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Disability Income Insurance</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Fixed Annuities</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Indexed Annuities</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$0</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Variable Annuities</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$5K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Mutual Funds</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$5K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">N/A</div></div></div>
+                      <div class="preview-plan-card-body" id="previewPlanCardBodyMedicare" hidden>
+                        <div class="preview-plan-table-new">
+                          <div class="preview-plan-table-new-header-row">
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--coverage">Coverage</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--deductible">Deductible</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--sublimits">Sublimits</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Medicare Advantage and Medicare Supplemental</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">NA</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="preview-plan-group" id="previewPlanGroupPc">
-                    <p class="preview-plan-group-title">P&amp;C Agent Plan</p>
-                    <div class="app-data-table preview-plan-table" aria-label="P&C Agent Plan">
-                      <div class="app-data-table-row app-data-table-row--header">
-                        <div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Coverage</div></div>
-                        <div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">Deductible</div></div>
-                        <div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">Sublimits</div></div>
+                    <div class="preview-plan-card" id="previewPlanGroupLh">
+                      <div class="preview-plan-card-header">
+                        <p class="preview-plan-card-title">L&amp;H Agent Plan</p>
+                        <button class="preview-plan-card-toggle" type="button" aria-expanded="false" aria-controls="previewPlanCardBodyLh">View Details</button>
                       </div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Personal Lines P&amp;C</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$5K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$1M/$1M</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Flood Insurance</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$25K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$100K/$100K/$1M</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Commercial Lines P&amp;C</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$10K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$1M/$1M</div></div></div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Commercial Lines Expanded P&amp;C</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$25K</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$100K/$100K/$1M</div></div></div>
+                      <div class="preview-plan-card-body" id="previewPlanCardBodyLh" hidden>
+                        <div class="preview-plan-table-new">
+                          <div class="preview-plan-table-new-header-row">
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--coverage">Coverage</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--deductible">Deductible</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--sublimits">Sublimits</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Life, Accident and Health</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Medicare Advantage and Medicare Supplemental</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Disability Income Insurance</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Fixed Annuities</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Indexed Annuities</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$0</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Variable Annuities</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$5K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Mutual Funds</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$5K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">N/A</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="preview-plan-group" id="previewPlanGroupAdditionalProtection">
-                    <p class="preview-plan-group-title">Additional Protection</p>
-                    <div class="app-data-table preview-plan-table" aria-label="Additional Protection">
-                      <div class="app-data-table-row app-data-table-row--header">
-                        <div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Coverage</div></div>
-                        <div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">Deductible</div></div>
-                        <div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">Sublimits</div></div>
+                    <div class="preview-plan-card" id="previewPlanGroupPc">
+                      <div class="preview-plan-card-header">
+                        <p class="preview-plan-card-title">P&amp;C Agent Plan</p>
+                        <button class="preview-plan-card-toggle" type="button" aria-expanded="false" aria-controls="previewPlanCardBodyPc">View Details</button>
                       </div>
-                      <div class="app-data-table-row"><div class="app-data-table-cell app-data-table-cell--left preview-plan-col-coverage"><div class="app-data-table-cell-content">Network Risk and Privacy</div></div><div class="app-data-table-cell preview-plan-col-deductible"><div class="app-data-table-cell-content">$2,500</div></div><div class="app-data-table-cell preview-plan-col-sublimits"><div class="app-data-table-cell-content">$25K/$25K</div></div></div>
+                      <div class="preview-plan-card-body" id="previewPlanCardBodyPc" hidden>
+                        <div class="preview-plan-table-new">
+                          <div class="preview-plan-table-new-header-row">
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--coverage">Coverage</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--deductible">Deductible</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--sublimits">Sublimits</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Personal Lines P&amp;C</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$5K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">$1M/$1M</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Flood Insurance</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$25K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">$100K/$100K/$1M</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Commercial Lines P&amp;C</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$10K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">$1M/$1M</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Commercial Lines Expanded P&amp;C</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$25K</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">$100K/$100K/$1M</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+
+                    <div class="preview-plan-card" id="previewPlanGroupAdditionalProtection">
+                      <div class="preview-plan-card-header">
+                        <p class="preview-plan-card-title">Additional Protection</p>
+                        <button class="preview-plan-card-toggle" type="button" aria-expanded="false" aria-controls="previewPlanCardBodyAdditionalProtection">View Details</button>
+                      </div>
+                      <div class="preview-plan-card-body" id="previewPlanCardBodyAdditionalProtection" hidden>
+                        <div class="preview-plan-table-new">
+                          <div class="preview-plan-table-new-header-row">
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--coverage">Coverage</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--deductible">Deductible</div>
+                            <div class="preview-plan-table-new-header-cell preview-plan-table-new-header-cell--sublimits">Sublimits</div>
+                          </div>
+                          <div class="preview-plan-table-new-row">
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--coverage">Network Risk and Privacy</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--deductible">$2,500</div>
+                            <div class="preview-plan-table-new-cell preview-plan-table-new-cell--sublimits">$25K/$25K</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
 
               <div class="preview-expandable-section">
-                <h3 class="preview-expandable-header preview-expandable-header--plain">
+                <h3 class="preview-expandable-header">
                   <span class="preview-expandable-title preview-expandable-header-padding">Payment Information<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></span>
                 </h3>
                 <div class="preview-expandable-content preview-expandable-content--flush">
@@ -11468,6 +11671,22 @@
         });
       }
 
+      function initPreviewPlanCards() {
+        const cardToggles = Array.from(document.querySelectorAll(".preview-plan-card-toggle"));
+        cardToggles.forEach(function(toggle) {
+          toggle.addEventListener("click", function() {
+            const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+            const bodyId = toggle.getAttribute("aria-controls");
+            const body = document.getElementById(bodyId);
+            if (!body) return;
+            const newExpanded = !isExpanded;
+            toggle.setAttribute("aria-expanded", newExpanded ? "true" : "false");
+            toggle.textContent = newExpanded ? "Hide Details" : "View Details";
+            body.hidden = !newExpanded;
+          });
+        });
+      }
+
       function initEnrollmentStepRadios() {
         if (!enrollmentStepRadios.length) return;
         const radiosByGroup = {};
@@ -11779,10 +11998,12 @@
         const coverageAgencyLhNote = document.getElementById("coverageAgencyLhNote");
         if (isAgencyContextFlow()) {
           if (coverageAgencyLhNote) coverageAgencyLhNote.classList.remove("is-hidden");
-          const optionCCard = coveragePackageOptions.find(function(card) {
-            return card.getAttribute("data-coverage-option") === "option-c";
-          });
-          if (optionCCard) updateChoiceSelection(coveragePackageOptions, optionCCard, false);
+          if (selectedAgencyProductKey !== "pc-some-lh") {
+            const optionCCard = coveragePackageOptions.find(function(card) {
+              return card.getAttribute("data-coverage-option") === "option-c";
+            });
+            if (optionCCard) updateChoiceSelection(coveragePackageOptions, optionCCard, false);
+          }
         } else {
           if (coverageAgencyLhNote) coverageAgencyLhNote.classList.add("is-hidden");
         }
@@ -14190,6 +14411,7 @@
       initAcknowledgementComponents();
       initCoverageAcknowledgementsContent();
       initPreviewCollapsibleSections();
+      initPreviewPlanCards();
       initPreviewPaymentOptions();
       initPreviewPaymentMethodToggle();
       initPreviewBillingAddressEditor();
