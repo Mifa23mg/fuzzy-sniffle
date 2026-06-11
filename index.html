@@ -5822,27 +5822,43 @@
     }
 
     .preview-expandable-header {
-      height: 32px;
       display: flex;
       align-items: center;
       padding: 0;
-      box-sizing: border-box;
-      border-radius: 8px;
+      margin: 0;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background-color: #f3f2f2;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #181818;
+      line-height: 1.875rem;
     }
 
     .preview-expandable-trigger {
       width: 100%;
-      height: 32px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 8px;
       padding: 0 8px;
       border: 0;
       background: transparent;
-      border-radius: 8px;
+      border-radius: 4px;
       cursor: pointer;
       box-sizing: border-box;
       text-align: left;
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+
+    .preview-expandable-trigger:hover,
+    .preview-expandable-trigger:focus,
+    .preview-expandable-trigger:active {
+      background-color: transparent;
+      color: inherit;
     }
 
     .preview-expandable-trigger:focus-visible {
@@ -5850,10 +5866,14 @@
       outline-offset: 2px;
     }
 
+    .preview-expandable-header.preview-expandable-header--plain {
+      background-color: transparent;
+    }
+
     .preview-expandable-chevron {
       width: 14px;
       height: 14px;
-      color: #03234d;
+      color: #0250d9;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -5868,10 +5888,11 @@
       transform-origin: 50% 50%;
     }
 
-    .preview-expandable-chevron-icon-img {
+    .preview-expandable-chevron-icon-svg {
       width: 14px;
       height: 14px;
-      object-fit: contain;
+      display: block;
+      fill: currentColor;
     }
 
     .preview-expandable-trigger[aria-expanded="false"] .preview-expandable-chevron-icon {
@@ -5880,11 +5901,14 @@
 
     .preview-expandable-title {
       margin: 0;
-      color: #181818;
+      color: inherit;
       font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
-      font-size: 16px;
-      line-height: 22px;
-      font-weight: 590;
+      font-size: inherit;
+      font-weight: inherit;
+    }
+
+    .preview-expandable-header-padding {
+      padding: 0 8px;
     }
 
     .preview-expandable-content {
@@ -6040,6 +6064,7 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      gap: 16px;
       gap: 16px;
       min-width: 0;
       container-type: inline-size;
@@ -9211,7 +9236,7 @@
 
             <div class="preview-checkout-body">
               <div class="preview-expandable-section" data-preview-collapsible>
-                <div class="preview-expandable-header">
+                <h3 class="preview-expandable-header">
                   <button
                     class="preview-expandable-trigger"
                     type="button"
@@ -9221,12 +9246,14 @@
                   >
                     <span class="preview-expandable-chevron" aria-hidden="true">
                       <span class="preview-expandable-chevron-icon" aria-hidden="true">
-                        <img class="preview-expandable-chevron-icon-img" alt="" src="public/images/preview-chevron.png" />
+                        <svg class="preview-expandable-chevron-icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 520 520">
+                          <path d="M476 178L271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z"/>
+                        </svg>
                       </span>
                     </span>
                     <span class="preview-expandable-title">Coverage Information</span>
                   </button>
-                </div>
+                </h3>
                 <div class="preview-expandable-content">
                   <div class="preview-coverage-content" id="previewCoverageInformationContent" data-preview-content>
                     <div class="preview-coverage-group">
@@ -9244,7 +9271,7 @@
               </div>
 
               <div class="preview-expandable-section is-collapsed" data-preview-collapsible>
-                <div class="preview-expandable-header">
+                <h3 class="preview-expandable-header">
                   <button
                     class="preview-expandable-trigger"
                     type="button"
@@ -9254,12 +9281,14 @@
                   >
                     <span class="preview-expandable-chevron" aria-hidden="true">
                       <span class="preview-expandable-chevron-icon" aria-hidden="true">
-                        <img class="preview-expandable-chevron-icon-img" alt="" src="public/images/preview-chevron.png" />
+                        <svg class="preview-expandable-chevron-icon-svg" aria-hidden="true" focusable="false" viewBox="0 0 520 520">
+                          <path d="M476 178L271 385c-6 6-16 6-22 0L44 178c-6-6-6-16 0-22l22-22c6-6 16-6 22 0l161 163c6 6 16 6 22 0l161-162c6-6 16-6 22 0l22 22c5 6 5 15 0 21z"/>
+                        </svg>
                       </span>
                     </span>
                     <span class="preview-expandable-title">Plan Information</span>
                   </button>
-                </div>
+                </h3>
                 <div class="preview-expandable-content">
                   <div class="preview-plan-content" id="previewPlanInformationContent" data-preview-content hidden>
                   <div class="preview-plan-group" id="previewPlanGroupMedicare">
@@ -9323,9 +9352,9 @@
               </div>
 
               <div class="preview-expandable-section">
-                <div class="preview-expandable-header">
-                  <p class="preview-expandable-title">Payment Information<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></p>
-                </div>
+                <h3 class="preview-expandable-header preview-expandable-header--plain">
+                  <span class="preview-expandable-title preview-expandable-header-padding">Payment Information<span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="If you choose monthly payments, the policy can be paid in full early.&#10;&#10;Switching from annual to monthly payment or vice versa can be done during renewals.&#10;&#10;Updates can be made to payment information through the member portal or our customer service team." data-tooltip-position="bottom-left"></span></span>
+                </h3>
                 <div class="preview-expandable-content preview-expandable-content--flush">
                   <div class="preview-payment-card" id="previewPaymentInfoCard">
                     <div class="preview-payment-layout">
@@ -9403,7 +9432,6 @@
                           </div>
                           <p class="field-supporting-text">Down payments will be processed immediately upon application approval; automatic monthly deductions will begin the day of the month selected above following your chosen effective date.</p>
                         </div>
-                        <p class="preview-payment-breakdown-copy">Once your order has been completed a confirmation will be sent to the email address you've provided, and give instant access to your certificate of insurance and member benefits!</p>
                       </div>
                       </div>
 
@@ -9529,12 +9557,13 @@
                         </div>
                       </div>
                     </div>
+                    <p class="preview-payment-breakdown-copy">Once your order has been completed a confirmation will be sent to the email address you've provided, and give instant access to your certificate of insurance and member benefits!</p>
                   </div>
                   </div>
                 </div>
               </div>
 
-              <p class="preview-payment-note">*Policy is subject to minimum earned premium, which is equal to one month of premium. Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable.<br><br>Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month (unless otherwise specified above) after enrollment effective date. Monthly payment option includes a <span id="previewMonthlyFee">$5.00</span> of monthly processing fee.</p>
+              <p class="preview-payment-note">*Policy is subject to minimum earned premium, which is equal to one month of premium. Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable. Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month (unless otherwise specified above) after enrollment effective date. Monthly payment option includes a <span id="previewMonthlyFee">$5.00</span> of monthly processing fee.</p>
             </div>
 
             <div class="enrollment-second-actions">
