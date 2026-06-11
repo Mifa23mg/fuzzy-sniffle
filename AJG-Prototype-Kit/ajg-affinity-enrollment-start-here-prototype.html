@@ -6189,6 +6189,12 @@
       font-weight: 400;
     }
 
+    .preview-billing-date-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     .preview-payment-breakdown-copy {
       margin: 0;
       color: #181818;
@@ -7596,10 +7602,10 @@
               <div class="enrollment-field">
                 <div class="input-field ajg-input-field">
                   <label class="ajg-input-label" for="agencyFlowNameInput">
-                    <span class="ajg-input-label-text">Name of the Agency you would like to add</span>
+                    <span class="ajg-input-label-text">Name of Agency</span>
                     <span class="field-required" aria-hidden="true">*</span>
                   </label>
-                  <input class="input-text ajg-input-control" type="text" id="agencyFlowNameInput" placeholder="Name of the Agency you would like to add" />
+                  <input class="input-text ajg-input-control" type="text" id="agencyFlowNameInput" placeholder="Name of Agency" />
                 </div>
               </div>
               <div class="enrollment-field">
@@ -8331,48 +8337,44 @@
               <p class="enrollment-section-title">Contact Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The email address provided will be used as the Username to login to the Member Portal.&#10;&#10;Phone numbers and emails will can be added or changed through the Member Portal once your application is submitted." data-tooltip-position="bottom-left"></span></p>
               <div class="enrollment-fields-grid">
                 <div class="enrollment-field">
-                  <div class="input-field ajg-input-field">
-                    <label class="ajg-input-label" for="enrollPhone">
-                      <span class="ajg-input-label-text">Phone Number</span>
-                      <span class="field-required" aria-hidden="true">*</span>
-                    </label>
-                    <input class="input-text ajg-input-control" type="tel" id="enrollPhone" name="enrollPhone" placeholder="Phone Number" autocomplete="tel" />
-                  </div>
-                </div>
-                <div class="enrollment-field--checkbox-inline">
-                  <label class="enrollment-inline-check" for="enrollIsMobile">
-                    <input class="enrollment-consent-checkbox" type="checkbox" id="enrollIsMobile" />
-                    <span class="enrollment-consent-text" style="font-weight:700;">This is a Mobile Number</span>
-                  </label>
-                </div>
-                <div class="enrollment-field">
-                  <div class="input-field ajg-input-field">
+                  <div class="input-field ajg-input-field" id="enrollEmailFieldWrap">
                     <label class="ajg-input-label" for="enrollEmail">
                       <span class="ajg-input-label-text">Insured's Email Address</span>
                       <span class="field-required" aria-hidden="true">*</span>
                     </label>
                     <input class="input-text ajg-input-control" type="email" id="enrollEmail" name="enrollEmail" placeholder="Insured's Email Address" autocomplete="email" />
                   </div>
+                  <p class="field-supporting-text is-hidden" id="enrollEmailError">Please enter a valid email address</p>
                 </div>
                 <div class="enrollment-field">
-                  <div class="input-field ajg-input-field">
+                  <div class="input-field ajg-input-field" id="enrollAltEmailFieldWrap">
                     <label class="ajg-input-label" for="enrollAltEmail">
                       <span class="ajg-input-label-text">Alternate Email Address</span>
                     </label>
                     <input class="input-text ajg-input-control" type="email" id="enrollAltEmail" name="enrollAltEmail" placeholder="Alternate Email Address" autocomplete="email" />
                   </div>
+                  <p class="field-supporting-text is-hidden" id="enrollAltEmailError">Please enter a valid email address</p>
+                </div>
+                <div class="enrollment-field">
+                  <div class="input-field ajg-input-field" id="enrollPhoneFieldWrap">
+                    <label class="ajg-input-label" for="enrollPhone">
+                      <span class="ajg-input-label-text">Phone Number</span>
+                      <span class="field-required" aria-hidden="true">*</span>
+                    </label>
+                    <input class="input-text ajg-input-control" type="tel" id="enrollPhone" name="enrollPhone" placeholder="Phone Number" autocomplete="tel" />
+                  </div>
+                  <p class="field-supporting-text is-hidden" id="enrollPhoneError">Phone number must be 10 digits</p>
                 </div>
               </div>
 
-              <!-- SMS consent (shown only when "This is a Mobile Number" is checked) -->
-              <div class="enrollment-consent-outer" id="enrollSmsConsentWrap" style="display:none;">
+              <!-- SMS consent (always visible) -->
+              <div class="enrollment-consent-outer" id="enrollSmsConsentWrap">
                 <div class="enrollment-consent-wrap">
                   <label class="enrollment-consent">
                     <input class="enrollment-consent-checkbox" type="checkbox" id="enrollSmsConsent" />
                     <span class="enrollment-consent-text">
                       <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
-                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See
-                      <a href="#" class="enrollment-consent-link">Terms of Service</a> and <a href="#" class="enrollment-consent-link">Privacy Policy</a>.
+                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See our Terms of Service and Privacy Policy below.
                     </span>
                   </label>
                 </div>
@@ -9317,35 +9319,38 @@
                             <p class="preview-payment-breakdown-value" id="previewPaymentFullDueToday">$179.50</p>
                           </div>
                         </div>
-                        <div class="input-field ajg-input-field ajg-dropdown ajg-dropdown-floating" id="previewBillingDateWrapper" data-dropdown data-dropdown-placeholder="">
-                          <div class="ajg-dropdown-floating-label" aria-hidden="true">
-                            <span>Choose your Billing Date</span>
-                            <span class="floating-required">*</span>
+                        <div class="preview-billing-date-field" id="previewBillingDateWrapper">
+                          <div class="input-field ajg-input-field ajg-dropdown ajg-dropdown-floating" data-dropdown data-dropdown-placeholder="">
+                            <div class="ajg-dropdown-floating-label" aria-hidden="true">
+                              <span>Choose your Billing Date</span>
+                              <span class="floating-required">*</span>
+                            </div>
+                            <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                              <span class="ajg-dropdown-inline-label">Choose your Billing Date</span>
+                              <span class="field-required" aria-hidden="true">*</span>
+                              <span class="ajg-dropdown-value" data-dropdown-value></span>
+                              <img class="field-icon field-icon-down" src="assets/dropdown-down-icon.png" alt="" aria-hidden="true" />
+                            </button>
+                            <input type="hidden" id="previewBillingDate" name="previewBillingDate" data-dropdown-input />
+                            <div class="ajg-dropdown-listbox" role="listbox" aria-label="Billing Date options">
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="1st"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1st of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="2nd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>2nd of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="3rd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3rd of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="4th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="5th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="6th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="7th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="8th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="9th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="10th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="11th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="12th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>12th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="13th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>13th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="14th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>14th of every month</span></button>
+                              <button class="ajg-dropdown-option" type="button" role="option" data-value="15th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>15th of every month</span></button>
+                            </div>
                           </div>
-                          <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                            <span class="ajg-dropdown-inline-label">Choose your Billing Date</span>
-                            <span class="field-required" aria-hidden="true">*</span>
-                            <span class="ajg-dropdown-value" data-dropdown-value></span>
-                            <img class="field-icon field-icon-down" src="assets/dropdown-down-icon.png" alt="" aria-hidden="true" />
-                          </button>
-                          <input type="hidden" id="previewBillingDate" name="previewBillingDate" data-dropdown-input />
-                          <div class="ajg-dropdown-listbox" role="listbox" aria-label="Billing Date options">
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="1st"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1st of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="2nd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>2nd of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="3rd"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3rd of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="4th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="5th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="6th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="7th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="8th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="9th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="10th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="11th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="12th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>12th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="13th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>13th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="14th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>14th of every month</span></button>
-                            <button class="ajg-dropdown-option" type="button" role="option" data-value="15th"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>15th of every month</span></button>
-                          </div>
+                          <p class="field-supporting-text">Down payments will be processed immediately upon application approval; automatic monthly deductions will begin the day of the month selected above following your chosen effective date.</p>
                         </div>
                         <p class="preview-payment-breakdown-copy">Once your order has been completed a confirmation will be sent to the email address you've provided, and give instant access to your certificate of insurance and member benefits!</p>
                       </div>
@@ -9478,7 +9483,7 @@
                 </div>
               </div>
 
-              <p class="preview-payment-note"><strong>*Policy is subject to minimum earned premium, which is equal to one month of premium.</strong> Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable. Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month after enrollment effective date. Monthly payment option includes a <span id="previewMonthlyFee">$5.00</span> of monthly processing fee.</p>
+              <p class="preview-payment-note">*Policy is subject to minimum earned premium, which is equal to one month of premium. Minimum earned premium, dues, administrative fees, and applicable taxes are non-refundable.<br><br>Down payment includes one month of premium, dues, administrative fees and applicable state taxes. Down payments will be processed immediately; automatic monthly deductions as shown above will begin the first day of the month (unless otherwise specified above) after enrollment effective date. Monthly payment option includes a <span id="previewMonthlyFee">$5.00</span> of monthly processing fee.</p>
             </div>
 
             <div class="enrollment-second-actions">
@@ -10458,32 +10463,32 @@
         "lh-only": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates that you are only licensed for the sale and servicing of L&H products. By clicking Next you are confirming that your policy will NOT include coverage for the sale and servicing of P&C products.\n\nIf you are dual licensed, select the appropriate option including both L&H and P&C before you proceed."
+          body: "The option you have selected indicates that you are only licensed for the sale and servicing of L&H products. By clicking Next you are confirming that your policy will NOT include coverage for the sale and servicing of P&C products.\n\nIf you are dual licensed, select the appropriate option including both L&H and P&C before you proceed."
         },
         "lh-mostly-25": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates you are generating 51%-75% of your revenue from the sale and servicing of L&H products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
+          body: "The option you have selected indicates you are generating 51%-75% of your revenue from the sale and servicing of L&H products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
         },
         "lh-mostly-49": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates you are generating at least 51% of your revenue from the sale and servicing of L&H products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
+          body: "The option you have selected indicates you are generating at least 51% of your revenue from the sale and servicing of L&H products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
         },
         "pc-only": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates that you are only licensed for the sale and servicing of P&C products. By clicking Next you are confirming that your policy will NOT include coverage for the sale and servicing of L&H products.\n\nIf you are dual licensed, select the appropriate option including both P&C and L&H before you proceed."
+          body: "The option you have selected indicates that you are only licensed for the sale and servicing of P&C products. By clicking Next you are confirming that your policy will NOT include coverage for the sale and servicing of L&H products.\n\nIf you are dual licensed, select the appropriate option including both P&C and L&H before you proceed."
         },
         "pc-some-lh": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates you are generating at least 51% of your revenue from the sale and servicing of P&C products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
+          body: "The option you have selected indicates you are generating at least 51% of your revenue from the sale and servicing of P&C products. If this is correct, click Next.\n\nIf this is incorrect, please select the appropriate option for the products you sell and service before you proceed."
         },
         "medicare-only": {
           show_note: true,
           title: "IMPORTANT:",
-          body: "IMPORTANT: The option you have selected indicates your only selling and servicing Medicare Advantage, Medicare Supplemental, and Medicare Part D products. Prior acts are NOT included for the sale and servicing of any products other than Medicare Advantage, Medicare Supplemental, and Medicare Part D when purchasing Medicare ONLY coverage.\n\nTo maintain prior acts for other products, please select the products you need prior acts coverage for before you proceed.\n\nTo continue without the including prior acts coverage for other products, click Next."
+          body: "The option you have selected indicates your only selling and servicing Medicare Advantage, Medicare Supplemental, and Medicare Part D products. Prior acts are NOT included for the sale and servicing of any products other than Medicare Advantage, Medicare Supplemental, and Medicare Part D when purchasing Medicare ONLY coverage.\n\nTo maintain prior acts for other products, please select the products you need prior acts coverage for before you proceed.\n\nTo continue without the including prior acts coverage for other products, click Next."
         }
       };
       const acknowledgementTemplates = {
@@ -11203,6 +11208,14 @@
             preparedTemplate[0].text = selectedProductKey === "medicare-only"
               ? programEligibilityFirstCopyMedicare
               : programEligibilityFirstCopyDefault;
+          }
+          if (selectedProductKey === "medicare-only" && !isAgencyContextFlow()) {
+            const medicareAckItem = (acknowledgementTemplates["coverage-acknowledgements-medicare"] || [])[0];
+            if (medicareAckItem && medicareAckItem.type === "copy") {
+              const acceptIdx = preparedTemplate.findIndex(function(i) { return i.type === "accept"; });
+              const insertAt = acceptIdx >= 0 ? acceptIdx : preparedTemplate.length;
+              preparedTemplate.splice(insertAt, 0, { type: "copy", text: medicareAckItem.text });
+            }
           }
         }
 
@@ -12978,10 +12991,14 @@
         const repAcceptAll = document.getElementById("representationAcceptAll");
         if (repAcceptAll) { repAcceptAll.checked = false; repAcceptAll.disabled = true; }
         // Reset enrollment consent checkboxes (screen 1)
-        const enrollIsMobileCheck = document.getElementById("enrollIsMobile");
-        if (enrollIsMobileCheck) enrollIsMobileCheck.checked = false;
         const enrollSmsConsentCheck = document.getElementById("enrollSmsConsent");
         if (enrollSmsConsentCheck) enrollSmsConsentCheck.checked = false;
+        ["enrollEmailFieldWrap","enrollAltEmailFieldWrap","enrollPhoneFieldWrap"].forEach(function(id) {
+          var el = document.getElementById(id); if (el) el.classList.remove("has-error");
+        });
+        ["enrollEmailError","enrollAltEmailError","enrollPhoneError"].forEach(function(id) {
+          var el = document.getElementById(id); if (el) { el.classList.add("is-hidden"); el.classList.remove("is-error"); }
+        });
         if (productOptions.length) productOptions[0].tabIndex = 0;
         if (agencyRelationshipOptions.length) agencyRelationshipOptions[0].tabIndex = 0;
         if (agencyProductOptions.length) agencyProductOptions[0].tabIndex = 0;
@@ -13451,14 +13468,52 @@
         });
       }
 
-      // Show SMS consent block only when "This is a Mobile Number" is checked
-      var enrollIsMobile = document.getElementById("enrollIsMobile");
-      var enrollSmsConsentWrap = document.getElementById("enrollSmsConsentWrap");
-      if (enrollIsMobile && enrollSmsConsentWrap) {
-        enrollIsMobile.addEventListener("change", function () {
-          enrollSmsConsentWrap.style.display = this.checked ? "block" : "none";
-        });
-      }
+
+      // ── Contact Information field validation ─────────────────────────────
+      (function() {
+        var enrollEmailInput    = document.getElementById("enrollEmail");
+        var enrollEmailWrap     = document.getElementById("enrollEmailFieldWrap");
+        var enrollEmailError    = document.getElementById("enrollEmailError");
+        var enrollAltEmailInput = document.getElementById("enrollAltEmail");
+        var enrollAltEmailWrap  = document.getElementById("enrollAltEmailFieldWrap");
+        var enrollAltEmailError = document.getElementById("enrollAltEmailError");
+        var enrollPhoneInput    = document.getElementById("enrollPhone");
+        var enrollPhoneWrap     = document.getElementById("enrollPhoneFieldWrap");
+        var enrollPhoneError    = document.getElementById("enrollPhoneError");
+
+        function isValidEmail(val) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()); }
+
+        function setFieldError(wrap, errorEl, hasError) {
+          if (!wrap || !errorEl) return;
+          wrap.classList.toggle("has-error", hasError);
+          errorEl.classList.toggle("is-hidden", !hasError);
+          errorEl.classList.toggle("is-error", hasError);
+        }
+
+        function validateEmailField(input, wrap, errorEl) {
+          if (!input) return;
+          var val = input.value.trim();
+          if (val === "") { setFieldError(wrap, errorEl, false); return; }
+          setFieldError(wrap, errorEl, !isValidEmail(val));
+        }
+
+        function validatePhone() {
+          if (!enrollPhoneInput) return;
+          var raw = enrollPhoneInput.value;
+          var digits = raw.replace(/\D/g, "");
+          if (raw === "") { setFieldError(enrollPhoneWrap, enrollPhoneError, false); return; }
+          if (digits.length === 10) {
+            enrollPhoneInput.value = "(" + digits.slice(0, 3) + ") " + digits.slice(3, 6) + "-" + digits.slice(6);
+            setFieldError(enrollPhoneWrap, enrollPhoneError, false);
+          } else {
+            setFieldError(enrollPhoneWrap, enrollPhoneError, true);
+          }
+        }
+
+        if (enrollEmailInput)    enrollEmailInput.addEventListener("blur",    function() { validateEmailField(enrollEmailInput, enrollEmailWrap, enrollEmailError); });
+        if (enrollAltEmailInput) enrollAltEmailInput.addEventListener("blur", function() { validateEmailField(enrollAltEmailInput, enrollAltEmailWrap, enrollAltEmailError); });
+        if (enrollPhoneInput)    enrollPhoneInput.addEventListener("blur",    validatePhone);
+      })();
 
       if (enrollmentSecondPreviousBtn) {
         enrollmentSecondPreviousBtn.addEventListener("click", function onEnrollmentSecondPrevious() {
@@ -13533,7 +13588,18 @@
       if (programEligibilitiesNextBtn) {
         programEligibilitiesNextBtn.addEventListener("click", function onProgramEligibilitiesNext() {
           if (getCoverageRoutingProductKey() === "medicare-only") {
-            goToCoverageAcknowledgementsMedicareScreen();
+            if (!isAgencyContextFlow()) {
+              goToUnderwritingQuestionsScreen();
+            } else {
+              goToCoverageAcknowledgementsMedicareScreen();
+            }
+            if (mainScrollEl) {
+              mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+            }
+            return;
+          }
+          if (getCoverageRoutingProductKey() === "lh-only") {
+            goToUnderwritingQuestionsScreen();
             if (mainScrollEl) {
               mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
             }
@@ -13584,7 +13650,10 @@
 
       if (underwritingQuestionsPreviousBtn) {
         underwritingQuestionsPreviousBtn.addEventListener("click", function onUnderwritingQuestionsPrevious() {
-          if (getCoverageRoutingProductKey() === "medicare-only") {
+          const uwPrevKey = getCoverageRoutingProductKey();
+          if (uwPrevKey === "lh-only" || (uwPrevKey === "medicare-only" && !isAgencyContextFlow())) {
+            goToProgramEligibilitiesScreen();
+          } else if (uwPrevKey === "medicare-only") {
             goToCoverageAcknowledgementsMedicareScreen();
           } else {
             goToCoverageAcknowledgementsScreen();
