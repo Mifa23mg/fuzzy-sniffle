@@ -4111,6 +4111,10 @@
       align-items: start;
     }
 
+    .enrollment-field--full {
+      grid-column: 1 / -1;
+    }
+
     .enrollment-field {
       display: flex;
       flex-direction: column;
@@ -7894,7 +7898,7 @@
               <p class="label"><span class="required">*</span>What's your relationship within the Agency? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best matches your role in the agency." data-tooltip-position="bottom-left"></span></p>
               <div class="option-grid" id="agencyRelationshipGrid" role="radiogroup" aria-label="What's your relationship within the Agency?">
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="owner"><span class="dot"></span><span class="option-label">I'm an Agency Owner</span></button>
-                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="authorized-contact"><span class="dot"></span><span class="option-label">I'm an Authorized Contact</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="authorized-contact"><span class="dot"></span><span class="option-label">I'm an Authorized Applicant</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-relationship-option="producer"><span class="dot"></span><span class="option-label">I'm a Producer</span></button>
               </div>
             </div>
@@ -8583,13 +8587,11 @@
               <h1>Customer Information</h1>
               <div class="title-line"></div>
             </div>
-            <p class="intro">Now that you have selected a plan, please provide additional information needed for for your application.</p>
+            <p class="intro">Please provide the information below needed to complete your application.</p>
 
-            <p class="enrollment-additional-section-title">Agent &amp; Agency Additional Information</p>
-
-            <!-- Agent Information -->
+            <!-- Contact Information -->
             <div class="enrollment-section">
-              <p class="enrollment-section-title">Agent Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Updates can be made to your contact information and name through our customer service team." data-tooltip-position="bottom-left"></span></p>
+              <p class="enrollment-section-title">Contact Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Updates can be made to your contact information and name through our customer service team.&#10;&#10;The email address provided will be used as the Username to login to the Member Portal.&#10;&#10;Phone numbers and emails will can be added or changed through the Member Portal once your application is submitted." data-tooltip-position="bottom-left"></span></p>
               <div class="enrollment-fields-grid">
                 <div class="enrollment-field">
                   <div class="input-field ajg-input-field">
@@ -8617,20 +8619,14 @@
                     <input class="input-text ajg-input-control" type="text" id="enrollLastName" name="enrollLastName" placeholder="Last Name" autocomplete="family-name" />
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <!-- Contact Information -->
-            <div class="enrollment-section">
-              <p class="enrollment-section-title">Contact Information <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="The email address provided will be used as the Username to login to the Member Portal.&#10;&#10;Phone numbers and emails will can be added or changed through the Member Portal once your application is submitted." data-tooltip-position="bottom-left"></span></p>
-              <div class="enrollment-fields-grid">
+                <div aria-hidden="true"></div>
                 <div class="enrollment-field">
                   <div class="input-field ajg-input-field" id="enrollEmailFieldWrap">
                     <label class="ajg-input-label" for="enrollEmail">
-                      <span class="ajg-input-label-text">Insured's Email Address</span>
+                      <span class="ajg-input-label-text">Email Address</span>
                       <span class="field-required" aria-hidden="true">*</span>
                     </label>
-                    <input class="input-text ajg-input-control" type="email" id="enrollEmail" name="enrollEmail" placeholder="Insured's Email Address" autocomplete="email" />
+                    <input class="input-text ajg-input-control" type="email" id="enrollEmail" name="enrollEmail" placeholder="Email Address" autocomplete="email" />
                   </div>
                   <p class="field-supporting-text is-hidden" id="enrollEmailError">Please enter a valid email address</p>
                 </div>
@@ -8662,7 +8658,7 @@
                     <input class="enrollment-consent-checkbox" type="checkbox" id="enrollSmsConsent" />
                     <span class="enrollment-consent-text">
                       <strong>I agree to receive automated marketing and transactional text messages from NAPA at the phone number provided.</strong>
-                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See our Terms of Service and Privacy Policy below.
+                      Message frequency varies. Consent is not a condition of purchase. Msg and data rates may apply. Reply STOP to opt out. See <a href="#" class="enrollment-consent-link">Terms of Service</a> and <a href="#" class="enrollment-consent-link">Privacy Policy</a>.
                     </span>
                   </label>
                 </div>
@@ -8815,11 +8811,14 @@
                           </div>
                         </div>
                       </div>
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyOwnerOnePhone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label>
-                          <input class="input-text ajg-input-control" type="text" id="agencyOwnerOnePhone" name="agencyOwnerOnePhone" placeholder="" />
+                      <div class="enrollment-owner-card-grid">
+                        <div class="enrollment-input-shell enrollment-field">
+                          <div class="input-field ajg-input-field">
+                            <label class="ajg-input-label" for="agencyOwnerOnePhone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label>
+                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerOnePhone" name="agencyOwnerOnePhone" placeholder="" />
+                          </div>
                         </div>
+                        <div aria-hidden="true"></div>
                       </div>
                     </div>
                     <div class="enrollment-owner-toggle-row">
@@ -9164,6 +9163,59 @@
                     <div class="enrollment-longtext-wrap is-hidden" id="dbaKnownClaimsLongtextWrap">
                       <p class="enrollment-longtext-label"><span class="required">*</span>Please provide more information</p>
                       <textarea class="enrollment-longtext-textarea" id="dbaKnownClaimsLongtext" placeholder="Additional details"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="enrollment-question-group" id="enrollmentFourthTpaGroup">
+                <p class="enrollment-question-title">3rd Party Payer <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="3rd Party Payers are commonly the cardholder of the method of payment provided at checkout." data-tooltip-position="bottom-left"></span></p>
+                <p class="label">Payment methods on file from third-party payers will continue to be used for future billing unless the third party or insured requests their removal.</p>
+                <div class="field full">
+                  <p class="label"><span class="required">*</span>Would you like to add a 3rd Party Payer?</p>
+                  <div class="mini-radio" role="radiogroup" aria-label="Would you like to add a 3rd Party Payer?">
+                    <button type="button" role="radio" aria-checked="false" data-enrollment-radio="add-tpa" data-value="yes">Yes</button>
+                    <button type="button" role="radio" aria-checked="true" data-enrollment-radio="add-tpa" data-value="no">No</button>
+                  </div>
+                </div>
+                <div class="enrollment-detail-card is-hidden" id="tpaInfoCard">
+                  <p class="enrollment-detail-card-title">Payer Information</p>
+                  <div class="enrollment-fields-grid">
+                    <div class="enrollment-field">
+                      <div class="input-field ajg-input-field">
+                        <label class="ajg-input-label" for="tpaFirstName">
+                          <span class="ajg-input-label-text">First Name</span>
+                          <span class="field-required" aria-hidden="true">*</span>
+                        </label>
+                        <input class="input-text ajg-input-control" type="text" id="tpaFirstName" name="tpaFirstName" placeholder="First Name" />
+                      </div>
+                    </div>
+                    <div class="enrollment-field">
+                      <div class="input-field ajg-input-field">
+                        <label class="ajg-input-label" for="tpaLastName">
+                          <span class="ajg-input-label-text">Last Name</span>
+                          <span class="field-required" aria-hidden="true">*</span>
+                        </label>
+                        <input class="input-text ajg-input-control" type="text" id="tpaLastName" name="tpaLastName" placeholder="Last Name" />
+                      </div>
+                    </div>
+                    <div class="enrollment-field">
+                      <div class="input-field ajg-input-field">
+                        <label class="ajg-input-label" for="tpaEmail">
+                          <span class="ajg-input-label-text">Email</span>
+                          <span class="field-required" aria-hidden="true">*</span>
+                        </label>
+                        <input class="input-text ajg-input-control" type="email" id="tpaEmail" name="tpaEmail" placeholder="Email" />
+                      </div>
+                    </div>
+                    <div class="enrollment-field">
+                      <div class="input-field ajg-input-field">
+                        <label class="ajg-input-label" for="tpaPhone">
+                          <span class="ajg-input-label-text">Phone</span>
+                          <span class="field-required" aria-hidden="true">*</span>
+                        </label>
+                        <input class="input-text ajg-input-control" type="tel" id="tpaPhone" name="tpaPhone" placeholder="Phone" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -10021,6 +10073,7 @@
       const previewCheckoutSubmitBtn = document.getElementById("previewCheckoutSubmitBtn");
       const agencyInfoCard = document.getElementById("agencyInfoCard");
       const dbaInfoCard = document.getElementById("dbaInfoCard");
+      const tpaInfoCard = document.getElementById("tpaInfoCard");
       const screenStart = document.getElementById("screen-start");
       const screenSelectPlan = document.getElementById("screen-select-plan");
       const screenEnrollment = document.getElementById("screen-enrollment");
@@ -11725,6 +11778,10 @@
           const showDbaCard = getEnrollmentRadioValue("add-dba") === "yes";
           dbaInfoCard.classList.toggle("is-hidden", !showDbaCard);
         }
+        if (tpaInfoCard) {
+          const showTpaCard = getEnrollmentRadioValue("add-tpa") === "yes";
+          tpaInfoCard.classList.toggle("is-hidden", !showTpaCard);
+        }
         syncEnrollmentLongtextVisibility();
       }
 
@@ -12482,10 +12539,62 @@
         setEnrollmentActiveStep(4);
       }
 
+      function setFieldWithFloat(id, val) {
+        var input = document.getElementById(id);
+        if (!input) return;
+        input.value = val;
+        var wrap = input.closest(".ajg-input-field");
+        if (wrap) wrap.classList.toggle("is-floating", Boolean(val && val.trim()));
+      }
+
+      function prepopulateAgencyContactFromEnrollment() {
+        if (!isAgencyContextFlow()) return;
+        var relationship = "";
+        agencyRelationshipOptions.forEach(function(opt) {
+          if (opt.getAttribute("aria-checked") === "true") {
+            relationship = opt.getAttribute("data-agency-relationship-option") || "";
+          }
+        });
+        var firstName = (document.getElementById("enrollFirstName") || {}).value || "";
+        var middleInitial = (document.getElementById("enrollMiddleInitial") || {}).value || "";
+        var lastName = (document.getElementById("enrollLastName") || {}).value || "";
+        var email = (document.getElementById("enrollEmail") || {}).value || "";
+        var phone = (document.getElementById("enrollPhone") || {}).value || "";
+        if (relationship === "owner") {
+          setFieldWithFloat("agencyOwnerOneFirstName", firstName);
+          setFieldWithFloat("agencyOwnerOneMiddleInitial", middleInitial);
+          setFieldWithFloat("agencyOwnerOneLastName", lastName);
+          setFieldWithFloat("agencyOwnerOneEmail", email);
+          setFieldWithFloat("agencyOwnerOnePhone", phone);
+        } else if (relationship === "producer") {
+          if (agencyProducerCardsEl && agencyProducerCardsEl.children.length === 0) {
+            agencyProducerCount = 1;
+            var card = createProducerCardEl(1);
+            var removeBtn = card.querySelector("[data-remove-producer]");
+            if (removeBtn) {
+              removeBtn.addEventListener("click", function() {
+                card.remove();
+                agencyProducerCount--;
+                if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
+              });
+            }
+            agencyProducerCardsEl.appendChild(card);
+            if (agencyProducerCount >= MAX_AGENCY_PRODUCERS && addAgencyProducerBtn) {
+              addAgencyProducerBtn.classList.add("is-hidden");
+            }
+          }
+          setFieldWithFloat("agencyProducer1FirstName", firstName);
+          setFieldWithFloat("agencyProducer1LastName", lastName);
+          setFieldWithFloat("agencyProducer1Email", email);
+          setFieldWithFloat("agencyProducer1Phone", phone);
+        }
+      }
+
       function goToEnrollmentThirdScreen() {
         setHomeLandingActive(false);
         syncEnrollmentThirdAgencyOwnerSection();
         hideEnrollmentThirdOwnerWarningBanner();
+        prepopulateAgencyContactFromEnrollment();
         showScreen("enrollment-third");
         setEnrollmentActiveStep(4);
       }
@@ -13258,11 +13367,14 @@
         // Restore default "No" selection for add-agency and add-dba
         const addAgencyNoBtn = document.querySelector('[data-enrollment-radio="add-agency"][data-value="no"]');
         const addDbaNoBtn = document.querySelector('[data-enrollment-radio="add-dba"][data-value="no"]');
+        const addTpaNoBtn = document.querySelector('[data-enrollment-radio="add-tpa"][data-value="no"]');
         if (addAgencyNoBtn) addAgencyNoBtn.setAttribute("aria-checked", "true");
         if (addDbaNoBtn) addDbaNoBtn.setAttribute("aria-checked", "true");
+        if (addTpaNoBtn) addTpaNoBtn.setAttribute("aria-checked", "true");
         // Hide detail cards that open on "Yes"
         if (agencyInfoCard) agencyInfoCard.classList.add("is-hidden");
         if (dbaInfoCard) dbaInfoCard.classList.add("is-hidden");
+        if (tpaInfoCard) tpaInfoCard.classList.add("is-hidden");
         // Reset dynamically generated underwriting question radios
         document.querySelectorAll('[data-underwriting-radio]').forEach(function(btn) {
           btn.setAttribute("aria-checked", "false");
@@ -14308,7 +14420,10 @@
           + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'LastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'LastName" name="agencyOwner' + n + 'LastName" placeholder="" /></div></div>'
           + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'Email"><span class="ajg-input-label-text">Email</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="email" id="agencyOwner' + n + 'Email" name="agencyOwner' + n + 'Email" placeholder="" /></div></div>'
           + '</div>'
+          + '<div class="enrollment-owner-card-grid">'
           + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'Phone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'Phone" name="agencyOwner' + n + 'Phone" placeholder="" /></div></div>'
+          + '<div aria-hidden="true"></div>'
+          + '</div>'
           + '</div>'
           + '<div class="enrollment-owner-toggle-row">'
           + '<div class="enrollment-owner-toggle-left">'
