@@ -3518,6 +3518,26 @@
       display: block;
     }
 
+    .coverage-pc-container {
+      gap: 16px;
+    }
+
+    .pc-product-question {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pc-coverage-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pc-coverage-links .coverage-link {
+      margin-top: 0;
+    }
+
     .cyber-coverage-list {
       width: 100%;
       display: grid;
@@ -4886,7 +4906,7 @@
     .enrollment-owner-shell {
       width: 100%;
       border: 1px solid #c9c9c9;
-      border-radius: 12px;
+      border-radius: 20px;
       padding: 16px;
       box-sizing: border-box;
       display: flex;
@@ -4894,7 +4914,22 @@
       gap: 16px;
     }
 
-    .enrollment-owner-banner-mount:empty {
+    .enrollment-owner-shell .enrollment-detail-card {
+      border-radius: 12px;
+    }
+
+    .enrollment-owner-banner-mount:not(:has(> :not(.is-hidden))) {
+      display: none;
+    }
+
+    .enrollment-producer-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .enrollment-producer-cards:empty {
       display: none;
     }
 
@@ -7429,7 +7464,7 @@
       </div>
       <div class="home-landing-topbar-shellv2">
         <div class="home-landing-topbarv2">
-          <p class="home-landing-update-meta-v2">Last update: 6/8/26 - v1.08</p>
+          <p class="home-landing-update-meta-v2">Last update: 6/12/26 - v1.09</p>
           <svg class="home-landing-dividerv2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1688 48" preserveAspectRatio="none" aria-hidden="true">
             <!-- Light highlight: -45°, 80% — 1px white stroke, 1px above main line, corners rounded r=15 -->
             <path d="M 0,43 L 305,43 Q 320,43 333,35 L 387,7 Q 400,1 415,1 L 1273,1 Q 1288,1 1301,7 L 1355,35 Q 1368,43 1383,43 L 1688,43" stroke="rgba(255,255,255,0.8)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" vector-effect="non-scaling-stroke"/>
@@ -7741,7 +7776,7 @@
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="lh-mostly-25"><span class="dot"></span><span class="option-label">Mostly L&amp;H with P&amp;C 25% or less</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="lh-mostly-49"><span class="dot"></span><span class="option-label">Mostly L&amp;H with P&amp;C 26%-49%</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="pc-only"><span class="dot"></span><span class="option-label">Property &amp; Casualty (P&amp;C) Only</span></button>
-                <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="pc-some-lh"><span class="dot"></span><span class="option-label">Mostly P&amp;C with some L&amp;H</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="pc-some-lh"><span class="dot"></span><span class="option-label">Mostly P&amp;C with some L&amp;H (less than 50%)</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-product-option="medicare-only"><span class="dot"></span><span class="option-label">Medicare ONLY</span></button>
               </div>
               <div class="note-box hidden" id="productSelectionNote">
@@ -7841,10 +7876,10 @@
               <div class="enrollment-field">
                 <div class="input-field ajg-input-field" id="agencyFlowTaxIdFieldWrap">
                   <label class="ajg-input-label" for="agencyFlowTaxIdInput">
-                    <span class="ajg-input-label-text">Agency tax ID</span>
+                    <span class="ajg-input-label-text">Agency Tax ID</span>
                     <span class="field-required" aria-hidden="true">*</span>
                   </label>
-                  <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency tax ID" maxlength="9" />
+                  <input class="input-text ajg-input-control" type="text" id="agencyFlowTaxIdInput" placeholder="Agency Tax ID" maxlength="9" />
                 </div>
                 <p class="field-supporting-text is-hidden" id="agencyFlowTaxIdError">Tax ID must be 9 digits</p>
               </div>
@@ -7863,9 +7898,9 @@
               <p class="label"><span class="required">*</span>What insurance products does your agency sell and service? <span class="enrollment-info-icon app-tooltip-anchor" aria-hidden="true" data-tooltip="Select the option that best describes your agency's current book of business." data-tooltip-position="bottom-left"></span></p>
               <div class="option-grid" id="agencyProductsGrid" role="radiogroup" aria-label="What insurance products does your agency sell and service?">
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="lh-only"><span class="dot"></span><span class="option-label">Life &amp; Health (L&amp;H) Only</span></button>
-                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="lh-mostly-49"><span class="dot"></span><span class="option-label">Mostly L&amp;H with P&amp;C</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="lh-mostly-49"><span class="dot"></span><span class="option-label">Mostly L&amp;H with some P&amp;C (less than 50%)</span></button>
                 <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="pc-only"><span class="dot"></span><span class="option-label">Property &amp; Casualty (P&amp;C) Only</span></button>
-                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="pc-some-lh"><span class="dot"></span><span class="option-label">Mostly P&amp;C with some L&amp;H</span></button>
+                <button class="option-card" type="button" role="radio" aria-checked="false" data-agency-product-option="pc-some-lh"><span class="dot"></span><span class="option-label">Mostly P&amp;C with some L&amp;H (less than 50%)</span></button>
               </div>
               <div class="note-box hidden" id="agencyProductSelectionNote">
                 <span id="agencyProductSelectionNoteBody"></span>
@@ -7949,6 +7984,13 @@
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="03-01-2026"><span class="choice-dot"></span><span class="choice-label">03/01/2026</span></button>
                 <button class="choice-option" type="button" role="radio" aria-checked="false" data-agency-coverage-start-option="04-01-2026"><span class="choice-dot"></span><span class="choice-label">04/01/2026</span></button>
               </div>
+            </div>
+
+            <div class="legal-note field full">
+              <p><strong>IMPORTANT:</strong> If you have existing E&amp;O coverage in force and your coverage expires on a date that is not on the first of the month, please select the first day of the following month. <strong>You will not create a gap in coverage if you select an effective date within 30 days of your renewal date</strong>. Please refer to the Amended Definition of Certificate Period Endorsement in the policy for full details.</p>
+              <p><strong>Amended Definition of Certificate Period Endorsement</strong></p>
+              <p>It is hereby understood and agreed that, solely for those Insured's who are maintaining continuous coverage pursuant to any claims made professional liability policy, the definition of Certificate Period set forth in Section III, Definitions is amended to add the following:</p>
+              <p>Certificate Period also means the period of time between the expiration date shown on the Named Insured's previous Certificate of Insurance and the inception date shown on the Named Insured's current Certificate of Insurance. Provided always, in no event shall the expiration date between the Named Insured's previous Certificate of Insurance and the inception date shown on the current Certificate of Insurance be greater than 30 days. All other terms and conditions of the policy remain unchanged.</p>
             </div>
 
             <div class="actions split">
@@ -8160,7 +8202,8 @@
               <p class="coverage-subtitle">Property &amp; Casualty Products</p>
             </div>
 
-            <div class="field full">
+            <div class="field full coverage-pc-container">
+              <div class="pc-product-question">
               <p class="label"><span class="required">*</span>What type of Property &amp; Casualty products do you sell?</p>
               <div class="coverage-cards-grid" id="coverageOptionsPcGrid" role="radiogroup" aria-label="What type of Property & Casualty products do you sell?">
                 <button class="coverage-card" type="button" role="radio" aria-checked="false" data-coverage-option="pc-level-1">
@@ -8262,8 +8305,18 @@
                   </ul>
                 </button>
               </div>
-              <a class="coverage-link" href="#" data-modal-target="deductibles" data-modal-variant="pc-deductibles">View Deductibles</a>
-              <a class="coverage-link" href="#" data-modal-target="deductibles" data-modal-variant="pc-sublimits">P&amp;C sublimits</a>
+              </div>
+              <div class="field is-hidden" id="pcLevel3NonAdmittedField">
+                <p class="label"><span class="required">*</span>Does more than 10% of the income selected previously come from the sale and servicing of products under non-admitted carriers?</p>
+                <div class="mini-radio" role="radiogroup" aria-label="Does more than 10% of the income selected previously come from the sale and servicing of products under non-admitted carriers?" id="pcNonAdmittedOptions">
+                  <button type="button" role="radio" aria-checked="false" data-pc-non-admitted="yes">Yes</button>
+                  <button type="button" role="radio" aria-checked="false" data-pc-non-admitted="no">No</button>
+                </div>
+              </div>
+              <div class="pc-coverage-links">
+                <a class="coverage-link" href="#" data-modal-target="deductibles" data-modal-variant="pc-deductibles">View Deductibles</a>
+                <a class="coverage-link" href="#" data-modal-target="deductibles" data-modal-variant="pc-sublimits">P&amp;C Sublimits</a>
+              </div>
             </div>
 
             <div class="actions split">
@@ -8724,8 +8777,9 @@
               <p class="enrollment-question-title">Owner(s) Information</p>
               <div class="enrollment-owner-shell">
                 <div class="enrollment-owner-banner-mount" id="enrollmentThirdOwnerWarningBannerMount"></div>
-                <p class="enrollment-owner-note">Primary owner is defaulted to the applicant of this policy. Please add a different agency owner if the applicant is not the primary owner of the agency. Prior acts coverage is afforded to the owners of the Agency. <strong>Only one primary owner can be checked among the owners added</strong></p>
-                <div class="enrollment-owner-cards">
+                <p class="enrollment-detail-card-title">Agency Owner(s)</p>
+                <p class="enrollment-owner-note">Primary owner is defaulted to the applicant of this policy. Please add a different agency owner if the applicant is not the primary owner of the agency. Prior acts coverage is afforded to the owners of the Agency. <strong>Only one primary owner can be checked among the owners added.</strong></p>
+                <div class="enrollment-owner-cards" id="agencyOwnerCardsEl">
                   <div class="enrollment-detail-card" id="agencyOwnerCardPrimary">
                     <div class="enrollment-owner-card-fields">
                       <div class="enrollment-owner-card-grid">
@@ -8778,106 +8832,18 @@
                     </div>
                   </div>
 
-                  <div class="enrollment-detail-card is-hidden" id="agencyOwnerCardSecondary">
-                    <div class="enrollment-owner-card-fields">
-                      <div class="enrollment-owner-card-grid">
-                        <div class="enrollment-input-shell enrollment-field">
-                          <div class="input-field ajg-input-field">
-                            <label class="ajg-input-label" for="agencyOwnerTwoFirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label>
-                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoFirstName" name="agencyOwnerTwoFirstName" placeholder="" />
-                          </div>
-                        </div>
-                        <div class="enrollment-input-shell enrollment-field">
-                          <div class="input-field ajg-input-field">
-                            <label class="ajg-input-label" for="agencyOwnerTwoMiddleInitial"><span class="ajg-input-label-text">Middle Initial</span></label>
-                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoMiddleInitial" name="agencyOwnerTwoMiddleInitial" placeholder="" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="enrollment-owner-card-grid">
-                        <div class="enrollment-input-shell enrollment-field">
-                          <div class="input-field ajg-input-field">
-                            <label class="ajg-input-label" for="agencyOwnerTwoLastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label>
-                            <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoLastName" name="agencyOwnerTwoLastName" placeholder="" />
-                          </div>
-                        </div>
-                        <div class="enrollment-input-shell enrollment-field">
-                          <div class="input-field ajg-input-field">
-                            <label class="ajg-input-label" for="agencyOwnerTwoEmail"><span class="ajg-input-label-text">Email</span><span class="field-required" aria-hidden="true">*</span></label>
-                            <input class="input-text ajg-input-control" type="email" id="agencyOwnerTwoEmail" name="agencyOwnerTwoEmail" placeholder="" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyOwnerTwoPhone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label>
-                          <input class="input-text ajg-input-control" type="text" id="agencyOwnerTwoPhone" name="agencyOwnerTwoPhone" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="enrollment-owner-toggle-row">
-                      <div class="enrollment-owner-toggle-left">
-                        <button class="optins-toggle-btn enrollment-owner-primary-toggle" type="button" id="ownerCardSecondaryToggle" role="switch" aria-checked="false" aria-label="Mark Agency Owner 2 as Primary Owner">
-                          <span class="optins-toggle-check" aria-hidden="true">
-                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M3 6.2L5.2 8.4L9 4.6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                          </span>
-                          <span class="optins-toggle-knob" aria-hidden="true"></span>
-                        </button>
-                        <p class="enrollment-owner-toggle-label">Mark as Primary Owner</p>
-                      </div>
-                      <button class="brand-btn enrollment-remove-btn" type="button" id="removeAgencyOwnerBtn">Remove</button>
-                    </div>
-                  </div>
-
-                  <button class="secondary-btn enrollment-add-owner-btn" type="button" id="addAgencyOwnerBtn">
-                    <span aria-hidden="true">+</span>
-                    <span>Add Agency Owner</span>
-                  </button>
                 </div>
               </div>
+              <button class="secondary-btn enrollment-add-owner-btn" type="button" id="addAgencyOwnerBtn">
+                <span aria-hidden="true">+</span>
+                <span>Add Agency Owner</span>
+              </button>
 
               <p class="enrollment-question-title">Agency Producers Information</p>
-              <p class="enrollment-owner-note">Producers that have previously written any business outside of Agency named above, they will need to maintain prior acts coverage for business written before joining the agency.</p>
+              <p class="enrollment-owner-note">Producers who have previously written any business outside of Agency named above, will need to maintain prior acts coverage for business written before joining the agency.</p>
               <div class="enrollment-owner-shell">
                 <p class="enrollment-detail-card-title">Agency Producers</p>
-                <div class="enrollment-detail-card is-hidden" id="agencyProducerCardPrimary">
-                  <div class="enrollment-owner-card-fields">
-                    <div class="enrollment-owner-card-grid">
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyProducerOneFirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label>
-                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOneFirstName" name="agencyProducerOneFirstName" placeholder="" />
-                        </div>
-                      </div>
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyProducerOneLastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label>
-                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOneLastName" name="agencyProducerOneLastName" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="enrollment-owner-card-grid">
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyProducerOneEmail"><span class="ajg-input-label-text">Email</span></label>
-                          <input class="input-text ajg-input-control" type="email" id="agencyProducerOneEmail" name="agencyProducerOneEmail" placeholder="" />
-                        </div>
-                      </div>
-                      <div class="enrollment-input-shell enrollment-field">
-                        <div class="input-field ajg-input-field">
-                          <label class="ajg-input-label" for="agencyProducerOnePhone"><span class="ajg-input-label-text">Phone Number</span></label>
-                          <input class="input-text ajg-input-control" type="text" id="agencyProducerOnePhone" name="agencyProducerOnePhone" placeholder="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="enrollment-owner-toggle-row">
-                    <span></span>
-                    <button class="brand-btn enrollment-remove-btn" type="button" id="removeAgencyProducerBtn">Remove</button>
-                  </div>
-                </div>
+                <div class="enrollment-producer-cards" id="agencyProducerCardsEl"></div>
                 <button class="secondary-btn enrollment-add-owner-btn" type="button" id="addAgencyProducerBtn">
                   <span aria-hidden="true">+</span>
                   <span>Add Agency Producer</span>
@@ -10066,13 +10032,10 @@
       const enrollmentThirdAgencyOwnerSection = document.getElementById("enrollmentThirdAgencyOwnerSection");
       const enrollmentThirdOwnerWarningBannerMount = document.getElementById("enrollmentThirdOwnerWarningBannerMount");
       const addAgencyOwnerBtn = document.getElementById("addAgencyOwnerBtn");
-      const removeAgencyOwnerBtn = document.getElementById("removeAgencyOwnerBtn");
-      const agencyOwnerCardSecondary = document.getElementById("agencyOwnerCardSecondary");
+      const agencyOwnerCardsEl = document.getElementById("agencyOwnerCardsEl");
       const ownerCardPrimaryToggle = document.getElementById("ownerCardPrimaryToggle");
-      const ownerCardSecondaryToggle = document.getElementById("ownerCardSecondaryToggle");
-      const agencyProducerCardPrimary = document.getElementById("agencyProducerCardPrimary");
+      const agencyProducerCardsEl = document.getElementById("agencyProducerCardsEl");
       const addAgencyProducerBtn = document.getElementById("addAgencyProducerBtn");
-      const removeAgencyProducerBtn = document.getElementById("removeAgencyProducerBtn");
       const enrollmentThirdOwnerWarningBannerId = "enrollmentThirdOwnerWarningBanner";
       const screenSaveLaterConfirmation = document.getElementById("screen-save-later-confirmation");
       const screenOrderConfirmation = document.getElementById("screen-order-confirmation");
@@ -10186,6 +10149,8 @@
       const coveragePackageOptions = Array.from(document.querySelectorAll("#coverageOptionsGrid .coverage-card"));
       const coveragePackageMedicareOptions = Array.from(document.querySelectorAll("#coverageOptionsMedicareGrid .coverage-card"));
       const coveragePackagePcOptions = Array.from(document.querySelectorAll("#coverageOptionsPcGrid .coverage-card"));
+      const pcLevel3NonAdmittedField = document.getElementById("pcLevel3NonAdmittedField");
+      const pcNonAdmittedOptions = Array.from(document.querySelectorAll("#pcNonAdmittedOptions button"));
       const coverageOptionAImoEntityCoverage = document.getElementById("coverageOptionAImoEntityCoverage");
       const coverageOptionBImoEntityCoverage = document.getElementById("coverageOptionBImoEntityCoverage");
       const coverageOptionCImoEntityCoverage = document.getElementById("coverageOptionCImoEntityCoverage");
@@ -11461,12 +11426,17 @@
           const row = document.createElement("div");
           row.className = isAcceptRow ? "acknowledgement-accept" : "acknowledgement-item";
 
-          const required = document.createElement("span");
-          required.className = "required";
-          const useBulletMarker = !isAcceptRow;
-          if (useBulletMarker) required.classList.add("bullet-marker");
-          required.textContent = useBulletMarker ? "•" : "*";
-          row.appendChild(required);
+          if (isAcceptRow) {
+            const required = document.createElement("span");
+            required.className = "required";
+            required.textContent = "*";
+            row.appendChild(required);
+          } else if (groupKey === "program-eligibilities") {
+            const required = document.createElement("span");
+            required.className = "required bullet-marker";
+            required.textContent = "•";
+            row.appendChild(required);
+          }
 
           if (isAcceptRow) {
             const checkboxId = item.checkboxId || ("ack-" + groupKey + "-" + String(index));
@@ -12493,21 +12463,14 @@
           ownerCardPrimaryToggle.setAttribute("aria-checked", "true");
           ownerCardPrimaryToggle.classList.add("is-on");
         }
-        if (ownerCardSecondaryToggle) {
-          ownerCardSecondaryToggle.setAttribute("aria-checked", "false");
-          ownerCardSecondaryToggle.classList.remove("is-on");
-        }
       }
 
       function getActiveOwnerToggleCount() {
+        const allToggles = document.querySelectorAll(".enrollment-owner-primary-toggle");
         let activeCount = 0;
-        if (ownerCardPrimaryToggle && ownerCardPrimaryToggle.getAttribute("aria-checked") === "true") {
-          activeCount += 1;
-        }
-        const secondaryVisible = agencyOwnerCardSecondary && !agencyOwnerCardSecondary.classList.contains("is-hidden");
-        if (secondaryVisible && ownerCardSecondaryToggle && ownerCardSecondaryToggle.getAttribute("aria-checked") === "true") {
-          activeCount += 1;
-        }
+        allToggles.forEach(function(t) {
+          if (t.getAttribute("aria-checked") === "true") activeCount++;
+        });
         return activeCount;
       }
 
@@ -12986,7 +12949,7 @@
         selectedProductKey = selectedOption ? (selectedOption.getAttribute("data-product-option") || null) : null;
         window.prototypeSelections.selectedProductKey = selectedProductKey;
         const selectedProductLabel = selectedOption
-          ? ((selectedOption.querySelector(".option-label") || {}).textContent || "").trim()
+          ? ((selectedOption.querySelector(".option-label") || {}).textContent || "").trim().replace("(less than 50%)", "(<50%)")
           : "–";
         setGlobalContext("Agent", selectedProductLabel || "–");
         if (selectedOption) hideScopedErrorBanner("proInfoWarningBanner");
@@ -13343,9 +13306,15 @@
         updateMiniRadioSelection(agencyImoOptions, null, false);
         updateMiniRadioSelection(agencyExclusiveOptions, null, false);
         setOwnerCardDefaultStates();
-        if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.add("is-hidden");
+        if (agencyOwnerCardsEl) {
+          Array.from(agencyOwnerCardsEl.querySelectorAll("[data-dynamic-owner]")).forEach(function(c) { c.remove(); });
+          agencyOwnerCount = 1;
+        }
         if (addAgencyOwnerBtn) addAgencyOwnerBtn.classList.remove("is-hidden");
-        if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.add("is-hidden");
+        if (agencyProducerCardsEl) {
+          agencyProducerCardsEl.innerHTML = "";
+          agencyProducerCount = 0;
+        }
         if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
         hideEnrollmentThirdOwnerWarningBanner();
         syncEnrollmentThirdAgencyOwnerSection();
@@ -13355,6 +13324,8 @@
         updateChoiceSelection(coveragePackageOptions, null, false);
         updateChoiceSelection(coveragePackageMedicareOptions, null, false);
         updateChoiceSelection(coveragePackagePcOptions, null, false);
+        if (pcLevel3NonAdmittedField) pcLevel3NonAdmittedField.classList.add("is-hidden");
+        updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
         updateChoiceSelection(coverageLimitsAddonOptions, null, false);
         syncCoverageOptionRestrictions();
         syncAgencyImoCoverageVariant();
@@ -13612,7 +13583,7 @@
             return;
           }
           hideScopedErrorBanner("proInfoWarningBanner");
-          setGlobalContext("Agent", selectedProductLabel);
+          setGlobalContext("Agent", selectedProductLabel.replace("(less than 50%)", "(<50%)"));
           goToBasicFollowupScreen();
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -13641,7 +13612,7 @@
           hideScopedErrorBanner("proInfoAgencyFollowupWarningBanner");
           selectedProductKey = selectedAgencyProductKey;
           window.prototypeSelections.selectedProductKey = selectedProductKey;
-          setGlobalContext("Agency", selectedProductLabel);
+          setGlobalContext("Agency", selectedProductLabel.replace("(less than 50%)", "(<50%)"));
           goToBasicFollowupAgencyScreen();
           if (mainScrollEl) {
             mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
@@ -13760,6 +13731,15 @@
 
       if (coverageOptionsPcNextBtn) {
         coverageOptionsPcNextBtn.addEventListener("click", function onCoverageOptionsPcNext() {
+          if (pcLevel3NonAdmittedField && !pcLevel3NonAdmittedField.classList.contains("is-hidden")) {
+            const nonAdmittedYes = pcNonAdmittedOptions.some(function(btn) {
+              return btn.getAttribute("data-pc-non-admitted") === "yes" && btn.getAttribute("aria-checked") === "true";
+            });
+            if (nonAdmittedYes) {
+              goToCustomPolicyRequestScreen();
+              return;
+            }
+          }
           goToNextCoverageStep(getCoverageRoutingProductKey());
         });
       }
@@ -14186,6 +14166,8 @@
       updateChoiceSelection(coveragePackageOptions, null, false);
       updateChoiceSelection(coveragePackageMedicareOptions, null, false);
       updateChoiceSelection(coveragePackagePcOptions, null, false);
+      if (pcLevel3NonAdmittedField) pcLevel3NonAdmittedField.classList.add("is-hidden");
+      updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
       updateChoiceSelection(coverageLimitsAddonOptions, null, false);
       populateCoverageStartOptions();
       if (grossIncomeOptions.length) grossIncomeOptions[0].tabIndex = 0;
@@ -14246,6 +14228,18 @@
       bindChoiceGroup(coveragePackageOptions);
       bindChoiceGroup(coveragePackageMedicareOptions);
       bindChoiceGroup(coveragePackagePcOptions);
+      coveragePackagePcOptions.forEach(function(card) {
+        card.addEventListener("click", function() {
+          const isLevel3 = coveragePackagePcOptions.some(function(c) {
+            return c.getAttribute("data-coverage-option") === "pc-level-3" && c.getAttribute("aria-checked") === "true";
+          });
+          if (pcLevel3NonAdmittedField) {
+            pcLevel3NonAdmittedField.classList.toggle("is-hidden", !isLevel3);
+            if (!isLevel3) updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
+          }
+        });
+      });
+      bindMiniRadioGroup(pcNonAdmittedOptions);
       bindChoiceGroup(coverageLimitsAddonOptions);
       syncCoverageOptionRestrictions();
       syncAgencyImoCoverageVariant();
@@ -14290,6 +14284,11 @@
         hideEnrollmentThirdOwnerWarningBanner();
       }
 
+      var agencyOwnerCount = 1;
+      var agencyProducerCount = 0;
+      var MAX_AGENCY_OWNERS = 10;
+      var MAX_AGENCY_PRODUCERS = 10;
+
       function bindOwnerPrimaryToggle(toggleButton) {
         if (!toggleButton) return;
         toggleButton.addEventListener("click", function() {
@@ -14307,23 +14306,69 @@
       }
 
       bindOwnerPrimaryToggle(ownerCardPrimaryToggle);
-      bindOwnerPrimaryToggle(ownerCardSecondaryToggle);
+
+      function createOwnerCardEl(n) {
+        var div = document.createElement("div");
+        div.innerHTML = '<div class="enrollment-detail-card" data-dynamic-owner="true">'
+          + '<div class="enrollment-owner-card-fields">'
+          + '<div class="enrollment-owner-card-grid">'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'FirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'FirstName" name="agencyOwner' + n + 'FirstName" placeholder="" /></div></div>'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'MiddleInitial"><span class="ajg-input-label-text">Middle Initial</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'MiddleInitial" name="agencyOwner' + n + 'MiddleInitial" placeholder="" /></div></div>'
+          + '</div>'
+          + '<div class="enrollment-owner-card-grid">'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'LastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'LastName" name="agencyOwner' + n + 'LastName" placeholder="" /></div></div>'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'Email"><span class="ajg-input-label-text">Email</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="email" id="agencyOwner' + n + 'Email" name="agencyOwner' + n + 'Email" placeholder="" /></div></div>'
+          + '</div>'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyOwner' + n + 'Phone"><span class="ajg-input-label-text">Phone Number</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyOwner' + n + 'Phone" name="agencyOwner' + n + 'Phone" placeholder="" /></div></div>'
+          + '</div>'
+          + '<div class="enrollment-owner-toggle-row">'
+          + '<div class="enrollment-owner-toggle-left">'
+          + '<button class="optins-toggle-btn enrollment-owner-primary-toggle" type="button" role="switch" aria-checked="false" aria-label="Mark Agency Owner ' + n + ' as Primary Owner">'
+          + '<span class="optins-toggle-check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.2L5.2 8.4L9 4.6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>'
+          + '<span class="optins-toggle-knob" aria-hidden="true"></span>'
+          + '</button>'
+          + '<p class="enrollment-owner-toggle-label">Mark as Primary Owner</p>'
+          + '</div>'
+          + '<button class="brand-btn enrollment-remove-btn" type="button" data-remove-owner="true">Remove</button>'
+          + '</div>'
+          + '</div>';
+        return div.firstElementChild;
+      }
+
+      function createProducerCardEl(n) {
+        var div = document.createElement("div");
+        div.innerHTML = '<div class="enrollment-detail-card" data-dynamic-producer="true">'
+          + '<div class="enrollment-owner-card-fields">'
+          + '<div class="enrollment-owner-card-grid">'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyProducer' + n + 'FirstName"><span class="ajg-input-label-text">First Name</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyProducer' + n + 'FirstName" name="agencyProducer' + n + 'FirstName" placeholder="" /></div></div>'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyProducer' + n + 'LastName"><span class="ajg-input-label-text">Last Name</span><span class="field-required" aria-hidden="true">*</span></label><input class="input-text ajg-input-control" type="text" id="agencyProducer' + n + 'LastName" name="agencyProducer' + n + 'LastName" placeholder="" /></div></div>'
+          + '</div>'
+          + '<div class="enrollment-owner-card-grid">'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyProducer' + n + 'Email"><span class="ajg-input-label-text">Email</span></label><input class="input-text ajg-input-control" type="email" id="agencyProducer' + n + 'Email" name="agencyProducer' + n + 'Email" placeholder="" /></div></div>'
+          + '<div class="enrollment-input-shell enrollment-field"><div class="input-field ajg-input-field"><label class="ajg-input-label" for="agencyProducer' + n + 'Phone"><span class="ajg-input-label-text">Phone Number</span></label><input class="input-text ajg-input-control" type="text" id="agencyProducer' + n + 'Phone" name="agencyProducer' + n + 'Phone" placeholder="" /></div></div>'
+          + '</div>'
+          + '</div>'
+          + '<div class="enrollment-owner-toggle-row"><span></span><button class="brand-btn enrollment-remove-btn" type="button" data-remove-producer="true">Remove</button></div>'
+          + '</div>';
+        return div.firstElementChild;
+      }
 
       if (addAgencyOwnerBtn) {
         addAgencyOwnerBtn.addEventListener("click", function() {
-          if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.remove("is-hidden");
-          addAgencyOwnerBtn.classList.add("is-hidden");
-          hideEnrollmentThirdOwnerWarningBanner();
-        });
-      }
-
-      if (removeAgencyOwnerBtn) {
-        removeAgencyOwnerBtn.addEventListener("click", function() {
-          if (agencyOwnerCardSecondary) agencyOwnerCardSecondary.classList.add("is-hidden");
-          if (addAgencyOwnerBtn) addAgencyOwnerBtn.classList.remove("is-hidden");
-          if (ownerCardSecondaryToggle) {
-            ownerCardSecondaryToggle.setAttribute("aria-checked", "false");
-            ownerCardSecondaryToggle.classList.remove("is-on");
+          agencyOwnerCount++;
+          var card = createOwnerCardEl(agencyOwnerCount);
+          var toggle = card.querySelector(".enrollment-owner-primary-toggle");
+          bindOwnerPrimaryToggle(toggle);
+          var removeBtn = card.querySelector("[data-remove-owner]");
+          removeBtn.addEventListener("click", function() {
+            card.remove();
+            agencyOwnerCount--;
+            if (addAgencyOwnerBtn) addAgencyOwnerBtn.classList.remove("is-hidden");
+            hideEnrollmentThirdOwnerWarningBanner();
+          });
+          if (agencyOwnerCardsEl) agencyOwnerCardsEl.appendChild(card);
+          if (agencyOwnerCount >= MAX_AGENCY_OWNERS) {
+            addAgencyOwnerBtn.classList.add("is-hidden");
           }
           hideEnrollmentThirdOwnerWarningBanner();
         });
@@ -14331,15 +14376,18 @@
 
       if (addAgencyProducerBtn) {
         addAgencyProducerBtn.addEventListener("click", function() {
-          if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.remove("is-hidden");
-          addAgencyProducerBtn.classList.add("is-hidden");
-        });
-      }
-
-      if (removeAgencyProducerBtn) {
-        removeAgencyProducerBtn.addEventListener("click", function() {
-          if (agencyProducerCardPrimary) agencyProducerCardPrimary.classList.add("is-hidden");
-          if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
+          agencyProducerCount++;
+          var card = createProducerCardEl(agencyProducerCount);
+          var removeBtn = card.querySelector("[data-remove-producer]");
+          removeBtn.addEventListener("click", function() {
+            card.remove();
+            agencyProducerCount--;
+            if (addAgencyProducerBtn) addAgencyProducerBtn.classList.remove("is-hidden");
+          });
+          if (agencyProducerCardsEl) agencyProducerCardsEl.appendChild(card);
+          if (agencyProducerCount >= MAX_AGENCY_PRODUCERS) {
+            addAgencyProducerBtn.classList.add("is-hidden");
+          }
         });
       }
       setOwnerCardDefaultStates();
