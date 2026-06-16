@@ -1805,11 +1805,10 @@
     }
 
     .main-surface.custom-policy-active {
-      display: block;
+      display: flex;
       margin: 0;
       border-radius: 0;
-      padding: 56px 220px 0;
-      background: #ffffff;
+      padding: 0;
     }
 
     .main-surface.custom-policy-active .steps {
@@ -1817,7 +1816,9 @@
     }
 
     .main-surface.custom-policy-active .content {
-      padding: 0;
+      flex: 1;
+      padding-left: 220px;
+      padding-right: 220px;
     }
 
     .main-surface.save-later-active {
@@ -6770,11 +6771,9 @@
 
     /* ── Custom Policy Request Screen ─────────────────────── */
     #screen-custom-policy-request.active {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      display: block;
       width: 100%;
-      max-width: 1000px;
+      max-width: none;
     }
 
     .custom-policy-header {
@@ -6816,7 +6815,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 24px;
+      padding: 40px 12px;
     }
 
     .custom-policy-actions .secondary-btn,
@@ -6829,6 +6828,63 @@
       line-height: 19px;
       font-weight: 590;
     }
+    #screen-custom-policy-request-form.active {
+      display: block;
+      width: 100%;
+      max-width: none;
+    }
+
+    .cpr-form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .cpr-phone-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .cpr-phone-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 590;
+      color: #181818;
+      line-height: 22px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .cpr-phone-desc {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 400;
+      color: #2e2e2e;
+      line-height: 18px;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    }
+
+    .cpr-contact-card {
+      width: 100%;
+      border: 1px solid #c9c9c9;
+      border-radius: 20px;
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #cprPhoneNumber::placeholder {
+      color: #5C5C5C;
+    }
+
+    #cprPhoneNumber:focus::placeholder {
+      color: transparent;
+    }
+
     /* ── End Custom Policy Request Screen ─────────────────── */
 
     .app-modal-overlay {
@@ -8015,19 +8071,140 @@
             <p class="custom-policy-copy">
               Based on your gross annual income, your E&amp;O coverage will require a more tailored approach. Our master policies are not the best fit for your needs. However, we have alternative options available that are better suited to your profile.
               <br /><br />
-              Click <strong>Send Me a Form</strong> to receive an email with an additional form for you to provide a few additional details for us to customize your coverage and one of our team members will reach out to you shortly with options.
+              Click <strong>Continue</strong> to provide a few additional details for us to customize your coverage and one of our team members will reach out to you shortly with options.
             </p>
 
-            <div class="field">
-              <p class="label"><span class="required">*</span>Email Address</p>
-              <div class="input-field">
-                <input class="input-text" type="email" id="customPolicyEmail" name="customPolicyEmail" aria-label="Email Address" placeholder="" autocomplete="email" />
-              </div>
+            <div class="custom-policy-actions">
+              <button class="secondary-btn" type="button" id="customPolicyExitBtn">Cancel</button>
+              <button class="brand-btn" type="button" id="customPolicySendBtn">Continue</button>
+            </div>
+          </div>
+
+          <div class="screen" id="screen-custom-policy-request-form">
+            <div class="custom-policy-header">
+              <h1 class="custom-policy-title">Custom Policy Request</h1>
+              <div class="custom-policy-divider"></div>
             </div>
 
+            <div class="cpr-form-fields">
+
+              <!-- Q1: E&O Coverage -->
+              <div class="field full">
+                <p class="label"><span class="required">*</span>Do you currently or have you recently had E&amp;O Coverage in place?</p>
+                <div class="mini-radio" role="radiogroup" aria-label="E&amp;O Coverage in place" id="cprEoCoverageGroup">
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="eo-coverage" data-value="yes">Yes</button>
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="eo-coverage" data-value="no">No</button>
+                </div>
+              </div>
+
+              <!-- Q1 conditional: last provider + effective date -->
+              <div class="field full is-hidden" id="cprEoCoverageYesFields">
+                <div class="enrollment-detail-block enrollment-detail-block-input">
+                  <p class="enrollment-detail-label"><span class="required">*</span>Who was your last provider?</p>
+                  <div class="enrollment-detail-input">
+                    <input class="input-text" type="text" id="cprLastProvider" name="cprLastProvider" />
+                  </div>
+                </div>
+                <div class="field full" style="margin-top:8px;">
+                  <p class="label"><span class="required">*</span>What is your most recent coverage effective date?</p>
+                  <div class="datepicker" id="cprEffectiveDatePicker">
+                    <div class="input-field datepicker-input">
+                      <input class="input-text" type="text" id="cprEffectiveDateInput" placeholder="Select a date..." />
+                      <button class="calendar-icon-btn" type="button" id="cprEffectiveDateToggle" aria-label="Toggle calendar">
+                        <img src="assets/calendar-icon.png" alt="" aria-hidden="true" />
+                      </button>
+                    </div>
+                    <div class="datepicker-popover">
+                      <div class="dp-header">
+                        <button class="dp-nav dp-prev" type="button" aria-label="Previous month">◀</button>
+                        <div class="dp-month-label">January</div>
+                        <button class="dp-nav dp-next" type="button" aria-label="Next month">▶</button>
+                        <div class="dp-year-select">
+                          <button class="dp-year-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">2024</button>
+                          <div class="dp-year-list" role="listbox" aria-label="Year options"></div>
+                        </div>
+                      </div>
+                      <div class="dp-grid">
+                        <div class="dp-weekday">Sun</div>
+                        <div class="dp-weekday">Mon</div>
+                        <div class="dp-weekday">Tue</div>
+                        <div class="dp-weekday">Wed</div>
+                        <div class="dp-weekday">Thu</div>
+                        <div class="dp-weekday">Fri</div>
+                        <div class="dp-weekday">Sat</div>
+                      </div>
+                      <div class="dp-grid dp-days-grid"></div>
+                      <button class="dp-today" type="button">Today</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Q2: Preferred coverage limits -->
+              <div class="field full">
+                <p class="label"><span class="required">*</span>Do you have preferred coverage limits?</p>
+                <div class="mini-radio" role="radiogroup" aria-label="Preferred coverage limits" id="cprPreferredLimitsGroup">
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="preferred-limits" data-value="yes">Yes</button>
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="preferred-limits" data-value="no">No</button>
+                </div>
+              </div>
+
+              <!-- Q2 conditional: preferred limits input -->
+              <div class="field full is-hidden" id="cprPreferredLimitsYesField">
+                <div class="enrollment-detail-block enrollment-detail-block-input">
+                  <p class="enrollment-detail-label"><span class="required">*</span>What are your preferred limits?</p>
+                  <div class="enrollment-detail-input">
+                    <input class="input-text" type="text" id="cprPreferredLimitsInput" name="cprPreferredLimitsInput" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Q3: Claims -->
+              <div class="field full">
+                <p class="label"><span class="required">*</span>In the last 10 years has any claim, suit, arbitration, or other legal proceedings been commenced against you?</p>
+                <div class="mini-radio" role="radiogroup" aria-label="Legal proceedings in last 10 years" id="cprClaimsGroup">
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="claims" data-value="yes">Yes</button>
+                  <button type="button" role="radio" aria-checked="false" data-cpr-radio="claims" data-value="no">No</button>
+                </div>
+              </div>
+
+              <!-- Q3 conditional: Please explain -->
+              <div class="field full is-hidden" id="cprClaimsYesField">
+                <p class="enrollment-longtext-label"><span class="required">*</span>Please explain</p>
+                <textarea class="enrollment-longtext-textarea" id="cprClaimsExplain" placeholder=""></textarea>
+              </div>
+
+              <!-- Additional Comments -->
+              <div class="field full">
+                <p class="label">Additional Comments</p>
+                <textarea class="enrollment-longtext-textarea" id="cprAdditionalComments" placeholder=""></textarea>
+              </div>
+
+              <!-- Contact Information section -->
+              <div class="cpr-phone-section">
+                <h2 class="cpr-phone-title">Contact Information</h2>
+                <div class="cpr-contact-card">
+                  <div class="enrollment-detail-block enrollment-detail-block-input">
+                    <p class="enrollment-detail-label"><span class="required">*</span>Email Address</p>
+                    <div class="enrollment-detail-input">
+                      <input class="input-text" type="email" id="cprEmailAddress" name="cprEmailAddress" autocomplete="email" />
+                    </div>
+                  </div>
+                  <p class="cpr-phone-desc">If you prefer to be contacted by one of our agents by phone, please provide your preferred phone number below</p>
+                  <div class="enrollment-detail-block enrollment-detail-block-input">
+                    <p class="enrollment-detail-label">Phone Number</p>
+                    <div class="enrollment-detail-input">
+                      <input class="input-text" type="tel" id="cprPhoneNumber" name="cprPhoneNumber" placeholder="(123)-456-7890" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /.cpr-form-fields -->
+
             <div class="custom-policy-actions">
-              <button class="secondary-btn" type="button" id="customPolicyExitBtn">Exit</button>
-              <button class="brand-btn" type="button" id="customPolicySendBtn">Send Me a Form</button>
+              <button class="secondary-btn" type="button" id="cprFormCancelBtn">Cancel</button>
+              <button class="brand-btn" type="button" id="cprFormSubmitBtn">Submit Request</button>
             </div>
           </div>
 
@@ -10113,6 +10290,7 @@
       const previewPaymentMethodCardForm = document.getElementById("previewPaymentMethodCardForm");
       const previewPaymentMethodCheckingForm = document.getElementById("previewPaymentMethodCheckingForm");
       const screenCustomPolicyRequest = document.getElementById("screen-custom-policy-request");
+      const screenCustomPolicyRequestForm = document.getElementById("screen-custom-policy-request-form");
       const selectPlanCards = Array.from(document.querySelectorAll("#selectPlanGrid .plan-card"));
       const screenBasic = document.getElementById("screen-basic");
       const screenBasicFollowup = document.getElementById("screen-basic-followup");
@@ -10124,7 +10302,6 @@
       const screenCoverageLimits = document.getElementById("screen-coverage-limits");
       const startFirstNameInput = document.querySelector('#screen-start input[name="firstName"]');
       const startEmailAddressInput = document.querySelector('#screen-start input[name="emailAddress"]');
-      const customPolicyEmailInput = document.getElementById("customPolicyEmail");
       const customPolicyExitBtn = document.getElementById("customPolicyExitBtn");
       const customPolicySendBtn = document.getElementById("customPolicySendBtn");
       const enrollFirstNameInput = document.getElementById("enrollFirstName");
@@ -11931,6 +12108,7 @@
         if (screenBasicAgency) screenBasicAgency.classList.toggle("active", screenId === "basic-agency");
         if (screenBasicFollowupAgency) screenBasicFollowupAgency.classList.toggle("active", screenId === "basic-followup-agency");
         if (screenCustomPolicyRequest) screenCustomPolicyRequest.classList.toggle("active", screenId === "custom-policy-request");
+        if (screenCustomPolicyRequestForm) screenCustomPolicyRequestForm.classList.toggle("active", screenId === "custom-policy-request-form");
         if (screenCoverageOptions) screenCoverageOptions.classList.toggle("active", screenId === "coverage-options");
         if (screenCoverageOptionsMedicare) screenCoverageOptionsMedicare.classList.toggle("active", screenId === "coverage-options-medicare");
         if (screenCoverageOptionsPc) screenCoverageOptionsPc.classList.toggle("active", screenId === "coverage-options-pc");
@@ -11948,7 +12126,7 @@
         if (screenPreviewCheckout) screenPreviewCheckout.classList.toggle("active", screenId === "preview-checkout");
         if (screenSaveLaterConfirmation) screenSaveLaterConfirmation.classList.toggle("active", screenId === "save-later-confirmation");
         if (screenOrderConfirmation) screenOrderConfirmation.classList.toggle("active", screenId === "order-confirmation");
-        setCustomPolicyLayoutActive(screenId === "custom-policy-request");
+        setCustomPolicyLayoutActive(screenId === "custom-policy-request" || screenId === "custom-policy-request-form");
         setSaveLaterLayoutActive(screenId === "save-later-confirmation");
         setOrderConfirmationLayoutActive(screenId === "order-confirmation");
       }
@@ -12016,18 +12194,28 @@
         setEnrollmentActiveStep(1);
       }
 
-      function prefillCustomPolicyEmailFromStartHere() {
-        if (!customPolicyEmailInput) return;
-        const latestFromStart = startEmailAddressInput ? startEmailAddressInput.value.trim() : "";
-        customPolicyEmailInput.value = latestFromStart || startHereApplicant.emailAddress || "";
-      }
-
       function goToCustomPolicyRequestScreen() {
         setHomeLandingActive(false);
         syncStartHereApplicant();
-        prefillCustomPolicyEmailFromStartHere();
+        setCustomPolicyLayoutActive(true);
         showScreen("custom-policy-request");
         setEnrollmentActiveStep(1);
+        var currentFlow = flowValueEl ? (flowValueEl.textContent || "–").trim() : "–";
+        setGlobalContext(currentFlow, "Custom Policy Request");
+      }
+
+      function goToCustomPolicyRequestFormScreen() {
+        setHomeLandingActive(false);
+        showScreen("custom-policy-request-form");
+        setEnrollmentActiveStep(1);
+        if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+        var currentFlow = flowValueEl ? (flowValueEl.textContent || "–").trim() : "–";
+        setGlobalContext(currentFlow, "Custom Policy Request");
+        var cprEmailEl = document.getElementById("cprEmailAddress");
+        if (cprEmailEl) {
+          var startEmail = startEmailAddressInput ? startEmailAddressInput.value.trim() : "";
+          cprEmailEl.value = startEmail || startHereApplicant.emailAddress || "";
+        }
       }
 
       function goToCoverageOptionsScreen() {
@@ -14200,8 +14388,52 @@
       }
 
       if (customPolicySendBtn) {
-        customPolicySendBtn.addEventListener("click", function onCustomPolicySendForm() {
-          console.log("Custom policy form requested for:", customPolicyEmailInput ? customPolicyEmailInput.value.trim() : "");
+        customPolicySendBtn.addEventListener("click", function onCustomPolicyContinue() {
+          goToCustomPolicyRequestFormScreen();
+        });
+      }
+
+      (function initCprFormRadios() {
+        function bindCprRadioGroup(groupEl, conditionalEl) {
+          if (!groupEl) return;
+          var btns = Array.from(groupEl.querySelectorAll("button[role='radio']"));
+          btns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              btns.forEach(function(b) { b.setAttribute("aria-checked", "false"); });
+              btn.setAttribute("aria-checked", "true");
+              if (conditionalEl) {
+                var isYes = btn.getAttribute("data-value") === "yes";
+                conditionalEl.classList.toggle("is-hidden", !isYes);
+              }
+            });
+          });
+        }
+        bindCprRadioGroup(
+          document.getElementById("cprEoCoverageGroup"),
+          document.getElementById("cprEoCoverageYesFields")
+        );
+        bindCprRadioGroup(
+          document.getElementById("cprPreferredLimitsGroup"),
+          document.getElementById("cprPreferredLimitsYesField")
+        );
+        bindCprRadioGroup(
+          document.getElementById("cprClaimsGroup"),
+          document.getElementById("cprClaimsYesField")
+        );
+      })();
+
+      var cprFormCancelBtn = document.getElementById("cprFormCancelBtn");
+      if (cprFormCancelBtn) {
+        cprFormCancelBtn.addEventListener("click", function() {
+          goToCustomPolicyRequestScreen();
+          if (mainScrollEl) mainScrollEl.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      var cprFormSubmitBtn = document.getElementById("cprFormSubmitBtn");
+      if (cprFormSubmitBtn) {
+        cprFormSubmitBtn.addEventListener("click", function() {
+          console.log("Custom Policy Request form submitted.");
         });
       }
 
@@ -14622,6 +14854,9 @@
       if (proInfoDP) proInfoDP.setDate(null);
       enrollDP.setDate(null);
       window.__ajgLicensureDate = null;
+
+      var cprEffectiveDateDP = makeDatepicker("cprEffectiveDatePicker", {});
+      if (cprEffectiveDateDP) cprEffectiveDateDP.setDate(null);
 
       if (enrollLicensureDateInputWrap) {
         enrollLicensureDateInputWrap.addEventListener("click", function onEnrollWrapClick(event) {
