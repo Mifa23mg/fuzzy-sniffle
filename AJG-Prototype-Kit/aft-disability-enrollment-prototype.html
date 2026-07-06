@@ -495,6 +495,7 @@
     }
 
     .step-item[data-state="complete"] { cursor: pointer; }
+    .step-item.step-physician-hidden { display: none; }
 
     .step-rail {
       width: 16px;
@@ -1863,7 +1864,7 @@
     .pay-summary-grid {
       width: 100%;
       display: grid;
-      grid-template-columns: minmax(84px, 1fr) 100px 100px;
+      grid-template-columns: 1fr auto auto;
       color: #181818;
       font-size: 13px;
       line-height: 18px;
@@ -1881,7 +1882,7 @@
       background: #f3f3f3;
       font-weight: 700;
       padding: 8px;
-      white-space: nowrap;
+      white-space: normal;
       display: flex;
       align-items: center;
     }
@@ -4760,11 +4761,11 @@
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Coverage</span>
             </li>
-            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-health">
+            <li class="step-item step-physician-hidden" data-position="middle" data-state="default" data-screen="screen-health">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Health Information</span>
             </li>
-            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-physician">
+            <li class="step-item step-physician-hidden" data-position="middle" data-state="default" data-screen="screen-physician">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Physician &amp; Prescriptions</span>
             </li>
@@ -7614,6 +7615,9 @@ Monday - Friday 8:00am – 8:00pm EST
           window.aftEnrollmentData.joinDateFormatted = formatDateMMDDYYYY(date);
           updateFirstYearCtx(date);
           setAftJoinDateError(false);
+          if (typeof window.updateTermLifeAppBarCtx === "function") window.updateTermLifeAppBarCtx();
+          if (typeof window.checkAndSetPhysicianRequired === "function") window.checkAndSetPhysicianRequired();
+          if (typeof window.evaluateTermLifeFlowRules === "function") window.evaluateTermLifeFlowRules();
         }
       });
       makeDatepicker("termLifeSpouseDobPicker");
@@ -7851,18 +7855,18 @@ Monday - Friday 8:00am – 8:00pm EST
             + '</div>'
             + '<div class="home-landing-context-slashv2">/</div>'
             + '<div class="home-landing-context-colv2">'
+            + '<p class="home-landing-context-labelv2">Date Join &lt; 1y?</p>'
+            + '<p class="home-landing-context-valuev2" id="aftCtxDateJoin">–</p>'
+            + '</div>'
+            + '<div class="home-landing-context-slashv2">/</div>'
+            + '<div class="home-landing-context-colv2">'
+            + '<p class="home-landing-context-labelv2">Benefit?</p>'
+            + '<p class="home-landing-context-valuev2" id="aftCtxBenefit">–</p>'
+            + '</div>'
+            + '<div class="home-landing-context-slashv2">/</div>'
+            + '<div class="home-landing-context-colv2">'
             + '<p class="home-landing-context-labelv2">Smoker?</p>'
             + '<p class="home-landing-context-valuev2" id="aftCtxSmoker">–</p>'
-            + '</div>'
-            + '<div class="home-landing-context-slashv2">/</div>'
-            + '<div class="home-landing-context-colv2">'
-            + '<p class="home-landing-context-labelv2">Spouse?</p>'
-            + '<p class="home-landing-context-valuev2" id="aftCtxAddSpouse">–</p>'
-            + '</div>'
-            + '<div class="home-landing-context-slashv2">/</div>'
-            + '<div class="home-landing-context-colv2">'
-            + '<p class="home-landing-context-labelv2">Dependent?</p>'
-            + '<p class="home-landing-context-valuev2" id="aftCtxAddDependent">–</p>'
             + '</div>';
         }
 
@@ -8204,8 +8208,10 @@ Monday - Friday 8:00am – 8:00pm EST
             { screen: "screen-opt-ins", text: "Opt-Ins", position: "middle", state: "default" },
             { screen: "screen-payment-confirmation", text: "Confirmation", position: "bottom", state: "default" }
           ];
+          var hiddenByDefault = ["screen-health", "screen-physician"];
           termLifeStepListEl.innerHTML = termLifeSteps.map(function (step) {
-            return '<li class="step-item" data-position="' + step.position + '" data-state="' + step.state + '" data-screen="' + step.screen + '">'
+            var extraClass = hiddenByDefault.indexOf(step.screen) !== -1 ? " step-physician-hidden" : "";
+            return '<li class="step-item' + extraClass + '" data-position="' + step.position + '" data-state="' + step.state + '" data-screen="' + step.screen + '">'
               + '<span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>'
               + '<span class="step-text">' + step.text + '</span>'
               + '</li>';
@@ -8647,9 +8653,14 @@ Monday - Friday 8:00am – 8:00pm EST
           }
         };
 
+        var MIB_SUBSTEP = 3; /* data-notices-step value for MIB Pre-Notice */
+
         prevBtn.addEventListener("click", function () {
           if (currentSubstep > 1) {
-            setNoticesSubStep(currentSubstep - 1);
+            var prevStep = currentSubstep - 1;
+            /* Skip MIB sub-step when not required */
+            if (!window.mibRequired && prevStep === MIB_SUBSTEP) prevStep -= 1;
+            setNoticesSubStep(prevStep);
           } else {
             goToStep(currentIndex - 1);
           }
@@ -8664,7 +8675,10 @@ Monday - Friday 8:00am – 8:00pm EST
             }
           }
           if (currentSubstep < totalSubsteps) {
-            setNoticesSubStep(currentSubstep + 1);
+            var nextStep = currentSubstep + 1;
+            /* Skip MIB sub-step when not required */
+            if (!window.mibRequired && nextStep === MIB_SUBSTEP) nextStep += 1;
+            setNoticesSubStep(nextStep);
           } else {
             goToStep(currentIndex + 1);
           }
@@ -9133,18 +9147,23 @@ Monday - Friday 8:00am – 8:00pm EST
 
         function formatCurrency(value) {
           return "$" + value.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
           });
+        }
+
+        function roundUpToNearest1000(value) {
+          return Math.ceil(value / 1000) * 1000;
         }
 
         function syncSpouseBenefitAmount() {
           var memberAmount = Number((memberBenefitAmountInput.value || "").trim());
           if (isNaN(memberAmount) || memberAmount <= 0) {
-            spouseBenefitAmountDisplay.textContent = "$0.00";
+            spouseBenefitAmountDisplay.textContent = "$0";
             return;
           }
-          spouseBenefitAmountDisplay.textContent = formatCurrency(memberAmount / 2);
+          var spouseAmount = roundUpToNearest1000(memberAmount / 2);
+          spouseBenefitAmountDisplay.textContent = formatCurrency(spouseAmount);
         }
 
         function syncSpouseConditionalVisibility() {
@@ -9731,7 +9750,12 @@ Monday - Friday 8:00am – 8:00pm EST
             showPage2(false);
             return;
           }
-          showPage3();
+          /* Physician only shown for Full SOH (benefit > $200K); Simplified Issue skips it */
+          if (window.physicianRequired) {
+            showPage3();
+          } else {
+            goToStep(stepIndexByScreenId("screen-enrollment"));
+          }
         });
         page3Prev.addEventListener("click", function () {
           /* Previous from Physician returns to first Health sub-step. */
@@ -10483,9 +10507,9 @@ Monday - Friday 8:00am – 8:00pm EST
       (function () {
         var ctxHosp   = document.getElementById("aftCtxHospitalization");
         var ctxWeight = document.getElementById("aftCtxWeight");
-        var ctxSmoker = document.getElementById("aftCtxSmoker");
-        var ctxAddSpouse = document.getElementById("aftCtxAddSpouse");
-        var ctxAddDependent = document.getElementById("aftCtxAddDependent");
+        var ctxSmoker   = document.getElementById("aftCtxSmoker");
+        var ctxBenefit  = document.getElementById("aftCtxBenefit");
+        var ctxDateJoin = document.getElementById("aftCtxDateJoin");
 
         function setBooleanContextIndicator(el, isYesSelected, isNoSelected) {
           if (!el) return;
@@ -10521,18 +10545,50 @@ Monday - Friday 8:00am – 8:00pm EST
         }
 
         function updateTermLifeAppBarCtx() {
-          if (!ctxSmoker && !ctxAddSpouse && !ctxAddDependent) return;
+          /* Smoker indicator */
           var smokerYes = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
-          var smokerNo = document.querySelector('input[name="termLifeMemberSmoker"][value="no"]');
-          var addSpouseYes = document.querySelector('input[name="termLifeSpouseEnroll"][value="yes"]');
-          var addSpouseNo = document.querySelector('input[name="termLifeSpouseEnroll"][value="no"]');
-          var addDependentYes = document.querySelector('input[name="termLifeDependentEnroll"][value="yes"]');
-          var addDependentNo = document.querySelector('input[name="termLifeDependentEnroll"][value="no"]');
-
+          var smokerNo  = document.querySelector('input[name="termLifeMemberSmoker"][value="no"]');
           setBooleanContextIndicator(ctxSmoker, smokerYes && smokerYes.checked, smokerNo && smokerNo.checked);
-          setBooleanContextIndicator(ctxAddSpouse, addSpouseYes && addSpouseYes.checked, addSpouseNo && addSpouseNo.checked);
-          setBooleanContextIndicator(ctxAddDependent, addDependentYes && addDependentYes.checked, addDependentNo && addDependentNo.checked);
+
+          /* Benefit amount indicator — only shown after user makes an explicit selection */
+          if (ctxBenefit) {
+            if (!window.termLifeBenefitUserSelected) {
+              ctxBenefit.textContent = "\u2013";
+              ctxBenefit.className   = "home-landing-context-valuev2";
+            } else {
+              var benefitInput = document.getElementById("termLifeMemberBenefitAmount");
+              var benefitVal   = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
+              if (benefitVal > 200000) {
+                ctxBenefit.textContent = ">$200K";
+              } else if (benefitVal >= 1000) {
+                ctxBenefit.textContent = "$" + Math.round(benefitVal / 1000) + "K";
+              } else if (benefitVal > 0) {
+                ctxBenefit.textContent = "$" + benefitVal;
+              } else {
+                ctxBenefit.textContent = "\u2013";
+              }
+              ctxBenefit.className = "home-landing-context-valuev2";
+            }
+          }
+
+          /* Date Joined < 1 year? indicator */
+          if (ctxDateJoin) {
+            var joinDate = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+            if (joinDate) {
+              var today      = new Date(); today.setHours(0, 0, 0, 0);
+              var oneYearAgo = new Date(today); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+              var withinYear = joinDate > oneYearAgo;
+              ctxDateJoin.textContent = withinYear ? "\u2713" : "\u2715";
+              ctxDateJoin.className   = "home-landing-context-valuev2 " + (withinYear ? "ctx-ok" : "ctx-fail");
+            } else {
+              ctxDateJoin.textContent = "\u2013";
+              ctxDateJoin.className   = "home-landing-context-valuev2";
+            }
+          }
         }
+
+        /* Expose so join-date datepicker callback can trigger a re-render */
+        window.updateTermLifeAppBarCtx = updateTermLifeAppBarCtx;
 
         document.querySelectorAll("input[name='hospitalized']").forEach(function (r) {
           r.addEventListener("change", updateHospCtx);
@@ -10579,11 +10635,32 @@ Monday - Friday 8:00am – 8:00pm EST
           if (el) el.addEventListener("input", updateWeightCtx);
         });
 
-        ["termLifeMemberSmoker", "termLifeSpouseEnroll", "termLifeDependentEnroll"].forEach(function (name) {
-          document.querySelectorAll('input[name="' + name + '"]').forEach(function (r) {
-            r.addEventListener("change", updateTermLifeAppBarCtx);
-          });
+        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (r) {
+          r.addEventListener("change", updateTermLifeAppBarCtx);
         });
+
+        /* Benefit dropdown — set user-selected flag only when an option is picked */
+        var benefitDropdownCtx = document.getElementById("termLifeMemberBenefitDropdown");
+        if (benefitDropdownCtx) {
+          benefitDropdownCtx.addEventListener("click", function (e) {
+            if (e.target.closest(".ajg-dropdown-option")) {
+              window.termLifeBenefitUserSelected = true;
+            }
+            setTimeout(updateTermLifeAppBarCtx, 60);
+          });
+        }
+
+        /* Join date — datepicker sets window.aftEnrollmentData.joinDate; re-check after any input */
+        var joinDateInputCtx = document.getElementById("aftJoinDateInput");
+        if (joinDateInputCtx) {
+          joinDateInputCtx.addEventListener("change", updateTermLifeAppBarCtx);
+          joinDateInputCtx.addEventListener("input",  updateTermLifeAppBarCtx);
+        }
+        /* Also hook into the global callback exposed by the datepicker IIFE */
+        (function () {
+          var _origUpdate = window.updateTermLifeAppBarCtx;
+          window.onAftJoinDateSelected = updateTermLifeAppBarCtx;
+        }());
 
         updateHospCtx();
         updateWeightCtx();
@@ -10598,6 +10675,198 @@ Monday - Friday 8:00am – 8:00pm EST
       bindPrevBtn("optInsPrevBtn");
       bindPrevBtn("guaranteedConfirmationPrevBtn");
       bindPrevBtn("paymentPrevBtn");
+
+      /* ── Physician & Prescriptions — conditional step visibility ──────── */
+      (function () {
+        var physicianStepLi = document.querySelector('[data-screen="screen-physician"]');
+
+        function setPhysicianStepVisible(visible) {
+          if (physicianStepLi) {
+            physicianStepLi.classList.toggle("step-physician-hidden", !visible);
+          }
+          window.physicianRequired = Boolean(visible);
+        }
+
+        function checkAndSetPhysicianRequired() {
+          /* Rule A: Term Life benefit > $25 000 AND smoker = Yes */
+          var benefitInput = document.getElementById("termLifeMemberBenefitAmount");
+          var benefitVal   = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
+          var smokerYes    = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
+          var ruleA        = (benefitVal > 25000) && Boolean(smokerYes && smokerYes.checked);
+
+          /* Rule B: any Health Information page-2 question answered Yes */
+          var page2 = document.getElementById("health-page-2");
+          var ruleB = page2 ? Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]')) : false;
+
+          setPhysicianStepVisible(ruleA || ruleB);
+        }
+
+        /* Initialise as hidden */
+        setPhysicianStepVisible(false);
+
+        /* Rule A listeners — smoker radio */
+        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (radio) {
+          radio.addEventListener("change", checkAndSetPhysicianRequired);
+        });
+
+        /* Rule A listeners — benefit amount dropdown (hidden input updated by dropdown engine) */
+        var benefitDropdownEl = document.getElementById("termLifeMemberBenefitDropdown");
+        if (benefitDropdownEl) {
+          benefitDropdownEl.addEventListener("click", function () {
+            /* Dropdown engine updates the hidden input asynchronously; small delay to catch it */
+            setTimeout(checkAndSetPhysicianRequired, 60);
+          });
+        }
+
+        /* Rule B listeners — any Yes/No button on Health Info page 2 */
+        var healthPage2 = document.getElementById("health-page-2");
+        if (healthPage2) {
+          healthPage2.addEventListener("click", function (e) {
+            if (e.target.closest(".hi-yn-btn")) {
+              setTimeout(checkAndSetPhysicianRequired, 60);
+            }
+          });
+        }
+
+        /* Expose for external re-checks if needed */
+        window.checkAndSetPhysicianRequired = checkAndSetPhysicianRequired;
+      }());
+
+      /* ── Term Life flow rules — Coverage Next conditional navigation ────────
+         Rule 1: within 1y + non-smoker + $25K  → skip Health, Physician, MIB
+         Rule 2: NOT within 1y + non-smoker + $25K → Simplified Issue, MIB, Physician if Yes
+         Rule 3: benefit > $200K → Full Statement of Health by default, Physician, MIB
+      ───────────────────────────────────────────────────────────────────────── */
+      (function () {
+        if (!isTermLifeAdddFlow) {
+          /* Non-Term-Life: restore plain coverageNextBtn binding */
+          (function () {
+            var btn = document.getElementById("coverageNextBtn");
+            if (btn) btn.addEventListener("click", function () { goToStep(currentIndex + 1); });
+          }());
+          return;
+        }
+
+        var healthStepLi    = document.querySelector('[data-screen="screen-health"]');
+        var physicianStepLi = document.querySelector('[data-screen="screen-physician"]');
+        var page2           = document.getElementById("health-page-2");
+        var extended        = document.getElementById("hi-q-extended");
+
+        /* Flags shared across navigation helpers */
+        window.mibRequired         = true;   /* default: show MIB sub-step */
+        window.fullSOHRequired     = false;  /* default: Simplified Issue */
+
+        function getFlowInputs() {
+          var benefitInput = document.getElementById("termLifeMemberBenefitAmount");
+          var benefitVal   = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
+          var smokerYes    = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
+          var isSmoker     = Boolean(smokerYes && smokerYes.checked);
+          var joinDate     = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+          var withinYear   = false;
+          if (joinDate) {
+            var today      = new Date(); today.setHours(0, 0, 0, 0);
+            var oneYearAgo = new Date(today); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            withinYear     = joinDate > oneYearAgo;
+          }
+          return { benefitVal: benefitVal, isSmoker: isSmoker, withinYear: withinYear, joinDate: joinDate };
+        }
+
+        function setHealthStepVisible(visible) {
+          if (healthStepLi) healthStepLi.classList.toggle("step-physician-hidden", !visible);
+        }
+
+        function setPhysicianStepVisibleLocal(visible) {
+          if (physicianStepLi) physicianStepLi.classList.toggle("step-physician-hidden", !visible);
+          window.physicianRequired = Boolean(visible);
+        }
+
+        function evaluateTermLifeFlowRules() {
+          var f = getFlowInputs();
+
+          /* ── Priority 1: Benefit > $200K → Full SOH + Physician + MIB (overrides everything) ── */
+          if (f.benefitVal > 200000) {
+            setHealthStepVisible(true);
+            setPhysicianStepVisibleLocal(true);
+            window.mibRequired     = true;
+            window.fullSOHRequired = true;
+            return;
+          }
+
+          /* ── Priority 2: Benefit = exactly $25K + within 1y + non-smoker → skip to Fraud Representations ── */
+          if (f.joinDate && f.withinYear && !f.isSmoker && f.benefitVal === 25000) {
+            setHealthStepVisible(false);
+            setPhysicianStepVisibleLocal(false);
+            window.mibRequired     = false;
+            window.fullSOHRequired = false;
+            return;
+          }
+
+          /* ── Default: everything else → Simplified Issue, no Physician, MIB shown ── */
+          /* (benefit $25K–$200K, older than 1y, smoker, or no join date yet with benefit > $25K) */
+          if (!f.joinDate && f.benefitVal <= 25000) {
+            /* No join date and still at $25K — wait for join date before showing Health */
+            setHealthStepVisible(false);
+            setPhysicianStepVisibleLocal(false);
+            window.mibRequired     = false;
+            window.fullSOHRequired = false;
+            return;
+          }
+          setHealthStepVisible(true);
+          setPhysicianStepVisibleLocal(false);
+          window.mibRequired     = true;
+          window.fullSOHRequired = false;
+        }
+
+        window.evaluateTermLifeFlowRules = evaluateTermLifeFlowRules;
+
+        /* Commit benefit to app bar when Coverage Next is clicked (even with default $25K) */
+        var coverageNextBtnEl = document.getElementById("coverageNextBtn");
+        if (coverageNextBtnEl) {
+          coverageNextBtnEl.addEventListener("click", function () {
+            window.termLifeBenefitUserSelected = true;
+            if (typeof window.updateTermLifeAppBarCtx === "function") window.updateTermLifeAppBarCtx();
+            /* Re-evaluate so step visibility is current when Beneficiaries Next is later clicked */
+            evaluateTermLifeFlowRules();
+          });
+        }
+
+        /* goToAfterBeneficiaries — called by Beneficiaries Next instead of goToStep(currentIndex+1).
+           If Health is required → go to Health (with correct questionnaire mode).
+           If Health is skipped (Rule 1) → go straight to Notices.
+           NOTE: questionnaire mode must be applied AFTER goToStep because goToStep calls
+           setHealthSubStep(1) → resetActiveQuestionnaireState() which resets mode to "short". */
+        window.goToAfterBeneficiaries = function () {
+          var healthIsHidden = !healthStepLi || healthStepLi.classList.contains("step-physician-hidden");
+          if (healthIsHidden) {
+            goToStep(stepIndexByScreenId("screen-notices"));
+            return;
+          }
+          /* Navigate first — setHealthSubStep(1) runs synchronously inside goToStep */
+          goToStep(stepIndexByScreenId("screen-health"));
+          /* Apply Full SOH AFTER reset, overriding the "short" mode that resetActiveQuestionnaireState set */
+          if (window.fullSOHRequired && page2 && extended) {
+            page2.dataset.questionnaireMode = "full";
+            extended.classList.remove("hidden");
+          }
+        };
+
+        /* Re-evaluate whenever smoker or benefit changes (for indicator accuracy) */
+        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (r) {
+          r.addEventListener("change", evaluateTermLifeFlowRules);
+        });
+        var benefitDropEl = document.getElementById("termLifeMemberBenefitDropdown");
+        if (benefitDropEl) {
+          benefitDropEl.addEventListener("click", function (e) {
+            if (e.target.closest(".ajg-dropdown-option")) {
+              window.termLifeBenefitUserSelected = true;
+            }
+            setTimeout(evaluateTermLifeFlowRules, 80);
+          });
+        }
+
+        /* Initial evaluation */
+        evaluateTermLifeFlowRules();
+      }());
 
       (function () {
         var beneficiariesScreen = document.getElementById("screen-beneficiaries");
@@ -10649,15 +10918,23 @@ Monday - Friday 8:00am – 8:00pm EST
           hideScopedErrorBanner(shareTotalErrorBannerId);
         });
 
+        function navigateFromBeneficiaries() {
+          if (typeof window.goToAfterBeneficiaries === "function") {
+            window.goToAfterBeneficiaries();
+          } else {
+            goToStep(currentIndex + 1);
+          }
+        }
+
         beneficiariesNextBtn.addEventListener("click", function () {
           if (getBeneficiaryCardCount() === 0) {
             hideScopedErrorBanner(shareTotalErrorBannerId);
-            goToStep(currentIndex + 1);
+            navigateFromBeneficiaries();
             return;
           }
           if (!hasAnyShareInputValue()) {
             hideScopedErrorBanner(shareTotalErrorBannerId);
-            goToStep(currentIndex + 1);
+            navigateFromBeneficiaries();
             return;
           }
           var total = getShareTotal();
@@ -10667,7 +10944,7 @@ Monday - Friday 8:00am – 8:00pm EST
             return;
           }
           hideScopedErrorBanner(shareTotalErrorBannerId);
-          goToStep(currentIndex + 1);
+          navigateFromBeneficiaries();
         });
       }());
 

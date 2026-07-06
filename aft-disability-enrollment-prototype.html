@@ -495,6 +495,7 @@
     }
 
     .step-item[data-state="complete"] { cursor: pointer; }
+    .step-item.step-physician-hidden { display: none; }
 
     .step-rail {
       width: 16px;
@@ -2013,7 +2014,7 @@
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Coverage</span>
             </li>
-            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-health">
+            <li class="step-item step-physician-hidden" data-position="middle" data-state="default" data-screen="screen-health">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Health Information</span>
             </li>
@@ -2021,7 +2022,7 @@
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Enrollment</span>
             </li>
-            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-physician">
+            <li class="step-item step-physician-hidden" data-position="middle" data-state="default" data-screen="screen-physician">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Physician &amp; Prescriptions</span>
             </li>
@@ -3290,7 +3291,7 @@
       bindNextBtn("startNextBtn");
       bindNextBtn("consentNextBtn");
       bindNextBtn("coverageNextBtn");
-      bindNextBtn("healthNextBtn");
+      /* healthNextBtn is handled by the Physician conditional IIFE below */
       bindNextBtn("enrollmentNextBtn");
       bindNextBtn("physicianNextBtn");
       bindNextBtn("noticesNextBtn");
@@ -3596,6 +3597,79 @@
           var el = document.getElementById(id);
           if (el) el.addEventListener("input", updateWeightCtx);
         });
+      }());
+
+      /* ── Physician & Prescriptions — conditional step visibility ──────── */
+      (function () {
+        var physicianStepLi = document.querySelector('[data-screen="screen-physician"]');
+
+        function setPhysicianStepVisible(visible) {
+          if (physicianStepLi) {
+            physicianStepLi.classList.toggle("step-physician-hidden", !visible);
+          }
+          window.physicianRequired = Boolean(visible);
+        }
+
+        function checkAndSetPhysicianRequired() {
+          /* Rule A: Term Life benefit > $25 000 AND smoker = Yes */
+          var benefitInput = document.getElementById("termLifeMemberBenefitAmount");
+          var benefitVal   = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
+          var smokerYes    = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
+          var ruleA        = (benefitVal > 25000) && Boolean(smokerYes && smokerYes.checked);
+
+          /* Rule B: any Health Information page-2 question answered Yes */
+          var page2 = document.getElementById("health-page-2");
+          var ruleB = page2 ? Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]')) : false;
+
+          setPhysicianStepVisible(ruleA || ruleB);
+        }
+
+        /* Initialise as hidden */
+        setPhysicianStepVisible(false);
+
+        /* Rule A listeners — smoker radio */
+        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (radio) {
+          radio.addEventListener("change", checkAndSetPhysicianRequired);
+        });
+
+        /* Rule A listeners — benefit amount dropdown */
+        var benefitDropdownEl = document.getElementById("termLifeMemberBenefitDropdown");
+        if (benefitDropdownEl) {
+          benefitDropdownEl.addEventListener("click", function () {
+            setTimeout(checkAndSetPhysicianRequired, 60);
+          });
+        }
+
+        /* Rule B listeners — any Yes/No button on Health Info page 2 */
+        var healthPage2 = document.getElementById("health-page-2");
+        if (healthPage2) {
+          healthPage2.addEventListener("click", function (e) {
+            if (e.target.closest(".hi-yn-btn")) {
+              setTimeout(checkAndSetPhysicianRequired, 60);
+            }
+          });
+        }
+
+        /* Local helper — find step index by data-screen attribute */
+        function findStepIndex(screenId) {
+          return stepItems.findIndex(function (item) {
+            return item.dataset.screen === screenId;
+          });
+        }
+
+        /* healthNextBtn — conditionally navigate to Physician or Enrollment */
+        var healthNextBtn = document.getElementById("healthNextBtn");
+        if (healthNextBtn) {
+          healthNextBtn.addEventListener("click", function () {
+            if (window.physicianRequired) {
+              goToStep(findStepIndex("screen-physician"));
+            } else {
+              goToStep(findStepIndex("screen-enrollment"));
+            }
+          });
+        }
+
+        window.checkAndSetPhysicianRequired = checkAndSetPhysicianRequired;
       }());
 
       bindPrevBtn("coveragePrevBtn");
