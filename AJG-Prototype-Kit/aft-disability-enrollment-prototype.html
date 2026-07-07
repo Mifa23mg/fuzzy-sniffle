@@ -130,10 +130,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 16px;
       padding: 0 12px;
       box-sizing: border-box;
       z-index: 1;
+    }
+
+    /* Inline pair for M: / S: values inside the W/H OK? column */
+    .ctx-wh-pair {
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
 
     .home-landing-context-titlev2 {
@@ -163,8 +170,8 @@
     .home-landing-context-labelv2 {
       margin: 0;
       font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 16px;
+      line-height: 22px;
       font-weight: 400;
       font-variation-settings: "wght" 400;
       color: #fcc003;
@@ -174,8 +181,8 @@
     .home-landing-context-valuev2 {
       margin: 0;
       font-family: "Science Gothic Variable", "Segoe UI", Arial, sans-serif;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 18px;
+      line-height: 22px;
       font-weight: 400;
       font-variation-settings: "wght" 400;
       color: #ffffff;
@@ -729,6 +736,7 @@
     }
 
     .title-wrap h1 {
+      margin: 0;
       color: #001e5b;
       font-size: 28px;
       line-height: 35px;
@@ -764,7 +772,19 @@
       margin-top: 12px; /* these screens use gap: 0 */
     }
 
-    .screen .title-wrap + .cov-tagline,
+    /* .screen.active has gap: 16px; use -4px so 16 - 4 = 12px visual space,
+       matching the .intro pattern used on enrollment and other screens */
+    .screen .title-wrap + .cov-tagline {
+      margin-top: -4px;
+    }
+
+    /* Coverage uses gap: 0 — needs explicit 12px to match Start Here visual spacing */
+    #screen-coverage .title-wrap + .cov-tagline {
+      margin-top: 12px;
+    }
+
+    /* health-page has no flex gap, so 12px margin = 12px visual space.
+       This rule must come AFTER .screen so it wins the cascade (equal specificity). */
     .health-page .title-wrap + .cov-tagline {
       margin-top: 12px;
     }
@@ -955,6 +975,22 @@
 
     .datepicker.open .datepicker-popover {
       display: block;
+    }
+
+    .datepicker-format-hint {
+      display: none;
+      margin: 4px 0 0;
+      color: #5c5c5c;
+      font-family: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      line-height: 17px;
+      font-weight: 400;
+    }
+    .datepicker:focus-within .datepicker-format-hint {
+      display: block;
+    }
+    .datepicker.open .datepicker-format-hint {
+      display: none;
     }
 
     .dp-header {
@@ -1389,22 +1425,12 @@
 
     /* ─── Consent Screen ─────────────────────────────────────────── */
 
-    /* ── Reset h1 browser defaults globally so it never shifts layout ── */
-    .title-wrap h1 {
-      margin: 0;
-    }
-
     /* ── Consent Screen ──────────────────────────────────────────────── */
 
     /* gap: 0 — each section controls its own vertical spacing via padding */
     #screen-consent {
       gap: 0;
       align-items: stretch;
-    }
-
-    /* Title area: no padding */
-    #screen-consent .title-wrap {
-      margin: 0;
     }
 
     /* Tagline sits flush at the left edge — same as the h1 */
@@ -1577,10 +1603,6 @@
     /* ─── Opt-Ins Screen ─────────────────────────────────────────── */
     #screen-opt-ins {
       gap: 12px;
-    }
-
-    #screen-opt-ins .title-wrap {
-      margin: 0;
     }
 
     .optins-sections {
@@ -2847,10 +2869,6 @@
       gap: 0;
     }
 
-    #screen-coverage .title-wrap {
-      margin: 0;
-    }
-
     .cov-tagline {
       margin: 0;
       padding: 0;
@@ -3551,6 +3569,14 @@
       margin: 0;
     }
 
+    /* Spouse H/W wrapper: mirrors the .cov-fields gap so the subtitle and
+       input row are separated by the same 16px as the Member section. */
+    #tlSpouseHealthSection {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     .hi-radio-helper {
       font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
       font-size: 12px;
@@ -3639,10 +3665,6 @@
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
-    }
-
-    #health-page-3 .title-wrap {
-      margin: 0;
     }
 
     #health-page-3 .cov-tagline {
@@ -3762,14 +3784,25 @@
     .guaranteed-beneficiary-card {
       width: 100%;
       padding: 16px;
+      border-radius: 12px;
     }
 
     .guaranteed-beneficiary-content {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
       width: 100%;
       margin-top: 12px;
+    }
+
+    /* Gray note box — matches productSelectionNote style from NAPA Gent Flow */
+    .note-box {
+      background: #f3f3f3;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 13px;
+      line-height: 18px;
+      color: #2e2e2e;
     }
 
     .beneficiary-remove-row {
@@ -5241,16 +5274,16 @@
               <div class="hi-three-col">
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
-                  <div class="cov-input cov-dropdown ajg-dropdown has-value" data-dropdown data-dropdown-placeholder="Select">
+                  <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">
                     <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                      <span class="ajg-dropdown-value" data-dropdown-value>5</span>
+                      <span class="ajg-dropdown-value" data-dropdown-value></span>
                       <span class="cov-chevron-icon" aria-hidden="true"></span>
                     </button>
-                    <input type="hidden" id="hiHeightFeet" data-dropdown-input value="5" />
+                    <input type="hidden" id="hiHeightFeet" data-dropdown-input />
                     <div class="ajg-dropdown-listbox" role="listbox" aria-label="Height feet options">
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="3"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="4"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4</span></button>
-                      <button class="ajg-dropdown-option selected" type="button" role="option" data-value="5" aria-selected="true"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>
+                      <button class="ajg-dropdown-option" type="button" role="option" data-value="5"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="6"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6</span></button>
                     </div>
                   </div>
@@ -5258,12 +5291,12 @@
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
-                  <div class="cov-input cov-dropdown ajg-dropdown has-value" data-dropdown data-dropdown-placeholder="Select">
+                  <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">
                     <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                      <span class="ajg-dropdown-value" data-dropdown-value>10</span>
+                      <span class="ajg-dropdown-value" data-dropdown-value></span>
                       <span class="cov-chevron-icon" aria-hidden="true"></span>
                     </button>
-                    <input type="hidden" id="hiHeightInches" data-dropdown-input value="10" />
+                    <input type="hidden" id="hiHeightInches" data-dropdown-input />
                     <div class="ajg-dropdown-listbox" role="listbox" aria-label="Height inches options">
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="0"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>0</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="1"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1</span></button>
@@ -5275,7 +5308,7 @@
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="7"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="8"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="9"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9</span></button>
-                      <button class="ajg-dropdown-option selected" type="button" role="option" data-value="10" aria-selected="true"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10</span></button>
+                      <button class="ajg-dropdown-option" type="button" role="option" data-value="10"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10</span></button>
                       <button class="ajg-dropdown-option" type="button" role="option" data-value="11"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11</span></button>
                     </div>
                   </div>
@@ -5283,12 +5316,13 @@
                 </div>
                 <div>
                   <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
-                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" value="180" />
+                  <input class="cov-input" id="hiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
                   <p class="field-error-text" id="hiWeightError" role="alert" aria-live="polite">Provide Weight (Lbs)</p>
                 </div>
               </div>
 
-              <!-- Hospitalization question -->
+              <!-- Hospitalization question (hidden for Term Life flow) -->
+              <div id="hospSection">
               <div class="cov-radio-group">
                 <div class="cov-field-label"><span class="req">*</span><span class="lbl-lg">Have you been Hospitalized as defined below (not including well-baby delivery) in the past 90 days?</span></div>
                 <label class="cov-radio-opt">
@@ -5460,6 +5494,61 @@
                 </div>
 
               </div><!-- /.hi-card -->
+              </div><!-- /#hospSection -->
+
+              <!-- Spouse Height/Weight (Term Life only, shown when spouse enrolled) -->
+              <div id="tlSpouseHealthSection" class="hidden">
+                <p class="hi-section-title">Spouse Health Information</p>
+                <div class="hi-three-col">
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" id="tlSpouseHiHeightFeet" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Spouse height feet options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="3"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="4"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="5"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="6"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6</span></button>
+                      </div>
+                    </div>
+                    <p class="field-error-text" id="tlSpouseHiHeightFeetError" role="alert" aria-live="polite">Provide Spouse Height (Feet)</p>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>
+                    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">
+                      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="ajg-dropdown-value" data-dropdown-value></span>
+                        <span class="cov-chevron-icon" aria-hidden="true"></span>
+                      </button>
+                      <input type="hidden" id="tlSpouseHiHeightInches" data-dropdown-input />
+                      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Spouse height inches options">
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="0"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>0</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="1"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="2"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>2</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="3"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="4"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="5"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="6"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="7"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="8"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="9"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="10"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10</span></button>
+                        <button class="ajg-dropdown-option" type="button" role="option" data-value="11"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11</span></button>
+                      </div>
+                    </div>
+                    <p class="field-error-text" id="tlSpouseHiHeightInchesError" role="alert" aria-live="polite">Provide Spouse Height (Inches)</p>
+                  </div>
+                  <div>
+                    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>
+                    <input class="cov-input" id="tlSpouseHiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />
+                    <p class="field-error-text" id="tlSpouseHiWeightError" role="alert" aria-live="polite">Provide Spouse Weight (Lbs)</p>
+                  </div>
+                </div>
+              </div><!-- /#tlSpouseHealthSection -->
 
             </div><!-- /.cov-fields -->
 
@@ -6245,12 +6334,10 @@
             <p class="cov-tagline">All fields marked with an asterisk (<span class="req-star">*</span>) are required.</p>
 
             <div class="guaranteed-beneficiary-content">
-              <p class="guaranteed-beneficiary-copy">I designate the following person(s) as primary beneficiary(ies) for any amount payable upon my death for the MetLife insurance coverage applied for in this enrollment form. With such designation, any previous designation of a beneficiary for such coverage is hereby revoked. I understand I have the right to change this designation at any time. I also understand that unless otherwise specified in the group insurance certificate, insurance due upon the death of a Dependent is payable to the member.</p>
 
-              <div id="guaranteedBeneficiaryCardsContainer" class="hi-physicians-stack guaranteed-beneficiary-stack">
+              <!-- Hidden card template — cloned by JS for both sections -->
+              <div id="beneficiaryCardTemplateHost" hidden aria-hidden="true">
                 <div class="hi-card js-beneficiary-card guaranteed-beneficiary-card">
-                  <p class="hi-prescription-title">Beneficiary Information</p>
-
                   <div class="cov-field">
                     <div class="cov-field-label"><span class="req">*</span><span class="lbl">Beneficiary Type</span></div>
                     <div class="cov-input cov-input-static-select cov-input-static-white" aria-label="Beneficiary Type">
@@ -6318,9 +6405,9 @@
                   <div class="hi-two-col">
                     <div>
                       <div class="cov-field-label"><span class="req">*</span><span class="lbl">Date of Birth</span></div>
-                      <div class="datepicker" id="guaranteedBeneficiaryDobPicker" data-beneficiary-dob-picker>
+                      <div class="datepicker" data-beneficiary-dob-picker>
                         <div class="input-field datepicker-input">
-                          <input class="input-text" type="text" name="guaranteedBeneficiaryDob" placeholder="Select a date..." readonly />
+                          <input class="input-text" type="text" placeholder="Select a date..." readonly />
                           <button class="calendar-icon-btn" type="button" aria-label="Toggle calendar"><img src="assets/calendar-icon.png" alt="" aria-hidden="true" /></button>
                         </div>
                         <div class="datepicker-popover">
@@ -6360,14 +6447,36 @@
                     <button class="btn-destructive js-remove-beneficiary" type="button">Remove</button>
                   </div>
                 </div>
+              </div><!-- /#beneficiaryCardTemplateHost -->
+
+              <!-- Primary Beneficiaries section card -->
+              <div class="hi-card">
+                <p class="hi-phys-section-title">Primary Beneficiaries</p>
+                <p class="guaranteed-beneficiary-copy">I designate the following person(s) as primary beneficiary(ies) for any amount payable upon my death for the MetLife insurance coverage applied for in this enrollment form. With such designation, any previous designation of a beneficiary for such coverage is hereby revoked. I understand I have the right to change this designation at any time. I also understand that unless otherwise specified in the group insurance certificate, insurance due upon the death of a Dependent is payable to the member.</p>
+                <div id="primaryBeneficiaryCardsContainer" class="hi-physicians-stack guaranteed-beneficiary-stack"></div>
+                <div class="hi-additional-physician-wrap">
+                  <button class="btn-neutral" id="addPrimaryBeneficiaryBtn" type="button">
+                    <span class="btn-icon-add" aria-hidden="true"></span>
+                    <span>Add Primary Beneficiaries</span>
+                  </button>
+                </div>
               </div>
 
-              <div class="hi-additional-physician-wrap">
-                <button class="btn-neutral" id="guaranteedAddBeneficiaryBtn" type="button">
-                  <span class="btn-icon-add" aria-hidden="true"></span>
-                  <span>Add Additional Beneficiaries</span>
-                </button>
+              <!-- Contingent Beneficiaries section card -->
+              <div class="hi-card">
+                <p class="hi-phys-section-title">Contingent Beneficiaries</p>
+                <p class="guaranteed-beneficiary-copy">If all the primary beneficiary(ies) die before me, I designate as contingent beneficiary(ies):</p>
+                <div id="contingentBeneficiaryCardsContainer" class="hi-physicians-stack guaranteed-beneficiary-stack"></div>
+                <div class="hi-additional-physician-wrap">
+                  <button class="btn-neutral" id="addContingentBeneficiaryBtn" type="button">
+                    <span class="btn-icon-add" aria-hidden="true"></span>
+                    <span>Add Contingent Beneficiaries</span>
+                  </button>
+                </div>
               </div>
+
+              <!-- Important note below both section cards -->
+              <div class="note-box"><strong>IMPORTANT:</strong> Payment will be made in equal shares or all to the survivor unless otherwise indicated.</div>
             </div>
 
             <div class="row-actions">
@@ -7459,14 +7568,72 @@ Monday - Friday 8:00am – 8:00pm EST
           }, { passive: false });
         }
 
+        /* ── Typing support (mirrors NAPA datepicker) ── */
+        function applyDateInputMask(rawValue) {
+          var digits = String(rawValue || "").replace(/[^\d]/g, "").slice(0, 8);
+          var parts = [];
+          if (digits.length > 0) parts.push(digits.slice(0, 2));
+          if (digits.length > 2) parts.push(digits.slice(2, 4));
+          if (digits.length > 4) parts.push(digits.slice(4, 8));
+          return parts.join("/");
+        }
+
+        function parseTypedDate(value) {
+          var match = String(value || "").trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+          if (!match) return null;
+          var month = Number(match[1]);
+          var day   = Number(match[2]);
+          var year  = Number(match[3]);
+          if (month < 1 || month > 12 || day < 1 || year < 1900) return null;
+          var parsed = new Date(year, month - 1, day);
+          if (
+            parsed.getFullYear() !== year ||
+            parsed.getMonth()    !== (month - 1) ||
+            parsed.getDate()     !== day ||
+            parsed > normalizedToday
+          ) return null;
+          return parsed;
+        }
+
+        function commitTypedDate() {
+          if (!input || input.disabled) return;
+          var parsed = parseTypedDate(input.value);
+          if (!parsed) return;
+          sel = parsed;
+          vm  = sel.getMonth();
+          vy  = sel.getFullYear();
+          input.value = formatDateMMDDYYYY(parsed);
+          if (onSelectCb) onSelectCb(parsed);
+          render();
+        }
+
+        if (input) {
+          input.removeAttribute("readonly");
+          input.setAttribute("placeholder", "mm/dd/yyyy");
+          input.setAttribute("inputmode", "numeric");
+          input.setAttribute("maxlength", "10");
+        }
+        /* Format hint below the input */
+        var popover = wrap.querySelector(".datepicker-popover");
+        if (input && !wrap.querySelector(".datepicker-format-hint")) {
+          var hintEl = document.createElement("p");
+          hintEl.className = "datepicker-format-hint";
+          hintEl.textContent = "Format: mm/dd/yyyy";
+          wrap.insertBefore(hintEl, popover || null);
+        }
+
         var sel = null;
         var vm  = normalizedToday.getMonth();
         var vy  = normalizedToday.getFullYear();
 
         function open() {
-          if (!sel) {
+          if (input) input.setAttribute("placeholder", "");
+          var parsedFromInput = input ? parseTypedDate(input.value) : null;
+          if (parsedFromInput) {
+            sel = parsedFromInput;
+          } else if (!sel) {
             sel = new Date(normalizedToday);
-            if (input) input.value = formatDateMMDDYYYY(sel);
+            if (input && !input.value.trim()) input.value = formatDateMMDDYYYY(sel);
           }
           vm = sel.getMonth();
           vy = sel.getFullYear();
@@ -7553,11 +7720,27 @@ Monday - Friday 8:00am – 8:00pm EST
           e.stopPropagation();
           wrap.classList.contains("open") ? close() : open();
         });
-        if (input) input.addEventListener("click", open);
+        if (input) {
+          input.addEventListener("click", function() {
+            /* Only open calendar if field is empty; allow typing otherwise */
+            if (!input.value.trim()) open();
+          });
+          input.addEventListener("input", function() {
+            var masked = applyDateInputMask(input.value);
+            input.value = masked;
+          });
+          input.addEventListener("blur", function() {
+            commitTypedDate();
+            if (!input.value.trim()) input.setAttribute("placeholder", "mm/dd/yyyy");
+          });
+          input.addEventListener("focus", function() {
+            input.setAttribute("placeholder", "");
+          });
+        }
         if (inputWrap) {
           inputWrap.addEventListener("click", function(e) {
             if (toggle && toggle.contains(e.target)) return;
-            open();
+            if (input && !e.target.isSameNode(input)) open();
           });
         }
         if (prevBtn) prevBtn.addEventListener("click", function() {
@@ -7865,8 +8048,16 @@ Monday - Friday 8:00am – 8:00pm EST
             + '</div>'
             + '<div class="home-landing-context-slashv2">/</div>'
             + '<div class="home-landing-context-colv2">'
-            + '<p class="home-landing-context-labelv2">Smoker?</p>'
-            + '<p class="home-landing-context-valuev2" id="aftCtxSmoker">–</p>'
+            + '<p class="home-landing-context-labelv2">Add Spouse?</p>'
+            + '<p class="home-landing-context-valuev2" id="aftCtxSpouse">–</p>'
+            + '</div>'
+            + '<div class="home-landing-context-slashv2">/</div>'
+            + '<div class="home-landing-context-colv2">'
+            + '<p class="home-landing-context-labelv2">W/H OK?</p>'
+            + '<div class="ctx-wh-pair">'
+            + '<span class="home-landing-context-valuev2" id="aftCtxWHMember">\u2013</span>'
+            + '<span class="home-landing-context-valuev2" id="aftCtxWHSpouse" style="display:none">\u2013</span>'
+            + '</div>'
             + '</div>';
         }
 
@@ -7922,6 +8113,25 @@ Monday - Friday 8:00am – 8:00pm EST
         if (termLifeCoverageDisabilityFields) termLifeCoverageDisabilityFields.classList.add("hidden");
         if (termLifeCoverageGuaranteedFields) termLifeCoverageGuaranteedFields.classList.add("hidden");
         if (termLifeCoverageFields) termLifeCoverageFields.classList.remove("hidden");
+
+        /* Health page 1: hide hospitalization (not part of TL height/weight screen) */
+        var hospSection = document.getElementById("hospSection");
+        if (hospSection) hospSection.classList.add("hidden");
+
+        /* Spouse height/weight section on page 1 — shown when spouse enrolled */
+        var tlSpouseHealthSection = document.getElementById("tlSpouseHealthSection");
+        function syncTlSpouseHealthSection() {
+          var spouseYes = document.getElementById("termLifeSpouseEnrollYes");
+          var show = spouseYes && spouseYes.checked;
+          if (tlSpouseHealthSection) {
+            tlSpouseHealthSection.classList.toggle("hidden", !show);
+            if (show && window.initAjgDropdowns) window.initAjgDropdowns(tlSpouseHealthSection);
+          }
+        }
+        document.querySelectorAll('input[name="termLifeSpouseEnroll"]').forEach(function (r) {
+          r.addEventListener("change", syncTlSpouseHealthSection);
+        });
+        syncTlSpouseHealthSection();
         if (termLifeEnrollmentScreen) termLifeEnrollmentScreen.classList.add("term-life-enrollment-mode");
         if (termLifeRatePreviewScreen) termLifeRatePreviewScreen.classList.add("term-life-rate-preview");
         if (termLifeRatePreviewTitle) termLifeRatePreviewTitle.textContent = "Rate Preview";
@@ -8100,52 +8310,6 @@ Monday - Friday 8:00am – 8:00pm EST
 
           termLifeHealthPage2Fields.innerHTML = ''
             + '<p class="hi-section-title">Member Health Information</p>'
-            + '<div class="hi-three-col">'
-            + '  <div>'
-            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Feet)</span></div>'
-            + '    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">'
-            + '      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">'
-            + '        <span class="ajg-dropdown-value" data-dropdown-value></span>'
-            + '        <span class="cov-chevron-icon" aria-hidden="true"></span>'
-            + '      </button>'
-            + '      <input type="hidden" id="termLifeHiHeightFeet" data-dropdown-input />'
-            + '      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Term Life height feet options">'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="3"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="4"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="5"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="6"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6</span></button>'
-            + '      </div>'
-            + '    </div>'
-            + '  </div>'
-            + '  <div>'
-            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Height (Inches)</span></div>'
-            + '    <div class="cov-input cov-dropdown ajg-dropdown" data-dropdown data-dropdown-placeholder="Select">'
-            + '      <button class="ajg-dropdown-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">'
-            + '        <span class="ajg-dropdown-value" data-dropdown-value></span>'
-            + '        <span class="cov-chevron-icon" aria-hidden="true"></span>'
-            + '      </button>'
-            + '      <input type="hidden" id="termLifeHiHeightInches" data-dropdown-input />'
-            + '      <div class="ajg-dropdown-listbox" role="listbox" aria-label="Term Life height inches options">'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="0"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>0</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="1"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>1</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="2"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>2</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="3"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>3</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="4"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>4</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="5"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>5</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="6"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>6</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="7"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>7</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="8"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>8</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="9"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>9</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="10"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>10</span></button>'
-            + '        <button class="ajg-dropdown-option" type="button" role="option" data-value="11"><span class="ajg-dropdown-check" aria-hidden="true"></span><span>11</span></button>'
-            + '      </div>'
-            + '    </div>'
-            + '  </div>'
-            + '  <div>'
-            + '    <div class="cov-field-label"><span class="req">*</span><span class="lbl">Weight (Lbs)</span></div>'
-            + '    <input class="cov-input" id="termLifeHiWeight" type="text" placeholder="Enter Number" inputmode="numeric" />'
-            + '  </div>'
-            + '</div>'
             + '<div class="hi-qrow">'
             + '  <div class="cov-field-label lbl-multi"><span class="req">*</span><span class="lbl">Are you now receiving or applying for any disability benefits, including workers\' compensation?</span></div>'
             + '  <div class="hi-yn-group" data-yn-group><button class="hi-yn-btn" type="button" data-yn="yes">Yes</button><button class="hi-yn-btn" type="button" data-yn="no">No</button></div>'
@@ -8662,7 +8826,22 @@ Monday - Friday 8:00am – 8:00pm EST
             if (!window.mibRequired && prevStep === MIB_SUBSTEP) prevStep -= 1;
             setNoticesSubStep(prevStep);
           } else {
-            goToStep(currentIndex - 1);
+            /* Navigate back, skipping any steps that are hidden in the current flow */
+            var healthStepLi = document.querySelector('[data-screen="screen-health"]');
+            var healthIsHidden = !healthStepLi || healthStepLi.classList.contains("step-physician-hidden");
+            if (healthIsHidden) {
+              /* Health (and Physician) skipped — go straight back to Beneficiaries */
+              goToStep(stepIndexByScreenId("screen-beneficiaries"));
+            } else if (isTermLifeAdddFlow) {
+              /* TL: physician lives as a sub-step inside Health — Notices is the immediate
+                 next step after Health, so Previous always lands on Health sub-step 1 (H/W). */
+              goToStep(stepIndexByScreenId("screen-health"));
+            } else if (window.physicianRequired) {
+              /* Other flows: Physician is a standalone step between Health and Notices */
+              goToStep(stepIndexByScreenId("screen-physician"));
+            } else {
+              goToStep(stepIndexByScreenId("screen-health"));
+            }
           }
         });
 
@@ -9525,15 +9704,23 @@ Monday - Friday 8:00am – 8:00pm EST
         var page3Prev  = document.getElementById("healthPage3PrevBtn");
         var extended   = document.getElementById("hi-q-extended");
         var scroll     = document.getElementById("mainScroll");
-        var feetInput  = document.getElementById("hiHeightFeet");
+        var feetInput   = document.getElementById("hiHeightFeet");
         var inchesInput = document.getElementById("hiHeightInches");
         var weightInput = document.getElementById("hiWeight");
-        var hospYes = document.getElementById("hospYes");
-        var hospNo = document.getElementById("hospNo");
-        var feetError = document.getElementById("hiHeightFeetError");
+        var hospYes     = document.getElementById("hospYes");
+        var hospNo      = document.getElementById("hospNo");
+        var feetError   = document.getElementById("hiHeightFeetError");
         var inchesError = document.getElementById("hiHeightInchesError");
         var weightError = document.getElementById("hiWeightError");
-        var hospError = document.getElementById("hospQuestionError");
+        var hospError   = document.getElementById("hospQuestionError");
+
+        /* Spouse H/W fields and their error elements */
+        var spouseFeetInput   = document.getElementById("tlSpouseHiHeightFeet");
+        var spouseInchesInput = document.getElementById("tlSpouseHiHeightInches");
+        var spouseWeightInput = document.getElementById("tlSpouseHiWeight");
+        var spouseFeetError   = document.getElementById("tlSpouseHiHeightFeetError");
+        var spouseInchesError = document.getElementById("tlSpouseHiHeightInchesError");
+        var spouseWeightError = document.getElementById("tlSpouseHiWeightError");
         var page2SectionTitle = page2.querySelector(".hi-section-title");
         var termLifeHealthPerson = "member";
 
@@ -9551,10 +9738,10 @@ Monday - Friday 8:00am – 8:00pm EST
         }
 
         function validateHealthPage1Required() {
-          var feetMissing = !feetInput || !feetInput.value.trim();
+          var feetMissing   = !feetInput   || !feetInput.value.trim();
           var inchesMissing = !inchesInput || !inchesInput.value.trim();
           var weightMissing = !weightInput || !weightInput.value.trim();
-          var hospMissing = !((hospYes && hospYes.checked) || (hospNo && hospNo.checked));
+          var hospMissing   = !((hospYes && hospYes.checked) || (hospNo && hospNo.checked));
 
           toggleInputError(feetInput, feetError, feetMissing);
           toggleInputError(inchesInput, inchesError, inchesMissing);
@@ -9562,6 +9749,34 @@ Monday - Friday 8:00am – 8:00pm EST
           toggleHospError(hospMissing);
 
           return !feetMissing && !inchesMissing && !weightMissing && !hospMissing;
+        }
+
+        /* Term Life H/W validation — member required; spouse required only when enrolled */
+        function validateTermLifeHW() {
+          var memberFeetMissing   = !feetInput   || !feetInput.value.trim();
+          var memberInchesMissing = !inchesInput || !inchesInput.value.trim();
+          var memberWeightMissing = !weightInput || !weightInput.value.trim();
+
+          toggleInputError(feetInput,   feetError,   memberFeetMissing);
+          toggleInputError(inchesInput, inchesError, memberInchesMissing);
+          toggleInputError(weightInput, weightError, memberWeightMissing);
+
+          var valid = !memberFeetMissing && !memberInchesMissing && !memberWeightMissing;
+
+          /* Validate spouse H/W only when spouse is enrolled */
+          if (isTermLifeSpouseEnrolled()) {
+            var spouseFeetMissing   = !spouseFeetInput   || !spouseFeetInput.value.trim();
+            var spouseInchesMissing = !spouseInchesInput || !spouseInchesInput.value.trim();
+            var spouseWeightMissing = !spouseWeightInput || !spouseWeightInput.value.trim();
+
+            toggleInputError(spouseFeetInput,   spouseFeetError,   spouseFeetMissing);
+            toggleInputError(spouseInchesInput, spouseInchesError, spouseInchesMissing);
+            toggleInputError(spouseWeightInput, spouseWeightError, spouseWeightMissing);
+
+            if (spouseFeetMissing || spouseInchesMissing || spouseWeightMissing) valid = false;
+          }
+
+          return valid;
         }
 
         if (feetInput) {
@@ -9580,6 +9795,9 @@ Monday - Friday 8:00am – 8:00pm EST
         }
         if (weightInput) {
           weightInput.addEventListener("input", function () {
+            /* Strip any non-numeric characters (keep digits only) */
+            var cleaned = weightInput.value.replace(/[^0-9]/g, "");
+            if (cleaned !== weightInput.value) weightInput.value = cleaned;
             if (weightInput.value.trim()) toggleInputError(weightInput, weightError, false);
           });
         }
@@ -9590,11 +9808,39 @@ Monday - Friday 8:00am – 8:00pm EST
           });
         });
 
+        /* ── Spouse field clear-error listeners ── */
+        if (spouseFeetInput) {
+          ["input", "change"].forEach(function (evt) {
+            spouseFeetInput.addEventListener(evt, function () {
+              if (spouseFeetInput.value.trim()) toggleInputError(spouseFeetInput, spouseFeetError, false);
+            });
+          });
+        }
+        if (spouseInchesInput) {
+          ["input", "change"].forEach(function (evt) {
+            spouseInchesInput.addEventListener(evt, function () {
+              if (spouseInchesInput.value.trim()) toggleInputError(spouseInchesInput, spouseInchesError, false);
+            });
+          });
+        }
+        if (spouseWeightInput) {
+          spouseWeightInput.addEventListener("input", function () {
+            /* Strip any non-numeric characters */
+            var cleaned = spouseWeightInput.value.replace(/[^0-9]/g, "");
+            if (cleaned !== spouseWeightInput.value) spouseWeightInput.value = cleaned;
+            if (spouseWeightInput.value.trim()) toggleInputError(spouseWeightInput, spouseWeightError, false);
+          });
+        }
+
         function showPage2(showFull) {
           page1.classList.add("hidden");
           page2.classList.remove("hidden");
           page3.classList.add("hidden");
-          page2.dataset.questionnaireMode = showFull ? "full" : "short";
+          var mode = showFull ? "full" : "short";
+          page2.dataset.questionnaireMode = mode;
+          /* Remember the validation-driven base mode so interactive Yes/No
+             clicks can never revert a Full SOH screen back to Simplified Issue */
+          page2.dataset.questionnaireBase = mode;
           if (extended) {
             extended.classList.toggle("hidden", !showFull);
           }
@@ -9602,10 +9848,21 @@ Monday - Friday 8:00am – 8:00pm EST
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
 
+        /* Flags: did member / spouse answer any Yes in the Simplified questionnaire? */
+        window._tlMemberHasUnfavorable = false;
+        window._tlSpouseHasUnfavorable = false;
+
         function showPage1() {
           page2.classList.add("hidden");
           page3.classList.add("hidden");
           page1.classList.remove("hidden");
+          /* Clear cached spouse H/W so page1Next re-reads fresh values next time */
+          window._tlSpouseHWFeet   = 0;
+          window._tlSpouseHWInches = 0;
+          window._tlSpouseHWWeight = 0;
+          /* Clear unfavorable flags so the questionnaire starts fresh */
+          window._tlMemberHasUnfavorable = false;
+          window._tlSpouseHasUnfavorable = false;
           setStepStateOnly(stepIndexByScreenId("screen-health"));
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -9614,6 +9871,22 @@ Monday - Friday 8:00am – 8:00pm EST
           page1.classList.add("hidden");
           page2.classList.add("hidden");
           page3.classList.remove("hidden");
+          /* Show physician sections only for whoever has unfavorable answers (or Full SOH) */
+          var memberPhysSection = document.getElementById("memberHealthPhysicianSection");
+          var spousePhysSection = document.getElementById("spouseHealthPhysicianSection");
+          var memberShow = window.fullSOHRequired || Boolean(window._tlMemberHasUnfavorable);
+          var spouseShow = isTermLifeSpouseEnrolled() && (window.fullSOHRequired || Boolean(window._tlSpouseHasUnfavorable));
+          if (memberPhysSection) memberPhysSection.classList.toggle("hidden", !memberShow);
+          if (spousePhysSection) {
+            spousePhysSection.classList.toggle("hidden", !spouseShow);
+            /* Add first card if section is newly visible and empty */
+            if (spouseShow) {
+              var spouseStack = spousePhysSection.querySelector(".hi-physicians-stack");
+              if (spouseStack && !spouseStack.querySelector(".js-physician-card") && typeof window._tlAddSpousePhysicianCard === "function") {
+                window._tlAddSpousePhysicianCard();
+              }
+            }
+          }
           setStepStateOnly(stepIndexByScreenId("screen-physician"));
           if (scroll) scroll.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -9668,7 +9941,7 @@ Monday - Friday 8:00am – 8:00pm EST
               termLifeHealthPerson = "member";
               applyHealthPersonLabel();
               resetActiveQuestionnaireState();
-              showPage2(page2.dataset.questionnaireMode === "full");
+              showPage1(); /* TL always starts at the H/W collection screen (page 1) */
               return;
             }
             showPage1();
@@ -9686,8 +9959,30 @@ Monday - Friday 8:00am – 8:00pm EST
         /* ── Next on page 1 ── */
         page1Next.addEventListener("click", function () {
           if (isTermLifeAdddFlow) {
-            /* Term Life skips page-1 gating and uses the short questionnaire set. */
-            showPage2(false);
+            /* Validate H/W before proceeding */
+            if (!validateTermLifeHW()) return;
+
+            /* Term Life: check W/H to determine Simplified Issue vs Full SOH.
+               Read ALL H/W values NOW (page1 is still visible) so DOM reads are reliable.
+               Spouse values are cached before showPage2 hides page1. */
+            var tlFeet   = parseFloat((document.getElementById("hiHeightFeet")   || {}).value) || 0;
+            var tlInches = parseFloat((document.getElementById("hiHeightInches") || {}).value) || 0;
+            var tlWeight = parseFloat((document.getElementById("hiWeight")       || {}).value) || 0;
+
+            /* Cache spouse H/W while page1 DOM is still accessible */
+            window._tlSpouseHWFeet   = parseFloat((document.getElementById("tlSpouseHiHeightFeet")   || {}).value) || 0;
+            window._tlSpouseHWInches = parseFloat((document.getElementById("tlSpouseHiHeightInches") || {}).value) || 0;
+            window._tlSpouseHWWeight = parseFloat((document.getElementById("tlSpouseHiWeight")       || {}).value) || 0;
+
+            var tlWhOK   = window.meetsWeightCriteria
+              ? window.meetsWeightCriteria(tlFeet, tlInches, tlWeight)
+              : null;
+            /* W/H not OK (false) or unknown (null) → Full SOH; also respect fullSOHRequired (benefit >$200K) */
+            var showFullSOH = window.fullSOHRequired || (tlWhOK !== true);
+            /* Sync the W/H flag for flow rules */
+            window.whNotOK = (tlWhOK !== true);
+            if (typeof updateTermLifeAppBarCtx === "function") updateTermLifeAppBarCtx();
+            showPage2(showFullSOH);
             return;
           }
 
@@ -9734,44 +10029,108 @@ Monday - Friday 8:00am – 8:00pm EST
               termLifeHealthPerson = "member";
               applyHealthPersonLabel();
               resetActiveQuestionnaireState();
-              showPage2(false);
+              showPage2(tlNeedsFullSOH("member"));
               return;
             }
-            goToStep(currentIndex - 1);
+            /* Member questionnaire → previous sub-step is the H/W collection screen */
+            showPage1();
             return;
           }
           showPage1();
         });
+        /* Returns true if the given person needs Full SOH based on their own benefit + W/H.
+           Member  → uses full benefit amount, reads H/W directly from the DOM.
+           Spouse  → uses 50 % of member benefit; reads H/W from values cached in page1Next
+                     (window._tlSpouseHW*) so they are available even after page1 is hidden.
+           If H/W has not been entered yet (both zero) the W/H check is skipped — benefit alone decides. */
+        function tlNeedsFullSOH(person) {
+          var benefitInput  = document.getElementById("termLifeMemberBenefitAmount");
+          var memberBenefit = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
+          var personBenefit = person === "spouse" ? memberBenefit * 0.5 : memberBenefit;
+          if (personBenefit > 200000) return true; /* benefit threshold → Full SOH */
+
+          var feet, inches, weight;
+          if (person === "spouse") {
+            /* Use values cached in page1Next before page1 was hidden */
+            feet   = window._tlSpouseHWFeet   || 0;
+            inches = window._tlSpouseHWInches || 0;
+            weight = window._tlSpouseHWWeight || 0;
+            /* Fall back to live DOM if cache is empty (e.g. navigating back) */
+            if (feet === 0 && weight === 0) {
+              feet   = parseFloat((document.getElementById("tlSpouseHiHeightFeet")   || {}).value) || 0;
+              inches = parseFloat((document.getElementById("tlSpouseHiHeightInches") || {}).value) || 0;
+              weight = parseFloat((document.getElementById("tlSpouseHiWeight")       || {}).value) || 0;
+            }
+          } else {
+            feet   = parseFloat((document.getElementById("hiHeightFeet")   || {}).value) || 0;
+            inches = parseFloat((document.getElementById("hiHeightInches") || {}).value) || 0;
+            weight = parseFloat((document.getElementById("hiWeight")       || {}).value) || 0;
+          }
+
+          /* No H/W entered yet — benefit already passed, so default to Simplified */
+          if (feet === 0 && weight === 0) return false;
+
+          var whOK = window.meetsWeightCriteria ? window.meetsWeightCriteria(feet, inches, weight) : null;
+          return whOK !== true; /* W/H out of range → Full SOH */
+        }
+
         page2Next.addEventListener("click", function () {
           if (isTermLifeAdddFlow && isTermLifeSpouseEnrolled() && termLifeHealthPerson === "member") {
+            /* Finalise member's unfavorable flag BEFORE state is cleared */
+            window._tlMemberHasUnfavorable = Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
             termLifeHealthPerson = "spouse";
             applyHealthPersonLabel();
             resetActiveQuestionnaireState();
-            showPage2(false);
+            showPage2(tlNeedsFullSOH("spouse"));
             return;
           }
-          /* Physician only shown for Full SOH (benefit > $200K); Simplified Issue skips it */
+          /* Finalise the current person's unfavorable flag */
+          if (termLifeHealthPerson === "spouse") {
+            window._tlSpouseHasUnfavorable = Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
+          } else {
+            window._tlMemberHasUnfavorable = Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
+            window._tlSpouseHasUnfavorable = false; /* no spouse */
+          }
+          /* Navigate to Physician only if someone has unfavorable answers (or Full SOH forces it) */
           if (window.physicianRequired) {
             showPage3();
           } else {
-            goToStep(stepIndexByScreenId("screen-enrollment"));
+            /* TL flow: after Health the next step is Notices (Enrollment comes before Health in TL).
+               Non-TL flows: after Health the next step is Enrollment. */
+            goToStep(stepIndexByScreenId(isTermLifeAdddFlow ? "screen-notices" : "screen-enrollment"));
           }
         });
         page3Prev.addEventListener("click", function () {
-          /* Previous from Physician returns to first Health sub-step. */
+          /* Rule 1: within sub-steps, Previous → immediate previous sub-step.
+             Physician (page-3) comes after the questionnaire (page-2), so always go to page-2. */
           if (isTermLifeAdddFlow) {
-            if (isTermLifeSpouseEnrolled()) {
-              termLifeHealthPerson = "spouse";
-              applyHealthPersonLabel();
-            } else {
-              termLifeHealthPerson = "member";
-              applyHealthPersonLabel();
-            }
-            showPage2(page2.dataset.questionnaireMode === "full");
+            var lastPerson = isTermLifeSpouseEnrolled() ? "spouse" : "member";
+            termLifeHealthPerson = lastPerson;
+            applyHealthPersonLabel();
+            showPage2(tlNeedsFullSOH(lastPerson));
             return;
           }
-          showPage1();
+          /* Non-TL: immediate previous sub-step is page-2 (questionnaire), not page-1. */
+          showPage2(Boolean(page2 && page2.dataset.questionnaireBase === "full"));
         });
+
+        /* Expose showPage3 so external handlers (e.g. Notices Previous) can navigate here */
+        window.showHealthPhysicianPage = showPage3;
+
+        /* Real-time unfavorable-answer flag update: runs after .active is set on the button (setTimeout 0) */
+        if (page2) {
+          page2.addEventListener("click", function (e) {
+            if (!e.target.closest(".hi-yn-btn")) return;
+            setTimeout(function () {
+              var hasYes = Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
+              if (termLifeHealthPerson === "spouse") {
+                window._tlSpouseHasUnfavorable = hasYes;
+              } else {
+                window._tlMemberHasUnfavorable = hasYes;
+              }
+            }, 0);
+          });
+        }
 
         /* ── Rule 4: any "Yes" on Short section → reveal extended ── */
         var shortArea = page2.querySelector(".cov-fields");
@@ -9791,8 +10150,12 @@ Monday - Friday 8:00am – 8:00pm EST
               return Boolean(group.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
             });
 
-            extended.classList.toggle("hidden", !hasAnyYes);
-            page2.dataset.questionnaireMode = hasAnyYes ? "full" : "short";
+            /* If the questionnaire was opened in Full SOH mode (validation-driven),
+               never revert to Simplified Issue — keep extended visible regardless. */
+            var baseMode = page2.dataset.questionnaireBase || "short";
+            var keepFull = baseMode === "full" || hasAnyYes;
+            extended.classList.toggle("hidden", !keepFull);
+            page2.dataset.questionnaireMode = keepFull ? "full" : "short";
           });
         }
       }());
@@ -10343,12 +10706,17 @@ Monday - Friday 8:00am – 8:00pm EST
 
         function syncSpousePhysicianSection() {
           if (!spouseSection || !spouseCardsContainer) return;
-          var show = Boolean(isTermLifeAdddFlow && spouseYesRadio && spouseYesRadio.checked);
+          var spouseEnrolled = Boolean(isTermLifeAdddFlow && spouseYesRadio && spouseYesRadio.checked);
+          /* Show only when spouse is enrolled AND has unfavorable answers (or Full SOH requires it) */
+          var show = spouseEnrolled && (window.fullSOHRequired || Boolean(window._tlSpouseHasUnfavorable));
           spouseSection.classList.toggle("hidden", !show);
           if (show && !spouseCardsContainer.querySelector(".js-physician-card")) {
             addPhysicianCard(spouseCardsContainer);
           }
         }
+
+        /* Expose add-card helper so showPage3 can seed the spouse section on first reveal */
+        window._tlAddSpousePhysicianCard = function () { addPhysicianCard(spouseCardsContainer); };
 
         initializePhysicianCard(firstPhysicianCard);
 
@@ -10398,15 +10766,13 @@ Monday - Friday 8:00am – 8:00pm EST
         });
       }());
 
-      /* Guaranteed Beneficiaries: dynamic cards */
+      /* Beneficiaries: Primary and Contingent sections share one card template */
       (function () {
-        var cardsContainer = document.getElementById("guaranteedBeneficiaryCardsContainer");
-        var addBeneficiaryBtn = document.getElementById("guaranteedAddBeneficiaryBtn");
-        if (!cardsContainer || !addBeneficiaryBtn) return;
-
-        var firstCard = cardsContainer.querySelector(".js-beneficiary-card");
-        if (!firstCard) return;
-        var cardTemplateHTML = firstCard.outerHTML;
+        var templateHost = document.getElementById("beneficiaryCardTemplateHost");
+        if (!templateHost) return;
+        var templateCard = templateHost.querySelector(".js-beneficiary-card");
+        if (!templateCard) return;
+        var cardTemplateHTML = templateCard.outerHTML;
 
         function createNodeFromHTML(html) {
           var wrapper = document.createElement("div");
@@ -10414,35 +10780,36 @@ Monday - Friday 8:00am – 8:00pm EST
           return wrapper.firstElementChild;
         }
 
-        function addBeneficiaryCard() {
-          var newCard = createNodeFromHTML(cardTemplateHTML);
-          if (!newCard) return;
+        function initSection(containerId, addBtnId) {
+          var container = document.getElementById(containerId);
+          var addBtn    = document.getElementById(addBtnId);
+          if (!container || !addBtn) return;
 
-          newCard.querySelectorAll("input, textarea, select").forEach(function (el) {
-            var type = (el.getAttribute("type") || "").toLowerCase();
-            if (type === "checkbox" || type === "radio") {
-              el.checked = false;
-            } else {
-              el.value = "";
-            }
+          function addCard() {
+            var newCard = createNodeFromHTML(cardTemplateHTML);
+            if (!newCard) return;
+            newCard.querySelectorAll("input, textarea, select").forEach(function (el) {
+              var type = (el.getAttribute("type") || "").toLowerCase();
+              if (type === "checkbox" || type === "radio") { el.checked = false; }
+              else { el.value = ""; }
+            });
+            container.appendChild(newCard);
+            var dobPicker = newCard.querySelector("[data-beneficiary-dob-picker]");
+            if (dobPicker) initBeneficiaryDobPicker(dobPicker);
+          }
+
+          container.addEventListener("click", function (e) {
+            var removeBtn = e.target.closest(".js-remove-beneficiary");
+            if (!removeBtn) return;
+            var card = removeBtn.closest(".js-beneficiary-card");
+            if (card) card.remove();
           });
 
-          var removeBtn = newCard.querySelector(".js-remove-beneficiary");
-          if (removeBtn) removeBtn.classList.remove("hidden");
-          cardsContainer.appendChild(newCard);
-          var dobPicker = newCard.querySelector("[data-beneficiary-dob-picker]");
-          if (dobPicker) initBeneficiaryDobPicker(dobPicker);
+          addBtn.addEventListener("click", addCard);
         }
 
-        cardsContainer.addEventListener("click", function (e) {
-          var removeBtn = e.target.closest(".js-remove-beneficiary");
-          if (!removeBtn) return;
-          var card = removeBtn.closest(".js-beneficiary-card");
-          if (!card) return;
-          card.remove();
-        });
-
-        addBeneficiaryBtn.addEventListener("click", addBeneficiaryCard);
+        initSection("primaryBeneficiaryCardsContainer",   "addPrimaryBeneficiaryBtn");
+        initSection("contingentBeneficiaryCardsContainer", "addContingentBeneficiaryBtn");
       }());
 
       (function () {
@@ -10505,9 +10872,11 @@ Monday - Friday 8:00am – 8:00pm EST
 
       /* ── App-bar context indicators ──────────────────────────────── */
       (function () {
-        var ctxHosp   = document.getElementById("aftCtxHospitalization");
-        var ctxWeight = document.getElementById("aftCtxWeight");
-        var ctxSmoker   = document.getElementById("aftCtxSmoker");
+        var ctxHosp     = document.getElementById("aftCtxHospitalization");
+        var ctxWeight   = document.getElementById("aftCtxWeight");
+        var ctxWHMember = document.getElementById("aftCtxWHMember");
+        var ctxWHSpouse = document.getElementById("aftCtxWHSpouse");
+        var ctxSpouse   = document.getElementById("aftCtxSpouse");
         var ctxBenefit  = document.getElementById("aftCtxBenefit");
         var ctxDateJoin = document.getElementById("aftCtxDateJoin");
 
@@ -10544,11 +10913,76 @@ Monday - Friday 8:00am – 8:00pm EST
           }
         }
 
+        function updateSpouseCtx() {
+          if (!ctxSpouse) return;
+          var yesRadio = document.getElementById("termLifeSpouseEnrollYes");
+          var noRadio  = document.getElementById("termLifeSpouseEnrollNo");
+          if (yesRadio && yesRadio.checked) {
+            ctxSpouse.textContent = "\u2713"; /* ✓ */
+            ctxSpouse.className   = "home-landing-context-valuev2 ctx-ok";
+          } else if (noRadio && noRadio.checked) {
+            ctxSpouse.textContent = "\u2715"; /* ✕ */
+            ctxSpouse.className   = "home-landing-context-valuev2 ctx-fail";
+          } else if (window.tlSpouseSelectionCommitted) {
+            /* Past Coverage with no selection → assume No */
+            ctxSpouse.textContent = "\u2715"; /* ✕ */
+            ctxSpouse.className   = "home-landing-context-valuev2 ctx-fail";
+          } else {
+            /* No selection yet, still on/before Coverage → empty state */
+            ctxSpouse.textContent = "\u2013"; /* – */
+            ctxSpouse.className   = "home-landing-context-valuev2";
+          }
+          /* Refresh W/H pair so the S: chip shows/hides based on enrollment */
+          updateTermLifeAppBarCtx();
+        }
+
+        /* Expose globally so the Coverage Next handler (different IIFE) can trigger a refresh */
+        window.updateSpouseCtxGlobal = updateSpouseCtx;
+
+        /* Render a W/H result into a span, keeping the "M:" / "S:" prefix white
+           and only coloring the symbol (✓ / ✕) itself via an inline span. */
+        function renderWHSpan(el, prefix, touched, feet, inches, weight) {
+          if (!el) return;
+          el.className = "home-landing-context-valuev2"; /* always white */
+          if (!touched) {
+            el.innerHTML = prefix + " \u2013";
+            return;
+          }
+          if (isNaN(feet) || isNaN(weight)) {
+            el.innerHTML = prefix + " \u2013";
+            return;
+          }
+          var result = window.meetsWeightCriteria
+            ? window.meetsWeightCriteria(feet, isNaN(inches) ? 0 : inches, weight)
+            : null;
+          if (result === true) {
+            el.innerHTML = prefix + ' <span style="color:#4cff91">\u2713</span>';
+          } else {
+            /* result === false (weight exceeds max) or
+               result === null  (height outside the 4'8"–6'9" matrix) → non-compliant */
+            el.innerHTML = prefix + ' <span style="color:#ff6b6b">\u2715</span>';
+          }
+        }
+
         function updateTermLifeAppBarCtx() {
-          /* Smoker indicator */
-          var smokerYes = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
-          var smokerNo  = document.querySelector('input[name="termLifeMemberSmoker"][value="no"]');
-          setBooleanContextIndicator(ctxSmoker, smokerYes && smokerYes.checked, smokerNo && smokerNo.checked);
+          /* ── Member W/H indicator (M:) ── */
+          var whFeet   = parseFloat((document.getElementById("hiHeightFeet")   || {}).value);
+          var whInches = parseFloat((document.getElementById("hiHeightInches") || {}).value);
+          var whWeight = parseFloat((document.getElementById("hiWeight")       || {}).value);
+          renderWHSpan(ctxWHMember, "M:", whUserTouched, whFeet, whInches, whWeight);
+
+          /* ── Spouse W/H indicator (S:) — visible only when spouse enrolled ── */
+          if (ctxWHSpouse) {
+            var spouseYesEl = document.getElementById("termLifeSpouseEnrollYes");
+            var spouseEnrolled = Boolean(spouseYesEl && spouseYesEl.checked);
+            ctxWHSpouse.style.display = spouseEnrolled ? "" : "none";
+            if (spouseEnrolled) {
+              var sWhFeet   = parseFloat((document.getElementById("tlSpouseHiHeightFeet")   || {}).value);
+              var sWhInches = parseFloat((document.getElementById("tlSpouseHiHeightInches") || {}).value);
+              var sWhWeight = parseFloat((document.getElementById("tlSpouseHiWeight")       || {}).value);
+              renderWHSpan(ctxWHSpouse, "S:", spouseWhUserTouched, sWhFeet, sWhInches, sWhWeight);
+            }
+          }
 
           /* Benefit amount indicator — only shown after user makes an explicit selection */
           if (ctxBenefit) {
@@ -10635,9 +11069,51 @@ Monday - Friday 8:00am – 8:00pm EST
           if (el) el.addEventListener("input", updateWeightCtx);
         });
 
-        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (r) {
-          r.addEventListener("change", updateTermLifeAppBarCtx);
-        });
+        /* W/H real-time indicators — only activate after the user has interacted
+           with at least one height or weight field. Stay "–" until then. */
+        var whUserTouched       = false;
+        var whDebounceTimer     = null;
+        var spouseWhUserTouched = false;
+        var spouseWhDebounceTimer = null;
+
+        function scheduleWHUpdate() {
+          whUserTouched = true;
+          clearTimeout(whDebounceTimer);
+          whDebounceTimer = setTimeout(updateTermLifeAppBarCtx, 120);
+        }
+
+        function scheduleSpouseWHUpdate() {
+          spouseWhUserTouched = true;
+          clearTimeout(spouseWhDebounceTimer);
+          spouseWhDebounceTimer = setTimeout(updateTermLifeAppBarCtx, 120);
+        }
+
+        var healthPage1El = document.getElementById("health-page-1");
+        var spouseSectionEl = document.getElementById("tlSpouseHealthSection");
+        if (healthPage1El) {
+          /* Catch typing in weight fields */
+          healthPage1El.addEventListener("input", function (e) {
+            var id = e.target && e.target.id;
+            if (id === "hiWeight") scheduleWHUpdate();
+            if (id === "tlSpouseHiWeight") scheduleSpouseWHUpdate();
+          });
+          /* Catch AJG dropdown change events (bubbles from hidden inputs) */
+          healthPage1El.addEventListener("change", function (e) {
+            var id = e.target && e.target.id;
+            if (id === "hiHeightFeet" || id === "hiHeightInches" || id === "hiWeight") scheduleWHUpdate();
+            if (id === "tlSpouseHiHeightFeet" || id === "tlSpouseHiHeightInches" || id === "tlSpouseHiWeight") scheduleSpouseWHUpdate();
+          });
+          /* Catch dropdown option clicks as a safety net — route to member or spouse */
+          healthPage1El.addEventListener("click", function (e) {
+            var opt = e.target && e.target.closest && e.target.closest(".ajg-dropdown-option");
+            if (!opt) return;
+            if (spouseSectionEl && spouseSectionEl.contains(opt)) {
+              scheduleSpouseWHUpdate();
+            } else {
+              scheduleWHUpdate();
+            }
+          });
+        }
 
         /* Benefit dropdown — set user-selected flag only when an option is picked */
         var benefitDropdownCtx = document.getElementById("termLifeMemberBenefitDropdown");
@@ -10662,16 +11138,51 @@ Monday - Friday 8:00am – 8:00pm EST
           window.onAftJoinDateSelected = updateTermLifeAppBarCtx;
         }());
 
+        /* Spouse radio — update indicator on any change */
+        document.querySelectorAll('input[name="termLifeSpouseEnroll"]').forEach(function (r) {
+          r.addEventListener("change", updateSpouseCtx);
+        });
+
         updateHospCtx();
         updateWeightCtx();
-        updateTermLifeAppBarCtx();
+        updateSpouseCtx();
+        /* W/H indicators start empty — filled once user reaches Health screen */
+        if (ctxWHMember) {
+          ctxWHMember.innerHTML   = "M: \u2013";
+          ctxWHMember.className   = "home-landing-context-valuev2";
+        }
+        if (ctxWHSpouse) {
+          ctxWHSpouse.style.display = "none"; /* hidden until spouse is enrolled */
+        }
       }());
 
       bindPrevBtn("coveragePrevBtn");
       bindPrevBtn("healthPrevBtn");
-      bindPrevBtn("enrollmentPrevBtn");
+      /* Enrollment Previous: walk backward through stepItems, skipping any step that is
+         currently hidden (step-physician-hidden). This ensures that when Physician or Health
+         are conditionally hidden the user lands on the nearest visible previous step.
+         TL flow : Rate Preview (index 3) is always visible → works fine.
+         GI flow : Coverage (index 2) is always visible → works fine.
+         Disability: skips hidden Physician and/or Health so we never land on a blank screen. */
+      (function () {
+        var btn = document.getElementById("enrollmentPrevBtn");
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+          var idx = currentIndex - 1;
+          while (idx >= 0 && stepItems[idx] && stepItems[idx].classList.contains("step-physician-hidden")) {
+            idx--;
+          }
+          if (idx >= 0) goToStep(idx);
+        });
+      }());
       bindPrevBtn("beneficiariesPrevBtn");
-      bindPrevBtn("physicianPrevBtn");
+      /* Physician Previous always goes back to Health first sub-step (Rule 2) */
+      (function () {
+        var btn = document.getElementById("physicianPrevBtn");
+        if (btn) btn.addEventListener("click", function () {
+          goToStep(stepIndexByScreenId("screen-health"));
+        });
+      }());
       bindPrevBtn("optInsPrevBtn");
       bindPrevBtn("guaranteedConfirmationPrevBtn");
       bindPrevBtn("paymentPrevBtn");
@@ -10694,9 +11205,10 @@ Monday - Friday 8:00am – 8:00pm EST
           var smokerYes    = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
           var ruleA        = (benefitVal > 25000) && Boolean(smokerYes && smokerYes.checked);
 
-          /* Rule B: any Health Information page-2 question answered Yes */
-          var page2 = document.getElementById("health-page-2");
-          var ruleB = page2 ? Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]')) : false;
+          /* Rule B: any unfavorable Yes in health questionnaire — live DOM or cached member/spouse flags */
+          var page2   = document.getElementById("health-page-2");
+          var liveYes = page2 ? Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]')) : false;
+          var ruleB   = liveYes || Boolean(window._tlMemberHasUnfavorable) || Boolean(window._tlSpouseHasUnfavorable);
 
           setPhysicianStepVisible(ruleA || ruleB);
         }
@@ -10759,8 +11271,6 @@ Monday - Friday 8:00am – 8:00pm EST
         function getFlowInputs() {
           var benefitInput = document.getElementById("termLifeMemberBenefitAmount");
           var benefitVal   = benefitInput ? (parseFloat(benefitInput.value) || 0) : 0;
-          var smokerYes    = document.querySelector('input[name="termLifeMemberSmoker"][value="yes"]');
-          var isSmoker     = Boolean(smokerYes && smokerYes.checked);
           var joinDate     = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
           var withinYear   = false;
           if (joinDate) {
@@ -10768,7 +11278,7 @@ Monday - Friday 8:00am – 8:00pm EST
             var oneYearAgo = new Date(today); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
             withinYear     = joinDate > oneYearAgo;
           }
-          return { benefitVal: benefitVal, isSmoker: isSmoker, withinYear: withinYear, joinDate: joinDate };
+          return { benefitVal: benefitVal, withinYear: withinYear, joinDate: joinDate };
         }
 
         function setHealthStepVisible(visible) {
@@ -10792,8 +11302,8 @@ Monday - Friday 8:00am – 8:00pm EST
             return;
           }
 
-          /* ── Priority 2: Benefit = exactly $25K + within 1y + non-smoker → skip to Fraud Representations ── */
-          if (f.joinDate && f.withinYear && !f.isSmoker && f.benefitVal === 25000) {
+          /* ── Priority 2: Benefit = exactly $25K + within 1y → skip to Fraud Representations ── */
+          if (f.joinDate && f.withinYear && f.benefitVal === 25000) {
             setHealthStepVisible(false);
             setPhysicianStepVisibleLocal(false);
             window.mibRequired     = false;
@@ -10802,7 +11312,7 @@ Monday - Friday 8:00am – 8:00pm EST
           }
 
           /* ── Default: everything else → Simplified Issue, no Physician, MIB shown ── */
-          /* (benefit $25K–$200K, older than 1y, smoker, or no join date yet with benefit > $25K) */
+          /* (benefit $25K–$200K, older than 1y, or no join date yet with benefit > $25K) */
           if (!f.joinDate && f.benefitVal <= 25000) {
             /* No join date and still at $25K — wait for join date before showing Health */
             setHealthStepVisible(false);
@@ -10819,41 +11329,36 @@ Monday - Friday 8:00am – 8:00pm EST
 
         window.evaluateTermLifeFlowRules = evaluateTermLifeFlowRules;
 
-        /* Commit benefit to app bar when Coverage Next is clicked (even with default $25K) */
+        /* Commit benefit + spouse state to app bar when Coverage Next is clicked */
         var coverageNextBtnEl = document.getElementById("coverageNextBtn");
         if (coverageNextBtnEl) {
           coverageNextBtnEl.addEventListener("click", function () {
             window.termLifeBenefitUserSelected = true;
+            /* After leaving Coverage, assume "No spouse" if no selection was made */
+            window.tlSpouseSelectionCommitted = true;
             if (typeof window.updateTermLifeAppBarCtx === "function") window.updateTermLifeAppBarCtx();
+            if (typeof window.updateSpouseCtxGlobal === "function") window.updateSpouseCtxGlobal();
             /* Re-evaluate so step visibility is current when Beneficiaries Next is later clicked */
             evaluateTermLifeFlowRules();
           });
         }
 
         /* goToAfterBeneficiaries — called by Beneficiaries Next instead of goToStep(currentIndex+1).
-           If Health is required → go to Health (with correct questionnaire mode).
+           If Health is required → navigate to the Health screen (page 1 = H/W collection for TL).
            If Health is skipped (Rule 1) → go straight to Notices.
-           NOTE: questionnaire mode must be applied AFTER goToStep because goToStep calls
-           setHealthSubStep(1) → resetActiveQuestionnaireState() which resets mode to "short". */
+           Questionnaire mode is determined later in page1Next after the user enters H/W values. */
         window.goToAfterBeneficiaries = function () {
           var healthIsHidden = !healthStepLi || healthStepLi.classList.contains("step-physician-hidden");
           if (healthIsHidden) {
             goToStep(stepIndexByScreenId("screen-notices"));
             return;
           }
-          /* Navigate first — setHealthSubStep(1) runs synchronously inside goToStep */
           goToStep(stepIndexByScreenId("screen-health"));
-          /* Apply Full SOH AFTER reset, overriding the "short" mode that resetActiveQuestionnaireState set */
-          if (window.fullSOHRequired && page2 && extended) {
-            page2.dataset.questionnaireMode = "full";
-            extended.classList.remove("hidden");
-          }
+          /* Refresh W/H indicator now that health screen is visible */
+          if (typeof window.updateTermLifeAppBarCtx === "function") window.updateTermLifeAppBarCtx();
         };
 
-        /* Re-evaluate whenever smoker or benefit changes (for indicator accuracy) */
-        document.querySelectorAll('input[name="termLifeMemberSmoker"]').forEach(function (r) {
-          r.addEventListener("change", evaluateTermLifeFlowRules);
-        });
+        /* Re-evaluate whenever benefit changes */
         var benefitDropEl = document.getElementById("termLifeMemberBenefitDropdown");
         if (benefitDropEl) {
           benefitDropEl.addEventListener("click", function (e) {
@@ -10869,17 +11374,18 @@ Monday - Friday 8:00am – 8:00pm EST
       }());
 
       (function () {
-        var beneficiariesScreen = document.getElementById("screen-beneficiaries");
-        var cardsContainer = document.getElementById("guaranteedBeneficiaryCardsContainer");
-        var beneficiariesNextBtn = document.getElementById("beneficiariesNextBtn");
-        if (!beneficiariesScreen || !cardsContainer || !beneficiariesNextBtn) return;
+        var beneficiariesScreen   = document.getElementById("screen-beneficiaries");
+        var primaryContainer      = document.getElementById("primaryBeneficiaryCardsContainer");
+        var contingentContainer   = document.getElementById("contingentBeneficiaryCardsContainer");
+        var beneficiariesNextBtn  = document.getElementById("beneficiariesNextBtn");
+        if (!beneficiariesScreen || !primaryContainer || !beneficiariesNextBtn) return;
 
         var shareTotalErrorBannerId = "beneficiaryShareTotalErrorBanner";
         var bannerHost = beneficiariesScreen.querySelector(".guaranteed-beneficiary-content");
         insertScopedErrorBanner(
           bannerHost,
           shareTotalErrorBannerId,
-          "The sum of all Share Percentage should be 100, please correct"
+          "The sum of all Primary Beneficiary Share Percentages should be 100, please correct"
         );
         hideScopedErrorBanner(shareTotalErrorBannerId);
 
@@ -10889,33 +11395,39 @@ Monday - Friday 8:00am – 8:00pm EST
           if (inputEl.value !== digitsOnly) inputEl.value = digitsOnly;
         }
 
-        function getShareTotal() {
-          var shareInputs = cardsContainer.querySelectorAll(".beneficiary-share-input");
+        /* Share total is validated per-section; primary must sum to 100 if any cards exist */
+        function getSectionShareTotal(container) {
           var total = 0;
-          shareInputs.forEach(function (inputEl) {
-            var numericValue = Number((inputEl.value || "").trim());
-            if (!isNaN(numericValue)) total += numericValue;
+          container.querySelectorAll(".beneficiary-share-input").forEach(function (el) {
+            var v = Number((el.value || "").trim());
+            if (!isNaN(v)) total += v;
           });
           return total;
         }
 
         function getBeneficiaryCardCount() {
-          return cardsContainer.querySelectorAll(".js-beneficiary-card").length;
+          var primary    = primaryContainer.querySelectorAll(".js-beneficiary-card").length;
+          var contingent = contingentContainer ? contingentContainer.querySelectorAll(".js-beneficiary-card").length : 0;
+          return primary + contingent;
         }
 
         function hasAnyShareInputValue() {
-          var shareInputs = cardsContainer.querySelectorAll(".beneficiary-share-input");
-          for (var i = 0; i < shareInputs.length; i++) {
-            if ((shareInputs[i].value || "").trim() !== "") return true;
+          var inputs = primaryContainer.querySelectorAll(".beneficiary-share-input");
+          for (var i = 0; i < inputs.length; i++) {
+            if ((inputs[i].value || "").trim() !== "") return true;
           }
           return false;
         }
 
-        cardsContainer.addEventListener("input", function (event) {
-          var shareInput = event.target.closest(".beneficiary-share-input");
-          if (!shareInput) return;
-          normalizeShareInputValue(shareInput);
-          hideScopedErrorBanner(shareTotalErrorBannerId);
+        /* Normalize digits on input for both sections */
+        [primaryContainer, contingentContainer].forEach(function (c) {
+          if (!c) return;
+          c.addEventListener("input", function (event) {
+            var shareInput = event.target.closest(".beneficiary-share-input");
+            if (!shareInput) return;
+            normalizeShareInputValue(shareInput);
+            hideScopedErrorBanner(shareTotalErrorBannerId);
+          });
         });
 
         function navigateFromBeneficiaries() {
@@ -10937,7 +11449,7 @@ Monday - Friday 8:00am – 8:00pm EST
             navigateFromBeneficiaries();
             return;
           }
-          var total = getShareTotal();
+          var total = getSectionShareTotal(primaryContainer);
           if (total !== 100) {
             showScopedErrorBanner(shareTotalErrorBannerId);
             resetViewToTop();
