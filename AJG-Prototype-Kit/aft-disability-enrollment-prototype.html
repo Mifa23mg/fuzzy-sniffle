@@ -10101,17 +10101,14 @@ Monday - Friday 8:00am – 8:00pm EST
           }
         });
         page3Prev.addEventListener("click", function () {
-          /* Rule 1: within sub-steps, Previous → immediate previous sub-step.
-             Physician (page-3) comes after the questionnaire (page-2), so always go to page-2. */
+          /* Rule 2: Physician & Prescriptions is always the step immediately after Health's
+             sub-steps (H/W + questionnaire). Previous must always land on the FIRST sub-step
+             of Health — the H/W collection screen — regardless of TL or non-TL flow. */
           if (isTermLifeAdddFlow) {
-            var lastPerson = isTermLifeSpouseEnrolled() ? "spouse" : "member";
-            termLifeHealthPerson = lastPerson;
+            termLifeHealthPerson = "member";
             applyHealthPersonLabel();
-            showPage2(tlNeedsFullSOH(lastPerson));
-            return;
           }
-          /* Non-TL: immediate previous sub-step is page-2 (questionnaire), not page-1. */
-          showPage2(Boolean(page2 && page2.dataset.questionnaireBase === "full"));
+          showPage1();
         });
 
         /* Expose showPage3 so external handlers (e.g. Notices Previous) can navigate here */
