@@ -8833,9 +8833,14 @@ Monday - Friday 8:00am – 8:00pm EST
               /* Health (and Physician) skipped — go straight back to Beneficiaries */
               goToStep(stepIndexByScreenId("screen-beneficiaries"));
             } else if (isTermLifeAdddFlow) {
-              /* TL: physician lives as a sub-step inside Health — Notices is the immediate
-                 next step after Health, so Previous always lands on Health sub-step 1 (H/W). */
-              goToStep(stepIndexByScreenId("screen-health"));
+              /* TL: Physician & Prescriptions is health-page-3 (a sub-step inside Health).
+                 If physician was required the immediate previous step is Physician (page-3).
+                 If physician was not required the immediate previous step is Health page-1. */
+              if (window.physicianRequired && typeof window.showHealthPhysicianPage === "function") {
+                window.showHealthPhysicianPage();
+              } else {
+                goToStep(stepIndexByScreenId("screen-health"));
+              }
             } else if (window.physicianRequired) {
               /* Other flows: Physician is a standalone step between Health and Notices */
               goToStep(stepIndexByScreenId("screen-physician"));
