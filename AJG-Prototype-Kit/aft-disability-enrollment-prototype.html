@@ -8837,6 +8837,10 @@ Monday - Friday 8:00am – 8:00pm EST
                  If physician was required the immediate previous step is Physician (page-3).
                  If physician was not required the immediate previous step is Health page-1. */
               if (window.physicianRequired && typeof window.showHealthPhysicianPage === "function") {
+                /* Switch the active screen to screen-health before showing page-3 content */
+                screens.forEach(function (s) { s.classList.remove("active"); });
+                var healthScreenEl = document.getElementById("screen-health");
+                if (healthScreenEl) healthScreenEl.classList.add("active");
                 window.showHealthPhysicianPage();
               } else {
                 goToStep(stepIndexByScreenId("screen-health"));
