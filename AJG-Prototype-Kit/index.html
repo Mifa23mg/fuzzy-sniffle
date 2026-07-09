@@ -8492,12 +8492,13 @@
                 </button>
               </div>
               </div>
-              <div class="field is-hidden" id="pcLevel3NonAdmittedField">
+              <div class="field" id="pcLevel3NonAdmittedField">
                 <p class="label"><span class="required">*</span>Does more than 10% of the income selected previously come from the sale and servicing of products under non-admitted carriers?</p>
                 <div class="mini-radio" role="radiogroup" aria-label="Does more than 10% of the income selected previously come from the sale and servicing of products under non-admitted carriers?" id="pcNonAdmittedOptions">
                   <button type="button" role="radio" aria-checked="false" data-pc-non-admitted="yes">Yes</button>
                   <button type="button" role="radio" aria-checked="false" data-pc-non-admitted="no">No</button>
                 </div>
+                <p class="field-supporting-text is-error is-hidden" id="pcNonAdmittedError">A selection is required.</p>
               </div>
               <div class="pc-coverage-links">
                 <a class="coverage-link" href="#" data-modal-target="deductibles" data-modal-variant="pc-deductibles">View Deductibles</a>
@@ -13629,7 +13630,6 @@
         updateChoiceSelection(coveragePackageOptions, null, false);
         updateChoiceSelection(coveragePackageMedicareOptions, null, false);
         updateChoiceSelection(coveragePackagePcOptions, null, false);
-        if (pcLevel3NonAdmittedField) pcLevel3NonAdmittedField.classList.add("is-hidden");
         updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
         updateChoiceSelection(coverageLimitsAddonOptions, null, false);
         syncCoverageOptionRestrictions();
@@ -14036,14 +14036,22 @@
 
       if (coverageOptionsPcNextBtn) {
         coverageOptionsPcNextBtn.addEventListener("click", function onCoverageOptionsPcNext() {
-          if (pcLevel3NonAdmittedField && !pcLevel3NonAdmittedField.classList.contains("is-hidden")) {
-            const nonAdmittedYes = pcNonAdmittedOptions.some(function(btn) {
-              return btn.getAttribute("data-pc-non-admitted") === "yes" && btn.getAttribute("aria-checked") === "true";
-            });
-            if (nonAdmittedYes) {
-              goToCustomPolicyRequestScreen();
-              return;
-            }
+          /* Non-admitted question is always visible and mandatory */
+          const nonAdmittedError = document.getElementById("pcNonAdmittedError");
+          const nonAdmittedSelected = pcNonAdmittedOptions.some(function(btn) {
+            return btn.getAttribute("aria-checked") === "true";
+          });
+          if (!nonAdmittedSelected) {
+            if (nonAdmittedError) nonAdmittedError.classList.remove("is-hidden");
+            return;
+          }
+          if (nonAdmittedError) nonAdmittedError.classList.add("is-hidden");
+          const nonAdmittedYes = pcNonAdmittedOptions.some(function(btn) {
+            return btn.getAttribute("data-pc-non-admitted") === "yes" && btn.getAttribute("aria-checked") === "true";
+          });
+          if (nonAdmittedYes) {
+            goToCustomPolicyRequestScreen();
+            return;
           }
           goToNextCoverageStep(getCoverageRoutingProductKey());
         });
@@ -14515,7 +14523,6 @@
       updateChoiceSelection(coveragePackageOptions, null, false);
       updateChoiceSelection(coveragePackageMedicareOptions, null, false);
       updateChoiceSelection(coveragePackagePcOptions, null, false);
-      if (pcLevel3NonAdmittedField) pcLevel3NonAdmittedField.classList.add("is-hidden");
       updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
       updateChoiceSelection(coverageLimitsAddonOptions, null, false);
       populateCoverageStartOptions();
@@ -14577,15 +14584,11 @@
       bindChoiceGroup(coveragePackageOptions);
       bindChoiceGroup(coveragePackageMedicareOptions);
       bindChoiceGroup(coveragePackagePcOptions);
-      coveragePackagePcOptions.forEach(function(card) {
-        card.addEventListener("click", function() {
-          const isLevel3 = coveragePackagePcOptions.some(function(c) {
-            return c.getAttribute("data-coverage-option") === "pc-level-3" && c.getAttribute("aria-checked") === "true";
-          });
-          if (pcLevel3NonAdmittedField) {
-            pcLevel3NonAdmittedField.classList.toggle("is-hidden", !isLevel3);
-            if (!isLevel3) updateMiniRadioSelection(pcNonAdmittedOptions, null, false);
-          }
+      /* Non-admitted question is always visible — no level-3-only toggle needed. */
+      pcNonAdmittedOptions.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          var err = document.getElementById("pcNonAdmittedError");
+          if (err) err.classList.add("is-hidden");
         });
       });
       bindMiniRadioGroup(pcNonAdmittedOptions);
