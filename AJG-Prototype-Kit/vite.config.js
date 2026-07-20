@@ -28,6 +28,8 @@ export default defineConfig({
       enableDynamicComponents: true,
       exclude: [
         path.resolve('./index.html'),
+        path.resolve('./aft-disability-enrollment-prototype.html'),
+        path.resolve('./ajg-affinity-enrollment-start-here-prototype.html'),
         path.resolve('./src/build/generated'),
         // Global SLDS from node_modules (new URL in slds-loader.js) must not pass through LWC:
         // LWC rejects :root in this pipeline when synthetic shadow is enabled.
@@ -40,6 +42,9 @@ export default defineConfig({
   server: {
     port: 3000,
     open: false,
+    hmr: {
+      overlay: false,
+    },
   },
   optimizeDeps: {
     exclude: ['lightning/modal', 'lightning/primitiveOverlay', 'lightning/overlayUtils', 'lightning/modalBase', 'lightning/utilsPrivate'],

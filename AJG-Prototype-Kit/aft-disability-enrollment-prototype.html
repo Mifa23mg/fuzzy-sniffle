@@ -10015,6 +10015,7 @@ Monday - Friday 8:00am – 8:00pm EST
             var underOneYear = joinDate > oneYearAgo;
 
             if (underOneYear && notHosp) {
+              window.mibRequired = false;   /* within 1st year: also skip MIB Pre Notice */
               goToStep(stepIndexByScreenId("screen-enrollment"));   /* skip questionnaire entirely */
               return;
             }
