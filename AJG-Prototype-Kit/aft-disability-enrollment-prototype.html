@@ -4794,7 +4794,7 @@
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Coverage</span>
             </li>
-            <li class="step-item step-physician-hidden" data-position="middle" data-state="default" data-screen="screen-health">
+            <li class="step-item" data-position="middle" data-state="default" data-screen="screen-health">
               <span class="step-rail"><span class="rail-top"></span><span class="step-indicator"></span><span class="rail-bottom"></span></span>
               <span class="step-text">Health Information</span>
             </li>
@@ -7485,6 +7485,7 @@ Monday - Friday 8:00am – 8:00pm EST
       81: 335   /* 6'9"  */
     };
 
+
     /**
      * meetsWeightCriteria(feet, inches, weightLbs)
      *
@@ -9684,16 +9685,10 @@ Monday - Friday 8:00am – 8:00pm EST
         }
       }());
 
-      /* Health Information — show/hide hospitalization card */
+      /* Health Information — hospitalization card hidden for now */
       (function () {
-        var radios = document.querySelectorAll('input[name="hospitalized"]');
-        var card   = document.getElementById("hospCard");
-        if (!radios.length || !card) return;
-        radios.forEach(function (radio) {
-          radio.addEventListener("change", function () {
-            card.classList.toggle("hidden", radio.value !== "yes");
-          });
-        });
+        var card = document.getElementById("hospCard");
+        if (card) card.classList.add("hidden");
       }());
 
       /* ── Health Information — smart routing logic ────────────────
@@ -9734,6 +9729,23 @@ Monday - Friday 8:00am – 8:00pm EST
         var termLifeHealthPerson = "member";
 
         if (!page1 || !page2 || !page3 || !page1Next || !page2Next || !page2Prev || !page3Prev) return;
+
+        /* Disability flow: relocate H/W fields from page 1 to top of page 2 questionnaire.
+           TL flow keeps H/W on page 1 (TL rebuilds page 2 content separately). */
+        if (!isTermLifeAdddFlow) {
+          var hwSectionTitle = page1.querySelector('.hi-section-title');
+          var hwThreeCol     = page1.querySelector('.hi-three-col');
+          var page2Fields    = page2.querySelector('.cov-fields');
+          if (hwThreeCol && page2Fields) {
+            var p2SectionTitle = page2Fields.querySelector('.hi-section-title');
+            if (p2SectionTitle) {
+              p2SectionTitle.after(hwThreeCol);
+            } else {
+              page2Fields.prepend(hwThreeCol);
+            }
+          }
+          if (hwSectionTitle) hwSectionTitle.remove(); /* page 2 already has its own section title */
+        }
 
         /* ── helpers ── */
         function toggleInputError(inputEl, errorEl, show) {
@@ -9995,16 +10007,13 @@ Monday - Friday 8:00am – 8:00pm EST
             return;
           }
 
-          if (!validateHealthPage1Required()) return;
+          /* Disability flow: H/W is now on page 2 — only validate hospitalization here */
+          var hospMissing = !((hospYes && hospYes.checked) || (hospNo && hospNo.checked));
+          toggleHospError(hospMissing);
+          if (hospMissing) return;
 
-          /* --- gather inputs --- */
-          var joinDate   = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
-          var hospNo     = document.getElementById("hospNo");
-          var notHosp    = hospNo && hospNo.checked;
-
-          var feetVal    = parseFloat(document.getElementById("hiHeightFeet")   && document.getElementById("hiHeightFeet").value)   || 0;
-          var inchesVal  = parseFloat(document.getElementById("hiHeightInches") && document.getElementById("hiHeightInches").value) || 0;
-          var weightVal  = parseFloat(document.getElementById("hiWeight")       && document.getElementById("hiWeight").value)       || 0;
+          var joinDate = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+          var notHosp  = hospNo && hospNo.checked;
 
           /* --- Rule 1: joined < 1 year AND not hospitalized → Enrollment --- */
           if (joinDate) {
@@ -10015,21 +10024,15 @@ Monday - Friday 8:00am – 8:00pm EST
             var underOneYear = joinDate > oneYearAgo;
 
             if (underOneYear && notHosp) {
-              window.mibRequired = false;   /* within 1st year: also skip MIB Pre Notice */
-              goToStep(stepIndexByScreenId("screen-enrollment"));   /* skip questionnaire entirely */
+              window.mibRequired = false;
+              goToStep(stepIndexByScreenId("screen-enrollment"));
               return;
             }
           }
 
-          /* --- Rules 2 & 3: check weight / height --- */
-          var acceptable = window.meetsWeightCriteria
-            ? window.meetsWeightCriteria(feetVal, inchesVal, weightVal)
-            : null;
-
-          /* acceptable === true  → Short (Rule 3)
-             acceptable === false → Full  (Rule 2)
-             acceptable === null  → height not in table → show Full to be safe */
-          showPage2(acceptable !== true);
+          /* H/W is on page 2 — start Simplified Issue by default;
+             weight criteria check happens in page2Next once H/W is filled */
+          showPage2(false);
         });
 
         /* ── Previous on page 2 ── */
@@ -10045,6 +10048,16 @@ Monday - Friday 8:00am – 8:00pm EST
             /* Member questionnaire → previous sub-step is the H/W collection screen */
             showPage1();
             return;
+          }
+          /* Disability: if NOT within first year, page 1 was skipped — go back to Coverage */
+          var joinDate = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+          if (joinDate) {
+            var today = new Date(); today.setHours(0, 0, 0, 0);
+            var oneYearAgo = new Date(today); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            if (joinDate <= oneYearAgo) {
+              goToStep(stepIndexByScreenId("screen-coverage"));
+              return;
+            }
           }
           showPage1();
         });
@@ -10085,6 +10098,36 @@ Monday - Friday 8:00am – 8:00pm EST
         }
 
         page2Next.addEventListener("click", function () {
+          /* Disability flow: validate H/W (now at top of page 2) then proceed.
+             FSH is already expanded reactively by applyDisabilityHWCriteria when
+             H/W is out of range (same as Yes-button behaviour).  The check below
+             is a safety fallback for the rare case where the reactive listener
+             did not fire (e.g. values set programmatically).                    */
+          if (!isTermLifeAdddFlow) {
+            var feetMissing   = !feetInput   || !feetInput.value.trim();
+            var inchesMissing = !inchesInput || !inchesInput.value.trim();
+            var weightMissing = !weightInput || !weightInput.value.trim();
+            toggleInputError(feetInput,   feetError,   feetMissing);
+            toggleInputError(inchesInput, inchesError, inchesMissing);
+            toggleInputError(weightInput, weightError, weightMissing);
+            if (feetMissing || inchesMissing || weightMissing) return;
+
+            /* Safety fallback: if FSH is still hidden but criteria says out-of-range,
+               expand it now (reactive listener should have already done this). */
+            var dFeet   = parseFloat(feetInput.value)   || 0;
+            var dInches = parseFloat(inchesInput.value) || 0;
+            var dWeight = parseFloat(weightInput.value) || 0;
+            var dAcceptable = window.meetsWeightCriteria
+              ? window.meetsWeightCriteria(dFeet, dInches, dWeight)
+              : null;
+            if (dAcceptable === false && extended && extended.classList.contains("hidden")) {
+              extended.classList.remove("hidden");
+              page2.dataset.questionnaireMode = "full";
+              page2.dataset.questionnaireBase = "full";
+              return; /* stay on page 2 so user can fill in FSH questions */
+            }
+          }
+
           if (isTermLifeAdddFlow && isTermLifeSpouseEnrolled() && termLifeHealthPerson === "member") {
             /* Finalise member's unfavorable flag BEFORE state is cleared */
             window._tlMemberHasUnfavorable = Boolean(page2.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
@@ -10123,6 +10166,52 @@ Monday - Friday 8:00am – 8:00pm EST
 
         /* Expose showPage3 so external handlers (e.g. Notices Previous) can navigate here */
         window.showHealthPhysicianPage = showPage3;
+
+        /* ── Disability: reactive H/W criteria check ───────────────────────────────
+           Fires when the user leaves the weight field (blur) or picks a height
+           value from a dropdown (change on the hidden input).
+           • Out of range  → expand FSH immediately (same as clicking Yes on SI)
+           • Back in range → collapse to Simplified Issue, UNLESS a SI question
+             still has a Yes answer (in that case Yes-answer rule wins).          */
+        if (!isTermLifeAdddFlow && extended) {
+          function applyDisabilityHWCriteria() {
+            var f = parseFloat(feetInput   && feetInput.value)   || 0;
+            var w = parseFloat(weightInput && weightInput.value) || 0;
+            /* Need at least feet and weight to make a determination */
+            if (!f || !w) return;
+            var i = parseFloat(inchesInput && inchesInput.value) || 0;
+            var ok = window.meetsWeightCriteria
+              ? window.meetsWeightCriteria(f, i, w)
+              : null;
+
+            if (ok === false) {
+              /* Out of range → expand FSH exactly like clicking Yes on a SI question */
+              extended.classList.remove("hidden");
+              page2.dataset.questionnaireMode = "full";
+              page2.dataset.questionnaireBase = "full";
+            } else {
+              /* Within range (true) or height not in table (null).
+                 Collapse FSH back to Simplified Issue only when no SI question
+                 currently has a Yes answer — Yes-answer rule always wins.        */
+              var shortQuestions = Array.from(page2.querySelectorAll("[data-yn-group]")).filter(function (g) {
+                return !extended.contains(g);
+              });
+              var hasYesAnswer = shortQuestions.some(function (g) {
+                return Boolean(g.querySelector('.hi-yn-btn.active[data-yn="yes"]'));
+              });
+              if (!hasYesAnswer) {
+                extended.classList.add("hidden");
+                page2.dataset.questionnaireMode = "short";
+                page2.dataset.questionnaireBase = "short";
+              }
+            }
+          }
+          /* blur fires when user leaves the weight text field after typing */
+          if (weightInput) weightInput.addEventListener("blur",   applyDisabilityHWCriteria);
+          /* change fires when the AJG dropdown commits a selection to the hidden input */
+          if (feetInput)   feetInput.addEventListener("change",   applyDisabilityHWCriteria);
+          if (inchesInput) inchesInput.addEventListener("change", applyDisabilityHWCriteria);
+        }
 
         /* Real-time unfavorable-answer flag update: runs after .active is set on the button (setTimeout 0) */
         if (page2) {
@@ -11258,11 +11347,25 @@ Monday - Friday 8:00am – 8:00pm EST
       ───────────────────────────────────────────────────────────────────────── */
       (function () {
         if (!isTermLifeAdddFlow) {
-          /* Non-Term-Life: restore plain coverageNextBtn binding */
-          (function () {
-            var btn = document.getElementById("coverageNextBtn");
-            if (btn) btn.addEventListener("click", function () { goToStep(currentIndex + 1); });
-          }());
+          /* Disability flow: override setHealthSubStep so that when goToStep activates
+             screen-health and calls setHealthSubStep(1), we intercept and redirect to
+             page 2 if the member is NOT within their first year (hospitalization irrelevant). */
+          var _origSetHealthSubStep = window.setHealthSubStep;
+          window.setHealthSubStep = function (subStep) {
+            if (subStep === 1) {
+              var joinDate = window.aftEnrollmentData && window.aftEnrollmentData.joinDate;
+              if (joinDate) {
+                var today = new Date(); today.setHours(0, 0, 0, 0);
+                var oneYearAgo = new Date(today); oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+                if (joinDate <= oneYearAgo) {
+                  /* NOT within first year — skip page 1, show Simplified Issue directly */
+                  _origSetHealthSubStep(2);
+                  return;
+                }
+              }
+            }
+            _origSetHealthSubStep(subStep);
+          };
           return;
         }
 
